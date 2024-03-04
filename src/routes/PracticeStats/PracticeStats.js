@@ -11,6 +11,9 @@ import {
 } from '../../api';
 import Select from '../../components/Select';
 import PracticeTable from '../../components/PracticeTable/PracticeTable';
+import { orderBy } from 'lodash';
+import secondsToMins from '../../utils/secondsToMins';
+import secondsToFixed from '../../utils/secondsToFixed';
 
 const styles = getStyles();
 
@@ -31,9 +34,9 @@ const PracticeStats = () => {
   const [year, setYear] = useState('');
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState('');
-  const [practice1Stats, setPractice1Stats] = useState({});
-  const [practice2Stats, setPractice2Stats] = useState({});
-  const [practice3Stats, setPractice3Stats] = useState({});
+  const [practice1Stats, setPractice1Stats] = useState([]);
+  const [practice2Stats, setPractice2Stats] = useState([]);
+  const [practice3Stats, setPractice3Stats] = useState([]);
   const [practiceStatsLoading, setPracticeStatsLoading] = useState(false);
 
   useEffect(() => {
@@ -75,7 +78,7 @@ const PracticeStats = () => {
   ) => {
     const session = await getSession(type, selectedCountry, selectedYear);
     const drivers = await getDrivers(session[0].session_key);
-    let bestSectorsPerDriver = {};
+    const bestSectorsPerDriver = [];
 
     for (const driver of drivers) {
       const driverLaps = await getLapsForDriver(
@@ -83,6 +86,7 @@ const PracticeStats = () => {
         driver.driver_number,
       );
       const driverSectors = {
+        driver: driver.name_acronym,
         sector1: { duration: null, lapNumber: null },
         sector2: { duration: null, lapNumber: null },
         sector3: { duration: null, lapNumber: null },
@@ -100,35 +104,35 @@ const PracticeStats = () => {
           !driverSectors.sector1.duration ||
           duration_sector_1 < driverSectors.sector1.duration
         ) {
-          driverSectors.sector1.duration = duration_sector_1;
+          driverSectors.sector1.duration = secondsToFixed(duration_sector_1);
           driverSectors.sector1.lapNumber = lap_number;
         }
         if (
           !driverSectors.sector2.duration ||
           duration_sector_2 < driverSectors.sector2.duration
         ) {
-          driverSectors.sector2.duration = duration_sector_2;
+          driverSectors.sector2.duration = secondsToFixed(duration_sector_2);
           driverSectors.sector2.lapNumber = lap_number;
         }
         if (
           !driverSectors.sector3.duration ||
           duration_sector_3 < driverSectors.sector3.duration
         ) {
-          driverSectors.sector3.duration = duration_sector_3;
+          driverSectors.sector3.duration = secondsToFixed(duration_sector_3);
           driverSectors.sector3.lapNumber = lap_number;
         }
       });
 
-      bestSectorsPerDriver = {
-        ...bestSectorsPerDriver,
-        [driver.name_acronym]: {
-          ...driverSectors,
-          aggregatedLap:
-            driverSectors.sector1.duration +
-            driverSectors.sector2.duration +
-            driverSectors.sector3.duration,
-        },
-      };
+      const a = Number(driverSectors.sector1.duration);
+      const b = Number(driverSectors.sector2.duration);
+      const c = Number(driverSectors.sector3.duration);
+      const aggregatedLap = secondsToFixed(a + b + c);
+      const aggregatedLapToMin = secondsToMins(aggregatedLap);
+
+      bestSectorsPerDriver.push({
+        ...driverSectors,
+        aggregatedLap: aggregatedLapToMin,
+      });
     }
 
     return bestSectorsPerDriver;
@@ -151,10 +155,9 @@ const PracticeStats = () => {
       selectedCountry,
     );
 
-    // practices must be reordered based on the lap time
-    setPractice1Stats(practice1);
-    setPractice2Stats(practice2);
-    setPractice3Stats(practice3);
+    setPractice1Stats(orderBy(practice1, ['aggregatedLap']));
+    setPractice2Stats(orderBy(practice2, ['aggregatedLap']));
+    setPractice3Stats(orderBy(practice3, ['aggregatedLap']));
     setPracticeStatsLoading(false);
   };
 
@@ -187,20 +190,18 @@ const PracticeStats = () => {
             <LinearProgress color="secondary" sx={styles.circularProgress} />
           )}
 
-          {!practiceStatsLoading &&
-            practice1Stats &&
-            Object.keys(practice1Stats).length === 0 && (
-              <p>Select year and country</p>
-            )}
+          {!practiceStatsLoading && practice1Stats.length === 0 && (
+            <p>Select year and country</p>
+          )}
 
-          {Object.keys(practice1Stats).length > 0 && (
+          {practice1Stats.length > 0 && (
             <TableContainer>
               <PracticeTable
                 title="Aggregated positions"
                 data={practice1Stats}
               />
 
-              <PracticeTable title="Actual positions" data={{}} />
+              <PracticeTable title="Actual positions" data={[]} />
             </TableContainer>
           )}
         </PracticeContainer>
@@ -212,20 +213,18 @@ const PracticeStats = () => {
             <LinearProgress color="secondary" sx={styles.circularProgress} />
           )}
 
-          {!practiceStatsLoading &&
-            practice2Stats &&
-            Object.keys(practice2Stats).length === 0 && (
-              <p>Select year and country</p>
-            )}
+          {!practiceStatsLoading && practice2Stats.length === 0 && (
+            <p>Select year and country</p>
+          )}
 
-          {Object.keys(practice2Stats).length > 0 && (
+          {practice2Stats.length > 0 && (
             <TableContainer>
               <PracticeTable
                 title="Aggregated positions"
                 data={practice2Stats}
               />
 
-              <PracticeTable title="Actual positions" data={{}} />
+              <PracticeTable title="Actual positions" data={[]} />
             </TableContainer>
           )}
         </PracticeContainer>
@@ -237,20 +236,18 @@ const PracticeStats = () => {
             <LinearProgress color="secondary" sx={styles.circularProgress} />
           )}
 
-          {!practiceStatsLoading &&
-            practice3Stats &&
-            Object.keys(practice3Stats).length === 0 && (
-              <p>Select year and country</p>
-            )}
+          {!practiceStatsLoading && practice3Stats.length === 0 && (
+            <p>Select year and country</p>
+          )}
 
-          {Object.keys(practice3Stats).length > 0 && (
+          {practice3Stats.length > 0 && (
             <TableContainer>
               <PracticeTable
                 title="Aggregated positions"
                 data={practice3Stats}
               />
 
-              <PracticeTable title="Actual positions" data={{}} />
+              <PracticeTable title="Actual positions" data={[]} />
             </TableContainer>
           )}
         </PracticeContainer>

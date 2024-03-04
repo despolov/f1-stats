@@ -56,15 +56,14 @@ const PracticeTable = (props) => {
         </TableHead>
 
         <TableBody>
-          {Object.keys(data).map((key, index) => {
-            const driverName = key;
-            const { aggregatedLap, sector1, sector2, sector3 } = data[key];
+          {data.map((value, index) => {
+            const { driver, aggregatedLap, sector1, sector2, sector3 } = value;
 
             return (
-              <StyledTableRow key={driverName}>
+              <StyledTableRow key={driver}>
                 <StyledTableCell align="left">{(index += 1)}</StyledTableCell>
 
-                <StyledTableCell align="left">{driverName}</StyledTableCell>
+                <StyledTableCell align="left">{driver}</StyledTableCell>
 
                 <StyledTableCell align="left">{`${sector1.duration} in lap ${sector1.lapNumber}`}</StyledTableCell>
 
