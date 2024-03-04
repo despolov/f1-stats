@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/f1-stats/static/js/main.86321b83.js",
+    "static/media/Formula1-Regular.woff2": "/f1-stats/static/media/Formula1-Regular.3291cdd5521e03a241bc.woff2",
+    "index.html": "/f1-stats/index.html",
+    "main.86321b83.js.map": "/f1-stats/static/js/main.86321b83.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.86321b83.js"
+  ]
+}
