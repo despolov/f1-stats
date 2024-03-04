@@ -28,9 +28,11 @@ const Header = () => {
             <Typography component="span" sx={styles.appLabel}>
               F1 S
             </Typography>
+
             <Typography component="span" sx={styles.appLabelLogoSmall}>
               tats
             </Typography>
+
             <Box
               component="img"
               sx={styles.logoImg}

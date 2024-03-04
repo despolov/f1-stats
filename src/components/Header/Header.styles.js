@@ -46,7 +46,7 @@ const getStyles = () => ({
   logoImg: {
     height: '35px',
     width: '35px',
-    position: 'fixed',
+    position: 'absolute',
     top: '9px',
     left: '93px',
   },
