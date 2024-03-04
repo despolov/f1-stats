@@ -1,6 +1,6 @@
 const getStyles = () => ({
-  parentContainer: {
-    padding: '24px',
+  select: {
+    width: '100%',
   },
 });
 

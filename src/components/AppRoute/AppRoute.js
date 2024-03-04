@@ -1,10 +1,12 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Stats from '../../routes/Stats';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import PracticeStats from '../../routes/PracticeStats';
 
 const AppRoute = () => (
   <Routes>
-    <Route exact path="/" element={<Stats />} />
+    <Route exact path="/practiceStats" element={<PracticeStats />} />
+
+    <Route path="*" element={<Navigate to="/practiceStats" replace />} />
   </Routes>
 );
 

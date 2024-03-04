@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import Formula1Regular from './fonts/Formula1-Regular.ttf';
+import Formula1Regular from './assets/fonts/Formula1-Regular.ttf';
 
 const formula1Regular = {
   fontFamily: 'Formula1Regular',
@@ -11,6 +11,12 @@ const formula1Regular = {
 const theme = createTheme({
   palette: {
     type: 'light',
+    primary: {
+      main: '#000000',
+    },
+    secondary: {
+      main: '#E10600',
+    },
   },
   MuiCssBaseline: {
     styleOverrides: {
