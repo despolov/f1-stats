@@ -14,22 +14,41 @@ const getStyles = () => ({
     height: 'inherit',
   },
   appLabel: {
-    fontSize: '20px',
+    fontSize: '28px',
     lineHeight: '24px',
-    fontWeight: 400,
+    fontWeight: 600,
+    color: '#ffffff',
+  },
+  appLabelLogoSmall: {
+    fontSize: '14px',
+    lineHeight: '24px',
+    fontWeight: 600,
     color: '#ffffff',
   },
   mainButton: {
     fontSize: '14px',
     lineHeight: '26px',
-    fontWeight: 600,
+    fontWeight: 400,
     color: '#ffffff',
+  },
+  mainButtonActive: {
+    fontSize: '14px',
+    lineHeight: '26px',
+    fontWeight: 600,
+    color: '#000000',
   },
   buttonLink: {
     margin: '0 24px 0 0',
   },
   companyButtonLink: {
     margin: '0 34px 0 0',
+  },
+  logoImg: {
+    height: '35px',
+    width: '35px',
+    position: 'fixed',
+    top: '9px',
+    left: '93px',
   },
 });
 
