@@ -6,6 +6,10 @@ const getStyles = () => ({
     flexGrow: 1,
     minHeight: '100vh',
     maxWidth: '100%',
+    backgroundColor: '#f7f4f1',
+  },
+  childrenContainer: {
+    padding: '40px',
   },
 });
 

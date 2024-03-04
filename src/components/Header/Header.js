@@ -1,11 +1,11 @@
-import { styled, Grid, Typography, Avatar, Box } from '@mui/material';
+import { styled, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import getStyles from './Header.styles';
 
 const styles = getStyles();
 
-const MainContainer = styled('div')(() => styles.header);
+const MainContainer = styled('header')(() => styles.header);
 
 const StyledLink = styled(Link)(() => styles.link);
 
@@ -20,15 +20,14 @@ const Header = () => (
     >
       <Grid item xs align="left">
         <StyledLink to="/" sx={styles.companyButtonLink}>
-          <Typography component="span" sx={styles.companyLabelPrimary}>
-            F1
-          </Typography>{' '}
-          <Typography component="span" sx={styles.companyLabelSecondary}>
-            Stats
+          <Typography component="span" sx={styles.appLabel}>
+            {/* TODO: add the logo over the S'tats' letters here, move it with css positivion fixed  */}
+            F1 Stats
           </Typography>
         </StyledLink>
 
         <StyledLink to="/" sx={styles.buttonLink}>
+          {/* TODO: add style here when this is the selected route */}
           <Typography component="span" sx={styles.mainButton}>
             Practice stats
           </Typography>

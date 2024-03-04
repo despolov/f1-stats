@@ -7,6 +7,8 @@ const styles = getStyles();
 
 const MainContainer = styled('div')(() => styles.mainContainer);
 
+const ChildrenContainer = styled('div')(() => styles.childrenContainer);
+
 const Layout = (props) => {
   const { children } = props;
 
@@ -14,7 +16,7 @@ const Layout = (props) => {
     <MainContainer>
       <Header />
 
-      {children}
+      <ChildrenContainer>{children}</ChildrenContainer>
     </MainContainer>
   );
 };
