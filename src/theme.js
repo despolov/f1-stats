@@ -1,12 +1,6 @@
 import { createTheme } from '@mui/material/styles';
-import Formula1Regular from './assets/fonts/Formula1-Regular.ttf';
-
-const formula1Regular = {
-  fontFamily: 'Formula1Regular',
-  fontStyle: 'normal',
-  fontWeight: 'normal',
-  src: `url(${Formula1Regular}) format('truetype')`,
-};
+// import Formula1TTF from './assets/fonts/Formula1-Regular.ttf';
+import Formula1TTF from './assets/fonts/Formula1-Regular.woff2';
 
 const theme = createTheme({
   palette: {
@@ -18,9 +12,21 @@ const theme = createTheme({
       main: '#E10600',
     },
   },
-  MuiCssBaseline: {
-    styleOverrides: {
-      html: [{ '@font-face': formula1Regular }],
+  typography: {
+    fontFamily: 'Formula1, Arial',
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'Formula1';
+          font-style: normal;
+          font-display: swap;
+          font-weight: 400;
+          src: local('Formula1'), local('Formula1-Regular'), url(${Formula1TTF}) format('woff2');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+      `,
     },
   },
 });

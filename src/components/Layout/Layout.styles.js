@@ -7,6 +7,7 @@ const getStyles = () => ({
     minHeight: '100vh',
     maxWidth: '100%',
     backgroundColor: '#f7f4f1',
+    letterSpacing: '0.7px',
   },
   childrenContainer: {
     padding: '40px',
