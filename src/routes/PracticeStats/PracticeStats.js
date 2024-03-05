@@ -117,28 +117,31 @@ const PracticeStats = () => {
 
         if (
           !driverSectors.sector1.duration ||
-          duration_sector_1 < driverSectors.sector1.duration
+          (duration_sector_1 &&
+            duration_sector_1 < driverSectors.sector1.duration)
         ) {
           driverSectors.sector1.duration = secondsToFixed(duration_sector_1);
           driverSectors.sector1.lapNumber = lap_number;
         }
         if (
           !driverSectors.sector2.duration ||
-          duration_sector_2 < driverSectors.sector2.duration
+          (duration_sector_2 &&
+            duration_sector_2 < driverSectors.sector2.duration)
         ) {
           driverSectors.sector2.duration = secondsToFixed(duration_sector_2);
           driverSectors.sector2.lapNumber = lap_number;
         }
         if (
           !driverSectors.sector3.duration ||
-          duration_sector_3 < driverSectors.sector3.duration
+          (duration_sector_3 &&
+            duration_sector_3 < driverSectors.sector3.duration)
         ) {
           driverSectors.sector3.duration = secondsToFixed(duration_sector_3);
           driverSectors.sector3.lapNumber = lap_number;
         }
         if (
           !driverActualLap.lapDuration ||
-          lap_duration < driverActualLap.lapDuration
+          (lap_duration && lap_duration < driverActualLap.lapDuration)
         ) {
           driverActualLap.lapDuration = lap_duration;
           driverActualLap.lapNumber = lap_number;
@@ -200,10 +203,10 @@ const PracticeStats = () => {
       orderBy(practice1.bestLapPerDriver, ['lapDuration']),
     );
     setPractice2ActualStats(
-      orderBy(practice1.bestLapPerDriver, ['lapDuration']),
+      orderBy(practice2.bestLapPerDriver, ['lapDuration']),
     );
     setPractice3ActualStats(
-      orderBy(practice1.bestLapPerDriver, ['lapDuration']),
+      orderBy(practice3.bestLapPerDriver, ['lapDuration']),
     );
     setPracticeStatsLoading(false);
   };
