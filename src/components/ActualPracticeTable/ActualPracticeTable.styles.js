@@ -28,6 +28,12 @@ const getStyles = () => ({
     margin: 0,
     color: '#ffffff',
   },
+  driverCellContainer: {
+    display: 'flex',
+  },
+  driverCellColor: {
+    marginRight: '5px',
+  },
 });
 
 export default getStyles;

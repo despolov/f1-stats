@@ -9,8 +9,10 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Box,
 } from '@mui/material';
 import getStyles from './ActualPracticeTable.styles';
+import getDriverColor from '../../utils/getDriverColor';
 
 const styles = getStyles();
 
@@ -27,6 +29,8 @@ const StyledTableRow = styled(TableRow)(() => ({
 const TitleContainer = styled('div')(() => styles.titleContainer);
 
 const TableTitle = styled('h5')(() => styles.tableTitle);
+
+const DriverCellContainer = styled('div')(() => styles.driverCellContainer);
 
 const ActualPracticeTable = (props) => {
   const { data, title } = props;
@@ -72,7 +76,18 @@ const ActualPracticeTable = (props) => {
               <StyledTableRow key={driver}>
                 <StyledTableCell align="left">{(index += 1)}</StyledTableCell>
 
-                <StyledTableCell align="left">{driver}</StyledTableCell>
+                <StyledTableCell align="left">
+                  <DriverCellContainer>
+                    <Box
+                      sx={[
+                        { borderLeft: `5px solid ${getDriverColor(driver)}` },
+                        styles.driverCellColor,
+                      ]}
+                    />
+
+                    {driver}
+                  </DriverCellContainer>
+                </StyledTableCell>
 
                 <StyledTableCell align="left">{sector1}</StyledTableCell>
 
