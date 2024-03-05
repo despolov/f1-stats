@@ -11,7 +11,7 @@ import {
 } from '../../api';
 import Select from '../../components/Select';
 import PracticeTable from '../../components/PracticeTable/PracticeTable';
-import { orderBy } from 'lodash';
+import { orderBy, uniqBy } from 'lodash';
 import secondsToMins from '../../utils/secondsToMins';
 import secondsToFixed from '../../utils/secondsToFixed';
 
@@ -79,8 +79,9 @@ const PracticeStats = () => {
     const session = await getSession(type, selectedCountry, selectedYear);
     const drivers = await getDrivers(session[0].session_key);
     const bestSectorsPerDriver = [];
-
-    for (const driver of drivers) {
+    // guard because sometimes the api returns duplicated drivers
+    const uniqueDrivers = uniqBy(drivers, (d) => d.name_acronym);
+    for (const driver of uniqueDrivers) {
       const driverLaps = await getLapsForDriver(
         session[0].session_key,
         driver.driver_number,
