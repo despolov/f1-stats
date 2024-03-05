@@ -10,7 +10,7 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
-import getStyles from './PracticeTable.styles';
+import getStyles from './ActualPracticeTable.styles';
 
 const styles = getStyles();
 
@@ -28,7 +28,7 @@ const TitleContainer = styled('div')(() => styles.titleContainer);
 
 const TableTitle = styled('h5')(() => styles.tableTitle);
 
-const PracticeTable = (props) => {
+const ActualPracticeTable = (props) => {
   const { data, title } = props;
 
   return (
@@ -51,13 +51,22 @@ const PracticeTable = (props) => {
 
             <StyledTableCell align="left">Sector 3</StyledTableCell>
 
+            <StyledTableCell align="left">Lap №</StyledTableCell>
+
             <StyledTableCell align="left">Lap</StyledTableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
           {data.map((value, index) => {
-            const { driver, aggregatedLap, sector1, sector2, sector3 } = value;
+            const {
+              driver,
+              lapDuration,
+              sector1,
+              sector2,
+              sector3,
+              lapNumber,
+            } = value;
 
             return (
               <StyledTableRow key={driver}>
@@ -65,13 +74,15 @@ const PracticeTable = (props) => {
 
                 <StyledTableCell align="left">{driver}</StyledTableCell>
 
-                <StyledTableCell align="left">{`${sector1.duration} in lap ${sector1.lapNumber}`}</StyledTableCell>
+                <StyledTableCell align="left">{sector1}</StyledTableCell>
 
-                <StyledTableCell align="left">{`${sector2.duration} in lap ${sector2.lapNumber}`}</StyledTableCell>
+                <StyledTableCell align="left">{sector2}</StyledTableCell>
 
-                <StyledTableCell align="left">{`${sector3.duration} in lap ${sector3.lapNumber}`}</StyledTableCell>
+                <StyledTableCell align="left">{sector3}</StyledTableCell>
 
-                <StyledTableCell align="left">{aggregatedLap}</StyledTableCell>
+                <StyledTableCell align="left">{lapNumber}</StyledTableCell>
+
+                <StyledTableCell align="left">{lapDuration}</StyledTableCell>
               </StyledTableRow>
             );
           })}
@@ -81,4 +92,4 @@ const PracticeTable = (props) => {
   );
 };
 
-export default PracticeTable;
+export default ActualPracticeTable;

@@ -22,7 +22,7 @@ const getDrivers = async (sessionKey) => {
 
 const getLapsForDriver = async (sessionKey, driverNumber) => {
   const response = await fetch(
-    `${API_ENDPOINT}/laps?session_key=${sessionKey}&driver_number=${driverNumber}`,
+    `${API_ENDPOINT}/laps?session_key=${sessionKey}&driver_number=${driverNumber}&is_pit_out_lap=false`,
   );
   const lapsPerDriver = await response.json();
 

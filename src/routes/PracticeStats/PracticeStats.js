@@ -10,7 +10,8 @@ import {
   getSession,
 } from '../../api';
 import Select from '../../components/Select';
-import PracticeTable from '../../components/PracticeTable/PracticeTable';
+import AggregatedPracticeTable from '../../components/AggregatedPracticeTable';
+import ActualPracticeTable from '../../components/ActualPracticeTable';
 import { orderBy, uniqBy } from 'lodash';
 import secondsToMins from '../../utils/secondsToMins';
 import secondsToFixed from '../../utils/secondsToFixed';
@@ -37,6 +38,9 @@ const PracticeStats = () => {
   const [practice1Stats, setPractice1Stats] = useState([]);
   const [practice2Stats, setPractice2Stats] = useState([]);
   const [practice3Stats, setPractice3Stats] = useState([]);
+  const [practice1ActualStats, setPractice1ActualStats] = useState([]);
+  const [practice2ActualStats, setPractice2ActualStats] = useState([]);
+  const [practice3ActualStats, setPractice3ActualStats] = useState([]);
   const [practiceStatsLoading, setPracticeStatsLoading] = useState(false);
 
   useEffect(() => {
@@ -79,6 +83,7 @@ const PracticeStats = () => {
     const session = await getSession(type, selectedCountry, selectedYear);
     const drivers = await getDrivers(session[0].session_key);
     const bestSectorsPerDriver = [];
+    const bestLapPerDriver = [];
     // guard because sometimes the api returns duplicated drivers
     const uniqueDrivers = uniqBy(drivers, (d) => d.name_acronym);
     for (const driver of uniqueDrivers) {
@@ -92,6 +97,14 @@ const PracticeStats = () => {
         sector2: { duration: null, lapNumber: null },
         sector3: { duration: null, lapNumber: null },
       };
+      const driverActualLap = {
+        driver: driver.name_acronym,
+        lapDuration: null,
+        lapNumber: null,
+        sector1: null,
+        sector2: null,
+        sector3: null,
+      };
 
       driverLaps.forEach((lap) => {
         const {
@@ -99,6 +112,7 @@ const PracticeStats = () => {
           duration_sector_1,
           duration_sector_2,
           duration_sector_3,
+          lap_duration,
         } = lap;
 
         if (
@@ -122,21 +136,38 @@ const PracticeStats = () => {
           driverSectors.sector3.duration = secondsToFixed(duration_sector_3);
           driverSectors.sector3.lapNumber = lap_number;
         }
+        if (
+          !driverActualLap.lapDuration ||
+          lap_duration < driverActualLap.lapDuration
+        ) {
+          driverActualLap.lapDuration = lap_duration;
+          driverActualLap.lapNumber = lap_number;
+          driverActualLap.sector1 = duration_sector_1;
+          driverActualLap.sector2 = duration_sector_2;
+          driverActualLap.sector3 = duration_sector_3;
+        }
       });
 
-      const a = Number(driverSectors.sector1.duration);
-      const b = Number(driverSectors.sector2.duration);
-      const c = Number(driverSectors.sector3.duration);
-      const aggregatedLap = secondsToFixed(a + b + c);
+      const aggregatedLap = secondsToFixed(
+        Number(driverSectors.sector1.duration) +
+          Number(driverSectors.sector2.duration) +
+          Number(driverSectors.sector3.duration),
+      );
       const aggregatedLapToMin = secondsToMins(aggregatedLap);
+      const bestLap = secondsToFixed(driverActualLap.lapDuration);
+      const bestLapToMin = secondsToMins(bestLap);
 
       bestSectorsPerDriver.push({
         ...driverSectors,
         aggregatedLap: aggregatedLapToMin,
       });
+      bestLapPerDriver.push({
+        ...driverActualLap,
+        lapDuration: bestLapToMin,
+      });
     }
 
-    return bestSectorsPerDriver;
+    return { bestSectorsPerDriver, bestLapPerDriver };
   };
 
   const getAllPracticesStats = async (selectedYear, selectedCountry) => {
@@ -156,9 +187,24 @@ const PracticeStats = () => {
       selectedCountry,
     );
 
-    setPractice1Stats(orderBy(practice1, ['aggregatedLap']));
-    setPractice2Stats(orderBy(practice2, ['aggregatedLap']));
-    setPractice3Stats(orderBy(practice3, ['aggregatedLap']));
+    setPractice1Stats(
+      orderBy(practice1.bestSectorsPerDriver, ['aggregatedLap']),
+    );
+    setPractice2Stats(
+      orderBy(practice2.bestSectorsPerDriver, ['aggregatedLap']),
+    );
+    setPractice3Stats(
+      orderBy(practice3.bestSectorsPerDriver, ['aggregatedLap']),
+    );
+    setPractice1ActualStats(
+      orderBy(practice1.bestLapPerDriver, ['lapDuration']),
+    );
+    setPractice2ActualStats(
+      orderBy(practice1.bestLapPerDriver, ['lapDuration']),
+    );
+    setPractice3ActualStats(
+      orderBy(practice1.bestLapPerDriver, ['lapDuration']),
+    );
     setPracticeStatsLoading(false);
   };
 
@@ -186,6 +232,8 @@ const PracticeStats = () => {
 
         <PracticeContainer>
           <PracticeTitle>Practice 1</PracticeTitle>
+          {/* TODO: add the weather of the session */}
+          {/* fetch('https://api.openf1.org/v1/weather?meeting_key=1208&wind_direction>=130&track_temperature>=52') */}
 
           {practiceStatsLoading && (
             <LinearProgress color="secondary" sx={styles.circularProgress} />
@@ -197,12 +245,15 @@ const PracticeStats = () => {
 
           {practice1Stats.length > 0 && (
             <TableContainer>
-              <PracticeTable
+              <AggregatedPracticeTable
                 title="Aggregated positions"
                 data={practice1Stats}
               />
 
-              <PracticeTable title="Actual positions" data={[]} />
+              <ActualPracticeTable
+                title="Actual positions"
+                data={practice1ActualStats}
+              />
             </TableContainer>
           )}
         </PracticeContainer>
@@ -220,12 +271,15 @@ const PracticeStats = () => {
 
           {practice2Stats.length > 0 && (
             <TableContainer>
-              <PracticeTable
+              <AggregatedPracticeTable
                 title="Aggregated positions"
                 data={practice2Stats}
               />
 
-              <PracticeTable title="Actual positions" data={[]} />
+              <ActualPracticeTable
+                title="Actual positions"
+                data={practice2ActualStats}
+              />
             </TableContainer>
           )}
         </PracticeContainer>
@@ -243,12 +297,15 @@ const PracticeStats = () => {
 
           {practice3Stats.length > 0 && (
             <TableContainer>
-              <PracticeTable
+              <AggregatedPracticeTable
                 title="Aggregated positions"
                 data={practice3Stats}
               />
 
-              <PracticeTable title="Actual positions" data={[]} />
+              <ActualPracticeTable
+                title="Actual positions"
+                data={practice3ActualStats}
+              />
             </TableContainer>
           )}
         </PracticeContainer>
