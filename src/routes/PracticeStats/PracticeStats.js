@@ -2,19 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material';
 import Layout from '../../components/Layout';
 import getStyles from './PracticeStats.styles';
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, useMediaQuery, useTheme, Box } from '@mui/material';
 import {
   getAllGrandPrix,
   getDrivers,
   getLapsForDriver,
   getSession,
+  getWeather,
 } from '../../api';
 import Select from '../../components/Select';
 import AggregatedPracticeTable from '../../components/AggregatedPracticeTable';
 import ActualPracticeTable from '../../components/ActualPracticeTable';
-import { orderBy, uniqBy } from 'lodash';
+import { orderBy } from 'lodash';
 import secondsToMins from '../../utils/secondsToMins';
 import secondsToFixed from '../../utils/secondsToFixed';
+import { FaTemperatureHalf } from 'react-icons/fa6';
+import { GiTireTracks } from 'react-icons/gi';
+import { BsCloudRainFill } from 'react-icons/bs';
+import { WiHumidity } from 'react-icons/wi';
+import { LuWind } from 'react-icons/lu';
+import { IoTimeOutline } from 'react-icons/io5';
+import { IconContext } from 'react-icons';
+import moment from 'moment';
 
 const styles = getStyles();
 
@@ -28,7 +37,13 @@ const PracticeContainer = styled('div')(() => styles.practiceContainer);
 
 const PracticeTitle = styled('h3')(() => styles.practiceTitle);
 
+const PracticeSubTitleH4 = styled('h4')(() => styles.practiceSubTitleH4);
+
+const PracticeSubTitleH5 = styled('h5')(() => styles.practiceSubTitleH5);
+
 const Divider = styled('div')(() => styles.divider);
+
+const WeatherContainer = styled('div')(() => styles.weatherContainer);
 
 const PracticeStats = () => {
   const years = [2023, 2024];
@@ -41,7 +56,15 @@ const PracticeStats = () => {
   const [practice1ActualStats, setPractice1ActualStats] = useState([]);
   const [practice2ActualStats, setPractice2ActualStats] = useState([]);
   const [practice3ActualStats, setPractice3ActualStats] = useState([]);
+  const [practice1Weather, setPractice1Weather] = useState([]);
+  const [practice2Weather, setPractice2Weather] = useState([]);
+  const [practice3Weather, setPractice3Weather] = useState([]);
+  const [practice1TimePeriod, setPractice1TimePeriod] = useState({});
+  const [practice2TimePeriod, setPractice2TimePeriod] = useState({});
+  const [practice3TimePeriod, setPractice3TimePeriod] = useState({});
   const [practiceStatsLoading, setPracticeStatsLoading] = useState(false);
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   useEffect(() => {
     if (year) {
@@ -60,14 +83,32 @@ const PracticeStats = () => {
     setYear(e.target.value);
     setCountry('');
     setCountries([]);
+    resetData();
+  };
+
+  const resetData = () => {
+    setPractice1Stats([]);
+    setPractice2Stats([]);
+    setPractice3Stats([]);
+    setPractice1ActualStats([]);
+    setPractice2ActualStats([]);
+    setPractice3ActualStats([]);
+    setPractice1Weather([]);
+    setPractice2Weather([]);
+    setPractice3Weather([]);
+    setPractice1TimePeriod({});
+    setPractice2TimePeriod({});
+    setPractice3TimePeriod({});
   };
 
   const handleCountryChange = (e) => {
     setCountry(e.target.value);
+    resetData();
   };
 
   const getCountries = async (selectedYear) => {
     const allGrandPrix = await getAllGrandPrix(selectedYear);
+
     setCountries(
       allGrandPrix.map(
         (granPrix) => `${granPrix.country_name} - ${granPrix.meeting_name}`,
@@ -82,16 +123,26 @@ const PracticeStats = () => {
   ) => {
     const session = await getSession(type, selectedCountry, selectedYear);
     if (session.length === 0) {
-      return { bestSectorsPerDriver: [], bestLapPerDriver: [] };
+      return {
+        bestSectorsPerDriver: [],
+        bestLapPerDriver: [],
+        weather: [],
+        timePeriod: {},
+      };
     }
-    const drivers = await getDrivers(session[0].session_key);
+    const {
+      session_key: sessionKey,
+      date_start: dateStart,
+      date_end: dateEnd,
+    } = session[0];
+    const timePeriod = { start: dateStart, end: dateEnd };
+    const weather = await getWeather(sessionKey, dateStart, dateEnd);
+    const drivers = await getDrivers(sessionKey);
     const bestSectorsPerDriver = [];
     const bestLapPerDriver = [];
-    // guard because sometimes the api returns duplicated drivers
-    const uniqueDrivers = uniqBy(drivers, (d) => d.name_acronym);
-    for (const driver of uniqueDrivers) {
+    for (const driver of drivers) {
       const driverLaps = await getLapsForDriver(
-        session[0].session_key,
+        sessionKey,
         driver.driver_number,
       );
       const driverSectors = {
@@ -173,7 +224,7 @@ const PracticeStats = () => {
       });
     }
 
-    return { bestSectorsPerDriver, bestLapPerDriver };
+    return { bestSectorsPerDriver, bestLapPerDriver, weather, timePeriod };
   };
 
   const getAllPracticesStats = async (selectedYear, selectedCountry) => {
@@ -211,13 +262,76 @@ const PracticeStats = () => {
     setPractice3ActualStats(
       orderBy(practice3.bestLapPerDriver, ['lapDuration']),
     );
+    setPractice1Weather(practice1.weather);
+    setPractice2Weather(practice2.weather);
+    setPractice3Weather(practice3.weather);
+    setPractice1TimePeriod(practice1.timePeriod);
+    setPractice2TimePeriod(practice2.timePeriod);
+    setPractice3TimePeriod(practice3.timePeriod);
     setPracticeStatsLoading(false);
   };
+
+  const getPracticeWeather = (practiceWeather) => {
+    return (
+      <WeatherContainer>
+        {practiceWeather.map((singlePracticeWeather) => {
+          const {
+            date,
+            air_temperature,
+            rainfall,
+            track_temperature,
+            wind_speed,
+            humidity,
+          } = singlePracticeWeather;
+
+          return (
+            <PracticeSubTitleH5>
+              <IconContext.Provider value={{ style: styles.icons }}>
+                <Box>
+                  <IoTimeOutline /> {moment(date).format('h:mm a')}
+                </Box>
+
+                <Box>
+                  <FaTemperatureHalf /> {air_temperature}
+                </Box>
+
+                <Box>
+                  <GiTireTracks /> <FaTemperatureHalf /> {track_temperature}
+                </Box>
+
+                <Box>
+                  <BsCloudRainFill /> {rainfall}
+                </Box>
+
+                <Box>
+                  <WiHumidity /> {humidity}
+                </Box>
+
+                <Box>
+                  <LuWind /> {wind_speed}
+                </Box>
+              </IconContext.Provider>
+            </PracticeSubTitleH5>
+          );
+        })}
+      </WeatherContainer>
+    );
+  };
+
+  const getPracticeTimeSlot = (practiceTimePeriod) => (
+    <PracticeSubTitleH4>
+      {`${moment(practiceTimePeriod.start).format('DD-MMM')} ${moment(
+        practiceTimePeriod.start,
+      ).format('h:mm')} - ${moment(practiceTimePeriod.end).format('h:mm a')}`}
+    </PracticeSubTitleH4>
+  );
 
   return (
     <Layout>
       <ParentContainer>
-        <SelectFieldsContainer>
+        <SelectFieldsContainer
+          sx={isDesktop ? {} : styles.selectFieldsContainerMobile}
+        >
           <Select
             value={year}
             onChange={handleYearChange}
@@ -238,8 +352,13 @@ const PracticeStats = () => {
 
         <PracticeContainer>
           <PracticeTitle>Practice 1</PracticeTitle>
-          {/* TODO: add the weather of the session */}
-          {/* fetch('https://api.openf1.org/v1/weather?meeting_key=1208&wind_direction>=130&track_temperature>=52') */}
+
+          {Object.keys(practice1TimePeriod).length > 0 &&
+            getPracticeTimeSlot(practice1TimePeriod)}
+
+          {practice1Weather.length > 0 && getPracticeWeather(practice1Weather)}
+
+          {/* TODO: add is practice live */}
 
           {practiceStatsLoading && (
             <LinearProgress color="secondary" sx={styles.circularProgress} />
@@ -250,7 +369,7 @@ const PracticeStats = () => {
           )}
 
           {practice1Stats.length > 0 && (
-            <TableContainer>
+            <TableContainer sx={isDesktop ? {} : styles.tableContainerMobile}>
               <AggregatedPracticeTable
                 title="Aggregated positions"
                 data={practice1Stats}
@@ -267,6 +386,11 @@ const PracticeStats = () => {
         <PracticeContainer>
           <PracticeTitle>Practice 2</PracticeTitle>
 
+          {Object.keys(practice2TimePeriod).length > 0 &&
+            getPracticeTimeSlot(practice2TimePeriod)}
+
+          {practice2Weather.length > 0 && getPracticeWeather(practice2Weather)}
+
           {practiceStatsLoading && (
             <LinearProgress color="secondary" sx={styles.circularProgress} />
           )}
@@ -276,7 +400,7 @@ const PracticeStats = () => {
           )}
 
           {practice2Stats.length > 0 && (
-            <TableContainer>
+            <TableContainer sx={isDesktop ? {} : styles.tableContainerMobile}>
               <AggregatedPracticeTable
                 title="Aggregated positions"
                 data={practice2Stats}
@@ -293,6 +417,11 @@ const PracticeStats = () => {
         <PracticeContainer>
           <PracticeTitle>Practice 3</PracticeTitle>
 
+          {Object.keys(practice3TimePeriod).length > 0 &&
+            getPracticeTimeSlot(practice3TimePeriod)}
+
+          {practice3Weather.length > 0 && getPracticeWeather(practice3Weather)}
+
           {practiceStatsLoading && (
             <LinearProgress color="secondary" sx={styles.circularProgress} />
           )}
@@ -302,7 +431,7 @@ const PracticeStats = () => {
           )}
 
           {practice3Stats.length > 0 && (
-            <TableContainer>
+            <TableContainer sx={isDesktop ? {} : styles.tableContainerMobile}>
               <AggregatedPracticeTable
                 title="Aggregated positions"
                 data={practice3Stats}

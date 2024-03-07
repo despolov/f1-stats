@@ -54,29 +54,16 @@ const Header = () => {
             </Typography>
           </StyledLink>
 
-          <StyledLink to="/drivers" sx={styles.buttonLink}>
+          <StyledLink to="/tyres" sx={[styles.buttonLink, { marginRight: 0 }]}>
             <Typography
               component="span"
               sx={
-                pathname === '/drivers'
+                pathname === '/tyres'
                   ? styles.mainButtonActive
                   : styles.mainButton
               }
             >
-              Drivers
-            </Typography>
-          </StyledLink>
-
-          <StyledLink to="/teams" sx={styles.buttonLink}>
-            <Typography
-              component="span"
-              sx={
-                pathname === '/teams'
-                  ? styles.mainButtonActive
-                  : styles.mainButton
-              }
-            >
-              Teams
+              Tyres
             </Typography>
           </StyledLink>
         </Grid>
