@@ -81,6 +81,9 @@ const PracticeStats = () => {
     selectedCountry,
   ) => {
     const session = await getSession(type, selectedCountry, selectedYear);
+    if (session.length === 0) {
+      return { bestSectorsPerDriver: [], bestLapPerDriver: [] };
+    }
     const drivers = await getDrivers(session[0].session_key);
     const bestSectorsPerDriver = [];
     const bestLapPerDriver = [];
