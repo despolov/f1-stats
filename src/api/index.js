@@ -68,10 +68,30 @@ const getWeather = async (sessionKey, dateStart, dateEnd) => {
   return [];
 };
 
+const getStints = async (meetingKey) => {
+  const response = await fetch(
+    `${API_ENDPOINT}/stints?meeting_key=${meetingKey}`,
+  );
+  const stints = await response.json();
+
+  return stints;
+};
+
+const getMeeting = async (country, year) => {
+  const response = await fetch(
+    `${API_ENDPOINT}/meetings?year=${year}&country_name=${country}`,
+  );
+  const meeting = await response.json();
+
+  return meeting;
+};
+
 export {
   getSession,
   getDrivers,
   getLapsForDriver,
   getAllGrandPrix,
   getWeather,
+  getStints,
+  getMeeting,
 };
