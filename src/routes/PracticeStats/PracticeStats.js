@@ -288,8 +288,8 @@ const PracticeStats = () => {
             <PracticeSubTitleH5>
               <IconContext.Provider value={{ style: styles.icons }}>
                 <Box>
-                  {/* TODO: we need to pass the correct timezome here too */}
-                  <IoTimeOutline /> {moment(date).format('h:mm a')}
+                  <IoTimeOutline />
+                  {moment(`${date.split('.')[0]}.000Z`).format('HH:mm')}
                 </Box>
 
                 <Box>
@@ -320,16 +320,12 @@ const PracticeStats = () => {
   };
 
   const getPracticeTimeSlot = (practiceTimePeriod) => (
-    // TODO: we need to pass the correct timezome here too
-    // Saudi arabia track time
-    // Practice 3 16:30 - 17:30
-    // Saudi arabia my time
-    // Practice 3 15:30 - 16:30
-
     <PracticeSubTitleH4>
       {`${moment(practiceTimePeriod.start).format('DD-MMM')} ${moment(
-        practiceTimePeriod.start,
-      ).format('h:mm')} - ${moment(practiceTimePeriod.end).format('h:mm a')}`}
+        `${practiceTimePeriod.start}.000Z`,
+      ).format('HH:mm')} - ${moment(`${practiceTimePeriod.end}.000Z`).format(
+        'HH:mm',
+      )}`}
     </PracticeSubTitleH4>
   );
 
