@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/f1-stats/static/js/main.5d54a32e.js",
+    "main.js": "/f1-stats/static/js/main.aa8b34ab.js",
     "static/media/Formula1-Regular.woff2": "/f1-stats/static/media/Formula1-Regular.3291cdd5521e03a241bc.woff2",
     "static/media/logo-512x512.png": "/f1-stats/static/media/logo-512x512.4a78ea60f35f9fb22881.png",
     "index.html": "/f1-stats/index.html",
-    "main.5d54a32e.js.map": "/f1-stats/static/js/main.5d54a32e.js.map"
+    "main.aa8b34ab.js.map": "/f1-stats/static/js/main.aa8b34ab.js.map"
   },
   "entrypoints": [
-    "static/js/main.5d54a32e.js"
+    "static/js/main.aa8b34ab.js"
   ]
 }
