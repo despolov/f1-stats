@@ -1,9 +1,23 @@
-import { styled, Grid, Typography, Box } from '@mui/material';
-import React from 'react';
+import {
+  styled,
+  Grid,
+  Typography,
+  Box,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  Divider,
+  Button,
+} from '@mui/material';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import getStyles from './Header.styles';
 import logo512 from '../../assets/icons/logo-512x512.png';
 import { useLocation } from 'react-router-dom';
+import useIsMobile from '../../hooks/useIsMobile';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { IconContext } from 'react-icons';
 
 const styles = getStyles();
 
@@ -11,8 +25,70 @@ const MainContainer = styled('header')(() => styles.header);
 
 const StyledLink = styled(Link)(() => styles.link);
 
+const PracticeStatsLink = ({ pathname }) => (
+  <StyledLink to="/practiceStats" sx={styles.buttonLink}>
+    <Button>
+      <Typography
+        component="span"
+        sx={
+          pathname === '/practiceStats'
+            ? styles.mainButtonActive
+            : styles.mainButton
+        }
+      >
+        Practice stats
+      </Typography>
+    </Button>
+  </StyledLink>
+);
+
+const TyresLink = ({ pathname }) => (
+  <StyledLink to="/tyres" sx={[styles.buttonLink, { marginRight: 0 }]}>
+    <Button>
+      <Typography
+        component="span"
+        sx={pathname === '/tyres' ? styles.mainButtonActive : styles.mainButton}
+      >
+        Tyres
+      </Typography>
+    </Button>
+  </StyledLink>
+);
+
+const DrawerList = ({ toggleDrawer, pathname }) => (
+  <Box
+    sx={styles.drawerListContainer}
+    role="presentation"
+    onClick={toggleDrawer(false)}
+  >
+    <List sx={styles.drawerList}>
+      <ListItem key="practiceStatsDrawerItem" disablePadding>
+        <ListItemButton>
+          <PracticeStatsLink pathname={pathname} />
+        </ListItemButton>
+      </ListItem>
+
+      <Divider />
+
+      <ListItem key="tyresDrawerItem" disablePadding>
+        <ListItemButton>
+          <TyresLink pathname={pathname} />
+        </ListItemButton>
+      </ListItem>
+
+      <Divider />
+    </List>
+  </Box>
+);
+
 const Header = () => {
   const { pathname } = useLocation();
+  const isMobile = useIsMobile();
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const toggleDrawer = (open) => () => {
+    setOpenDrawer(open);
+  };
 
   return (
     <MainContainer>
@@ -41,33 +117,31 @@ const Header = () => {
             />
           </StyledLink>
 
-          <StyledLink to="/practiceStats" sx={styles.buttonLink}>
-            <Typography
-              component="span"
-              sx={
-                pathname === '/practiceStats'
-                  ? styles.mainButtonActive
-                  : styles.mainButton
-              }
-            >
-              Practice stats
-            </Typography>
-          </StyledLink>
+          {!isMobile && (
+            <>
+              <PracticeStatsLink pathname={pathname} />
 
-          <StyledLink to="/tyres" sx={[styles.buttonLink, { marginRight: 0 }]}>
-            <Typography
-              component="span"
-              sx={
-                pathname === '/tyres'
-                  ? styles.mainButtonActive
-                  : styles.mainButton
-              }
-            >
-              Tyres
-            </Typography>
-          </StyledLink>
+              <TyresLink pathname={pathname} />
+            </>
+          )}
         </Grid>
+
+        {isMobile && (
+          <Grid item xs align="right">
+            <IconContext.Provider value={{ style: styles.icons }}>
+              <RxHamburgerMenu onClick={toggleDrawer(true)} />
+            </IconContext.Provider>
+          </Grid>
+        )}
       </Grid>
+
+      <Drawer
+        sx={styles.drawer}
+        open={openDrawer}
+        onClose={toggleDrawer(false)}
+      >
+        <DrawerList toggleDrawer={toggleDrawer} pathname={pathname} />
+      </Drawer>
     </MainContainer>
   );
 };

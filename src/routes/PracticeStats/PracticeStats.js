@@ -141,6 +141,7 @@ const PracticeStats = () => {
     const bestSectorsPerDriver = [];
     const bestLapPerDriver = [];
     for (const driver of drivers) {
+      // TODO: maybe remove the driver number and get all the laps together and filter them here with js in order to minimize the api calls
       const driverLaps = await getLapsForDriver(
         sessionKey,
         driver.driver_number,
@@ -353,100 +354,115 @@ const PracticeStats = () => {
 
         <Divider />
 
-        <PracticeContainer>
-          <PracticeTitle>Practice 1</PracticeTitle>
+        {!practiceStatsLoading &&
+        practice1Stats.length === 0 &&
+        practice2Stats.length === 0 &&
+        practice3Stats.length === 0 ? (
+          <p>Select year and country in order to see practice reuslts</p>
+        ) : (
+          <>
+            <PracticeContainer>
+              <PracticeTitle>Practice 1</PracticeTitle>
 
-          {Object.keys(practice1TimePeriod).length > 0 &&
-            getPracticeTimeSlot(practice1TimePeriod)}
+              {Object.keys(practice1TimePeriod).length > 0 &&
+                getPracticeTimeSlot(practice1TimePeriod)}
 
-          {practice1Weather.length > 0 && getPracticeWeather(practice1Weather)}
+              {practice1Weather.length > 0 &&
+                getPracticeWeather(practice1Weather)}
 
-          {/* TODO: add is practice live */}
+              {/* TODO: add is practice live */}
 
-          {practiceStatsLoading && (
-            <LinearProgress color="secondary" sx={styles.circularProgress} />
-          )}
+              {practiceStatsLoading && (
+                <LinearProgress
+                  color="secondary"
+                  sx={styles.circularProgress}
+                />
+              )}
 
-          {!practiceStatsLoading && practice1Stats.length === 0 && (
-            <p>Select year and country</p>
-          )}
+              {practice1Stats.length > 0 && (
+                <TableContainer
+                  sx={isDesktop ? {} : styles.tableContainerMobile}
+                >
+                  <AggregatedPracticeTable
+                    title="Aggregated positions"
+                    data={practice1Stats}
+                  />
 
-          {practice1Stats.length > 0 && (
-            <TableContainer sx={isDesktop ? {} : styles.tableContainerMobile}>
-              <AggregatedPracticeTable
-                title="Aggregated positions"
-                data={practice1Stats}
-              />
+                  <ActualPracticeTable
+                    title="Actual positions"
+                    data={practice1ActualStats}
+                  />
+                </TableContainer>
+              )}
+            </PracticeContainer>
 
-              <ActualPracticeTable
-                title="Actual positions"
-                data={practice1ActualStats}
-              />
-            </TableContainer>
-          )}
-        </PracticeContainer>
+            <PracticeContainer>
+              <PracticeTitle>Practice 2</PracticeTitle>
 
-        <PracticeContainer>
-          <PracticeTitle>Practice 2</PracticeTitle>
+              {Object.keys(practice2TimePeriod).length > 0 &&
+                getPracticeTimeSlot(practice2TimePeriod)}
 
-          {Object.keys(practice2TimePeriod).length > 0 &&
-            getPracticeTimeSlot(practice2TimePeriod)}
+              {practice2Weather.length > 0 &&
+                getPracticeWeather(practice2Weather)}
 
-          {practice2Weather.length > 0 && getPracticeWeather(practice2Weather)}
+              {practiceStatsLoading && (
+                <LinearProgress
+                  color="secondary"
+                  sx={styles.circularProgress}
+                />
+              )}
 
-          {practiceStatsLoading && (
-            <LinearProgress color="secondary" sx={styles.circularProgress} />
-          )}
+              {practice2Stats.length > 0 && (
+                <TableContainer
+                  sx={isDesktop ? {} : styles.tableContainerMobile}
+                >
+                  <AggregatedPracticeTable
+                    title="Aggregated positions"
+                    data={practice2Stats}
+                  />
 
-          {!practiceStatsLoading && practice2Stats.length === 0 && (
-            <p>Select year and country</p>
-          )}
+                  <ActualPracticeTable
+                    title="Actual positions"
+                    data={practice2ActualStats}
+                  />
+                </TableContainer>
+              )}
+            </PracticeContainer>
 
-          {practice2Stats.length > 0 && (
-            <TableContainer sx={isDesktop ? {} : styles.tableContainerMobile}>
-              <AggregatedPracticeTable
-                title="Aggregated positions"
-                data={practice2Stats}
-              />
+            <PracticeContainer>
+              <PracticeTitle>Practice 3</PracticeTitle>
 
-              <ActualPracticeTable
-                title="Actual positions"
-                data={practice2ActualStats}
-              />
-            </TableContainer>
-          )}
-        </PracticeContainer>
+              {Object.keys(practice3TimePeriod).length > 0 &&
+                getPracticeTimeSlot(practice3TimePeriod)}
 
-        <PracticeContainer>
-          <PracticeTitle>Practice 3</PracticeTitle>
+              {practice3Weather.length > 0 &&
+                getPracticeWeather(practice3Weather)}
 
-          {Object.keys(practice3TimePeriod).length > 0 &&
-            getPracticeTimeSlot(practice3TimePeriod)}
+              {practiceStatsLoading && (
+                <LinearProgress
+                  color="secondary"
+                  sx={styles.circularProgress}
+                />
+              )}
 
-          {practice3Weather.length > 0 && getPracticeWeather(practice3Weather)}
+              {practice3Stats.length > 0 && (
+                <TableContainer
+                  sx={isDesktop ? {} : styles.tableContainerMobile}
+                >
+                  <AggregatedPracticeTable
+                    title="Aggregated positions"
+                    data={practice3Stats}
+                  />
 
-          {practiceStatsLoading && (
-            <LinearProgress color="secondary" sx={styles.circularProgress} />
-          )}
-
-          {!practiceStatsLoading && practice3Stats.length === 0 && (
-            <p>Select year and country</p>
-          )}
-
-          {practice3Stats.length > 0 && (
-            <TableContainer sx={isDesktop ? {} : styles.tableContainerMobile}>
-              <AggregatedPracticeTable
-                title="Aggregated positions"
-                data={practice3Stats}
-              />
-
-              <ActualPracticeTable
-                title="Actual positions"
-                data={practice3ActualStats}
-              />
-            </TableContainer>
-          )}
-        </PracticeContainer>
+                  <ActualPracticeTable
+                    title="Actual positions"
+                    data={practice3ActualStats}
+                  />
+                </TableContainer>
+              )}
+            </PracticeContainer>
+          </>
+        )}
       </ParentContainer>
     </Layout>
   );

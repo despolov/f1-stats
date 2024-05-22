@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+//TODO: remove this
 // import Formula1TTF from './assets/fonts/Formula1-Regular.ttf';
 import Formula1TTF from './assets/fonts/Formula1-Regular.woff2';
 
@@ -14,6 +15,9 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Formula1, Arial',
+    button: {
+      textTransform: 'none',
+    },
   },
   components: {
     MuiCssBaseline: {
