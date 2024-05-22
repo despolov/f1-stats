@@ -10,6 +10,10 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 - Data source: https://openf1.org/
 
-## M
+## Commands
 
-- Data source: https://openf1.org/
+- deps install: npm i
+
+- local run: npm run start
+
+- app deploy: npm run deploy
