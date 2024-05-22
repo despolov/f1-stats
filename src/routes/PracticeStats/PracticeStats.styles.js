@@ -43,10 +43,20 @@ const getStyles = () => ({
   },
   weatherContainer: {
     display: 'flex',
-    // gap: '10px',
+    marginTop: '10px',
+  },
+  weatherValue: {
+    fontWeight: 400,
   },
   practiceSubTitleH4: {
     margin: 0,
+    fontWeight: 400,
+  },
+  iconLive: {
+    color: 'red',
+    width: '25px',
+    height: '25px',
+    marginBottom: '-6px',
   },
 });
 

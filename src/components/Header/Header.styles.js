@@ -48,7 +48,7 @@ const getStyles = () => ({
     width: '35px',
     position: 'absolute',
     top: '10px',
-    left: '54px',
+    left: '85px',
   },
   icons: {
     color: 'white',

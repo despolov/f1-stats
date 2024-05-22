@@ -6,7 +6,7 @@ import { LinearProgress, useMediaQuery, useTheme, Box } from '@mui/material';
 import {
   getAllGrandPrix,
   getDrivers,
-  getLapsForDriver,
+  getLapsForSession,
   getSession,
   getWeather,
 } from '../../api';
@@ -23,6 +23,7 @@ import { WiHumidity } from 'react-icons/wi';
 import { LuWind } from 'react-icons/lu';
 import { IoTimeOutline } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
+import { CiStreamOn } from 'react-icons/ci';
 import moment from 'moment';
 
 const styles = getStyles();
@@ -116,12 +117,26 @@ const PracticeStats = () => {
     );
   };
 
+  const orderLapsPerDriver = (laps) =>
+    laps.reduce((accumulator, lap) => {
+      const { driver_number } = lap;
+
+      if (Object.hasOwn(accumulator, driver_number)) {
+        accumulator[driver_number].push(lap);
+      } else {
+        accumulator[driver_number] = [lap];
+      }
+
+      return accumulator;
+    }, {});
+
   const getSinglePracticeStats = async (
     type,
     selectedYear,
     selectedCountry,
   ) => {
     const session = await getSession(type, selectedCountry, selectedYear);
+
     if (session.length === 0) {
       return {
         bestSectorsPerDriver: [],
@@ -130,6 +145,7 @@ const PracticeStats = () => {
         timePeriod: {},
       };
     }
+
     const {
       session_key: sessionKey,
       date_start: dateStart,
@@ -140,20 +156,20 @@ const PracticeStats = () => {
     const drivers = await getDrivers(sessionKey);
     const bestSectorsPerDriver = [];
     const bestLapPerDriver = [];
+    const allLaps = await getLapsForSession(sessionKey);
+    const allLapsPerDriver = orderLapsPerDriver(allLaps);
+
     for (const driver of drivers) {
-      // TODO: maybe remove the driver number and get all the laps together and filter them here with js in order to minimize the api calls
-      const driverLaps = await getLapsForDriver(
-        sessionKey,
-        driver.driver_number,
-      );
+      const { driver_number, name_acronym } = driver;
+      const driverLaps = allLapsPerDriver[driver_number];
       const driverSectors = {
-        driver: driver.name_acronym,
+        driver: name_acronym,
         sector1: { duration: null, lapNumber: null },
         sector2: { duration: null, lapNumber: null },
         sector3: { duration: null, lapNumber: null },
       };
       const driverActualLap = {
-        driver: driver.name_acronym,
+        driver: name_acronym,
         lapDuration: null,
         lapNumber: null,
         sector1: null,
@@ -288,28 +304,28 @@ const PracticeStats = () => {
           return (
             <PracticeSubTitleH5>
               <IconContext.Provider value={{ style: styles.icons }}>
-                <Box>
+                <Box sx={styles.weatherValue}>
                   <IoTimeOutline />
                   {moment(`${date.split('.')[0]}.000Z`).format('HH:mm')}
                 </Box>
 
-                <Box>
+                <Box sx={styles.weatherValue}>
                   <FaTemperatureHalf /> {air_temperature}
                 </Box>
 
-                <Box>
+                <Box sx={styles.weatherValue}>
                   <GiTireTracks /> <FaTemperatureHalf /> {track_temperature}
                 </Box>
 
-                <Box>
+                <Box sx={styles.weatherValue}>
                   <BsCloudRainFill /> {rainfall}
                 </Box>
 
-                <Box>
+                <Box sx={styles.weatherValue}>
                   <WiHumidity /> {humidity}
                 </Box>
 
-                <Box>
+                <Box sx={styles.weatherValue}>
                   <LuWind /> {wind_speed}
                 </Box>
               </IconContext.Provider>
@@ -320,15 +336,27 @@ const PracticeStats = () => {
     );
   };
 
-  const getPracticeTimeSlot = (practiceTimePeriod) => (
-    <PracticeSubTitleH4>
-      {`${moment(practiceTimePeriod.start).format('DD-MMM')} ${moment(
-        `${practiceTimePeriod.start}.000Z`,
-      ).format('HH:mm')} - ${moment(`${practiceTimePeriod.end}.000Z`).format(
-        'HH:mm',
-      )}`}
-    </PracticeSubTitleH4>
-  );
+  const getPracticeTimeSlot = (practiceTimePeriod) => {
+    const startDate = moment(practiceTimePeriod.start);
+    const startDateFormatted = moment(practiceTimePeriod.start).format(
+      'DD-MMM',
+    );
+    const startHours = moment(practiceTimePeriod.start).format('HH:mm');
+    const endDate = moment(practiceTimePeriod.end);
+    const endHours = moment(practiceTimePeriod.end).format('HH:mm');
+    const isLive = moment().isBetween(startDate, endDate);
+
+    return (
+      <PracticeSubTitleH4>
+        {isLive && (
+          <IconContext.Provider value={{ style: styles.iconLive }}>
+            <CiStreamOn />
+          </IconContext.Provider>
+        )}{' '}
+        {`${startDateFormatted} ${startHours} - ${endHours}`}
+      </PracticeSubTitleH4>
+    );
+  };
 
   return (
     <Layout>

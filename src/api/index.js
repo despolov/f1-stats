@@ -34,6 +34,15 @@ const getLapsForDriver = async (sessionKey, driverNumber) => {
   return lapsPerDriver;
 };
 
+const getLapsForSession = async (sessionKey) => {
+  const response = await fetch(
+    `${API_ENDPOINT}/laps?session_key=${sessionKey}&is_pit_out_lap=false`,
+  );
+  const lapsPerSession = await response.json();
+
+  return lapsPerSession;
+};
+
 const getAllGrandPrix = async (year) => {
   const response = await fetch(`${API_ENDPOINT}/meetings?year=${year}`);
   const allGrandPrix = await response.json();
@@ -90,6 +99,7 @@ export {
   getSession,
   getDrivers,
   getLapsForDriver,
+  getLapsForSession,
   getAllGrandPrix,
   getWeather,
   getStints,
