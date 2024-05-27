@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material';
 import Layout from '../../components/Layout';
 import getStyles from './PracticeStats.styles';
-import { LinearProgress, useMediaQuery, useTheme, Box } from '@mui/material';
+import { LinearProgress, useMediaQuery, useTheme } from '@mui/material';
 import {
   getAllGrandPrix,
   getDrivers,
@@ -16,15 +16,8 @@ import ActualPracticeTable from '../../components/ActualPracticeTable';
 import { orderBy } from 'lodash';
 import secondsToMins from '../../utils/secondsToMins';
 import secondsToFixed from '../../utils/secondsToFixed';
-import { FaTemperatureHalf } from 'react-icons/fa6';
-import { GiTireTracks } from 'react-icons/gi';
-import { BsCloudRainFill } from 'react-icons/bs';
-import { WiHumidity } from 'react-icons/wi';
-import { LuWind } from 'react-icons/lu';
-import { IoTimeOutline } from 'react-icons/io5';
-import { IconContext } from 'react-icons';
-import { CiStreamOn } from 'react-icons/ci';
-import moment from 'moment';
+import PracticeTimeSlot from '../../components/PracticeTimeSlot';
+import PracticeWeather from '../../components/PracticeWeather';
 
 const styles = getStyles();
 
@@ -38,13 +31,7 @@ const PracticeContainer = styled('div')(() => styles.practiceContainer);
 
 const PracticeTitle = styled('h3')(() => styles.practiceTitle);
 
-const PracticeSubTitleH4 = styled('h4')(() => styles.practiceSubTitleH4);
-
-const PracticeSubTitleH5 = styled('h5')(() => styles.practiceSubTitleH5);
-
 const Divider = styled('div')(() => styles.divider);
-
-const WeatherContainer = styled('div')(() => styles.weatherContainer);
 
 const PracticeStats = () => {
   const years = [2023, 2024];
@@ -288,76 +275,6 @@ const PracticeStats = () => {
     setPracticeStatsLoading(false);
   };
 
-  const getPracticeWeather = (practiceWeather) => {
-    return (
-      <WeatherContainer>
-        {practiceWeather.map((singlePracticeWeather) => {
-          const {
-            date,
-            air_temperature,
-            rainfall,
-            track_temperature,
-            wind_speed,
-            humidity,
-          } = singlePracticeWeather;
-
-          return (
-            <PracticeSubTitleH5>
-              <IconContext.Provider value={{ style: styles.icons }}>
-                <Box sx={styles.weatherValue}>
-                  <IoTimeOutline />
-                  {moment(`${date.split('.')[0]}.000Z`).format('HH:mm')}
-                </Box>
-
-                <Box sx={styles.weatherValue}>
-                  <FaTemperatureHalf /> {air_temperature}
-                </Box>
-
-                <Box sx={styles.weatherValue}>
-                  <GiTireTracks /> <FaTemperatureHalf /> {track_temperature}
-                </Box>
-
-                <Box sx={styles.weatherValue}>
-                  <BsCloudRainFill /> {rainfall}
-                </Box>
-
-                <Box sx={styles.weatherValue}>
-                  <WiHumidity /> {humidity}
-                </Box>
-
-                <Box sx={styles.weatherValue}>
-                  <LuWind /> {wind_speed}
-                </Box>
-              </IconContext.Provider>
-            </PracticeSubTitleH5>
-          );
-        })}
-      </WeatherContainer>
-    );
-  };
-
-  const getPracticeTimeSlot = (practiceTimePeriod) => {
-    const startDate = moment(practiceTimePeriod.start);
-    const startDateFormatted = moment(practiceTimePeriod.start).format(
-      'DD-MMM',
-    );
-    const startHours = moment(practiceTimePeriod.start).format('HH:mm');
-    const endDate = moment(practiceTimePeriod.end);
-    const endHours = moment(practiceTimePeriod.end).format('HH:mm');
-    const isLive = moment().isBetween(startDate, endDate);
-
-    return (
-      <PracticeSubTitleH4>
-        {isLive && (
-          <IconContext.Provider value={{ style: styles.iconLive }}>
-            <CiStreamOn />
-          </IconContext.Provider>
-        )}{' '}
-        {`${startDateFormatted} ${startHours} - ${endHours}`}
-      </PracticeSubTitleH4>
-    );
-  };
-
   return (
     <Layout>
       <ParentContainer>
@@ -392,13 +309,13 @@ const PracticeStats = () => {
             <PracticeContainer>
               <PracticeTitle>Practice 1</PracticeTitle>
 
-              {Object.keys(practice1TimePeriod).length > 0 &&
-                getPracticeTimeSlot(practice1TimePeriod)}
+              {Object.keys(practice1TimePeriod).length > 0 && (
+                <PracticeTimeSlot practiceTimePeriod={practice1TimePeriod} />
+              )}
 
-              {practice1Weather.length > 0 &&
-                getPracticeWeather(practice1Weather)}
-
-              {/* TODO: add is practice live */}
+              {practice1Weather.length > 0 && (
+                <PracticeWeather practiceWeather={practice1Weather} />
+              )}
 
               {practiceStatsLoading && (
                 <LinearProgress
@@ -427,11 +344,13 @@ const PracticeStats = () => {
             <PracticeContainer>
               <PracticeTitle>Practice 2</PracticeTitle>
 
-              {Object.keys(practice2TimePeriod).length > 0 &&
-                getPracticeTimeSlot(practice2TimePeriod)}
+              {Object.keys(practice2TimePeriod).length > 0 && (
+                <PracticeTimeSlot practiceTimePeriod={practice2TimePeriod} />
+              )}
 
-              {practice2Weather.length > 0 &&
-                getPracticeWeather(practice2Weather)}
+              {practice2Weather.length > 0 && (
+                <PracticeWeather practiceWeather={practice2Weather} />
+              )}
 
               {practiceStatsLoading && (
                 <LinearProgress
@@ -460,11 +379,13 @@ const PracticeStats = () => {
             <PracticeContainer>
               <PracticeTitle>Practice 3</PracticeTitle>
 
-              {Object.keys(practice3TimePeriod).length > 0 &&
-                getPracticeTimeSlot(practice3TimePeriod)}
+              {Object.keys(practice3TimePeriod).length > 0 && (
+                <PracticeTimeSlot practiceTimePeriod={practice3TimePeriod} />
+              )}
 
-              {practice3Weather.length > 0 &&
-                getPracticeWeather(practice3Weather)}
+              {practice3Weather.length > 0 && (
+                <PracticeWeather practiceWeather={practice3Weather} />
+              )}
 
               {practiceStatsLoading && (
                 <LinearProgress

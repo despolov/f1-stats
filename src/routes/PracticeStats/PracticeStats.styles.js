@@ -31,33 +31,6 @@ const getStyles = () => ({
   tableContainerMobile: {
     flexFlow: 'column',
   },
-  practiceSubTitleH5: {
-    margin: '5px 0 0 0',
-    borderRight: '2px solid #f7f4f1',
-    '&:last-child': { borderRight: 'none' },
-  },
-  icons: {
-    verticalAlign: 'middle',
-    width: '19px',
-    height: '19px',
-  },
-  weatherContainer: {
-    display: 'flex',
-    marginTop: '10px',
-  },
-  weatherValue: {
-    fontWeight: 400,
-  },
-  practiceSubTitleH4: {
-    margin: 0,
-    fontWeight: 400,
-  },
-  iconLive: {
-    color: 'red',
-    width: '25px',
-    height: '25px',
-    marginBottom: '-6px',
-  },
 });
 
 export default getStyles;
