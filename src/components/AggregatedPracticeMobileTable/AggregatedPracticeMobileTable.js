@@ -39,7 +39,7 @@ const AggregatedPracticeTable = (props) => {
           <TableTitle>{title}</TableTitle>
         </TitleContainer>
       )}
-      <Table aria-label="customized table">
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell align="center" sx={styles.tableCellHeader}>
@@ -64,11 +64,11 @@ const AggregatedPracticeTable = (props) => {
 
             return (
               <StyledTableRow key={driver}>
-                <TableCell align="center" sx={styles.tableCellClassesBody}>
+                <TableCell align="center" sx={styles.tableCellBody}>
                   {(index += 1)}
                 </TableCell>
 
-                <TableCell align="center" sx={styles.tableCellClassesBody}>
+                <TableCell align="center" sx={styles.tableCellBody}>
                   <DriverCellContainer>
                     <Box
                       sx={[
@@ -81,11 +81,11 @@ const AggregatedPracticeTable = (props) => {
                   </DriverCellContainer>
                 </TableCell>
 
-                <TableCell align="center" sx={styles.tableCellClassesBody}>
+                <TableCell align="center" sx={styles.tableCellBody}>
                   {aggregatedLap}
                 </TableCell>
 
-                <TableCell align="left" sx={styles.tableCellClassesBody}>
+                <TableCell align="left" sx={styles.tableCellBody}>
                   <Tooltip
                     title={
                       <Box>

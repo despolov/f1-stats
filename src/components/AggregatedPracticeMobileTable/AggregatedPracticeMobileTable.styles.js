@@ -1,21 +1,19 @@
 const getStyles = () => ({
   tableContainer: {
-    width: '50%',
+    width: '40%',
   },
   tableCellHeader: {
     backgroundColor: '#363030',
     color: '#ffffff',
     padding: '16px 0',
-    width: '0px',
   },
-  tableCellClassesBody: {
+  tableCellBody: {
     padding: '8px 1px',
     fontSize: 14,
   },
   emptyHeaderCell: {
     backgroundColor: '#363030',
     padding: '0',
-    width: '0',
   },
   tableRowOdd: {
     backgroundColor: '#f4f4f4',
