@@ -3,6 +3,9 @@ const getStyles = () => ({
     padding: '20px',
     backgroundColor: '#ffffff',
   },
+  parentContainerMobile: {
+    padding: '8px',
+  },
   selectFieldsContainer: {
     display: 'flex',
     gap: '10px',

@@ -12,6 +12,7 @@ import {
 } from '../../api';
 import Select from '../../components/Select';
 import AggregatedPracticeTable from '../../components/AggregatedPracticeTable';
+import AggregatedPracticeMobileTable from '../../components/AggregatedPracticeMobileTable';
 import ActualPracticeTable from '../../components/ActualPracticeTable';
 import { orderBy } from 'lodash';
 import secondsToMins from '../../utils/secondsToMins';
@@ -37,6 +38,7 @@ const PracticeStats = () => {
   const years = [2023, 2024];
   const [year, setYear] = useState('');
   const [countries, setCountries] = useState([]);
+  const [countrieLoading, setCountriesLoading] = useState(false);
   const [country, setCountry] = useState('');
   const [practice1Stats, setPractice1Stats] = useState([]);
   const [practice2Stats, setPractice2Stats] = useState([]);
@@ -57,6 +59,7 @@ const PracticeStats = () => {
   useEffect(() => {
     if (year) {
       getCountries(year);
+      setCountriesLoading(true);
     }
   }, [year]);
 
@@ -102,6 +105,7 @@ const PracticeStats = () => {
         (granPrix) => `${granPrix.country_name} - ${granPrix.meeting_name}`,
       ),
     );
+    setCountriesLoading(false);
   };
 
   const orderLapsPerDriver = (laps) =>
@@ -277,7 +281,7 @@ const PracticeStats = () => {
 
   return (
     <Layout>
-      <ParentContainer>
+      <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
         <SelectFieldsContainer
           sx={isDesktop ? {} : styles.selectFieldsContainerMobile}
         >
@@ -294,6 +298,7 @@ const PracticeStats = () => {
             label="Select country"
             data={countries}
             disabled={countries.length === 0}
+            loading={countrieLoading}
           />
         </SelectFieldsContainer>
 
@@ -303,7 +308,7 @@ const PracticeStats = () => {
         practice1Stats.length === 0 &&
         practice2Stats.length === 0 &&
         practice3Stats.length === 0 ? (
-          <p>Select year and country in order to see practice reuslts</p>
+          <p>Select year and country in order to see practice results</p>
         ) : (
           <>
             <PracticeContainer>
@@ -328,10 +333,17 @@ const PracticeStats = () => {
                 <TableContainer
                   sx={isDesktop ? {} : styles.tableContainerMobile}
                 >
-                  <AggregatedPracticeTable
-                    title="Aggregated positions"
-                    data={practice1Stats}
-                  />
+                  {isDesktop ? (
+                    <AggregatedPracticeTable
+                      title="Aggregated positions"
+                      data={practice1Stats}
+                    />
+                  ) : (
+                    <AggregatedPracticeMobileTable
+                      title="Aggregated positions"
+                      data={practice1Stats}
+                    />
+                  )}
 
                   <ActualPracticeTable
                     title="Actual positions"
@@ -363,10 +375,17 @@ const PracticeStats = () => {
                 <TableContainer
                   sx={isDesktop ? {} : styles.tableContainerMobile}
                 >
-                  <AggregatedPracticeTable
-                    title="Aggregated positions"
-                    data={practice2Stats}
-                  />
+                  {isDesktop ? (
+                    <AggregatedPracticeTable
+                      title="Aggregated positions"
+                      data={practice2Stats}
+                    />
+                  ) : (
+                    <AggregatedPracticeMobileTable
+                      title="Aggregated positions"
+                      data={practice2Stats}
+                    />
+                  )}
 
                   <ActualPracticeTable
                     title="Actual positions"
@@ -398,10 +417,17 @@ const PracticeStats = () => {
                 <TableContainer
                   sx={isDesktop ? {} : styles.tableContainerMobile}
                 >
-                  <AggregatedPracticeTable
-                    title="Aggregated positions"
-                    data={practice3Stats}
-                  />
+                  {isDesktop ? (
+                    <AggregatedPracticeTable
+                      title="Aggregated positions"
+                      data={practice3Stats}
+                    />
+                  ) : (
+                    <AggregatedPracticeMobileTable
+                      title="Aggregated positions"
+                      data={practice3Stats}
+                    />
+                  )}
 
                   <ActualPracticeTable
                     title="Actual positions"

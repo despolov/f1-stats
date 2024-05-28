@@ -28,7 +28,6 @@ const getStyles = () => ({
   mainButton: {
     fontSize: '14px',
     lineHeight: '26px',
-    fontWeight: 400,
     color: '#ffffff',
   },
   mainButtonActive: {

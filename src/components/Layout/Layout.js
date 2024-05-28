@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from '@mui/material';
+import { styled, useTheme, useMediaQuery } from '@mui/material';
 import Header from '../Header';
 import getStyles from './Layout.styles';
 
@@ -11,12 +11,16 @@ const ChildrenContainer = styled('div')(() => styles.childrenContainer);
 
 const Layout = (props) => {
   const { children } = props;
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <MainContainer>
       <Header />
 
-      <ChildrenContainer>{children}</ChildrenContainer>
+      <ChildrenContainer sx={isDesktop ? {} : styles.childrenContainerMobile}>
+        {children}
+      </ChildrenContainer>
     </MainContainer>
   );
 };

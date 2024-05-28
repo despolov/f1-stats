@@ -4,17 +4,14 @@ import {
   MenuItem,
   FormControl,
   Select,
-  useTheme,
-  useMediaQuery,
+  CircularProgress,
 } from '@mui/material';
 import getStyles from './Select.styles';
 
 const styles = getStyles();
 
 const SimpleSelect = (props) => {
-  const { disabled, value, onChange, label, data } = props;
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { disabled, value, onChange, label, data, loading } = props;
 
   return (
     <FormControl fullWidth>
@@ -24,9 +21,15 @@ const SimpleSelect = (props) => {
         value={value}
         onChange={onChange}
         input={<OutlinedInput />}
-        renderValue={(selected) => selected || <em>{label}</em>}
+        renderValue={(selected) => {
+          if (loading) {
+            return <CircularProgress size={17} sx={styles.loader} />;
+          }
+
+          return selected || <em>{label}</em>;
+        }}
         inputProps={{ 'aria-label': 'Without label' }}
-        sx={isDesktop ? styles.select : styles.selectMobile}
+        sx={styles.select}
         fullWidth={false}
       >
         <MenuItem disabled value="">

@@ -68,7 +68,6 @@ const AggregatedPracticeTable = (props) => {
                 <StyledTableCell align="left">{(index += 1)}</StyledTableCell>
 
                 <StyledTableCell align="left">
-                  {' '}
                   <DriverCellContainer>
                     <Box
                       sx={[

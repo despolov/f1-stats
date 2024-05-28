@@ -12,6 +12,9 @@ const getStyles = () => ({
   childrenContainer: {
     padding: '40px',
   },
+  childrenContainerMobile: {
+    padding: '8px',
+  },
 });
 
 export default getStyles;

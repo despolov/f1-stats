@@ -1,7 +1,6 @@
 const getStyles = () => ({
   subTitleH4: {
     margin: 0,
-    fontWeight: 400,
   },
   iconLive: {
     color: 'red',
