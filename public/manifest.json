@@ -6,6 +6,14 @@
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "ios/180.png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "android/192.png",
+      "sizes": "192x192"
     }
   ],
   "start_url": ".",
