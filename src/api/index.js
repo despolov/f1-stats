@@ -3,8 +3,6 @@ import moment from 'moment';
 
 const API_ENDPOINT = 'https://api.openf1.org/v1';
 
-// TODO: add try catch block on each api endpoint
-
 const getSession = async (type, country, year) => {
   const response = await fetch(
     `${API_ENDPOINT}/sessions?country_name=${country}&session_name=${type}&year=${year}`,

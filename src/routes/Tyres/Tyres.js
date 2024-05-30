@@ -7,8 +7,7 @@ const styles = getStyles();
 
 const ParentContainer = styled('div')(() => styles.parentContainer);
 
-const Drivers = () => {
-  // TODO: get the data and separate it
+const Tyres = () => {
   // each driver gets 13 sets of dry weather tyres 8 softs, 3 mediums, and 2 hards
   // this will get all of the stints for each driver
   // return data of a single stint
@@ -26,7 +25,7 @@ const Drivers = () => {
   // after that separate it by compound and save the lap start and end so we can check later if the same tyres are used again or check for the stintNumber
 
   // const meeting = await getMeeting(selectedCountry, selectedYear);
-  // const stinmts = await getStints(meeting[0].meeting_key);
+  // const stints = await getStints(meeting[0].meeting_key);
 
   return (
     <Layout>
@@ -37,4 +36,4 @@ const Drivers = () => {
   );
 };
 
-export default Drivers;
+export default Tyres;

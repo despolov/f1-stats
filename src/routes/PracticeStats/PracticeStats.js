@@ -350,12 +350,12 @@ const PracticeStats = () => {
                   ) : (
                     <>
                       <AggregatedPracticeMobileTable
-                        title="Aggregated positions"
+                        title="Aggregated pos"
                         data={practice1Stats}
                       />
 
                       <ActualPracticeMobileTable
-                        title="Actual positions"
+                        title="Actual pos"
                         data={practice1ActualStats}
                       />
                     </>
