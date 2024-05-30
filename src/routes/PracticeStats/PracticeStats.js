@@ -309,9 +309,17 @@ const PracticeStats = () => {
         practice2Stats.length === 0 &&
         practice3Stats.length === 0 ? (
           <p>Select year and country in order to see practice results</p>
-        ) : (
+        ) : (practiceStatsLoading ? ( 
           <>
-            <PracticeContainer>
+            <PracticeTitle>Loading practice stats...</PracticeTitle>
+            <LinearProgress
+              color="secondary"
+              sx={styles.circularProgress}
+            />
+          </>
+          ) : ( 
+          <>
+            {practice1Stats.length > 0 && (<PracticeContainer>
               <PracticeTitle>Practice 1</PracticeTitle>
 
               {Object.keys(practice1TimePeriod).length > 0 && (
@@ -322,38 +330,29 @@ const PracticeStats = () => {
                 <PracticeWeather practiceWeather={practice1Weather} />
               )}
 
-              {practiceStatsLoading && (
-                <LinearProgress
-                  color="secondary"
-                  sx={styles.circularProgress}
-                />
-              )}
-
-              {practice1Stats.length > 0 && (
-                <TableContainer
-                  sx={isDesktop ? {} : styles.tableContainerMobile}
-                >
-                  {isDesktop ? (
-                    <AggregatedPracticeTable
-                      title="Aggregated positions"
-                      data={practice1Stats}
-                    />
-                  ) : (
-                    <AggregatedPracticeMobileTable
-                      title="Aggregated positions"
-                      data={practice1Stats}
-                    />
-                  )}
-
-                  <ActualPracticeTable
-                    title="Actual positions"
-                    data={practice1ActualStats}
+              <TableContainer
+                sx={isDesktop ? {} : styles.tableContainerMobile}
+              >
+                {isDesktop ? (
+                  <AggregatedPracticeTable
+                    title="Aggregated positions"
+                    data={practice1Stats}
                   />
-                </TableContainer>
-              )}
-            </PracticeContainer>
+                ) : (
+                  <AggregatedPracticeMobileTable
+                    title="Aggregated positions"
+                    data={practice1Stats}
+                  />
+                )}
 
-            <PracticeContainer>
+                <ActualPracticeTable
+                  title="Actual positions"
+                  data={practice1ActualStats}
+                />
+              </TableContainer>
+            </PracticeContainer>)}
+
+            {practice2Stats.length > 0 && (<PracticeContainer>
               <PracticeTitle>Practice 2</PracticeTitle>
 
               {Object.keys(practice2TimePeriod).length > 0 && (
@@ -362,13 +361,6 @@ const PracticeStats = () => {
 
               {practice2Weather.length > 0 && (
                 <PracticeWeather practiceWeather={practice2Weather} />
-              )}
-
-              {practiceStatsLoading && (
-                <LinearProgress
-                  color="secondary"
-                  sx={styles.circularProgress}
-                />
               )}
 
               {practice2Stats.length > 0 && (
@@ -393,9 +385,9 @@ const PracticeStats = () => {
                   />
                 </TableContainer>
               )}
-            </PracticeContainer>
+            </PracticeContainer>)}
 
-            <PracticeContainer>
+            {practice3Stats.length > 0 && (<PracticeContainer>
               <PracticeTitle>Practice 3</PracticeTitle>
 
               {Object.keys(practice3TimePeriod).length > 0 && (
@@ -404,13 +396,6 @@ const PracticeStats = () => {
 
               {practice3Weather.length > 0 && (
                 <PracticeWeather practiceWeather={practice3Weather} />
-              )}
-
-              {practiceStatsLoading && (
-                <LinearProgress
-                  color="secondary"
-                  sx={styles.circularProgress}
-                />
               )}
 
               {practice3Stats.length > 0 && (
@@ -435,8 +420,8 @@ const PracticeStats = () => {
                   />
                 </TableContainer>
               )}
-            </PracticeContainer>
-          </>
+            </PracticeContainer>)}
+          </>)
         )}
       </ParentContainer>
     </Layout>
