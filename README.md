@@ -8,7 +8,6 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## Sources
 
-- Data source: https://openf1.org/
 - Data source: <https://openf1.org/>
 
 ## Commands
