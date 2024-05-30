@@ -49,6 +49,13 @@ const getStyles = () => ({
     top: '10px',
     left: '85px',
   },
+  logoImgMobile: {
+    height: '35px',
+    width: '35px',
+    position: 'absolute',
+    top: '10px',
+    left: '90px',
+  },
   icons: {
     color: 'white',
     height: '28px',

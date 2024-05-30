@@ -9,6 +9,8 @@ import {
   ListItemButton,
   Divider,
   Button,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -85,6 +87,8 @@ const Header = () => {
   const { pathname } = useLocation();
   const isMobile = useIsMobile();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
@@ -111,7 +115,7 @@ const Header = () => {
 
             <Box
               component="img"
-              sx={styles.logoImg}
+              sx={isDesktop ? styles.logoImg : styles.logoImgMobile}
               alt="logo image"
               src={logo512}
             />

@@ -1,7 +1,6 @@
 import React from 'react';
-import { styled } from '@mui/material';
 import getStyles from './PracticeWeather.styles';
-import { Box } from '@mui/material';
+import { Box, useTheme, useMediaQuery } from '@mui/material';
 import { FaTemperatureHalf } from 'react-icons/fa6';
 import { GiTireTracks } from 'react-icons/gi';
 import { BsCloudRainFill } from 'react-icons/bs';
@@ -13,15 +12,13 @@ import moment from 'moment';
 
 const styles = getStyles();
 
-const SubTitleH5 = styled('h5')(() => styles.subTitleH5);
-
-const Container = styled('div')(() => styles.container);
-
 const PracticeWeather = (props) => {
   const { practiceWeather } = props;
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
-    <Container>
+    <Box sx={isDesktop ? styles.container : styles.containerMobile}>
       {practiceWeather.map((singlePracticeWeather) => {
         const {
           date,
@@ -33,7 +30,7 @@ const PracticeWeather = (props) => {
         } = singlePracticeWeather;
 
         return (
-          <SubTitleH5>
+          <Box sx={isDesktop ? styles.subTitleH5 : styles.subTitleH5Mobile}>
             <IconContext.Provider value={{ style: styles.icons }}>
               <Box sx={styles.weatherValue}>
                 <IoTimeOutline />
@@ -60,10 +57,10 @@ const PracticeWeather = (props) => {
                 <LuWind /> {wind_speed}
               </Box>
             </IconContext.Provider>
-          </SubTitleH5>
+          </Box>
         );
       })}
-    </Container>
+    </Box>
   );
 };
 
