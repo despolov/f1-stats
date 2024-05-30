@@ -12,7 +12,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import getStyles from './AggregatedPracticeMobileTable.styles';
+import getStyles from './ActualPracticeMobileTable.styles';
 import getDriverColor from '../../utils/getDriverColor';
 import { FaCircleInfo } from 'react-icons/fa6';
 
@@ -29,7 +29,7 @@ const TableTitle = styled('h5')(() => styles.tableTitle);
 
 const DriverCellContainer = styled('div')(() => styles.driverCellContainer);
 
-const AggregatedPracticeTable = (props) => {
+const ActualPracticeMobileTable = (props) => {
   const { data, title } = props;
 
   return (
@@ -43,15 +43,15 @@ const AggregatedPracticeTable = (props) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell align="center" sx={styles.tableCellHeader}>
+            <TableCell sx={styles.tableCellHeader} align="center">
               Pos
             </TableCell>
 
-            <TableCell align="center" sx={styles.tableCellHeader}>
+            <TableCell sx={styles.tableCellHeader} align="center">
               Driver
             </TableCell>
 
-            <TableCell align="center" sx={styles.tableCellHeader}>
+            <TableCell sx={styles.tableCellHeader} align="center">
               Time
             </TableCell>
 
@@ -61,17 +61,24 @@ const AggregatedPracticeTable = (props) => {
 
         <TableBody>
           {data.map((value, index) => {
-            const { driver, aggregatedLap, sector1, sector2, sector3 } = value;
+            const {
+              driver,
+              lapDuration,
+              sector1,
+              sector2,
+              sector3,
+              lapNumber,
+            } = value;
 
             return (
               <StyledTableRow key={driver}>
-                <TableCell align="center" sx={styles.tableCellBody}>
+                <TableCell sx={styles.tableCellBody} align="center">
                   <Typography sx={styles.tableCellBodyText}>
                     {(index += 1)}
                   </Typography>
                 </TableCell>
 
-                <TableCell align="center" sx={styles.tableCellBody}>
+                <TableCell sx={styles.tableCellBody} align="center">
                   <DriverCellContainer>
                     <Box
                       sx={[
@@ -86,9 +93,9 @@ const AggregatedPracticeTable = (props) => {
                   </DriverCellContainer>
                 </TableCell>
 
-                <TableCell align="center" sx={styles.tableCellBody}>
+                <TableCell sx={styles.tableCellBody} align="center">
                   <Typography sx={styles.tableCellBodyText}>
-                    {aggregatedLap}
+                    {lapDuration}
                   </Typography>
                 </TableCell>
 
@@ -97,19 +104,19 @@ const AggregatedPracticeTable = (props) => {
                     title={
                       <Box>
                         <Typography sx={styles.tooltipText}>
-                          Sec 1: {sector1.duration} in lap {sector1.lapNumber}
+                          Sec 1: {sector1} in lap {lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          Sec 2: {sector2.duration} in lap {sector2.lapNumber}
+                          Sec 2: {sector2} in lap {lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          Sec 3: {sector3.duration} in lap {sector3.lapNumber}
+                          Sec 3: {sector3} in lap {lapNumber}
                         </Typography>
                       </Box>
                     }
-                    placement="top"
+                    placement="left"
                     arrow
                     enterTouchDelay={0}
                     leaveTouchDelay={5000}
@@ -128,4 +135,4 @@ const AggregatedPracticeTable = (props) => {
   );
 };
 
-export default AggregatedPracticeTable;
+export default ActualPracticeMobileTable;

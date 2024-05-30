@@ -4,7 +4,7 @@ const getStyles = () => ({
     backgroundColor: '#ffffff',
   },
   parentContainerMobile: {
-    padding: '8px',
+    padding: '8px 8px 24px 8px',
   },
   selectFieldsContainer: {
     display: 'flex',
@@ -32,7 +32,7 @@ const getStyles = () => ({
     flexFlow: 'column',
   },
   tableContainerMobile: {
-    flexFlow: 'column',
+    flexFlow: 'row',
   },
 });
 

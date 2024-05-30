@@ -17,8 +17,8 @@ import getDriverColor from '../../utils/getDriverColor';
 const styles = getStyles();
 
 const StyledTableCell = styled(TableCell)(() => ({
-  [`&.${tableCellClasses.head}`]: styles.tableCellClassesHeader,
-  [`&.${tableCellClasses.body}`]: styles.tableCellClassesBody,
+  [`&.${tableCellClasses.head}`]: styles.tableCellHeader,
+  [`&.${tableCellClasses.body}`]: styles.tableCellBody,
 }));
 
 const StyledTableRow = styled(TableRow)(() => ({
@@ -42,6 +42,7 @@ const AggregatedPracticeTable = (props) => {
           <TableTitle>{title}</TableTitle>
         </TitleContainer>
       )}
+
       <Table aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -55,7 +56,7 @@ const AggregatedPracticeTable = (props) => {
 
             <StyledTableCell align="left">Sector 3</StyledTableCell>
 
-            <StyledTableCell align="left">Lap</StyledTableCell>
+            <StyledTableCell align="left">Time</StyledTableCell>
           </TableRow>
         </TableHead>
 

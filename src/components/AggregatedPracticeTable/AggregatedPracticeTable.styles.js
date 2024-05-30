@@ -2,12 +2,12 @@ const getStyles = () => ({
   tableContainer: {
     width: '50%',
   },
-  tableCellClassesHeader: {
+  tableCellHeader: {
     backgroundColor: '#363030',
     color: '#ffffff',
     padding: '16px 8px',
   },
-  tableCellClassesBody: {
+  tableCellBody: {
     padding: '8px',
     fontSize: 14,
   },

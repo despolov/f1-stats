@@ -13,7 +13,7 @@ const getStyles = () => ({
     padding: '40px',
   },
   childrenContainerMobile: {
-    padding: '8px',
+    padding: '0',
   },
 });
 

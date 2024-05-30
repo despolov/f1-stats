@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material';
 import Layout from '../../components/Layout';
 import getStyles from './PracticeStats.styles';
-import { LinearProgress, useMediaQuery, useTheme } from '@mui/material';
+import { LinearProgress, useMediaQuery, useTheme, Box } from '@mui/material';
 import {
   getAllGrandPrix,
   getDrivers,
@@ -14,6 +14,7 @@ import Select from '../../components/Select';
 import AggregatedPracticeTable from '../../components/AggregatedPracticeTable';
 import AggregatedPracticeMobileTable from '../../components/AggregatedPracticeMobileTable';
 import ActualPracticeTable from '../../components/ActualPracticeTable';
+import ActualPracticeMobileTable from '../../components/ActualPracticeMobileTable';
 import { orderBy } from 'lodash';
 import secondsToMins from '../../utils/secondsToMins';
 import secondsToFixed from '../../utils/secondsToFixed';
@@ -308,120 +309,153 @@ const PracticeStats = () => {
         practice1Stats.length === 0 &&
         practice2Stats.length === 0 &&
         practice3Stats.length === 0 ? (
-          <p>Select year and country in order to see practice results</p>
-        ) : (practiceStatsLoading ? ( 
+          <Box component="p">
+            Select year and country in order to see practice results
+          </Box>
+        ) : practiceStatsLoading ? (
           <>
             <PracticeTitle>Loading practice stats...</PracticeTitle>
-            <LinearProgress
-              color="secondary"
-              sx={styles.circularProgress}
-            />
+
+            <LinearProgress color="secondary" sx={styles.circularProgress} />
           </>
-          ) : ( 
+        ) : (
           <>
-            {practice1Stats.length > 0 && (<PracticeContainer>
-              <PracticeTitle>Practice 1</PracticeTitle>
+            {practice1Stats.length > 0 && (
+              <PracticeContainer>
+                <PracticeTitle>Practice 1</PracticeTitle>
 
-              {Object.keys(practice1TimePeriod).length > 0 && (
-                <PracticeTimeSlot practiceTimePeriod={practice1TimePeriod} />
-              )}
-
-              {practice1Weather.length > 0 && (
-                <PracticeWeather practiceWeather={practice1Weather} />
-              )}
-
-              <TableContainer
-                sx={isDesktop ? {} : styles.tableContainerMobile}
-              >
-                {isDesktop ? (
-                  <AggregatedPracticeTable
-                    title="Aggregated positions"
-                    data={practice1Stats}
-                  />
-                ) : (
-                  <AggregatedPracticeMobileTable
-                    title="Aggregated positions"
-                    data={practice1Stats}
-                  />
+                {Object.keys(practice1TimePeriod).length > 0 && (
+                  <PracticeTimeSlot practiceTimePeriod={practice1TimePeriod} />
                 )}
 
-                <ActualPracticeTable
-                  title="Actual positions"
-                  data={practice1ActualStats}
-                />
-              </TableContainer>
-            </PracticeContainer>)}
+                {practice1Weather.length > 0 && (
+                  <PracticeWeather practiceWeather={practice1Weather} />
+                )}
 
-            {practice2Stats.length > 0 && (<PracticeContainer>
-              <PracticeTitle>Practice 2</PracticeTitle>
-
-              {Object.keys(practice2TimePeriod).length > 0 && (
-                <PracticeTimeSlot practiceTimePeriod={practice2TimePeriod} />
-              )}
-
-              {practice2Weather.length > 0 && (
-                <PracticeWeather practiceWeather={practice2Weather} />
-              )}
-
-              {practice2Stats.length > 0 && (
                 <TableContainer
                   sx={isDesktop ? {} : styles.tableContainerMobile}
                 >
                   {isDesktop ? (
-                    <AggregatedPracticeTable
-                      title="Aggregated positions"
-                      data={practice2Stats}
-                    />
+                    <>
+                      <AggregatedPracticeTable
+                        title="Aggregated positions"
+                        data={practice1Stats}
+                      />
+
+                      <ActualPracticeTable
+                        title="Actual positions"
+                        data={practice1ActualStats}
+                      />
+                    </>
                   ) : (
-                    <AggregatedPracticeMobileTable
-                      title="Aggregated positions"
-                      data={practice2Stats}
-                    />
+                    <>
+                      <AggregatedPracticeMobileTable
+                        title="Aggregated positions"
+                        data={practice1Stats}
+                      />
+
+                      <ActualPracticeMobileTable
+                        title="Actual positions"
+                        data={practice1ActualStats}
+                      />
+                    </>
                   )}
-
-                  <ActualPracticeTable
-                    title="Actual positions"
-                    data={practice2ActualStats}
-                  />
                 </TableContainer>
-              )}
-            </PracticeContainer>)}
+              </PracticeContainer>
+            )}
 
-            {practice3Stats.length > 0 && (<PracticeContainer>
-              <PracticeTitle>Practice 3</PracticeTitle>
+            {practice2Stats.length > 0 && (
+              <PracticeContainer>
+                <PracticeTitle>Practice 2</PracticeTitle>
 
-              {Object.keys(practice3TimePeriod).length > 0 && (
-                <PracticeTimeSlot practiceTimePeriod={practice3TimePeriod} />
-              )}
+                {Object.keys(practice2TimePeriod).length > 0 && (
+                  <PracticeTimeSlot practiceTimePeriod={practice2TimePeriod} />
+                )}
 
-              {practice3Weather.length > 0 && (
-                <PracticeWeather practiceWeather={practice3Weather} />
-              )}
+                {practice2Weather.length > 0 && (
+                  <PracticeWeather practiceWeather={practice2Weather} />
+                )}
 
-              {practice3Stats.length > 0 && (
-                <TableContainer
-                  sx={isDesktop ? {} : styles.tableContainerMobile}
-                >
-                  {isDesktop ? (
-                    <AggregatedPracticeTable
-                      title="Aggregated positions"
-                      data={practice3Stats}
-                    />
-                  ) : (
-                    <AggregatedPracticeMobileTable
-                      title="Aggregated positions"
-                      data={practice3Stats}
-                    />
-                  )}
+                {practice2Stats.length > 0 && (
+                  <TableContainer
+                    sx={isDesktop ? {} : styles.tableContainerMobile}
+                  >
+                    {isDesktop ? (
+                      <>
+                        <AggregatedPracticeTable
+                          title="Aggregated positions"
+                          data={practice2Stats}
+                        />
 
-                  <ActualPracticeTable
-                    title="Actual positions"
-                    data={practice3ActualStats}
-                  />
-                </TableContainer>
-              )}
-            </PracticeContainer>)}
-          </>)
+                        <ActualPracticeTable
+                          title="Actual positions"
+                          data={practice2ActualStats}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <AggregatedPracticeMobileTable
+                          title="Aggregated pos"
+                          data={practice2Stats}
+                        />
+
+                        <ActualPracticeMobileTable
+                          title="Actual pos"
+                          data={practice2ActualStats}
+                        />
+                      </>
+                    )}
+                  </TableContainer>
+                )}
+              </PracticeContainer>
+            )}
+
+            {practice3Stats.length > 0 && (
+              <PracticeContainer>
+                <PracticeTitle>Practice 3</PracticeTitle>
+
+                {Object.keys(practice3TimePeriod).length > 0 && (
+                  <PracticeTimeSlot practiceTimePeriod={practice3TimePeriod} />
+                )}
+
+                {practice3Weather.length > 0 && (
+                  <PracticeWeather practiceWeather={practice3Weather} />
+                )}
+
+                {practice3Stats.length > 0 && (
+                  <TableContainer
+                    sx={isDesktop ? {} : styles.tableContainerMobile}
+                  >
+                    {isDesktop ? (
+                      <>
+                        <AggregatedPracticeTable
+                          title="Aggregated positions"
+                          data={practice3Stats}
+                        />
+
+                        <ActualPracticeTable
+                          title="Actual positions"
+                          data={practice3ActualStats}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <AggregatedPracticeMobileTable
+                          title="Aggregated pos"
+                          data={practice3Stats}
+                        />
+
+                        <ActualPracticeMobileTable
+                          title="Actual pos"
+                          data={practice3ActualStats}
+                        />
+                      </>
+                    )}
+                  </TableContainer>
+                )}
+              </PracticeContainer>
+            )}
+          </>
         )}
       </ParentContainer>
     </Layout>
