@@ -95,7 +95,7 @@ const ActualPracticeMobileTable = (props) => {
 
                 <TableCell sx={styles.tableCellBody} align="center">
                   <Typography sx={styles.tableCellBodyText}>
-                    {lapDuration}
+                    {lapDuration ? lapDuration : 'N/A'}
                   </Typography>
                 </TableCell>
 
@@ -122,7 +122,7 @@ const ActualPracticeMobileTable = (props) => {
                     leaveTouchDelay={5000}
                   >
                     <Box sx={styles.iconContainer}>
-                      <FaCircleInfo />
+                      {lapDuration ? <FaCircleInfo /> : null}
                     </Box>
                   </Tooltip>
                 </TableCell>

@@ -98,7 +98,9 @@ const ActualPracticeTable = (props) => {
 
                 <StyledTableCell align="left">{lapNumber}</StyledTableCell>
 
-                <StyledTableCell align="left">{lapDuration}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {lapDuration ? lapDuration : 'No time set'}
+                </StyledTableCell>
               </StyledTableRow>
             );
           })}

@@ -81,13 +81,27 @@ const AggregatedPracticeTable = (props) => {
                   </DriverCellContainer>
                 </StyledTableCell>
 
-                <StyledTableCell align="left">{`${sector1.duration} in lap ${sector1.lapNumber}`}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {sector1.duration
+                    ? `${sector1.duration} in lap ${sector1.lapNumber}`
+                    : null}
+                </StyledTableCell>
 
-                <StyledTableCell align="left">{`${sector2.duration} in lap ${sector2.lapNumber}`}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {sector2.duration
+                    ? `${sector2.duration} in lap ${sector2.lapNumber} `
+                    : null}
+                </StyledTableCell>
 
-                <StyledTableCell align="left">{`${sector3.duration} in lap ${sector3.lapNumber}`}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {sector3.duration
+                    ? `${sector3.duration} in lap ${sector3.lapNumber}`
+                    : null}
+                </StyledTableCell>
 
-                <StyledTableCell align="left">{aggregatedLap}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {aggregatedLap ? aggregatedLap : 'No time set'}
+                </StyledTableCell>
               </StyledTableRow>
             );
           })}

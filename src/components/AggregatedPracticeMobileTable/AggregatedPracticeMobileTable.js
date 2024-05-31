@@ -88,7 +88,7 @@ const AggregatedPracticeTable = (props) => {
 
                 <TableCell align="center" sx={styles.tableCellBody}>
                   <Typography sx={styles.tableCellBodyText}>
-                    {aggregatedLap}
+                    {aggregatedLap ? aggregatedLap : 'N/A'}
                   </Typography>
                 </TableCell>
 
@@ -115,7 +115,7 @@ const AggregatedPracticeTable = (props) => {
                     leaveTouchDelay={5000}
                   >
                     <Box sx={styles.iconContainer}>
-                      <FaCircleInfo />
+                      {aggregatedLap ? <FaCircleInfo /> : null}
                     </Box>
                   </Tooltip>
                 </TableCell>
