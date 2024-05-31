@@ -5,15 +5,16 @@ const getStyles = () => ({
     flexFlow: 'column wrap',
     flexGrow: 1,
     minHeight: '100vh',
-    maxWidth: '100%',
     backgroundColor: '#f7f4f1',
     letterSpacing: '0.7px',
   },
   childrenContainer: {
     padding: '40px',
+    width: ' 100vw',
   },
   childrenContainerMobile: {
     padding: '0',
+    width: ' 100vw',
   },
 });
 
