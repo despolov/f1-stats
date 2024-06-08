@@ -20,5 +20,6 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 - add "Gap" column in the Practice tables and in the tooltip for mobile tables
 - add catch blocks on each api endpoint and display an error message if there is one
+- add caching of the api calls
 - add tests - and most importantly tests of the aggregated lap time logic
 - implement Tyres route with its corresponding logic
