@@ -8,11 +8,11 @@
       "type": "image/x-icon"
     },
     {
-      "src": "ios/180.png",
+      "src": "./180.png",
       "sizes": "180x180"
     },
     {
-      "src": "android/192.png",
+      "src": "./192.png",
       "sizes": "192x192"
     }
   ],
