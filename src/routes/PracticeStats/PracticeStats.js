@@ -31,9 +31,9 @@ const Divider = styled('div')(() => styles.divider);
 const PracticeStats = () => {
   const years = [2023, 2024];
   const [year, setYear] = useState('');
+  const [country, setCountry] = useState('');
   const [countries, setCountries] = useState([]);
   const [countrieLoading, setCountriesLoading] = useState(false);
-  const [country, setCountry] = useState('');
   const [practice1Stats, setPractice1Stats] = useState([]);
   const [practice2Stats, setPractice2Stats] = useState([]);
   const [practice3Stats, setPractice3Stats] = useState([]);
@@ -47,6 +47,7 @@ const PracticeStats = () => {
   const [practice2TimePeriod, setPractice2TimePeriod] = useState({});
   const [practice3TimePeriod, setPractice3TimePeriod] = useState({});
   const [practiceStatsLoading, setPracticeStatsLoading] = useState(false);
+  const [error, setStateError] = useState('');
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -63,6 +64,15 @@ const PracticeStats = () => {
       getAllPracticesStats(year, country.split(' - ')[0]);
     }
   }, [country]);
+
+  const setError = (errorMessage) => {
+    setPracticeStatsLoading(false);
+    setCountriesLoading(false);
+    setYear('');
+    setCountry('');
+    setCountries([]);
+    setStateError(errorMessage);
+  };
 
   const handleYearChange = (e) => {
     setYear(e.target.value);
@@ -84,6 +94,7 @@ const PracticeStats = () => {
     setPractice1TimePeriod({});
     setPractice2TimePeriod({});
     setPractice3TimePeriod({});
+    setStateError('');
   };
 
   const handleCountryChange = (e) => {
@@ -93,6 +104,11 @@ const PracticeStats = () => {
 
   const getCountries = async (selectedYear) => {
     const allGrandPrix = await getAllGrandPrix(selectedYear);
+
+    if (allGrandPrix.hasError) {
+      setError(allGrandPrix.message);
+      return;
+    }
 
     setCountries(
       allGrandPrix.map(
@@ -107,16 +123,19 @@ const PracticeStats = () => {
       'Practice 1',
       selectedYear,
       selectedCountry,
+      setError,
     );
     const practice2 = await getSinglePracticeStats(
       'Practice 2',
       selectedYear,
       selectedCountry,
+      setError,
     );
     const practice3 = await getSinglePracticeStats(
       'Practice 3',
       selectedYear,
       selectedCountry,
+      setError,
     );
 
     setPractice1Stats(
@@ -145,6 +164,38 @@ const PracticeStats = () => {
     setPractice3TimePeriod(practice3.timePeriod);
     setPracticeStatsLoading(false);
   };
+
+  if (error) {
+    return (
+      <Layout>
+        <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
+          <SelectFieldsContainer
+            sx={isDesktop ? {} : styles.selectFieldsContainerMobile}
+          >
+            <Select
+              value={year}
+              onChange={handleYearChange}
+              label="Select year"
+              data={years}
+            />
+
+            <Select
+              value={country}
+              onChange={handleCountryChange}
+              label="Select country"
+              data={countries}
+              disabled={countries.length === 0}
+              loading={countrieLoading}
+            />
+          </SelectFieldsContainer>
+
+          <Divider />
+
+          <PracticeTitle>{error}</PracticeTitle>
+        </ParentContainer>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

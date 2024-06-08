@@ -15,8 +15,18 @@ const orderLapsPerDriver = (laps) =>
     return accumulator;
   }, {});
 
-const getSinglePracticeStats = async (type, selectedYear, selectedCountry) => {
+const getSinglePracticeStats = async (
+  type,
+  selectedYear,
+  selectedCountry,
+  setError,
+) => {
   const session = await getSession(type, selectedCountry, selectedYear);
+
+  if (session.hasError) {
+    setError(session.message);
+    return;
+  }
 
   if (session.length === 0) {
     return {
@@ -34,10 +44,27 @@ const getSinglePracticeStats = async (type, selectedYear, selectedCountry) => {
   } = session[0];
   const timePeriod = { start: dateStart, end: dateEnd };
   const weather = await getWeather(sessionKey, dateStart, dateEnd);
+  if (weather.hasError) {
+    setError(weather.message);
+    return;
+  }
+
   const drivers = await getDrivers(sessionKey);
+
+  if (drivers.hasError) {
+    setError(drivers.message);
+    return;
+  }
+
   const bestSectorsPerDriver = [];
   const bestLapPerDriver = [];
   const allLaps = await getLapsForSession(sessionKey);
+
+  if (allLaps.hasError) {
+    setError(allLaps.message);
+    return;
+  }
+
   const allLapsPerDriver = orderLapsPerDriver(allLaps);
 
   for (const driver of drivers) {

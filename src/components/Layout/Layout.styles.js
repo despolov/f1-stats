@@ -10,11 +10,11 @@ const getStyles = () => ({
   },
   childrenContainer: {
     padding: '40px',
-    width: ' 100vw',
+    width: ' 100%',
   },
   childrenContainerMobile: {
     padding: '0',
-    width: ' 100vw',
+    width: ' 100%',
   },
 });
 
