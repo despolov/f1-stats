@@ -30,7 +30,10 @@ const PracticeWeather = (props) => {
         } = singlePracticeWeather;
 
         return (
-          <Box sx={isDesktop ? styles.subTitleH5 : styles.subTitleH5Mobile}>
+          <Box
+            key={date}
+            sx={isDesktop ? styles.subTitleH5 : styles.subTitleH5Mobile}
+          >
             <IconContext.Provider value={{ style: styles.icons }}>
               <Box sx={styles.weatherValue}>
                 <IoTimeOutline />

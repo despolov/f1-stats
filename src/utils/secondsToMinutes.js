@@ -1,6 +1,6 @@
 import secondsToFixed from './secondsToFixed';
 
-const secondsToMins = (totalSeconds) => {
+const secondsToMinutes = (totalSeconds) => {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = secondsToFixed(totalSeconds % 60);
 
@@ -9,4 +9,4 @@ const secondsToMins = (totalSeconds) => {
     .padStart(2, '0')}`;
 };
 
-export default secondsToMins;
+export default secondsToMinutes;

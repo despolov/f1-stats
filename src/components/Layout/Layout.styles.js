@@ -9,7 +9,7 @@ const getStyles = () => ({
     letterSpacing: '0.7px',
   },
   childrenContainer: {
-    padding: '40px',
+    padding: '16px',
     width: ' 100%',
   },
   childrenContainerMobile: {

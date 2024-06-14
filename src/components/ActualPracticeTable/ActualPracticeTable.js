@@ -1,6 +1,5 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import { tableCellClasses } from '@mui/material/TableCell';
 import {
   Table,
   TableBody,
@@ -15,11 +14,6 @@ import getStyles from './ActualPracticeTable.styles';
 import getDriverColor from '../../utils/getDriverColor';
 
 const styles = getStyles();
-
-const StyledTableCell = styled(TableCell)(() => ({
-  [`&.${tableCellClasses.head}`]: styles.tableCellHeader,
-  [`&.${tableCellClasses.body}`]: styles.tableCellBody,
-}));
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:nth-of-type(odd)': styles.tableRowOdd,
@@ -46,19 +40,41 @@ const ActualPracticeTable = (props) => {
       <Table aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="left">Pos</StyledTableCell>
+            <TableCell sx={styles.tableCellHeader} align="left">
+              Pos
+            </TableCell>
 
-            <StyledTableCell align="left">Driver</StyledTableCell>
+            <TableCell sx={styles.tableCellHeader} align="left">
+              Driver
+            </TableCell>
 
-            <StyledTableCell align="left">Sector 1</StyledTableCell>
+            <TableCell sx={styles.tableCellHeader} align="left">
+              Sector 1
+            </TableCell>
 
-            <StyledTableCell align="left">Sector 2</StyledTableCell>
+            <TableCell sx={styles.tableCellHeader} align="left">
+              Sector 2
+            </TableCell>
 
-            <StyledTableCell align="left">Sector 3</StyledTableCell>
+            <TableCell sx={styles.tableCellHeader} align="left">
+              Sector 3
+            </TableCell>
 
-            <StyledTableCell align="left">Lap №</StyledTableCell>
+            <TableCell sx={styles.tableCellHeader} align="left">
+              Lap №
+            </TableCell>
 
-            <StyledTableCell align="left">Time</StyledTableCell>
+            <TableCell sx={styles.tableCellHeader} align="left">
+              Time
+            </TableCell>
+
+            <TableCell sx={styles.tableCellHeader} align="left">
+              Gap
+            </TableCell>
+
+            <TableCell sx={styles.tableCellHeader} align="left">
+              Gap To #1
+            </TableCell>
           </TableRow>
         </TableHead>
 
@@ -71,13 +87,17 @@ const ActualPracticeTable = (props) => {
               sector2,
               sector3,
               lapNumber,
+              gap,
+              gapToFirst,
             } = value;
 
             return (
               <StyledTableRow key={driver}>
-                <StyledTableCell align="left">{(index += 1)}</StyledTableCell>
+                <TableCell sx={styles.tableCellBody} align="left">
+                  {(index += 1)}
+                </TableCell>
 
-                <StyledTableCell align="left">
+                <TableCell sx={styles.tableCellBody} align="left">
                   <DriverCellContainer>
                     <Box
                       sx={[
@@ -88,19 +108,35 @@ const ActualPracticeTable = (props) => {
 
                     {driver}
                   </DriverCellContainer>
-                </StyledTableCell>
+                </TableCell>
 
-                <StyledTableCell align="left">{sector1}</StyledTableCell>
+                <TableCell sx={styles.tableCellBody} align="left">
+                  {sector1}
+                </TableCell>
 
-                <StyledTableCell align="left">{sector2}</StyledTableCell>
+                <TableCell sx={styles.tableCellBody} align="left">
+                  {sector2}
+                </TableCell>
 
-                <StyledTableCell align="left">{sector3}</StyledTableCell>
+                <TableCell sx={styles.tableCellBody} align="left">
+                  {sector3}
+                </TableCell>
 
-                <StyledTableCell align="left">{lapNumber}</StyledTableCell>
+                <TableCell sx={styles.tableCellBody} align="left">
+                  {lapNumber}
+                </TableCell>
 
-                <StyledTableCell align="left">
+                <TableCell sx={styles.tableCellBody} align="left">
                   {lapDuration ? lapDuration : 'No time set'}
-                </StyledTableCell>
+                </TableCell>
+
+                <TableCell sx={styles.tableCellBody} align="left">
+                  {gap ? `+${gap}s` : ''}
+                </TableCell>
+
+                <TableCell sx={styles.tableCellBody} align="left">
+                  {gapToFirst ? `+${gapToFirst}s` : ''}
+                </TableCell>
               </StyledTableRow>
             );
           })}

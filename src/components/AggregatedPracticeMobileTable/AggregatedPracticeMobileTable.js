@@ -61,7 +61,15 @@ const AggregatedPracticeTable = (props) => {
 
         <TableBody>
           {data.map((value, index) => {
-            const { driver, aggregatedLap, sector1, sector2, sector3 } = value;
+            const {
+              driver,
+              aggregatedLap,
+              sector1,
+              sector2,
+              sector3,
+              gap,
+              gapToFirst,
+            } = value;
 
             return (
               <StyledTableRow key={driver}>
@@ -106,6 +114,14 @@ const AggregatedPracticeTable = (props) => {
 
                         <Typography sx={styles.tooltipText}>
                           Sec 3: {sector3.duration} in lap {sector3.lapNumber}
+                        </Typography>
+
+                        <Typography sx={styles.tooltipText}>
+                          Gap: {gap ? `+${gap}s` : ''}
+                        </Typography>
+
+                        <Typography sx={styles.tooltipText}>
+                          Gap To #1: {gapToFirst ? `+${gapToFirst}s` : ''}
                         </Typography>
                       </Box>
                     }

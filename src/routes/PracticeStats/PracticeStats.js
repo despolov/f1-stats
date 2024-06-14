@@ -13,6 +13,7 @@ import { orderBy } from 'lodash';
 import PracticeTimeSlot from '../../components/PracticeTimeSlot';
 import PracticeWeather from '../../components/PracticeWeather';
 import getSinglePracticeStats from '../../utils/getSinglePracticeStats';
+import addGapBetweenDrivers from '../../utils/addGapBetweenDrivers';
 
 const styles = getStyles();
 
@@ -137,25 +138,38 @@ const PracticeStats = () => {
       selectedCountry,
       setError,
     );
-
-    setPractice1Stats(
+    const practice1WithGap = addGapBetweenDrivers(
       orderBy(practice1.bestSectorsPerDriver, ['aggregatedLap']),
+      'aggregatedLap',
     );
-    setPractice2Stats(
+    const practice2WithGap = addGapBetweenDrivers(
       orderBy(practice2.bestSectorsPerDriver, ['aggregatedLap']),
+      'aggregatedLap',
     );
-    setPractice3Stats(
+    const practice3WithGap = addGapBetweenDrivers(
       orderBy(practice3.bestSectorsPerDriver, ['aggregatedLap']),
+      'aggregatedLap',
     );
-    setPractice1ActualStats(
+
+    const practice1ActualWithGap = addGapBetweenDrivers(
       orderBy(practice1.bestLapPerDriver, ['lapDuration']),
+      'lapDuration',
     );
-    setPractice2ActualStats(
+    const practice2ActualWithGap = addGapBetweenDrivers(
       orderBy(practice2.bestLapPerDriver, ['lapDuration']),
+      'lapDuration',
     );
-    setPractice3ActualStats(
+    const practice3ActualWithGap = addGapBetweenDrivers(
       orderBy(practice3.bestLapPerDriver, ['lapDuration']),
+      'lapDuration',
     );
+
+    setPractice1Stats(practice1WithGap);
+    setPractice2Stats(practice2WithGap);
+    setPractice3Stats(practice3WithGap);
+    setPractice1ActualStats(practice1ActualWithGap);
+    setPractice2ActualStats(practice2ActualWithGap);
+    setPractice3ActualStats(practice3ActualWithGap);
     setPractice1Weather(practice1.weather);
     setPractice2Weather(practice2.weather);
     setPractice3Weather(practice3.weather);

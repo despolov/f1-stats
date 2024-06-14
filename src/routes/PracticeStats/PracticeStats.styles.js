@@ -1,6 +1,6 @@
 const getStyles = () => ({
   parentContainer: {
-    padding: '20px',
+    padding: '16px',
     backgroundColor: '#ffffff',
   },
   parentContainerMobile: {

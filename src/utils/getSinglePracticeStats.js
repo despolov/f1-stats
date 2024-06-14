@@ -1,4 +1,4 @@
-import secondsToMins from './secondsToMins';
+import secondsToMinutes from './secondsToMinutes';
 import secondsToFixed from './secondsToFixed';
 import { getDrivers, getLapsForSession, getSession, getWeather } from '../api';
 
@@ -144,7 +144,7 @@ const getSinglePracticeStats = async (
           Number(driverSectors.sector2.duration) +
           Number(driverSectors.sector3.duration),
       );
-      const aggregatedLapToMin = secondsToMins(aggregatedLap);
+      const aggregatedLapToMin = secondsToMinutes(aggregatedLap);
 
       bestSectorsPerDriver.push({
         ...driverSectors,
@@ -159,7 +159,7 @@ const getSinglePracticeStats = async (
 
     if (driverActualLap.lapDuration) {
       const bestLap = secondsToFixed(driverActualLap.lapDuration);
-      const bestLapToMin = secondsToMins(bestLap);
+      const bestLapToMin = secondsToMinutes(bestLap);
 
       bestLapPerDriver.push({
         ...driverActualLap,

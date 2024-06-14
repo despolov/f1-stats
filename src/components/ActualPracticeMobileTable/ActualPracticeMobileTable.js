@@ -68,6 +68,8 @@ const ActualPracticeMobileTable = (props) => {
               sector2,
               sector3,
               lapNumber,
+              gap,
+              gapToFirst,
             } = value;
 
             return (
@@ -113,6 +115,14 @@ const ActualPracticeMobileTable = (props) => {
 
                         <Typography sx={styles.tooltipText}>
                           Sec 3: {sector3} in lap {lapNumber}
+                        </Typography>
+
+                        <Typography sx={styles.tooltipText}>
+                          Gap: {gap ? `+${gap}s` : ''}
+                        </Typography>
+
+                        <Typography sx={styles.tooltipText}>
+                          Gap To #1: {gapToFirst ? `+${gapToFirst}s` : ''}
                         </Typography>
                       </Box>
                     }
