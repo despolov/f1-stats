@@ -9,17 +9,14 @@ import {
   ListItemButton,
   Divider,
   Button,
-  useTheme,
-  useMediaQuery,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import getStyles from './Header.styles';
-import logo512 from '../../assets/icons/logo-512x512.png';
-import { useLocation } from 'react-router-dom';
 import useIsMobile from '../../hooks/useIsMobile';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IconContext } from 'react-icons';
+import MainLogo from '../MainLogo';
 
 const styles = getStyles();
 
@@ -45,7 +42,7 @@ const PracticeStatsLink = ({ pathname }) => (
 );
 
 const TyresLink = ({ pathname }) => (
-  <StyledLink to="/tyres" sx={[styles.buttonLink, { marginRight: 0 }]}>
+  <StyledLink to="/tyres" sx={styles.buttonLink}>
     <Button>
       <Typography
         component="span"
@@ -87,8 +84,6 @@ const Header = () => {
   const { pathname } = useLocation();
   const isMobile = useIsMobile();
   const [openDrawer, setOpenDrawer] = useState(false);
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
@@ -98,44 +93,39 @@ const Header = () => {
     <MainContainer>
       <Grid
         container
-        align="center"
-        justifyContent="center"
+        align="left"
+        justifyContent="left"
         alignItems="center"
         sx={styles.headerGrid}
       >
-        <Grid item xs align="left">
-          <StyledLink to="/" sx={styles.companyButtonLink}>
-            <Typography component="span" sx={styles.appLabel}>
-              F1 S
-            </Typography>
+        {!isMobile && (
+          <>
+            <Grid item xs={1} align="left" sx={styles.headerGridItem}>
+              <MainLogo />
+            </Grid>
 
-            <Typography component="span" sx={styles.appLabelLogoSmall}>
-              tats
-            </Typography>
-
-            <Box
-              component="img"
-              sx={isDesktop ? styles.logoImg : styles.logoImgMobile}
-              alt="logo image"
-              src={logo512}
-            />
-          </StyledLink>
-
-          {!isMobile && (
-            <>
+            <Grid item xs={1.1} align="left" sx={styles.headerGridItem}>
               <PracticeStatsLink pathname={pathname} />
+            </Grid>
 
+            <Grid item xs={1} align="left" sx={styles.headerGridItem}>
               <TyresLink pathname={pathname} />
-            </>
-          )}
-        </Grid>
+            </Grid>
+          </>
+        )}
 
         {isMobile && (
-          <Grid item xs align="right">
-            <IconContext.Provider value={{ style: styles.icons }}>
-              <RxHamburgerMenu onClick={toggleDrawer(true)} />
-            </IconContext.Provider>
-          </Grid>
+          <>
+            <Grid item align="left" sx={styles.headerGridItem}>
+              <MainLogo />
+            </Grid>
+
+            <Grid item xs align="right">
+              <IconContext.Provider value={{ style: styles.icons }}>
+                <RxHamburgerMenu onClick={toggleDrawer(true)} />
+              </IconContext.Provider>
+            </Grid>
+          </>
         )}
       </Grid>
 

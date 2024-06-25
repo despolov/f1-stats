@@ -241,7 +241,8 @@ const PracticeStats = () => {
         practice2Stats.length === 0 &&
         practice3Stats.length === 0 ? (
           <Box component="p">
-            Select year and country in order to see practice results
+            Select year and country in order to see practice actual and
+            aggregated results
           </Box>
         ) : practiceStatsLoading ? (
           <>

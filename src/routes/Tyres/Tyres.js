@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 import Layout from '../../components/Layout';
 import getStyles from './Tyres.styles';
 
@@ -30,7 +30,9 @@ const Tyres = () => {
   return (
     <Layout>
       <ParentContainer>
-        Tyres used and left for each team for a weekend
+        <Typography>🚧 Work in progress 🚧 </Typography>
+
+        <Typography>Tyres used and left for each team for a weekend</Typography>
       </ParentContainer>
     </Layout>
   );

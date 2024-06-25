@@ -1,5 +1,6 @@
 const getStyles = () => ({
   link: {
+    margin: '0 24px 0 0',
     textDecoration: 'none',
     '&:hover': {
       textDecoration: 'none',
@@ -7,23 +8,16 @@ const getStyles = () => ({
   },
   header: {
     background: '#E10600',
-    height: '71px',
+    height: '68px',
   },
   headerGrid: {
     padding: '0 16px 0 16px',
-    height: 'inherit',
+    height: '68px',
   },
-  appLabel: {
-    fontSize: '28px',
-    lineHeight: '71px',
-    fontWeight: 600,
-    color: '#ffffff',
-  },
-  appLabelLogoSmall: {
-    fontSize: '14px',
-    lineHeight: '71px',
-    fontWeight: 600,
-    color: '#ffffff',
+  headerGridItem: {
+    height: '68px',
+    display: 'flex',
+    alignItems: 'center',
   },
   mainButton: {
     fontSize: '14px',
@@ -35,26 +29,6 @@ const getStyles = () => ({
     lineHeight: '26px',
     fontWeight: 600,
     color: '#000000',
-  },
-  buttonLink: {
-    margin: '0 24px 0 0',
-  },
-  companyButtonLink: {
-    margin: '0 34px 0 0',
-  },
-  logoImg: {
-    height: '35px',
-    width: '35px',
-    position: 'absolute',
-    top: '10px',
-    left: '85px',
-  },
-  logoImgMobile: {
-    height: '35px',
-    width: '35px',
-    position: 'absolute',
-    top: '10px',
-    left: '90px',
   },
   icons: {
     color: 'white',

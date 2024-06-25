@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled, useTheme, useMediaQuery } from '@mui/material';
 import Header from '../Header';
+import Footer from '../Footer';
 import getStyles from './Layout.styles';
 
 const styles = getStyles();
@@ -21,6 +22,8 @@ const Layout = (props) => {
       <ChildrenContainer sx={isDesktop ? {} : styles.childrenContainerMobile}>
         {children}
       </ChildrenContainer>
+
+      <Footer />
     </MainContainer>
   );
 };
