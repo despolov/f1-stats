@@ -26,13 +26,13 @@ const StyledLink = styled(Link)(() => styles.link);
 
 const PracticeStatsLink = ({ pathname }) => (
   <StyledLink to="/practiceStats" sx={styles.buttonLink}>
-    <Button>
+    <Button sx={pathname === '/practiceStats' ? styles.buttonActive : {}}>
       <Typography
         component="span"
         sx={
           pathname === '/practiceStats'
-            ? styles.mainButtonActive
-            : styles.mainButton
+            ? styles.buttonTextActive
+            : styles.buttonText
         }
       >
         Practice stats
@@ -43,10 +43,10 @@ const PracticeStatsLink = ({ pathname }) => (
 
 const TyresLink = ({ pathname }) => (
   <StyledLink to="/tyres" sx={styles.buttonLink}>
-    <Button>
+    <Button sx={pathname === '/tyres' ? styles.buttonActive : {}}>
       <Typography
         component="span"
-        sx={pathname === '/tyres' ? styles.mainButtonActive : styles.mainButton}
+        sx={pathname === '/tyres' ? styles.buttonTextActive : styles.buttonText}
       >
         Tyres
       </Typography>

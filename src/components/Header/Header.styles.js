@@ -19,16 +19,24 @@ const getStyles = () => ({
     display: 'flex',
     alignItems: 'center',
   },
-  mainButton: {
+  buttonText: {
     fontSize: '14px',
     lineHeight: '26px',
+    fontWeight: 400,
     color: '#ffffff',
   },
-  mainButtonActive: {
+  buttonTextActive: {
     fontSize: '14px',
     lineHeight: '26px',
-    fontWeight: 600,
-    color: '#000000',
+    fontWeight: 700,
+    color: '#ffffff',
+  },
+  buttonActive: {
+    borderBottom: '1px solid white',
+    borderRight: '1px solid white',
+    borderBottomRightRadius: '8px',
+    borderBottomLeftRadius: '0',
+    borderTopRightRadius: '0',
   },
   icons: {
     color: 'white',
