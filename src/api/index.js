@@ -1,14 +1,25 @@
 import { uniqBy } from 'lodash';
 import moment from 'moment';
+import {
+  getSessionStorageValue,
+  setSessionStorageValue,
+} from '../utils/sessionStorage';
 
 const API_ENDPOINT = 'https://api.openf1.org/v1';
 
 const getSession = async (type, country, year) => {
   try {
-    const response = await fetch(
-      `${API_ENDPOINT}/sessions?country_name=${country}&session_name=${type}&year=${year}`,
-    );
-    const session = await response.json();
+    const key = `sessions?country_name=${country}&session_name=${type}&year=${year}`;
+    const storageValue = getSessionStorageValue(key);
+    let session;
+
+    if (storageValue) {
+      session = storageValue;
+    } else {
+      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      session = await response.json();
+      setSessionStorageValue(key, session);
+    }
 
     return session;
   } catch {
@@ -19,12 +30,20 @@ const getSession = async (type, country, year) => {
   }
 };
 
-const getDrivers = async (sessionKey) => {
+const getDrivers = async (sessionKey, isSessionLive) => {
   try {
-    const response = await fetch(
-      `${API_ENDPOINT}/drivers?session_key=${sessionKey}`,
-    );
-    const drivers = await response.json();
+    const key = `drivers?session_key=${sessionKey}`;
+    const storageValue = getSessionStorageValue(key);
+    let drivers;
+
+    if (storageValue && !isSessionLive) {
+      drivers = storageValue;
+    } else {
+      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      drivers = await response.json();
+      setSessionStorageValue(key, drivers);
+    }
+
     // guard because sometimes the api returns duplicated drivers
     const uniqueDrivers = uniqBy(drivers, (d) => d.name_acronym);
 
@@ -53,12 +72,19 @@ const getLapsForDriver = async (sessionKey, driverNumber) => {
   }
 };
 
-const getLapsForSession = async (sessionKey) => {
+const getLapsForSession = async (sessionKey, isSessionLive) => {
   try {
-    const response = await fetch(
-      `${API_ENDPOINT}/laps?session_key=${sessionKey}&is_pit_out_lap=false`,
-    );
-    const lapsPerSession = await response.json();
+    const key = `laps?session_key=${sessionKey}&is_pit_out_lap=false`;
+    const storageValue = getSessionStorageValue(key);
+    let lapsPerSession;
+
+    if (storageValue && !isSessionLive) {
+      lapsPerSession = storageValue;
+    } else {
+      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      lapsPerSession = await response.json();
+      setSessionStorageValue(key, lapsPerSession);
+    }
 
     return lapsPerSession;
   } catch {
@@ -85,12 +111,19 @@ const getAllGrandPrix = async (year) => {
   }
 };
 
-const getWeather = async (sessionKey, dateStart, dateEnd) => {
+const getWeather = async (sessionKey, dateStart, dateEnd, isSessionLive) => {
   try {
-    const response = await fetch(
-      `${API_ENDPOINT}/weather?session_key=${sessionKey}`,
-    );
-    let weather = await response.json();
+    const key = `weather?session_key=${sessionKey}`;
+    const storageValue = getSessionStorageValue(key);
+    let weather;
+
+    if (storageValue && !isSessionLive) {
+      weather = storageValue;
+    } else {
+      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      weather = await response.json();
+      setSessionStorageValue(key, weather);
+    }
 
     if (dateStart && dateEnd && weather.length > 0) {
       weather = weather.filter((weatherRecord) =>
