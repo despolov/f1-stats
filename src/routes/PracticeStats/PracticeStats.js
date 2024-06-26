@@ -14,6 +14,7 @@ import PracticeTimeSlot from '../../components/PracticeTimeSlot';
 import PracticeWeather from '../../components/PracticeWeather';
 import getSinglePracticeStats from '../../utils/getSinglePracticeStats';
 import addGapBetweenDrivers from '../../utils/addGapBetweenDrivers';
+import moment from 'moment';
 
 const styles = getStyles();
 
@@ -30,7 +31,7 @@ const PracticeTitle = styled('h3')(() => styles.practiceTitle);
 const Divider = styled('div')(() => styles.divider);
 
 const PracticeStats = () => {
-  const years = [2023, 2024];
+  const [years, setYears] = useState([]);
   const [year, setYear] = useState('');
   const [country, setCountry] = useState('');
   const [countries, setCountries] = useState([]);
@@ -51,6 +52,18 @@ const PracticeStats = () => {
   const [error, setStateError] = useState('');
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+
+  useEffect(() => {
+    const startYear = 2023;
+    const currentYear = moment().year();
+    const availableYears = [];
+
+    for (let index = startYear; index <= currentYear; index++) {
+      availableYears.push(index);
+    }
+
+    setYears(availableYears);
+  }, []);
 
   useEffect(() => {
     if (year) {

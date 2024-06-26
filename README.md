@@ -18,7 +18,6 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## TODO
 
-- the years in the select in practice tab must be dynamic starting 2023
 - add caching of the api calls
 - add tests - and most importantly tests of the aggregated lap time logic
 - implement Tyres route with its corresponding logic
