@@ -121,7 +121,7 @@ const Header = () => {
             </Grid>
 
             <Grid item xs align="right">
-              <IconContext.Provider value={{ style: styles.icons }}>
+              <IconContext.Provider value={{ style: styles.drawerIcon }}>
                 <RxHamburgerMenu onClick={toggleDrawer(true)} />
               </IconContext.Provider>
             </Grid>

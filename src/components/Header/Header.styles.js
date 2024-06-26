@@ -38,10 +38,11 @@ const getStyles = () => ({
     borderBottomLeftRadius: '0',
     borderTopRightRadius: '0',
   },
-  icons: {
+  drawerIcon: {
     color: 'white',
     height: '28px',
     width: '28px',
+    margin: '6px 0 0 0',
   },
   drawerListContainer: {
     width: 250,
