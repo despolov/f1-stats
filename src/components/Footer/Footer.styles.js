@@ -35,6 +35,7 @@ const getStyles = () => ({
   },
   linkButton: {
     padding: 0,
+    justifyContent: 'left',
   },
   linkContainer: {
     margin: '0 0 20px 0',
