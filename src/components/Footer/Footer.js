@@ -5,6 +5,7 @@ import getStyles from './Footer.styles';
 import MainLogo from '../MainLogo';
 import { FaGithub } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
+import moment from 'moment';
 
 const styles = getStyles();
 
@@ -53,7 +54,9 @@ const Footer = () => (
       </Grid>
 
       <Grid item xs={12} align="center" sx={styles.bottomItem}>
-        <Typography sx={styles.rightsText}>2024 - Georgi Despolov</Typography>
+        <Typography sx={styles.rightsText}>
+          {moment().year()} - Georgi Despolov
+        </Typography>
       </Grid>
     </Grid>
 
