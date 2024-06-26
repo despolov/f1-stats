@@ -1,10 +1,11 @@
 const getStyles = () => ({
-  subTitleH5: {
+  singleWeatherContainer: {
     margin: '5px 0 0 0',
     borderRight: '2px solid #f7f4f1',
     '&:last-child': { borderRight: 'none' },
+    padding: '0 10px 0 0',
   },
-  subTitleH5Mobile: {
+  singleWeatherContainerMobile: {
     margin: '5px 0 0 0',
   },
   container: {
