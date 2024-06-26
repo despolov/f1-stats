@@ -9,11 +9,12 @@ import {
   ListItemButton,
   Divider,
   Button,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import getStyles from './Header.styles';
-import useIsMobile from '../../hooks/useIsMobile';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IconContext } from 'react-icons';
 import MainLogo from '../MainLogo';
@@ -82,8 +83,9 @@ const DrawerList = ({ toggleDrawer, pathname }) => (
 
 const Header = () => {
   const { pathname } = useLocation();
-  const isMobile = useIsMobile();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
@@ -98,7 +100,7 @@ const Header = () => {
         alignItems="center"
         sx={styles.headerGrid}
       >
-        {!isMobile && (
+        {isDesktop && (
           <>
             <Grid item xs={1} align="left" sx={styles.headerGridItem}>
               <MainLogo />
@@ -114,7 +116,7 @@ const Header = () => {
           </>
         )}
 
-        {isMobile && (
+        {!isDesktop && (
           <>
             <Grid item align="left" sx={styles.headerGridItem}>
               <MainLogo />

@@ -5,6 +5,8 @@ import {
   FormControl,
   Select,
   CircularProgress,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import getStyles from './Select.styles';
 
@@ -12,6 +14,8 @@ const styles = getStyles();
 
 const SimpleSelect = (props) => {
   const { disabled, value, onChange, label, data, loading } = props;
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <FormControl fullWidth>
@@ -31,6 +35,11 @@ const SimpleSelect = (props) => {
         inputProps={{ 'aria-label': 'Without label' }}
         sx={styles.select}
         fullWidth={false}
+        MenuProps={{
+          PaperProps: {
+            sx: isDesktop ? {} : styles.selectDropdownMobile,
+          },
+        }}
       >
         <MenuItem disabled value="">
           <em>{label}</em>
