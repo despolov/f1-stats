@@ -52,6 +52,17 @@ const PracticeStats = () => {
   const [error, setStateError] = useState('');
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const shouldRenderPracticeResults =
+    !practiceStatsLoading &&
+    (practice1Stats.length > 0 ||
+      practice2Stats.length > 0 ||
+      practice3Stats.length > 0);
+
+  const shouldRenderInitMessage =
+    !practiceStatsLoading &&
+    practice1Stats.length === 0 &&
+    practice2Stats.length === 0 &&
+    practice3Stats.length === 0;
 
   useEffect(() => {
     const startYear = 2023;
@@ -192,29 +203,79 @@ const PracticeStats = () => {
     setPracticeStatsLoading(false);
   };
 
+  const renderSelect = () => (
+    <SelectFieldsContainer
+      sx={isDesktop ? {} : styles.selectFieldsContainerMobile}
+    >
+      <Select
+        value={year}
+        onChange={handleYearChange}
+        label="Select year"
+        data={years}
+      />
+
+      <Select
+        value={country}
+        onChange={handleCountryChange}
+        label="Select country"
+        data={countries}
+        disabled={countries.length === 0}
+        loading={countrieLoading}
+      />
+    </SelectFieldsContainer>
+  );
+
+  const renderPractice = (title, stats, actualStats, weather, timePeriod) => {
+    if (stats.length === 0) {
+      return null;
+    }
+
+    return (
+      <PracticeContainer>
+        <PracticeTitle>{title}</PracticeTitle>
+
+        {Object.keys(timePeriod).length > 0 && (
+          <PracticeTimeSlot practiceTimePeriod={timePeriod} />
+        )}
+
+        {weather.length > 0 && <PracticeWeather practiceWeather={weather} />}
+
+        <TableContainer sx={isDesktop ? {} : styles.tableContainerMobile}>
+          {isDesktop ? (
+            <>
+              <AggregatedPracticeTable
+                title="Aggregated positions"
+                data={stats}
+              />
+
+              <ActualPracticeTable
+                title="Actual positions"
+                data={actualStats}
+              />
+            </>
+          ) : (
+            <>
+              <AggregatedPracticeMobileTable
+                title="Aggregated pos"
+                data={stats}
+              />
+
+              <ActualPracticeMobileTable
+                title="Actual pos"
+                data={actualStats}
+              />
+            </>
+          )}
+        </TableContainer>
+      </PracticeContainer>
+    );
+  };
+
   if (error) {
     return (
       <Layout>
         <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
-          <SelectFieldsContainer
-            sx={isDesktop ? {} : styles.selectFieldsContainerMobile}
-          >
-            <Select
-              value={year}
-              onChange={handleYearChange}
-              label="Select year"
-              data={years}
-            />
-
-            <Select
-              value={country}
-              onChange={handleCountryChange}
-              label="Select country"
-              data={countries}
-              disabled={countries.length === 0}
-              loading={countrieLoading}
-            />
-          </SelectFieldsContainer>
+          {renderSelect()}
 
           <Divider />
 
@@ -227,178 +288,49 @@ const PracticeStats = () => {
   return (
     <Layout>
       <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
-        <SelectFieldsContainer
-          sx={isDesktop ? {} : styles.selectFieldsContainerMobile}
-        >
-          <Select
-            value={year}
-            onChange={handleYearChange}
-            label="Select year"
-            data={years}
-          />
-
-          <Select
-            value={country}
-            onChange={handleCountryChange}
-            label="Select country"
-            data={countries}
-            disabled={countries.length === 0}
-            loading={countrieLoading}
-          />
-        </SelectFieldsContainer>
+        {renderSelect()}
 
         <Divider />
 
-        {!practiceStatsLoading &&
-        practice1Stats.length === 0 &&
-        practice2Stats.length === 0 &&
-        practice3Stats.length === 0 ? (
+        {shouldRenderInitMessage && (
           <Box component="p">
             Select year and country in order to see practice actual and
             aggregated results
           </Box>
-        ) : practiceStatsLoading ? (
+        )}
+
+        {practiceStatsLoading && (
           <>
             <PracticeTitle>Loading practice stats...</PracticeTitle>
 
             <LinearProgress color="secondary" sx={styles.circularProgress} />
           </>
-        ) : (
+        )}
+
+        {shouldRenderPracticeResults && (
           <>
-            {practice1Stats.length > 0 && (
-              <PracticeContainer>
-                <PracticeTitle>Practice 1</PracticeTitle>
-
-                {Object.keys(practice1TimePeriod).length > 0 && (
-                  <PracticeTimeSlot practiceTimePeriod={practice1TimePeriod} />
-                )}
-
-                {practice1Weather.length > 0 && (
-                  <PracticeWeather practiceWeather={practice1Weather} />
-                )}
-
-                <TableContainer
-                  sx={isDesktop ? {} : styles.tableContainerMobile}
-                >
-                  {isDesktop ? (
-                    <>
-                      <AggregatedPracticeTable
-                        title="Aggregated positions"
-                        data={practice1Stats}
-                      />
-
-                      <ActualPracticeTable
-                        title="Actual positions"
-                        data={practice1ActualStats}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <AggregatedPracticeMobileTable
-                        title="Aggregated pos"
-                        data={practice1Stats}
-                      />
-
-                      <ActualPracticeMobileTable
-                        title="Actual pos"
-                        data={practice1ActualStats}
-                      />
-                    </>
-                  )}
-                </TableContainer>
-              </PracticeContainer>
+            {renderPractice(
+              'Practice 1',
+              practice1Stats,
+              practice1ActualStats,
+              practice1Weather,
+              practice1TimePeriod,
             )}
 
-            {practice2Stats.length > 0 && (
-              <PracticeContainer>
-                <PracticeTitle>Practice 2</PracticeTitle>
-
-                {Object.keys(practice2TimePeriod).length > 0 && (
-                  <PracticeTimeSlot practiceTimePeriod={practice2TimePeriod} />
-                )}
-
-                {practice2Weather.length > 0 && (
-                  <PracticeWeather practiceWeather={practice2Weather} />
-                )}
-
-                {practice2Stats.length > 0 && (
-                  <TableContainer
-                    sx={isDesktop ? {} : styles.tableContainerMobile}
-                  >
-                    {isDesktop ? (
-                      <>
-                        <AggregatedPracticeTable
-                          title="Aggregated positions"
-                          data={practice2Stats}
-                        />
-
-                        <ActualPracticeTable
-                          title="Actual positions"
-                          data={practice2ActualStats}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <AggregatedPracticeMobileTable
-                          title="Aggregated pos"
-                          data={practice2Stats}
-                        />
-
-                        <ActualPracticeMobileTable
-                          title="Actual pos"
-                          data={practice2ActualStats}
-                        />
-                      </>
-                    )}
-                  </TableContainer>
-                )}
-              </PracticeContainer>
+            {renderPractice(
+              'Practice 2',
+              practice2Stats,
+              practice2ActualStats,
+              practice2Weather,
+              practice2TimePeriod,
             )}
 
-            {practice3Stats.length > 0 && (
-              <PracticeContainer>
-                <PracticeTitle>Practice 3</PracticeTitle>
-
-                {Object.keys(practice3TimePeriod).length > 0 && (
-                  <PracticeTimeSlot practiceTimePeriod={practice3TimePeriod} />
-                )}
-
-                {practice3Weather.length > 0 && (
-                  <PracticeWeather practiceWeather={practice3Weather} />
-                )}
-
-                {practice3Stats.length > 0 && (
-                  <TableContainer
-                    sx={isDesktop ? {} : styles.tableContainerMobile}
-                  >
-                    {isDesktop ? (
-                      <>
-                        <AggregatedPracticeTable
-                          title="Aggregated positions"
-                          data={practice3Stats}
-                        />
-
-                        <ActualPracticeTable
-                          title="Actual positions"
-                          data={practice3ActualStats}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <AggregatedPracticeMobileTable
-                          title="Aggregated pos"
-                          data={practice3Stats}
-                        />
-
-                        <ActualPracticeMobileTable
-                          title="Actual pos"
-                          data={practice3ActualStats}
-                        />
-                      </>
-                    )}
-                  </TableContainer>
-                )}
-              </PracticeContainer>
+            {renderPractice(
+              'Practice 3',
+              practice3Stats,
+              practice3ActualStats,
+              practice3Weather,
+              practice3TimePeriod,
             )}
           </>
         )}
