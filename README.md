@@ -1,4 +1,6 @@
-[![pages-build-deployment](https://github.com/despolov/f1-stats/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/despolov/f1-stats/actions/workflows/pages/pages-build-deployment)
+[![pages-build-deployment](https://github.com/despolov/f1-stats/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/despolov/f1-stats/actions/workflows/pages/pages-build-deployment) <br><br>
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/despolov/f1-stats/main?label=main%20-%20last%20commit&labelColor=%233D464E&color=0C7EBF)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/despolov/f1-stats/gh-pages?label=gh%20page%20-%20last%20commit&labelColor=%233D464E&color=0C7EBF)
 
 # F1 Stats
 
