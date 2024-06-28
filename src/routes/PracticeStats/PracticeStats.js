@@ -271,6 +271,54 @@ const PracticeStats = () => {
     );
   };
 
+  const renderPractices = () => {
+    if (!shouldRenderPracticeResults) {
+      return null;
+    }
+
+    return (
+      <>
+        {renderPractice(
+          'Practice 1',
+          practice1Stats,
+          practice1ActualStats,
+          practice1Weather,
+          practice1TimePeriod,
+        )}
+
+        {renderPractice(
+          'Practice 2',
+          practice2Stats,
+          practice2ActualStats,
+          practice2Weather,
+          practice2TimePeriod,
+        )}
+
+        {renderPractice(
+          'Practice 3',
+          practice3Stats,
+          practice3ActualStats,
+          practice3Weather,
+          practice3TimePeriod,
+        )}
+      </>
+    );
+  };
+
+  const renderLoading = () => {
+    if (!practiceStatsLoading) {
+      return null;
+    }
+
+    return (
+      <>
+        <PracticeTitle>Loading practice stats...</PracticeTitle>
+
+        <LinearProgress color="secondary" sx={styles.circularProgress} />
+      </>
+    );
+  };
+
   if (error) {
     return (
       <Layout>
@@ -299,41 +347,9 @@ const PracticeStats = () => {
           </Box>
         )}
 
-        {practiceStatsLoading && (
-          <>
-            <PracticeTitle>Loading practice stats...</PracticeTitle>
+        {renderLoading()}
 
-            <LinearProgress color="secondary" sx={styles.circularProgress} />
-          </>
-        )}
-
-        {shouldRenderPracticeResults && (
-          <>
-            {renderPractice(
-              'Practice 1',
-              practice1Stats,
-              practice1ActualStats,
-              practice1Weather,
-              practice1TimePeriod,
-            )}
-
-            {renderPractice(
-              'Practice 2',
-              practice2Stats,
-              practice2ActualStats,
-              practice2Weather,
-              practice2TimePeriod,
-            )}
-
-            {renderPractice(
-              'Practice 3',
-              practice3Stats,
-              practice3ActualStats,
-              practice3Weather,
-              practice3TimePeriod,
-            )}
-          </>
-        )}
+        {renderPractices()}
       </ParentContainer>
     </Layout>
   );
