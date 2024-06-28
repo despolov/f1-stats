@@ -1,3 +1,5 @@
+[![pages-build-deployment](https://github.com/despolov/f1-stats/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/despolov/f1-stats/actions/workflows/pages/pages-build-deployment)
+
 # F1 Stats
 
 F1 stats is an app for quick check of F1 stats from Practice sessions for each race of the current season
