@@ -24,3 +24,5 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 - add tests - and most importantly tests of the aggregated lap time logic
 - implement Tyres route with its corresponding logic
+- render Tyres per driver in a beautiful way for the practices
+- get the used tyres for quali sprint and sprint quali

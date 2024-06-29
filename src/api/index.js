@@ -153,18 +153,25 @@ const getWeather = async (sessionKey, dateStart, dateEnd, isSessionLive) => {
   }
 };
 
-const getStints = async (meetingKey) => {
+const getStints = async (session_key, isSessionLive) => {
   try {
-    const response = await fetch(
-      `${API_ENDPOINT}/stints?meeting_key=${meetingKey}`,
-    );
-    const stints = await response.json();
+    const key = `stints?session_key=${session_key}`;
+    const storageValue = getSessionStorageValue(key);
+    let stints;
+
+    if (storageValue && !isSessionLive) {
+      stints = storageValue;
+    } else {
+      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      stints = await response.json();
+      setSessionStorageValue(key, stints);
+    }
 
     return stints;
   } catch {
     return {
       hasError: true,
-      message: `There was an error with the fetch of the stints for meeting with key ${meetingKey}!`,
+      message: `There was an error with the fetch of the stints for session with key ${session_key}!`,
     };
   }
 };

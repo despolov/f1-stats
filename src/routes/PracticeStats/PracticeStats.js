@@ -26,7 +26,7 @@ const TableContainer = styled('div')(() => styles.tableContainer);
 
 const PracticeContainer = styled('div')(() => styles.practiceContainer);
 
-const PracticeTitle = styled('h3')(() => styles.practiceTitle);
+const Title = styled('h3')(() => styles.title);
 
 const Divider = styled('div')(() => styles.divider);
 
@@ -232,7 +232,7 @@ const PracticeStats = () => {
 
     return (
       <PracticeContainer>
-        <PracticeTitle>{title}</PracticeTitle>
+        <Title>{title}</Title>
 
         {Object.keys(timePeriod).length > 0 && (
           <PracticeTimeSlot practiceTimePeriod={timePeriod} />
@@ -312,9 +312,9 @@ const PracticeStats = () => {
 
     return (
       <>
-        <PracticeTitle>Loading practice stats...</PracticeTitle>
+        <Title>Loading practice stats...</Title>
 
-        <LinearProgress color="secondary" sx={styles.circularProgress} />
+        <LinearProgress color="secondary" sx={styles.progressLoader} />
       </>
     );
   };
@@ -327,7 +327,7 @@ const PracticeStats = () => {
 
           <Divider />
 
-          <PracticeTitle>{error}</PracticeTitle>
+          <Title>{error}</Title>
         </ParentContainer>
       </Layout>
     );
