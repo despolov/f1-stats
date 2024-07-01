@@ -3,13 +3,6 @@ const getStyles = () => ({
     padding: '20px',
     backgroundColor: '#ffffff',
   },
-  selectFieldsContainer: {
-    display: 'flex',
-    gap: '10px',
-  },
-  selectFieldsContainerMobile: {
-    flexFlow: 'column',
-  },
   progressLoader: {
     marginTop: '20px',
   },

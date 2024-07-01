@@ -6,20 +6,23 @@ import {
   Typography,
   LinearProgress,
   Box,
+  Button,
+  Grid,
 } from '@mui/material';
 import moment from 'moment';
 import { getAllGrandPrix } from '../../api';
 import Layout from '../../components/Layout';
-import Select from '../../components/Select';
 import getStyles from './Tyres.styles';
 import getSessionTyreStats from '../../utils/getSessionTyreStats';
+import getDriverColor from '../../utils/getDriverColor';
 import TyresCircle from '../../components/TyresCircle/TyresCircle';
+import RaceSelect from '../../components/RaceSelect';
+import { IconContext } from 'react-icons';
+import { IoIosPerson } from 'react-icons/io';
 
 const styles = getStyles();
 
 const ParentContainer = styled('div')(() => styles.parentContainer);
-
-const SelectFieldsContainer = styled('div')(() => styles.selectFieldsContainer);
 
 const Title = styled('h3')(() => styles.title);
 
@@ -35,12 +38,8 @@ const Tyres = () => {
   const [countrieLoading, setCountriesLoading] = useState(false);
   const [tyresStatsLoading, setTyresStatsLoading] = useState(false);
   const [error, setStateError] = useState('');
-  const [practiceTyresStats, setPracticeTyresStats] = useState({});
-  const shouldRenderInitMessage =
-    !tyresStatsLoading && practiceTyresStats.length === 0; // &&
-  // qualiTyresStats.length === 0 &&
-  // sprintQualiTyresStats.length === 0 &&
-  // sprintTyresStats.length === 0;
+  const [tyresStats, setTyresStats] = useState({});
+  const shouldRenderInitMessage = !tyresStatsLoading && tyresStats.length === 0;
 
   useEffect(() => {
     const startYear = 2023;
@@ -114,21 +113,24 @@ const Tyres = () => {
       Object.keys(practice).forEach((practiceDriver) => {
         const SOFT =
           (Object.hasOwn(practiceUsedTyres, practiceDriver)
-            ? practiceUsedTyres[practiceDriver].SOFT
-            : 0) + practice[practiceDriver].SOFT;
+            ? practiceUsedTyres[practiceDriver].usedTyres.SOFT
+            : 0) + practice[practiceDriver].usedTyres.SOFT;
         const MEDIUM =
           (Object.hasOwn(practiceUsedTyres, practiceDriver)
-            ? practiceUsedTyres[practiceDriver].MEDIUM
-            : 0) + practice[practiceDriver].MEDIUM;
+            ? practiceUsedTyres[practiceDriver].usedTyres.MEDIUM
+            : 0) + practice[practiceDriver].usedTyres.MEDIUM;
         const HARD =
           (Object.hasOwn(practiceUsedTyres, practiceDriver)
-            ? practiceUsedTyres[practiceDriver].HARD
-            : 0) + practice[practiceDriver].HARD;
+            ? practiceUsedTyres[practiceDriver].usedTyres.HARD
+            : 0) + practice[practiceDriver].usedTyres.HARD;
 
         practiceUsedTyres[practiceDriver] = {
-          SOFT,
-          MEDIUM,
-          HARD,
+          driver: practice[practiceDriver].driver,
+          usedTyres: {
+            SOFT,
+            MEDIUM,
+            HARD,
+          },
         };
       });
     }
@@ -166,29 +168,9 @@ const Tyres = () => {
       addPracticeTyresStats(practice3, practiceUsedTyres);
     }
 
-    setPracticeTyresStats(practiceUsedTyres);
+    // TODO: here we should add the other sessions aswell, but keep in track also the count from each session so we can display it later in a tooltip
+    setTyresStats(practiceUsedTyres);
     setTyresStatsLoading(false);
-
-    // const usedTyresInPractices =
-
-    // each driver gets 13 sets of dry weather tyres 8 softs, 3 mediums, and 2 hards
-    // 12 sets when its a sprint weekend
-    // this will get all of the stints for each driver
-    // return data of a single stint
-    // {
-    // compound: "MEDIUM"
-    // driver_number: 31
-    // lap_end: 4
-    // lap_start: 1
-    // meeting_key: 1230
-    // session_key: 9473
-    // stint_number: 1
-    // tyre_age_at_start: 0
-    // }
-    // this needs to be separated by driver
-    // after that separate it by compound and save the lap start and end so we can check later if the same tyres are used again or check for the stintNumber
-    // const meeting = await getMeeting(selectedCountry, selectedYear);
-    // const stints = await getStints(meeting[0].meeting_key);
   };
 
   const renderLoading = () => {
@@ -205,111 +187,171 @@ const Tyres = () => {
     );
   };
 
-  const renderSelect = () => (
-    <SelectFieldsContainer
-      sx={isDesktop ? {} : styles.selectFieldsContainerMobile}
-    >
-      <Select
-        value={year}
-        onChange={handleYearChange}
-        label="Select year"
-        data={years}
-      />
+  // TODO: to be extracted as a component
+  // TODO: extract the styles
+  const renderDriverTyresCard = (stats) => {
+    const { driver, usedTyres } = stats;
+    const { SOFT, MEDIUM, HARD } = usedTyres;
+    const {
+      name_acronym,
+      driver_number,
+      headshot_url,
+      team_name,
+      team_colour,
+      first_name,
+      last_name,
+    } = driver;
 
-      <Select
-        value={country}
-        onChange={handleCountryChange}
-        label="Select country"
-        data={countries}
-        disabled={countries.length === 0}
-        loading={countrieLoading}
-      />
-    </SelectFieldsContainer>
-  );
+    return (
+      <Box
+        key={name_acronym}
+        sx={{
+          border: '1px solid grey',
+          borderRadius: '8px',
+          padding: '20px',
+          minWidth: isDesktop ? '400px' : '100%',
+        }}
+      >
+        <Grid
+          container
+          align="center"
+          justifyContent="center"
+          alignItems="center"
+          gap="5px"
+        >
+          <Grid item xs align="left">
+            <Box sx={{ display: 'flex', marginBottom: '10px' }}>
+              <Box
+                sx={{
+                  borderLeft: `5px solid #${
+                    team_colour || getDriverColor(name_acronym)
+                  }`,
+                  marginRight: '5px',
+                }}
+              />
 
-  const renderPracticeTyres = () => {
-    if (!practiceTyresStats) {
+              <Typography component="span" sx={{ marginRight: '5px' }}>
+                {first_name}
+              </Typography>
+
+              <Typography component="span" sx={{ fontWeight: 600 }}>
+                {last_name}
+              </Typography>
+            </Box>
+
+            <Typography sx={{ color: '#67676D', fontSize: '12px' }}>
+              {team_name}
+            </Typography>
+          </Grid>
+
+          <Grid item xs align="center">
+            <Typography
+              sx={{
+                color: `#${team_colour}`,
+                fontWeight: 600,
+                fontSize: '28px',
+              }}
+            >
+              {driver_number}
+            </Typography>
+          </Grid>
+
+          <Grid item xs align="right">
+            {headshot_url ? (
+              <img
+                src={`${headshot_url}?w=164&h=164&fit=crop&auto=format`}
+                alt={name_acronym}
+                loading="lazy"
+              />
+            ) : (
+              <IconContext.Provider
+                value={{ style: { width: '93px', height: '93px' } }}
+              >
+                <IoIosPerson />
+              </IconContext.Provider>
+            )}
+          </Grid>
+        </Grid>
+
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            margin: '0 0 10px 0',
+          }}
+        >
+          <TyresCircle compound="SOFT" />
+
+          <Typography>Used: {SOFT}</Typography>
+
+          {/* TODO: this should be based if its a sprintweekend */}
+          <Typography>New: {8 - SOFT}</Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            margin: '0 0 10px 0',
+          }}
+        >
+          <TyresCircle compound="MEDIUM" />
+
+          <Typography>Used: {MEDIUM}</Typography>
+
+          {/* TODO: this should be based if its a sprintweekend */}
+          <Typography>New: {3 - MEDIUM}</Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            margin: '0 0 20px 0',
+          }}
+        >
+          <TyresCircle compound="HARD" />
+
+          <Typography>Used: {HARD}</Typography>
+
+          {/* TODO: this should be based if its a sprintweekend */}
+          <Typography>New: {2 - HARD}</Typography>
+        </Box>
+
+        <Button variant="contained" color="primary" fullWidth>
+          {/* TODO - create a route and show the driver stints there - practices, quali, sprint and sprint quali */}
+          All stints
+        </Button>
+      </Box>
+    );
+  };
+
+  // TODO: extract styles
+  const renderTyresStats = () => {
+    if (!tyresStats) {
       return null;
     }
-
-    const practiceTyres = [];
-
-    Object.keys(practiceTyresStats).forEach((driver) => {
-      return (
-        <Box>
-          <Typography>{driver}</Typography>
-        </Box>
-      );
-    });
 
     return (
       <>
         <Typography sx={{ margin: '0 0 20px 0' }}>
-          Practice tyres count
+          {/* TODO: this message should depend if the weekend is a sprint one */}
+          Tyres count from practices, sprint quali, sprint and quali
         </Typography>
 
-        {/* each driver gets 13 sets of dry weather tyres 8 softs, 3 mediums, and 2 hards */}
+        <Typography sx={{ margin: '0 0 20px 0' }}>
+          {/* TODO: remove this once other sessions are implemented */}
+          currently: Pratices only
+        </Typography>
 
-        {Object.keys(practiceTyresStats).map((driver) => {
-          return (
-            <Box sx={{ margin: '0 0 40px 0' }}>
-              <Typography sx={{ margin: '0 0 10px 0' }}>{driver}</Typography>
-
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  margin: '0 0 10px 0',
-                }}
-              >
-                <TyresCircle compound="SOFT" />
-
-                <Typography>used: {practiceTyresStats[driver].SOFT}</Typography>
-
-                <Typography>
-                  new: {8 - practiceTyresStats[driver].SOFT}
-                </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  margin: '0 0 10px 0',
-                }}
-              >
-                <TyresCircle compound="MEDIUM" />
-
-                <Typography>
-                  used: {practiceTyresStats[driver].MEDIUM}
-                </Typography>
-
-                <Typography>
-                  new: {3 - practiceTyresStats[driver].MEDIUM}
-                </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  margin: '0 0 10px 0',
-                }}
-              >
-                <TyresCircle compound="HARD" />
-
-                <Typography>used: {practiceTyresStats[driver].HARD}</Typography>
-
-                <Typography>
-                  new: {2 - practiceTyresStats[driver].HARD}
-                </Typography>
-              </Box>
-            </Box>
-          );
-        })}
+        <Box sx={{ display: 'flex', gap: '40px', flexWrap: 'wrap' }}>
+          {Object.keys(tyresStats).map((driverAcronym) =>
+            renderDriverTyresCard(tyresStats[driverAcronym]),
+          )}
+        </Box>
       </>
     );
   };
@@ -318,7 +360,15 @@ const Tyres = () => {
     return (
       <Layout>
         <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
-          {renderSelect()}
+          <RaceSelect
+            year={year}
+            handleYearChange={handleYearChange}
+            years={years}
+            country={country}
+            handleCountryChange={handleCountryChange}
+            countries={countries}
+            countrieLoading={countrieLoading}
+          />
 
           <Divider />
 
@@ -331,11 +381,20 @@ const Tyres = () => {
   return (
     <Layout>
       <ParentContainer>
-        <Typography sx={{ margin: '0 0 10px 0' }}>
-          🚧 Work in progress 🚧{' '}
+        <Typography sx={{ margin: '0 0 20px auto' }}>
+          {/* TODO: to be removed once route is implemented */}
+          🚧 Work in progress 🚧
         </Typography>
 
-        {renderSelect()}
+        <RaceSelect
+          year={year}
+          handleYearChange={handleYearChange}
+          years={years}
+          country={country}
+          handleCountryChange={handleCountryChange}
+          countries={countries}
+          countrieLoading={countrieLoading}
+        />
 
         <Divider />
 
@@ -347,7 +406,7 @@ const Tyres = () => {
 
         {renderLoading()}
 
-        {renderPracticeTyres()}
+        {renderTyresStats()}
       </ParentContainer>
     </Layout>
   );

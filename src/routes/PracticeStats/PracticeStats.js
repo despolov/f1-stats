@@ -4,7 +4,6 @@ import Layout from '../../components/Layout';
 import getStyles from './PracticeStats.styles';
 import { LinearProgress, useMediaQuery, useTheme, Box } from '@mui/material';
 import { getAllGrandPrix } from '../../api';
-import Select from '../../components/Select';
 import AggregatedPracticeTable from '../../components/AggregatedPracticeTable';
 import AggregatedPracticeMobileTable from '../../components/AggregatedPracticeMobileTable';
 import ActualPracticeTable from '../../components/ActualPracticeTable';
@@ -15,12 +14,11 @@ import PracticeWeather from '../../components/PracticeWeather';
 import getSinglePracticeStats from '../../utils/getSinglePracticeStats';
 import addGapBetweenDrivers from '../../utils/addGapBetweenDrivers';
 import moment from 'moment';
+import RaceSelect from '../../components/RaceSelect/RaceSelect';
 
 const styles = getStyles();
 
 const ParentContainer = styled('div')(() => styles.parentContainer);
-
-const SelectFieldsContainer = styled('div')(() => styles.selectFieldsContainer);
 
 const TableContainer = styled('div')(() => styles.tableContainer);
 
@@ -203,28 +201,6 @@ const PracticeStats = () => {
     setPracticeStatsLoading(false);
   };
 
-  const renderSelect = () => (
-    <SelectFieldsContainer
-      sx={isDesktop ? {} : styles.selectFieldsContainerMobile}
-    >
-      <Select
-        value={year}
-        onChange={handleYearChange}
-        label="Select year"
-        data={years}
-      />
-
-      <Select
-        value={country}
-        onChange={handleCountryChange}
-        label="Select country"
-        data={countries}
-        disabled={countries.length === 0}
-        loading={countrieLoading}
-      />
-    </SelectFieldsContainer>
-  );
-
   const renderPractice = (title, stats, actualStats, weather, timePeriod) => {
     if (stats.length === 0) {
       return null;
@@ -323,8 +299,15 @@ const PracticeStats = () => {
     return (
       <Layout>
         <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
-          {renderSelect()}
-
+          <RaceSelect
+            year={year}
+            handleYearChange={handleYearChange}
+            years={years}
+            country={country}
+            handleCountryChange={handleCountryChange}
+            countries={countries}
+            countrieLoading={countrieLoading}
+          />
           <Divider />
 
           <Title>{error}</Title>
@@ -336,7 +319,15 @@ const PracticeStats = () => {
   return (
     <Layout>
       <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
-        {renderSelect()}
+        <RaceSelect
+          year={year}
+          handleYearChange={handleYearChange}
+          years={years}
+          country={country}
+          handleCountryChange={handleCountryChange}
+          countries={countries}
+          countrieLoading={countrieLoading}
+        />
 
         <Divider />
 

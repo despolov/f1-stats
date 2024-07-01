@@ -1,56 +1,31 @@
 import React from 'react';
-import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
-import getStyles from './TyresCircle.styles';
-
-const styles = getStyles();
+import softTyreImg from '../../assets/icons/soft.png';
+import mediumTyreImg from '../../assets/icons/medium.png';
+import hardTyreImg from '../../assets/icons/hard.png';
+import intermediateTyreImg from '../../assets/icons/intermediate.png';
+import wetTyreImg from '../../assets/icons/wet.png';
 
 const TyresCircle = (props) => {
   const { compound } = props;
-  // const theme = useTheme();
-  // const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
-
-  let color = 'black';
-  let letter = compound;
 
   if (compound === 'SOFT') {
-    color = 'red';
-    letter = 'S';
+    return <img src={softTyreImg} alt="mediumTyre" width="70" height="70" />;
   } else if (compound === 'MEDIUM') {
-    color = 'yellow';
-    letter = 'M';
+    return <img src={mediumTyreImg} alt="mediumTyre" width="70" height="70" />;
   } else if (compound === 'HARD') {
-    color = 'white';
-    letter = 'H';
+    return <img src={hardTyreImg} alt="mediumTyre" width="70" height="70" />;
+  } else if (compound === 'INTERMEDIATE') {
+    return (
+      <img
+        src={intermediateTyreImg}
+        alt="intermediateTyre"
+        width="70"
+        height="70"
+      />
+    );
+  } else if (compound === 'WET') {
+    return <img src={wetTyreImg} alt="wetTyre" width="70" height="70" />;
   }
-
-  return (
-    <Box
-      sx={{
-        width: 50,
-        height: 50,
-        backgroundColor: color,
-        borderRadius: '50%',
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        border: '4px solid black',
-      }}
-    >
-      <Typography
-        variant="h1"
-        component="div"
-        sx={{
-          color: 'black',
-          fontWeight: 'bold',
-          zIndex: 1,
-          fontSize: '25px',
-        }}
-      >
-        {letter}
-      </Typography>
-    </Box>
-  );
 };
 
 export default TyresCircle;

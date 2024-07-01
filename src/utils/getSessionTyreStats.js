@@ -54,10 +54,32 @@ const getSessionTyreStats = async (
   }
 
   const allStintsPerDriver = orderStintsPerDriver(allStints);
+  // each driver gets 13 sets of dry weather tyres 8 softs, 3 mediums, and 2 hards
+  // 12 sets when its a sprint weekend
+  // {
+  // compound: "MEDIUM"
+  // driver_number: 31
+  // lap_end: 4
+  // lap_start: 1
+  // meeting_key: 1230
+  // session_key: 9473
+  // stint_number: 1
+  // tyre_age_at_start: 0
+  // }
+
   const tyresPerDriver = {};
 
   for (const driver of drivers) {
-    const { driver_number, name_acronym } = driver;
+    const {
+      driver_number,
+      name_acronym,
+      full_name,
+      first_name,
+      last_name,
+      team_name,
+      team_colour,
+      headshot_url,
+    } = driver;
     const driverStints = allStintsPerDriver[driver_number] || [];
     const usedTyresCountForDriver = {
       SOFT: 0,
@@ -73,7 +95,19 @@ const getSessionTyreStats = async (
       }
     });
 
-    tyresPerDriver[name_acronym] = usedTyresCountForDriver;
+    tyresPerDriver[name_acronym] = {
+      driver: {
+        full_name,
+        name_acronym,
+        driver_number,
+        headshot_url,
+        team_name,
+        team_colour,
+        first_name,
+        last_name,
+      },
+      usedTyres: usedTyresCountForDriver,
+    };
   }
 
   return tyresPerDriver;

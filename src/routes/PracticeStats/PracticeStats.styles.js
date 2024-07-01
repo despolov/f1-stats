@@ -6,10 +6,6 @@ const getStyles = () => ({
   parentContainerMobile: {
     padding: '8px 8px 24px 8px',
   },
-  selectFieldsContainer: {
-    display: 'flex',
-    gap: '10px',
-  },
   tableContainer: {
     display: 'flex',
     gap: '10px',
@@ -27,9 +23,6 @@ const getStyles = () => ({
   },
   progressLoader: {
     marginTop: '20px',
-  },
-  selectFieldsContainerMobile: {
-    flexFlow: 'column',
   },
   tableContainerMobile: {
     flexFlow: 'row',
