@@ -13,6 +13,14 @@ const getStyles = () => ({
     borderBottom: '2px solid #f7f4f1',
     margin: '20px 0 20px 0',
   },
+  subTitle: {
+    margin: '0 0 20px 0',
+  },
+  statsContainer: {
+    display: 'flex',
+    gap: '40px',
+    flexWrap: 'wrap',
+  },
 });
 
 export default getStyles;

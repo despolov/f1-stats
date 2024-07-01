@@ -1,5 +1,6 @@
 import { getDrivers, getSession, getStints } from '../api';
 import moment from 'moment';
+import { orderBy } from 'lodash';
 
 const orderStintsPerDriver = (stints) =>
   stints.reduce((accumulator, stint) => {
@@ -39,7 +40,8 @@ const getSessionTyreStats = async (
   const startDate = moment(dateStart);
   const endDate = moment(dateEnd);
   const isLive = moment().isBetween(startDate, endDate);
-  const drivers = await getDrivers(sessionKey, isLive);
+  const allDrivers = await getDrivers(sessionKey, isLive);
+  const drivers = orderBy(allDrivers, ['team_name']);
 
   if (drivers.hasError) {
     setError(drivers.message);
@@ -55,7 +57,8 @@ const getSessionTyreStats = async (
 
   const allStintsPerDriver = orderStintsPerDriver(allStints);
   // each driver gets 13 sets of dry weather tyres 8 softs, 3 mediums, and 2 hards
-  // 12 sets when its a sprint weekend
+  // 12 sets when its a sprint weekend 6 softs, 4 mediums and 2 hards
+  // 4 intermediate tyres and 3 of wet
   // {
   // compound: "MEDIUM"
   // driver_number: 31
@@ -85,6 +88,8 @@ const getSessionTyreStats = async (
       SOFT: 0,
       MEDIUM: 0,
       HARD: 0,
+      INTERMEDIATE: 0,
+      WET: 0,
     };
 
     driverStints.forEach((stint) => {

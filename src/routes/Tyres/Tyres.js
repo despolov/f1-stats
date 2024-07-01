@@ -8,6 +8,7 @@ import {
   Box,
   Button,
   Grid,
+  Tooltip,
 } from '@mui/material';
 import moment from 'moment';
 import { getAllGrandPrix } from '../../api';
@@ -19,6 +20,8 @@ import TyresCircle from '../../components/TyresCircle/TyresCircle';
 import RaceSelect from '../../components/RaceSelect';
 import { IconContext } from 'react-icons';
 import { IoIosPerson } from 'react-icons/io';
+import { FaCircleInfo } from 'react-icons/fa6';
+import checkIsSprintWeekend from '../../utils/checkIsSprintWeekend';
 
 const styles = getStyles();
 
@@ -39,7 +42,9 @@ const Tyres = () => {
   const [tyresStatsLoading, setTyresStatsLoading] = useState(false);
   const [error, setStateError] = useState('');
   const [tyresStats, setTyresStats] = useState({});
-  const shouldRenderInitMessage = !tyresStatsLoading && tyresStats.length === 0;
+  const [isSprintWeekend, setIsSprintWeekend] = useState(false);
+  const shouldRenderInitMessage =
+    !tyresStatsLoading && Object.keys(tyresStats).length === 0;
 
   useEffect(() => {
     const startYear = 2023;
@@ -64,6 +69,10 @@ const Tyres = () => {
     if (country) {
       setTyresStatsLoading(true);
       getTyresStats(year, country.split(' - ')[0]);
+
+      const isSprint = checkIsSprintWeekend(year, country);
+
+      setIsSprintWeekend(isSprint);
     }
   }, [country]);
 
@@ -108,29 +117,43 @@ const Tyres = () => {
     setCountriesLoading(false);
   };
 
-  const addPracticeTyresStats = (practice, practiceUsedTyres) => {
-    if (practice && Object.keys(practice).length > 0) {
-      Object.keys(practice).forEach((practiceDriver) => {
-        const SOFT =
-          (Object.hasOwn(practiceUsedTyres, practiceDriver)
-            ? practiceUsedTyres[practiceDriver].usedTyres.SOFT
-            : 0) + practice[practiceDriver].usedTyres.SOFT;
-        const MEDIUM =
-          (Object.hasOwn(practiceUsedTyres, practiceDriver)
-            ? practiceUsedTyres[practiceDriver].usedTyres.MEDIUM
-            : 0) + practice[practiceDriver].usedTyres.MEDIUM;
-        const HARD =
-          (Object.hasOwn(practiceUsedTyres, practiceDriver)
-            ? practiceUsedTyres[practiceDriver].usedTyres.HARD
-            : 0) + practice[practiceDriver].usedTyres.HARD;
+  const addSessionTyresStats = (session, sessionUsedTyres, sessionType) => {
+    if (session && Object.keys(session).length > 0) {
+      const sessionKey = `${sessionType}UsedTyres`;
 
-        practiceUsedTyres[practiceDriver] = {
-          driver: practice[practiceDriver].driver,
+      Object.keys(session).forEach((practiceDriver) => {
+        const SOFT =
+          (Object.hasOwn(sessionUsedTyres, practiceDriver)
+            ? sessionUsedTyres[practiceDriver].usedTyres.SOFT
+            : 0) + session[practiceDriver].usedTyres.SOFT;
+        const MEDIUM =
+          (Object.hasOwn(sessionUsedTyres, practiceDriver)
+            ? sessionUsedTyres[practiceDriver].usedTyres.MEDIUM
+            : 0) + session[practiceDriver].usedTyres.MEDIUM;
+        const HARD =
+          (Object.hasOwn(sessionUsedTyres, practiceDriver)
+            ? sessionUsedTyres[practiceDriver].usedTyres.HARD
+            : 0) + session[practiceDriver].usedTyres.HARD;
+        const INTERMEDIATE =
+          (Object.hasOwn(sessionUsedTyres, practiceDriver)
+            ? sessionUsedTyres[practiceDriver].usedTyres.INTERMEDIATE
+            : 0) + session[practiceDriver].usedTyres.INTERMEDIATE;
+        const WET =
+          (Object.hasOwn(sessionUsedTyres, practiceDriver)
+            ? sessionUsedTyres[practiceDriver].usedTyres.WET
+            : 0) + session[practiceDriver].usedTyres.WET;
+
+        sessionUsedTyres[practiceDriver] = {
+          ...sessionUsedTyres[practiceDriver],
+          driver: session[practiceDriver].driver,
           usedTyres: {
             SOFT,
             MEDIUM,
             HARD,
+            INTERMEDIATE,
+            WET,
           },
+          [sessionKey]: session[practiceDriver].usedTyres,
         };
       });
     }
@@ -155,21 +178,32 @@ const Tyres = () => {
       selectedCountry,
       setError,
     );
-    // TODO: get for qualifying
-    // TODO: get for spirnt quali if it has
-    // TODO: get for sprint if it has
+    const sprint = await getSessionTyreStats(
+      'Sprint',
+      selectedYear,
+      selectedCountry,
+      setError,
+    );
+    const quali = await getSessionTyreStats(
+      'Qualifying',
+      selectedYear,
+      selectedCountry,
+      setError,
+    );
+    // const sprintQuali = await getSessionTyreStats( endpoint doesnt work for now
+    //   'Sprint',
+    //   selectedYear,
+    //   selectedCountry,
+    //   setError,
+    // );
+    let sessionsUsedTyres = {};
 
-    let practiceUsedTyres = {};
-
-    if (Object.keys(practice1).length > 0) {
-      practiceUsedTyres = { ...practice1 };
-
-      addPracticeTyresStats(practice2, practiceUsedTyres);
-      addPracticeTyresStats(practice3, practiceUsedTyres);
-    }
-
-    // TODO: here we should add the other sessions aswell, but keep in track also the count from each session so we can display it later in a tooltip
-    setTyresStats(practiceUsedTyres);
+    addSessionTyresStats(practice1, sessionsUsedTyres, 'practice1');
+    addSessionTyresStats(practice2, sessionsUsedTyres, 'practice2');
+    addSessionTyresStats(practice3, sessionsUsedTyres, 'practice3');
+    addSessionTyresStats(sprint, sessionsUsedTyres, 'sprint');
+    addSessionTyresStats(quali, sessionsUsedTyres, 'quali');
+    setTyresStats(sessionsUsedTyres);
     setTyresStatsLoading(false);
   };
 
@@ -190,8 +224,16 @@ const Tyres = () => {
   // TODO: to be extracted as a component
   // TODO: extract the styles
   const renderDriverTyresCard = (stats) => {
-    const { driver, usedTyres } = stats;
-    const { SOFT, MEDIUM, HARD } = usedTyres;
+    const {
+      driver,
+      usedTyres,
+      practice1UsedTyres,
+      practice2UsedTyres,
+      practice3UsedTyres,
+      qualiUsedTyres,
+      sprintUsedTyres,
+    } = stats;
+    const { SOFT, MEDIUM, HARD, INTERMEDIATE, WET } = usedTyres;
     const {
       name_acronym,
       driver_number,
@@ -285,8 +327,52 @@ const Tyres = () => {
 
           <Typography>Used: {SOFT}</Typography>
 
-          {/* TODO: this should be based if its a sprintweekend */}
-          <Typography>New: {8 - SOFT}</Typography>
+          <Typography>New: {(isSprintWeekend ? 6 : 8) - SOFT}</Typography>
+
+          <Tooltip
+            title={
+              <Box>
+                {practice1UsedTyres ? (
+                  <Typography>
+                    Practice 1 - {practice1UsedTyres.SOFT} set/s
+                  </Typography>
+                ) : null}
+
+                {practice2UsedTyres ? (
+                  <Typography>
+                    Practice 2 - {practice2UsedTyres.SOFT} set/s
+                  </Typography>
+                ) : null}
+
+                {practice3UsedTyres ? (
+                  <Typography>
+                    Practice 3 - {practice3UsedTyres.SOFT} set/s
+                  </Typography>
+                ) : null}
+
+                {sprintUsedTyres ? (
+                  <Typography>Sprint - {sprintUsedTyres.SOFT} set/s</Typography>
+                ) : null}
+
+                {qualiUsedTyres ? (
+                  <Typography>
+                    Qualification - {qualiUsedTyres.SOFT} set/s
+                  </Typography>
+                ) : null}
+              </Box>
+            }
+            arrow
+            enterTouchDelay={0}
+            leaveTouchDelay={5000}
+          >
+            <Box sx={{ marginBottom: '-5px' }}>
+              <IconContext.Provider
+                value={{ style: { width: '20px', height: '20px' } }}
+              >
+                <FaCircleInfo />
+              </IconContext.Provider>
+            </Box>
+          </Tooltip>
         </Box>
 
         <Box
@@ -301,8 +387,54 @@ const Tyres = () => {
 
           <Typography>Used: {MEDIUM}</Typography>
 
-          {/* TODO: this should be based if its a sprintweekend */}
-          <Typography>New: {3 - MEDIUM}</Typography>
+          <Typography>New: {(isSprintWeekend ? 4 : 3) - MEDIUM}</Typography>
+
+          <Tooltip
+            title={
+              <Box>
+                {practice1UsedTyres ? (
+                  <Typography>
+                    Practice 1 - {practice1UsedTyres.MEDIUM} set/s
+                  </Typography>
+                ) : null}
+
+                {practice2UsedTyres ? (
+                  <Typography>
+                    Practice 2 - {practice2UsedTyres.MEDIUM} set/s
+                  </Typography>
+                ) : null}
+
+                {practice3UsedTyres ? (
+                  <Typography>
+                    Practice 3 - {practice3UsedTyres.MEDIUM} set/s
+                  </Typography>
+                ) : null}
+
+                {sprintUsedTyres ? (
+                  <Typography>
+                    Sprint - {sprintUsedTyres.MEDIUM} set/s
+                  </Typography>
+                ) : null}
+
+                {qualiUsedTyres ? (
+                  <Typography>
+                    Qualification - {qualiUsedTyres.MEDIUM} set/s
+                  </Typography>
+                ) : null}
+              </Box>
+            }
+            arrow
+            enterTouchDelay={0}
+            leaveTouchDelay={5000}
+          >
+            <Box sx={{ marginBottom: '-5px' }}>
+              <IconContext.Provider
+                value={{ style: { width: '20px', height: '20px' } }}
+              >
+                <FaCircleInfo />
+              </IconContext.Provider>
+            </Box>
+          </Tooltip>
         </Box>
 
         <Box
@@ -317,9 +449,181 @@ const Tyres = () => {
 
           <Typography>Used: {HARD}</Typography>
 
-          {/* TODO: this should be based if its a sprintweekend */}
           <Typography>New: {2 - HARD}</Typography>
+
+          <Tooltip
+            title={
+              <Box>
+                {practice1UsedTyres ? (
+                  <Typography>
+                    Practice 1 - {practice1UsedTyres.HARD} set/s
+                  </Typography>
+                ) : null}
+
+                {practice2UsedTyres ? (
+                  <Typography>
+                    Practice 2 - {practice2UsedTyres.HARD} set/s
+                  </Typography>
+                ) : null}
+
+                {practice3UsedTyres ? (
+                  <Typography>
+                    Practice 3 - {practice3UsedTyres.HARD} set/s
+                  </Typography>
+                ) : null}
+
+                {sprintUsedTyres ? (
+                  <Typography>Sprint - {sprintUsedTyres.HARD} set/s</Typography>
+                ) : null}
+
+                {qualiUsedTyres ? (
+                  <Typography>
+                    Qualification - {qualiUsedTyres.HARD} set/s
+                  </Typography>
+                ) : null}
+              </Box>
+            }
+            arrow
+            enterTouchDelay={0}
+            leaveTouchDelay={5000}
+          >
+            <Box sx={{ marginBottom: '-5px' }}>
+              <IconContext.Provider
+                value={{ style: { width: '20px', height: '20px' } }}
+              >
+                <FaCircleInfo />
+              </IconContext.Provider>
+            </Box>
+          </Tooltip>
         </Box>
+
+        {usedTyres.INTERMEDIATE > 0 && (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              margin: '0 0 20px 0',
+            }}
+          >
+            <TyresCircle compound="INTERMEDIATE" />
+
+            <Typography>Used: {INTERMEDIATE}</Typography>
+
+            <Typography>New: {4 - INTERMEDIATE}</Typography>
+
+            <Tooltip
+              title={
+                <Box>
+                  {practice1UsedTyres ? (
+                    <Typography>
+                      Practice 1 - {practice1UsedTyres.INTERMEDIATE} set/s
+                    </Typography>
+                  ) : null}
+
+                  {practice2UsedTyres ? (
+                    <Typography>
+                      Practice 2 - {practice2UsedTyres.INTERMEDIATE} set/s
+                    </Typography>
+                  ) : null}
+
+                  {practice3UsedTyres ? (
+                    <Typography>
+                      Practice 3 - {practice3UsedTyres.INTERMEDIATE} set/s
+                    </Typography>
+                  ) : null}
+
+                  {sprintUsedTyres ? (
+                    <Typography>
+                      Sprint - {sprintUsedTyres.INTERMEDIATE} set/s
+                    </Typography>
+                  ) : null}
+
+                  {qualiUsedTyres ? (
+                    <Typography>
+                      Qualification - {qualiUsedTyres.INTERMEDIATE} set/s
+                    </Typography>
+                  ) : null}
+                </Box>
+              }
+              arrow
+              enterTouchDelay={0}
+              leaveTouchDelay={5000}
+            >
+              <Box sx={{ marginBottom: '-5px' }}>
+                <IconContext.Provider
+                  value={{ style: { width: '20px', height: '20px' } }}
+                >
+                  <FaCircleInfo />
+                </IconContext.Provider>
+              </Box>
+            </Tooltip>
+          </Box>
+        )}
+
+        {usedTyres.WET > 0 && (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              margin: '0 0 20px 0',
+            }}
+          >
+            <TyresCircle compound="WET" />
+
+            <Typography>Used: {WET}</Typography>
+
+            <Typography>New: {4 - WET}</Typography>
+
+            <Tooltip
+              title={
+                <Box>
+                  {practice1UsedTyres ? (
+                    <Typography>
+                      Practice 1 - {practice1UsedTyres.WET} set/s
+                    </Typography>
+                  ) : null}
+
+                  {practice2UsedTyres ? (
+                    <Typography>
+                      Practice 2 - {practice2UsedTyres.WET} set/s
+                    </Typography>
+                  ) : null}
+
+                  {practice3UsedTyres ? (
+                    <Typography>
+                      Practice 3 - {practice3UsedTyres.WET} set/s
+                    </Typography>
+                  ) : null}
+
+                  {sprintUsedTyres ? (
+                    <Typography>
+                      Sprint - {sprintUsedTyres.WET} set/s
+                    </Typography>
+                  ) : null}
+
+                  {qualiUsedTyres ? (
+                    <Typography>
+                      Qualification - {qualiUsedTyres.WET} set/s
+                    </Typography>
+                  ) : null}
+                </Box>
+              }
+              arrow
+              enterTouchDelay={0}
+              leaveTouchDelay={5000}
+            >
+              <Box sx={{ marginBottom: '-5px' }}>
+                <IconContext.Provider
+                  value={{ style: { width: '20px', height: '20px' } }}
+                >
+                  <FaCircleInfo />
+                </IconContext.Provider>
+              </Box>
+            </Tooltip>
+          </Box>
+        )}
 
         <Button variant="contained" color="primary" fullWidth>
           {/* TODO - create a route and show the driver stints there - practices, quali, sprint and sprint quali */}
@@ -329,25 +633,20 @@ const Tyres = () => {
     );
   };
 
-  // TODO: extract styles
   const renderTyresStats = () => {
-    if (!tyresStats) {
+    if (Object.keys(tyresStats).length === 0 || tyresStatsLoading) {
       return null;
     }
 
     return (
       <>
-        <Typography sx={{ margin: '0 0 20px 0' }}>
-          {/* TODO: this message should depend if the weekend is a sprint one */}
-          Tyres count from practices, sprint quali, sprint and quali
+        <Typography sx={styles.subTitle}>
+          {isSprintWeekend
+            ? 'New and used tyres from practices, sprint and quali'
+            : 'New and used tyres from practices and quali'}
         </Typography>
 
-        <Typography sx={{ margin: '0 0 20px 0' }}>
-          {/* TODO: remove this once other sessions are implemented */}
-          currently: Pratices only
-        </Typography>
-
-        <Box sx={{ display: 'flex', gap: '40px', flexWrap: 'wrap' }}>
+        <Box sx={styles.statsContainer}>
           {Object.keys(tyresStats).map((driverAcronym) =>
             renderDriverTyresCard(tyresStats[driverAcronym]),
           )}
@@ -382,7 +681,6 @@ const Tyres = () => {
     <Layout>
       <ParentContainer>
         <Typography sx={{ margin: '0 0 20px auto' }}>
-          {/* TODO: to be removed once route is implemented */}
           🚧 Work in progress 🚧
         </Typography>
 
