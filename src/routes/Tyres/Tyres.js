@@ -13,6 +13,7 @@ import Layout from '../../components/Layout';
 import Select from '../../components/Select';
 import getStyles from './Tyres.styles';
 import getSessionTyreStats from '../../utils/getSessionTyreStats';
+import TyresCircle from '../../components/TyresCircle/TyresCircle';
 
 const styles = getStyles();
 
@@ -226,6 +227,93 @@ const Tyres = () => {
     </SelectFieldsContainer>
   );
 
+  const renderPracticeTyres = () => {
+    if (!practiceTyresStats) {
+      return null;
+    }
+
+    const practiceTyres = [];
+
+    Object.keys(practiceTyresStats).forEach((driver) => {
+      return (
+        <Box>
+          <Typography>{driver}</Typography>
+        </Box>
+      );
+    });
+
+    return (
+      <>
+        <Typography sx={{ margin: '0 0 20px 0' }}>
+          Practice tyres count
+        </Typography>
+
+        {/* each driver gets 13 sets of dry weather tyres 8 softs, 3 mediums, and 2 hards */}
+
+        {Object.keys(practiceTyresStats).map((driver) => {
+          return (
+            <Box sx={{ margin: '0 0 40px 0' }}>
+              <Typography sx={{ margin: '0 0 10px 0' }}>{driver}</Typography>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  margin: '0 0 10px 0',
+                }}
+              >
+                <TyresCircle compound="SOFT" />
+
+                <Typography>used: {practiceTyresStats[driver].SOFT}</Typography>
+
+                <Typography>
+                  new: {8 - practiceTyresStats[driver].SOFT}
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  margin: '0 0 10px 0',
+                }}
+              >
+                <TyresCircle compound="MEDIUM" />
+
+                <Typography>
+                  used: {practiceTyresStats[driver].MEDIUM}
+                </Typography>
+
+                <Typography>
+                  new: {3 - practiceTyresStats[driver].MEDIUM}
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  margin: '0 0 10px 0',
+                }}
+              >
+                <TyresCircle compound="HARD" />
+
+                <Typography>used: {practiceTyresStats[driver].HARD}</Typography>
+
+                <Typography>
+                  new: {2 - practiceTyresStats[driver].HARD}
+                </Typography>
+              </Box>
+            </Box>
+          );
+        })}
+      </>
+    );
+  };
+
   if (error) {
     return (
       <Layout>
@@ -258,6 +346,8 @@ const Tyres = () => {
         )}
 
         {renderLoading()}
+
+        {renderPracticeTyres()}
       </ParentContainer>
     </Layout>
   );
