@@ -13,7 +13,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import getStyles from './Header.styles';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IconContext } from 'react-icons';
@@ -23,11 +23,20 @@ const styles = getStyles();
 
 const MainContainer = styled('header')(() => styles.header);
 
-const StyledLink = styled(Link)(() => styles.link);
+const PracticeStatsLink = ({ pathname }) => {
+  const navigate = useNavigate();
 
-const PracticeStatsLink = ({ pathname }) => (
-  <StyledLink to="/practiceStats" sx={styles.buttonLink}>
-    <Button sx={pathname === '/practiceStats' ? styles.buttonActive : {}}>
+  return (
+    <Button
+      sx={pathname === '/practiceStats' ? styles.buttonActive : {}}
+      onClick={() => {
+        if (pathname === '/practiceStats') {
+          return;
+        }
+
+        navigate('/practiceStats');
+      }}
+    >
       <Typography
         component="span"
         sx={
@@ -39,12 +48,23 @@ const PracticeStatsLink = ({ pathname }) => (
         Practice stats
       </Typography>
     </Button>
-  </StyledLink>
-);
+  );
+};
 
-const TyresLink = ({ pathname }) => (
-  <StyledLink to="/tyres" sx={styles.buttonLink}>
-    <Button sx={pathname === '/tyres' ? styles.buttonActive : {}}>
+const TyresLink = ({ pathname }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Button
+      sx={pathname === '/tyres' ? styles.buttonActive : {}}
+      onClick={() => {
+        if (pathname === '/tyres') {
+          return;
+        }
+
+        navigate('/tyres');
+      }}
+    >
       <Typography
         component="span"
         sx={pathname === '/tyres' ? styles.buttonTextActive : styles.buttonText}
@@ -52,8 +72,8 @@ const TyresLink = ({ pathname }) => (
         Tyres
       </Typography>
     </Button>
-  </StyledLink>
-);
+  );
+};
 
 const DrawerList = ({ toggleDrawer, pathname }) => (
   <Box

@@ -40,10 +40,7 @@ const DriverTyresCard = (props) => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
-    <Box
-      key={name_acronym}
-      sx={isDesktop ? styles.container : styles.containerMobile}
-    >
+    <Box sx={isDesktop ? styles.container : styles.containerMobile}>
       <Grid
         container
         align="center"

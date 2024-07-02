@@ -1,11 +1,4 @@
 const getStyles = () => ({
-  link: {
-    margin: '0 24px 0 0',
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'none',
-    },
-  },
   header: {
     background: '#E10600',
     height: '68px',

@@ -21,13 +21,6 @@ const getStyles = () => ({
     height: '25px',
     marginLeft: '18px',
   },
-  link: {
-    margin: '0 24px 0 0',
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'none',
-    },
-  },
   mainButton: {
     fontSize: '13px',
     lineHeight: '26px',
@@ -36,6 +29,7 @@ const getStyles = () => ({
   linkButton: {
     padding: 0,
     justifyContent: 'left',
+    margin: '0 24px 0 0',
   },
   linkContainer: {
     margin: '0 0 20px 0',

@@ -233,6 +233,7 @@ const Tyres = () => {
         <Box sx={styles.statsContainer}>
           {Object.keys(tyresStats).map((driverAcronym) => (
             <DriverTyresCard
+              key={`driver_tyres_card_${driverAcronym}`}
               stats={tyresStats[driverAcronym]}
               isSprintWeekend={isSprintWeekend}
             />
