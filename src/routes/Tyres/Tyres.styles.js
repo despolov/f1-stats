@@ -3,6 +3,9 @@ const getStyles = () => ({
     padding: '20px',
     backgroundColor: '#ffffff',
   },
+  parentContainerMobile: {
+    padding: '8px 8px 24px 8px',
+  },
   progressLoader: {
     marginTop: '20px',
   },
@@ -15,10 +18,16 @@ const getStyles = () => ({
   },
   subTitle: {
     margin: '0 0 10px 0',
+    fontWeight: 600,
   },
   statsContainer: {
     display: 'flex',
     gap: '40px',
+    flexWrap: 'wrap',
+  },
+  statsContainerMobile: {
+    display: 'flex',
+    gap: '20px',
     flexWrap: 'wrap',
   },
 });

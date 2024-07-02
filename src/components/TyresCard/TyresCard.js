@@ -1,5 +1,11 @@
 import React from 'react';
-import { Box, Typography, Tooltip } from '@mui/material';
+import {
+  useTheme,
+  useMediaQuery,
+  Box,
+  Typography,
+  Tooltip,
+} from '@mui/material';
 import getStyles from './TyresCard.styles';
 import { IconContext } from 'react-icons';
 import { FaCircleInfo } from 'react-icons/fa6';
@@ -18,9 +24,11 @@ const TyresCard = (props) => {
     qualiUsedTyres,
     totalTyresCount,
   } = props;
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
-    <Box sx={styles.container}>
+    <Box sx={isDesktop ? styles.container : styles.containerMobile}>
       <TyresCircle compound={compound} />
 
       <Typography>Used: {tyresCount}</Typography>

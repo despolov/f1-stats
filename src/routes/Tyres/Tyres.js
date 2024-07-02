@@ -222,15 +222,17 @@ const Tyres = () => {
 
     return (
       <>
-        <Typography sx={styles.subTitle}>
+        <Typography component="h4" sx={styles.subTitle}>
           {isSprintWeekend
-            ? 'New and used tyres from practices, sprint and quali'
-            : 'New and used tyres from practices and quali'}
+            ? 'New and used tyres from practices, sprint and qualifying'
+            : 'New and used tyres from practices and qualifying'}
         </Typography>
 
         <TyresLegend isSprintWeekend={isSprintWeekend} component="inline" />
 
-        <Box sx={styles.statsContainer}>
+        <Box
+          sx={isDesktop ? styles.statsContainer : styles.statsContainerMobile}
+        >
           {Object.keys(tyresStats).map((driverAcronym) => (
             <DriverTyresCard
               key={`driver_tyres_card_${driverAcronym}`}
@@ -267,11 +269,7 @@ const Tyres = () => {
 
   return (
     <Layout>
-      <ParentContainer>
-        <Typography sx={{ margin: '0 0 20px auto' }}>
-          🚧 Work in progress 🚧
-        </Typography>
-
+      <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
         <RaceSelect
           year={year}
           handleYearChange={handleYearChange}

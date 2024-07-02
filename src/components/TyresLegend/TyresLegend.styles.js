@@ -27,6 +27,7 @@ const getStyles = () => ({
   },
   tyresRowInline: {
     display: 'flex',
+    flexWrap: 'wrap',
     gap: '10px',
     alignItems: 'center',
     margin: '0 0 20px 0',
