@@ -16,6 +16,7 @@ import RaceSelect from '../../components/RaceSelect';
 import checkIsSprintWeekend from '../../utils/checkIsSprintWeekend';
 import DriverTyresCard from '../../components/DriverTyresCard/DriverTyresCard';
 import TyresLegend from '../../components/TyresLegend/TyresLegend';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 const styles = getStyles();
 
@@ -37,6 +38,8 @@ const Tyres = () => {
   const [error, setStateError] = useState('');
   const [tyresStats, setTyresStats] = useState({});
   const [isSprintWeekend, setIsSprintWeekend] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const shouldRenderInitMessage =
     !tyresStatsLoading && Object.keys(tyresStats).length === 0;
 
@@ -50,10 +53,29 @@ const Tyres = () => {
     }
 
     setYears(availableYears);
+
+    const paramYear = searchParams.get('year');
+
+    if (paramYear) {
+      const isParamYearValid = availableYears.some(
+        (availableYear) => availableYear === Number(paramYear),
+      );
+
+      if (isParamYearValid) {
+        handleYearChange({ target: { value: paramYear } });
+      } else {
+        resetData();
+        navigate('/tyres');
+      }
+    }
   }, []);
 
   useEffect(() => {
     if (year) {
+      setSearchParams((params) => {
+        params.set('year', year);
+        return params;
+      });
       getCountries(year);
       setCountriesLoading(true);
     }
@@ -61,6 +83,10 @@ const Tyres = () => {
 
   useEffect(() => {
     if (country) {
+      setSearchParams((params) => {
+        params.set('country', country);
+        return params;
+      });
       setTyresStatsLoading(true);
       getTyresStats(year, country.split(' - ')[0]);
 
@@ -71,6 +97,8 @@ const Tyres = () => {
   }, [country]);
 
   const resetData = () => {
+    setTyresStats({});
+    setIsSprintWeekend(false);
     setStateError('');
   };
 
@@ -103,12 +131,28 @@ const Tyres = () => {
       return;
     }
 
-    setCountries(
-      allGrandPrix.map(
-        (granPrix) => `${granPrix.country_name} - ${granPrix.meeting_name}`,
-      ),
+    const mappedCountries = allGrandPrix.map(
+      (granPrix) => `${granPrix.country_name} - ${granPrix.meeting_name}`,
     );
+
+    setCountries(mappedCountries);
     setCountriesLoading(false);
+
+    const paramCountry = searchParams.get('country');
+
+    if (paramCountry) {
+      const isParamCountryValid = mappedCountries.some(
+        (mappedCountry) => mappedCountry === paramCountry,
+      );
+
+      if (isParamCountryValid) {
+        handleCountryChange({ target: { value: paramCountry } });
+      } else {
+        resetData();
+        setYear('');
+        navigate('/tyres');
+      }
+    }
   };
 
   const addSessionTyresStats = (session, sessionUsedTyres, sessionType) => {

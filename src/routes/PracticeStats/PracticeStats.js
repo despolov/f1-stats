@@ -15,6 +15,7 @@ import getSinglePracticeStats from '../../utils/getSinglePracticeStats';
 import addGapBetweenDrivers from '../../utils/addGapBetweenDrivers';
 import moment from 'moment';
 import RaceSelect from '../../components/RaceSelect/RaceSelect';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 const styles = getStyles();
 
@@ -50,6 +51,8 @@ const PracticeStats = () => {
   const [error, setStateError] = useState('');
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const shouldRenderPracticeResults =
     !practiceStatsLoading &&
     (practice1Stats.length > 0 ||
@@ -72,10 +75,29 @@ const PracticeStats = () => {
     }
 
     setYears(availableYears);
+
+    const paramYear = searchParams.get('year');
+
+    if (paramYear) {
+      const isParamYearValid = availableYears.some(
+        (availableYear) => availableYear === Number(paramYear),
+      );
+
+      if (isParamYearValid) {
+        handleYearChange({ target: { value: paramYear } });
+      } else {
+        resetData();
+        navigate('/practiceStats');
+      }
+    }
   }, []);
 
   useEffect(() => {
     if (year) {
+      setSearchParams((params) => {
+        params.set('year', year);
+        return params;
+      });
       getCountries(year);
       setCountriesLoading(true);
     }
@@ -83,6 +105,10 @@ const PracticeStats = () => {
 
   useEffect(() => {
     if (country) {
+      setSearchParams((params) => {
+        params.set('country', country);
+        return params;
+      });
       setPracticeStatsLoading(true);
       getAllPracticesStats(year, country.split(' - ')[0]);
     }
@@ -133,12 +159,28 @@ const PracticeStats = () => {
       return;
     }
 
-    setCountries(
-      allGrandPrix.map(
-        (granPrix) => `${granPrix.country_name} - ${granPrix.meeting_name}`,
-      ),
+    const mappedCountries = allGrandPrix.map(
+      (granPrix) => `${granPrix.country_name} - ${granPrix.meeting_name}`,
     );
+
+    setCountries(mappedCountries);
     setCountriesLoading(false);
+
+    const paramCountry = searchParams.get('country');
+
+    if (paramCountry) {
+      const isParamCountryValid = mappedCountries.some(
+        (mappedCountry) => mappedCountry === paramCountry,
+      );
+
+      if (isParamCountryValid) {
+        handleCountryChange({ target: { value: paramCountry } });
+      } else {
+        resetData();
+        setYear('');
+        navigate('/practiceStats');
+      }
+    }
   };
 
   const getAllPracticesStats = async (selectedYear, selectedCountry) => {
