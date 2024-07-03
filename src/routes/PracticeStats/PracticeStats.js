@@ -350,6 +350,7 @@ const PracticeStats = () => {
             countries={countries}
             countrieLoading={countrieLoading}
           />
+
           <Divider />
 
           <Title>{error}</Title>
