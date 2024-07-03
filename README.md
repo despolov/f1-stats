@@ -10,6 +10,8 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 - Aggregated lap time based on the best sectors of each driver from every Practice session and the actual standings for comparison
 
+- Used and New tyres count for each driver from every available session before the race
+
 ## Sources
 
 - Data source: <https://openf1.org/>
@@ -18,6 +20,7 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 - deps install: npm i
 - local run: npm run start
+- tests run: npm run test
 - app deploy: npm run deploy
 
 ## TODO
