@@ -1,12 +1,17 @@
 {
   "files": {
-    "main.js": "/f1-stats/static/js/main.7541a2f7.js",
+    "main.js": "/f1-stats/static/js/main.cf5f5fcf.js",
+    "static/media/wet.png": "/f1-stats/static/media/wet.2e382b19ae725dd499cc.png",
+    "static/media/intermediate.png": "/f1-stats/static/media/intermediate.08c766ca45a9027c6244.png",
     "static/media/Formula1-Regular.woff2": "/f1-stats/static/media/Formula1-Regular.3291cdd5521e03a241bc.woff2",
     "static/media/logo-512x512.png": "/f1-stats/static/media/logo-512x512.4a78ea60f35f9fb22881.png",
+    "static/media/medium.png": "/f1-stats/static/media/medium.aa3b6278944178475c80.png",
+    "static/media/soft.png": "/f1-stats/static/media/soft.7eb66ec5389d41dd9202.png",
+    "static/media/hard.png": "/f1-stats/static/media/hard.eec83d9b59321149c290.png",
     "index.html": "/f1-stats/index.html",
-    "main.7541a2f7.js.map": "/f1-stats/static/js/main.7541a2f7.js.map"
+    "main.cf5f5fcf.js.map": "/f1-stats/static/js/main.cf5f5fcf.js.map"
   },
   "entrypoints": [
-    "static/js/main.7541a2f7.js"
+    "static/js/main.cf5f5fcf.js"
   ]
 }
