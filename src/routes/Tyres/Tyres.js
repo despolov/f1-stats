@@ -16,7 +16,11 @@ import RaceSelect from '../../components/RaceSelect';
 import checkIsSprintWeekend from '../../utils/checkIsSprintWeekend';
 import DriverTyresCard from '../../components/DriverTyresCard/DriverTyresCard';
 import TyresLegend from '../../components/TyresLegend/TyresLegend';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import {
+  useSearchParams,
+  useNavigate,
+  createSearchParams,
+} from 'react-router-dom';
 
 const styles = getStyles();
 
@@ -282,6 +286,17 @@ const Tyres = () => {
               key={`driver_tyres_card_${driverAcronym}`}
               stats={tyresStats[driverAcronym]}
               isSprintWeekend={isSprintWeekend}
+              onAllStintsClick={() => {
+                navigate({
+                  pathname: '/stints',
+                  search: createSearchParams({
+                    year,
+                    country: country.split(' - ')[0],
+                    driverNumber:
+                      tyresStats[driverAcronym].driver.driver_number,
+                  }).toString(),
+                });
+              }}
             />
           ))}
         </Box>
