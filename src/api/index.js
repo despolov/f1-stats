@@ -153,9 +153,11 @@ const getWeather = async (sessionKey, dateStart, dateEnd, isSessionLive) => {
   }
 };
 
-const getStints = async (session_key, isSessionLive) => {
+const getStints = async (session_key, isSessionLive, driverNumber) => {
   try {
-    const key = `stints?session_key=${session_key}`;
+    const key = `stints?session_key=${session_key}${
+      driverNumber ? `&driver_number=${driverNumber}` : ''
+    }`;
     const storageValue = getSessionStorageValue(key);
     let stints;
 
