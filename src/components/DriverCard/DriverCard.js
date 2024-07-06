@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import getDriverColor from '../../utils/getDriverColor';
-import getStyles from './DriverTyresCard.styles';
+import getStyles from './DriverCard.styles';
 import { IconContext } from 'react-icons';
 import { IoIosPerson } from 'react-icons/io';
 
