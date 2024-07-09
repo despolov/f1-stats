@@ -139,144 +139,104 @@ const Stints = () => {
     return <DriverCard driver={driver} />;
   };
 
+  const renderStintGraph = (sessionStint, totalLaps) => {
+    const {
+      compound,
+      // driver_number,
+      lap_start,
+      lap_end,
+      stint_number,
+      // tyre_age_at_start,
+    } = sessionStint;
+    let stintColor;
+    const currentStintLaps = lap_end - lap_start + 1;
+    const currentStintPercentage = (100 * currentStintLaps) / totalLaps;
+
+    if (compound === 'SOFT') {
+      stintColor = 'rgba(249, 0, 33, 1)';
+    } else if (compound === 'MEDIUM') {
+      stintColor = 'rgba(243,195,2,1)';
+    } else if (compound === 'HARD') {
+      stintColor = 'rgba(0,0,0,1)';
+    } else if (compound === 'INTERMEDIATE') {
+      stintColor = 'rgba(1,157,46,1)';
+    } else if (compound === 'WET') {
+      stintColor = 'rgba(47,98,161,1)';
+    }
+
+    return (
+      <Box
+        key={`${driverNumber}-stint-${stint_number}`}
+        sx={{
+          display: 'flex',
+          width: `${currentStintPercentage}%`,
+          height: '26px',
+        }}
+      >
+        <Box
+          sx={{
+            zIndex: 1,
+            height: '26px',
+            width: '26px',
+            backgroundColor: 'white',
+            borderRadius: '50%',
+          }}
+        >
+          <TyresCircle compound={compound} size="26" />
+        </Box>
+
+        <Box
+          sx={{
+            width: 'calc(100% - 24px)',
+            margin: '0 0 0 -13px',
+            backgroundColor: stintColor,
+          }}
+        />
+
+        <Box
+          sx={{
+            height: '26px',
+            width: '26px',
+            textAlign: 'center',
+            color: 'white',
+            backgroundColor: stintColor,
+            borderRadius: '50%',
+            margin: '0 0 0 -13px',
+          }}
+        >
+          {currentStintLaps}
+        </Box>
+      </Box>
+    );
+  };
+
   const renderStintsForSession = (session, title) => {
+    const totalLaps = session[session.length - 1].lap_end;
+
     return (
       <>
         <Title>{title}</Title>
 
-        <Typography>
-          total laps: {session[session.length - 1].lap_end}
-        </Typography>
+        <Typography>total laps: {totalLaps}</Typography>
 
         <Box
           sx={{ display: 'flex', width: '100%', margin: '40px 0', gap: '2px' }}
         >
           {session.map((sessionStint) => {
-            const {
-              compound,
-              // driver_number,
-              lap_start,
-              lap_end,
-              stint_number,
-              tyre_age_at_start,
-            } = sessionStint;
-            let stintGradientMainColor;
-            let stintGradientSecondaryColor;
-            const totalLaps = session[session.length - 1].lap_end;
-            const currentStintLaps = lap_end - lap_start + 1;
-            const currentStintPercentage = (100 * currentStintLaps) / totalLaps;
-
-            if (compound === 'SOFT') {
-              stintGradientMainColor = 'rgba(249, 0, 33, 1)';
-              stintGradientSecondaryColor = 'rgba(255,255,255,1)';
-            } else if (compound === 'MEDIUM') {
-              stintGradientMainColor = 'rgba(243,195,2,1)';
-              stintGradientSecondaryColor = 'rgba(255,255,255,1)';
-            } else if (compound === 'HARD') {
-              stintGradientMainColor = 'rgba(0,0,0,1)';
-              stintGradientSecondaryColor = 'rgba(255,255,255,1)';
-            } else if (compound === 'INTERMEDIATE') {
-              stintGradientMainColor = 'rgba(1,157,46,1)';
-              stintGradientSecondaryColor = 'rgba(0,0,0,1)';
-            } else if (compound === 'WET') {
-              stintGradientMainColor = 'rgba(47,98,161,1)';
-              stintGradientSecondaryColor = 'rgba(0,0,0,1)';
-            }
-
-            return (
-              <Box
-                sx={{
-                  display: 'flex',
-                  width: `${currentStintPercentage}%`,
-                  height: '26px',
-                }}
-              >
-                <Box
-                  sx={{
-                    zIndex: 1,
-                    height: '26px',
-                    width: '26px',
-                    backgroundColor: 'white',
-                    borderRadius: '50%',
-                  }}
-                >
-                  <TyresCircle compound={compound} size="26" />
-                </Box>
-
-                <Box
-                  sx={{
-                    width: 'calc(100% - 24px)',
-                    margin: '0 0 0 -13px',
-                    backgroundColor: stintGradientMainColor,
-                  }}
-                />
-
-                {/* <Box
-                  sx={{
-                    height: '26px',
-                    width: '24px',
-                    textAlign: 'center',
-                  }}
-                >
-                  {currentStintLaps}
-                </Box> */}
-
-                <Box
-                  sx={{
-                    height: '26px',
-                    width: '26px',
-                    textAlign: 'center',
-                    color: 'white',
-                    backgroundColor: stintGradientMainColor,
-                    borderRadius: '50%',
-                    margin: '0 0 0 -13px',
-                  }}
-                >
-                  {currentStintLaps}
-                </Box>
-              </Box>
-            );
+            return renderStintGraph(sessionStint, totalLaps);
           })}
         </Box>
 
         {session.map((sessionStint) => {
           const {
             compound,
-            // driver_number,
             lap_start,
             lap_end,
             stint_number,
             tyre_age_at_start,
           } = sessionStint;
-          let stintGraphColor;
-          let stintGradientMainColor;
-          let stintGradientSecondaryColor;
           const totalLaps = session[session.length - 1].lap_end;
           const currentStintLaps = lap_end - lap_start + 1;
-          const currentStintPercentage = (100 * currentStintLaps) / totalLaps;
-
-          if (compound === 'SOFT') {
-            stintGraphColor = '#F90021';
-            // roso corsa = #CC0000
-            stintGradientMainColor = 'rgba(249, 0, 33, 1)';
-            stintGradientSecondaryColor = 'rgba(255,255,255,1)';
-          } else if (compound === 'MEDIUM') {
-            stintGraphColor = '#F3C302';
-            stintGradientMainColor = 'rgba(243,195,2,1)';
-            stintGradientSecondaryColor = 'rgba(255,255,255,1)';
-          } else if (compound === 'HARD') {
-            stintGraphColor = '#000000';
-            stintGradientMainColor = 'rgba(0,0,0,1)';
-            stintGradientSecondaryColor = 'rgba(255,255,255,1)';
-          } else if (compound === 'INTERMEDIATE') {
-            stintGraphColor = '#019D2E';
-            stintGradientMainColor = 'rgba(1,157,46,1)';
-            stintGradientSecondaryColor = 'rgba(0,0,0,1)';
-          } else if (compound === 'WET') {
-            stintGraphColor = '#2F62A1';
-            stintGradientMainColor = 'rgba(47,98,161,1)';
-            stintGradientSecondaryColor = 'rgba(0,0,0,1)';
-          }
 
           return (
             <Box
@@ -285,95 +245,17 @@ const Stints = () => {
             >
               <Typography>compound={compound}</Typography>
 
-              <Box sx={{ display: 'flex' }}>
-                <Typography>lap_start={lap_start}</Typography>
+              <Typography>lap_start={lap_start}</Typography>
 
-                <Typography>lap_end={lap_end}</Typography>
+              <Typography>lap_end={lap_end}</Typography>
 
-                <Typography>laps count={currentStintLaps}</Typography>
-              </Box>
+              <Typography>laps count={currentStintLaps}</Typography>
 
               <Typography>stint_number={stint_number}</Typography>
 
               <Typography>tyre_age_at_start={tyre_age_at_start}</Typography>
 
-              <Box
-                sx={{
-                  display: 'flex',
-                  width: `${currentStintPercentage}%`,
-                  height: '26px',
-                }}
-              >
-                <Box
-                  sx={{
-                    height: '26px',
-                    width: '26px',
-                    backgroundColor: stintGraphColor,
-                    borderRadius: '50%',
-                    color: 'white',
-                    textAlign: 'center',
-                    lineHeight: '25px',
-                  }}
-                >
-                  {compound.substring(0, 1)}
-                </Box>
-
-                <Box
-                  sx={{
-                    border: `5px solid ${stintGraphColor}`,
-                    height: 0,
-                    width: 'calc(100% - 52px)',
-                    margin: '8px 0 8px 0',
-                  }}
-                />
-
-                <Box
-                  sx={{
-                    height: '26px',
-                    width: '26px',
-                    // backgroundColor: stintGraphColor,
-                    // borderRadius: '50%',
-                    textAlign: 'center',
-                    lineHeight: '25px',
-                  }}
-                >
-                  {currentStintLaps}
-                </Box>
-              </Box>
-
-              <Box
-                sx={{
-                  display: 'flex',
-                  width: `${currentStintPercentage}%`,
-                  height: '52px',
-                  lineHeight: '51px',
-                }}
-              >
-                <TyresCircle compound={compound} size="52" />
-
-                <Box
-                  sx={{
-                    // border: `10px solid ${stintGraphColor}`,
-                    // height: 0,
-                    width: 'calc(100% - 52px - 24px)',
-                    // margin: '16px 0 16px 0',
-                    background: `linear-gradient(90deg, ${stintGradientSecondaryColor} 0%, ${stintGradientMainColor} 25%, ${stintGradientMainColor} 50%, ${stintGradientMainColor} 75%, ${stintGradientSecondaryColor} 100%)`,
-                  }}
-                />
-
-                <Box
-                  sx={{
-                    height: '52px',
-                    width: '24px',
-                    // backgroundColor: stintGraphColor,
-                    // borderRadius: '50%',
-                    textAlign: 'center',
-                    lineHeight: '51px',
-                  }}
-                >
-                  {currentStintLaps}
-                </Box>
-              </Box>
+              {renderStintGraph(sessionStint, totalLaps)}
             </Box>
           );
         })}
