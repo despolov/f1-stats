@@ -155,6 +155,7 @@ const Header = () => {
         sx={styles.drawer}
         open={openDrawer}
         onClose={toggleDrawer(false)}
+        anchor="right"
       >
         <DrawerList toggleDrawer={toggleDrawer} pathname={pathname} />
       </Drawer>
