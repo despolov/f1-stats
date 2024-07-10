@@ -94,7 +94,7 @@ const Tyres = () => {
       setTyresStatsLoading(true);
       getTyresStats(year, country.split(' - ')[0]);
 
-      const isSprint = checkIsSprintWeekend(year, country);
+      const isSprint = checkIsSprintWeekend(Number(year), country);
 
       setIsSprintWeekend(isSprint);
     }
@@ -276,7 +276,7 @@ const Tyres = () => {
             : 'New and used tyres from practices and qualifying'}
         </Typography>
 
-        <TyresLegend isSprintWeekend={isSprintWeekend} component="inline" />
+        <TyresLegend isSprintWeekend={isSprintWeekend} component="image" />
 
         <Box
           sx={isDesktop ? styles.statsContainer : styles.statsContainerMobile}

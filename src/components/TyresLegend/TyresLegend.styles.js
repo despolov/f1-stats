@@ -44,6 +44,29 @@ const getStyles = () => ({
   wetLabel: {
     color: '#2F62A1',
   },
+  containerImage: {
+    textAlign: 'center',
+    margin: '0 0 40px 0',
+  },
+  labelsContainerImage: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '52px',
+    marginTop: '-20px',
+  },
+  containerImageMobile: {
+    textAlign: 'center',
+    margin: '0 0 20px 0',
+  },
+  labelsContainerImageMobile: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    gap: '12px',
+    marginTop: '-7px',
+  },
+  allTyresImg: {
+    objectFit: 'cover',
+  },
 });
 
 export default getStyles;
