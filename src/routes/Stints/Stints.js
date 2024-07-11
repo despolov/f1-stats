@@ -524,6 +524,12 @@ const Stints = () => {
   return (
     <Layout>
       <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography sx={{ fontSize: '22px', fontWeight: 700 }}>
+            🚧 Work in progress 🚧
+          </Typography>
+        </Box>
+
         {renderLoading()}
 
         {renderDriverInfo()}
