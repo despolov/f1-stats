@@ -24,7 +24,7 @@ const getStyles = () => ({
     display: 'flex',
     gap: '40px',
     flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
   statsContainerMobile: {
     display: 'flex',
