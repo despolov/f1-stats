@@ -30,4 +30,5 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
   - all styles must be exported
   - componets must be exported out of the route
   - driver data should be rendered with an image
+  - mobile support should be added for the stints breakdown and all stints
 - add tests on the components and utils
