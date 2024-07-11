@@ -25,5 +25,9 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## TODO
 
-- add a route with all of the stints a drive made with a link from the Tyres route
+- Stints route
+  - stints breakdown should be in accordion
+  - all styles must be exported
+  - componets must be exported out of the route
+  - driver data should be rendered with an image
 - add tests on the components and utils
