@@ -56,20 +56,6 @@ const getSessionTyreStats = async (
   }
 
   const allStintsPerDriver = orderStintsPerDriver(allStints);
-  // each driver gets 13 sets of dry weather tyres 8 softs, 3 mediums, and 2 hards
-  // 12 sets when its a sprint weekend 6 softs, 4 mediums and 2 hards
-  // 4 intermediate tyres and 3 of wet
-  // {
-  // compound: "MEDIUM"
-  // driver_number: 31
-  // lap_end: 4
-  // lap_start: 1
-  // meeting_key: 1230
-  // session_key: 9473
-  // stint_number: 1
-  // tyre_age_at_start: 0
-  // }
-
   const tyresPerDriver = {};
 
   for (const driver of drivers) {

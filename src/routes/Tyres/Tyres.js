@@ -220,6 +220,12 @@ const Tyres = () => {
       selectedCountry,
       setError,
     );
+    const sprintQuali = await getSessionTyreStats(
+      'Sprint Qualifying',
+      selectedYear,
+      selectedCountry,
+      setError,
+    );
     const sprint = await getSessionTyreStats(
       'Sprint',
       selectedYear,
@@ -232,17 +238,12 @@ const Tyres = () => {
       selectedCountry,
       setError,
     );
-    // const sprintQuali = await getSessionTyreStats( endpoint doesnt work for now
-    //   'Sprint',
-    //   selectedYear,
-    //   selectedCountry,
-    //   setError,
-    // );
     let sessionsUsedTyres = {};
 
     addSessionTyresStats(practice1, sessionsUsedTyres, 'practice1');
     addSessionTyresStats(practice2, sessionsUsedTyres, 'practice2');
     addSessionTyresStats(practice3, sessionsUsedTyres, 'practice3');
+    addSessionTyresStats(sprintQuali, sessionsUsedTyres, 'sprintQuali');
     addSessionTyresStats(sprint, sessionsUsedTyres, 'sprint');
     addSessionTyresStats(quali, sessionsUsedTyres, 'quali');
     setTyresStats(sessionsUsedTyres);
