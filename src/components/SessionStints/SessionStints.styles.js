@@ -15,10 +15,6 @@ const getStyles = () => ({
   subTitle: {
     margin: '0 0 5px 0',
   },
-  divider: {
-    borderBottom: '1px solid #f7f4f1',
-    margin: '20px 0',
-  },
   titleContainer: {
     display: 'flex',
     gap: '6px',
@@ -36,12 +32,29 @@ const getStyles = () => ({
     gap: '2px',
   },
   stintsBreakDownTitle: {
-    margin: '0 0 20px 0',
+    margin: '0',
   },
   stintCardsContainer: {
     display: 'flex',
     gap: '45px',
     flexWrap: 'wrap',
+  },
+  accordionDetails: {
+    padding: '20px',
+    border: 'none',
+  },
+  accordionSummary: {
+    padding: '0',
+  },
+  accordion: {
+    padding: '0',
+    border: '2px solid #f7f4f1',
+    borderLeft: 'transparent',
+    borderRight: 'transparent',
+    boxShadow: 'none',
+    '&::before': {
+      display: 'none',
+    },
   },
 });
 

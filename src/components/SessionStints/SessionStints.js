@@ -1,5 +1,12 @@
 import React from 'react';
-import { styled, Box } from '@mui/material';
+import {
+  styled,
+  Box,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@mui/material';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import getStyles from './SessionStints.styles';
 import StintGraph from '../StintGraph';
 import StintCard from '../StintCard';
@@ -10,7 +17,15 @@ const Title = styled('h3')(() => styles.title);
 
 const SubTitle = styled('h4')(() => styles.subTitle);
 
-const Divider = styled('div')(() => styles.divider);
+const StyledAccordionDetails = styled(AccordionDetails)(
+  () => styles.accordionDetails,
+);
+
+const StyledAccordionSummary = styled(AccordionSummary)(
+  () => styles.accordionSummary,
+);
+
+const StyledAccordion = styled(Accordion)(() => styles.accordion);
 
 const SessionStints = (props) => {
   const { session, title, driverNumber } = props;
@@ -38,57 +53,61 @@ const SessionStints = (props) => {
             />
           ))}
         </Box>
-
-        <Divider />
       </Box>
 
-      <SubTitle sx={styles.stintsBreakDownTitle}>Stints breakdown</SubTitle>
+      <StyledAccordion disableGutters square>
+        <StyledAccordionSummary expandIcon={<ArrowDownwardIcon />}>
+          <SubTitle sx={styles.stintsBreakDownTitle}>Stints breakdown</SubTitle>
+        </StyledAccordionSummary>
 
-      <Box sx={styles.stintCardsContainer}>
-        {session.map((sessionStint) => {
-          const {
-            compound,
-            lap_start,
-            lap_end,
-            stint_number,
-            tyre_age_at_start,
-          } = sessionStint;
-          const currentStintLaps = lap_end - lap_start + 1;
-          let stintColor;
-          let stintColorRgba;
+        <StyledAccordionDetails>
+          <Box sx={styles.stintCardsContainer}>
+            {session.map((sessionStint) => {
+              const {
+                compound,
+                lap_start,
+                lap_end,
+                stint_number,
+                tyre_age_at_start,
+              } = sessionStint;
+              const currentStintLaps = lap_end - lap_start + 1;
+              let stintColor;
+              let stintColorRgba;
 
-          if (compound === 'SOFT') {
-            stintColor = styles.softCompoundColor;
-            stintColorRgba = styles.softCompoundColorRgba;
-          } else if (compound === 'MEDIUM') {
-            stintColor = styles.mediumCompoundColor;
-            stintColorRgba = styles.mediumCompoundColorRgba;
-          } else if (compound === 'HARD') {
-            stintColor = styles.hardCompoundColor;
-            stintColorRgba = styles.hardCompoundColorRgba;
-          } else if (compound === 'INTERMEDIATE') {
-            stintColor = styles.intermediateCompoundColor;
-            stintColorRgba = styles.intermediateCompoundColorRgba;
-          } else if (compound === 'WET') {
-            stintColor = styles.wetCompoundColor;
-            stintColorRgba = styles.wetCompoundColorRgba;
-          }
+              if (compound === 'SOFT') {
+                stintColor = styles.softCompoundColor;
+                stintColorRgba = styles.softCompoundColorRgba;
+              } else if (compound === 'MEDIUM') {
+                stintColor = styles.mediumCompoundColor;
+                stintColorRgba = styles.mediumCompoundColorRgba;
+              } else if (compound === 'HARD') {
+                stintColor = styles.hardCompoundColor;
+                stintColorRgba = styles.hardCompoundColorRgba;
+              } else if (compound === 'INTERMEDIATE') {
+                stintColor = styles.intermediateCompoundColor;
+                stintColorRgba = styles.intermediateCompoundColorRgba;
+              } else if (compound === 'WET') {
+                stintColor = styles.wetCompoundColor;
+                stintColorRgba = styles.wetCompoundColorRgba;
+              }
 
-          return (
-            <StintCard
-              key={`${driverNumber}-stintTyreParent-${stint_number}`}
-              stint_number={stint_number}
-              stintColor={stintColor}
-              stintColorRgba={stintColorRgba}
-              currentStintLaps={currentStintLaps}
-              lap_start={lap_start}
-              compound={compound}
-              lap_end={lap_end}
-              tyre_age_at_start={tyre_age_at_start}
-            />
-          );
-        })}
-      </Box>
+              return (
+                <StintCard
+                  key={`${driverNumber}-stintTyreParent-${stint_number}`}
+                  stint_number={stint_number}
+                  stintColor={stintColor}
+                  stintColorRgba={stintColorRgba}
+                  currentStintLaps={currentStintLaps}
+                  lap_start={lap_start}
+                  compound={compound}
+                  lap_end={lap_end}
+                  tyre_age_at_start={tyre_age_at_start}
+                />
+              );
+            })}
+          </Box>
+        </StyledAccordionDetails>
+      </StyledAccordion>
     </>
   );
 };
