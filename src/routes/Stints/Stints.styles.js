@@ -21,10 +21,6 @@ const getStyles = () => ({
   title: {
     margin: '0 0 10px 0',
   },
-  divider: {
-    borderBottom: '2px solid #dedcd9',
-    margin: '20px 0',
-  },
   goBackButton: {
     minWidth: '250px',
   },

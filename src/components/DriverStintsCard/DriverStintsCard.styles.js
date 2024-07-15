@@ -2,7 +2,7 @@ const getStyles = () => ({
   container: {
     display: 'flex',
     gap: '150px',
-    marginBottom: '20px',
+    marginBottom: '40px',
     justifyContent: 'center',
   },
   nameContainer: {

@@ -19,8 +19,6 @@ const ParentContainer = styled('div')(() => styles.parentContainer);
 
 const Title = styled('h3')(() => styles.title);
 
-const Divider = styled('div')(() => styles.divider);
-
 const Stints = () => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
@@ -144,13 +142,7 @@ const Stints = () => {
       return null;
     }
 
-    return (
-      <>
-        <DriverStintsCard driver={driver} />
-
-        <Divider />
-      </>
-    );
+    return <DriverStintsCard driver={driver} />;
   };
 
   if (error) {
@@ -188,75 +180,51 @@ const Stints = () => {
         {renderDriverInfo()}
 
         {practice1 && (
-          <>
-            <SessionStints
-              session={practice1}
-              title="Practice 1"
-              driverNumber={driverNumber}
-            />
-
-            <Divider />
-          </>
+          <SessionStints
+            session={practice1}
+            title="Practice 1"
+            driverNumber={driverNumber}
+          />
         )}
 
         {practice2 && (
-          <>
-            <SessionStints
-              session={practice2}
-              title="Practice 2"
-              driverNumber={driverNumber}
-            />
-
-            <Divider />
-          </>
+          <SessionStints
+            session={practice2}
+            title="Practice 2"
+            driverNumber={driverNumber}
+          />
         )}
 
         {practice3 && (
-          <>
-            <SessionStints
-              session={practice3}
-              title="Practice 3"
-              driverNumber={driverNumber}
-            />
-
-            <Divider />
-          </>
+          <SessionStints
+            session={practice3}
+            title="Practice 3"
+            driverNumber={driverNumber}
+          />
         )}
 
         {sprintQuali && (
-          <>
-            <SessionStints
-              session={sprintQuali}
-              title="Sprint Qualifying"
-              driverNumber={driverNumber}
-            />
-
-            <Divider />
-          </>
+          <SessionStints
+            session={sprintQuali}
+            title="Sprint Qualifying"
+            driverNumber={driverNumber}
+          />
         )}
 
         {sprint && (
-          <>
-            <SessionStints
-              session={sprint}
-              title="Sprint"
-              driverNumber={driverNumber}
-            />
-
-            <Divider />
-          </>
+          <SessionStints
+            session={sprint}
+            title="Sprint"
+            driverNumber={driverNumber}
+          />
         )}
 
         {quali && (
-          <>
-            <SessionStints
-              session={quali}
-              title="Qualifying"
-              driverNumber={driverNumber}
-            />
-
-            <Divider />
-          </>
+          <SessionStints
+            session={quali}
+            title="Qualifying"
+            driverNumber={driverNumber}
+          />
         )}
       </ParentContainer>
     </Layout>

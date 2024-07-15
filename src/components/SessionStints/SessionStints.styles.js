@@ -9,6 +9,15 @@ const getStyles = () => ({
   hardCompoundColorRgba: 'rgb(47, 45, 43, 0.1)',
   intermediateCompoundColorRgba: 'rgb(1, 157, 46, 0.1)',
   wetCompoundColorRgba: 'rgb(47, 98, 161, 0.1)',
+  container: {
+    padding: '5px 5px 5px 0',
+    borderTop: '2px solid black',
+    borderRight: '2px solid black',
+    borderTopRightRadius: '8px',
+    borderBottomRightRadius: '0',
+    borderTopLeftRadius: '0',
+    marginBottom: '40px',
+  },
   title: {
     margin: '0 0 10px 0',
   },
@@ -53,12 +62,20 @@ const getStyles = () => ({
   },
   accordionSummary: {
     padding: '0',
+    flexDirection: 'row-reverse',
+    '& .MuiAccordionSummary-content': {
+      marginLeft: '10px',
+    },
+    '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+      transform: 'rotate(90deg)',
+    },
   },
   accordion: {
     padding: '0',
     border: '2px solid #f7f4f1',
     borderLeft: 'transparent',
     borderRight: 'transparent',
+    borderBottom: 'transparent',
     boxShadow: 'none',
     '&::before': {
       display: 'none',

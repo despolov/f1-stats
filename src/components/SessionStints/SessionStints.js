@@ -6,7 +6,7 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import getStyles from './SessionStints.styles';
 import StintGraph from '../StintGraph';
 import StintCard from '../StintCard';
@@ -45,7 +45,7 @@ const SessionStints = (props) => {
   const totalLaps = session[session.length - 1].lap_end;
 
   return (
-    <>
+    <Box sx={styles.container}>
       <Box sx={styles.titleContainer}>
         <Title>{title} -</Title>
 
@@ -69,7 +69,7 @@ const SessionStints = (props) => {
       </Box>
 
       <StyledAccordion disableGutters square>
-        <StyledAccordionSummary expandIcon={<ArrowDownwardIcon />}>
+        <StyledAccordionSummary expandIcon={<ArrowForwardIosSharpIcon />}>
           <SubTitle sx={styles.stintsBreakDownTitle}>Stints breakdown</SubTitle>
         </StyledAccordionSummary>
 
@@ -121,7 +121,7 @@ const SessionStints = (props) => {
           </Box>
         </StyledAccordionDetails>
       </StyledAccordion>
-    </>
+    </Box>
   );
 };
 
