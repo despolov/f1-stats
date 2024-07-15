@@ -3,16 +3,14 @@ import {
   styled,
   useTheme,
   useMediaQuery,
-  Typography,
   LinearProgress,
-  Box,
   Button,
 } from '@mui/material';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import getStyles from './Stints.styles';
 import Layout from '../../components/Layout';
 import getSessionStints from '../../utils/getSessionStints';
-import DriverCard from '../../components/DriverCard/DriverCard';
+import DriverStintsCard from '../../components/DriverStintsCard/DriverStintsCard';
 import SessionStints from '../../components/SessionStints/SessionStints';
 
 const styles = getStyles();
@@ -76,6 +74,7 @@ const Stints = () => {
       country,
       driverNumber,
       setError,
+      true,
     );
     const practice2 = await getSessionStints(
       'Practice 2',
@@ -113,7 +112,7 @@ const Stints = () => {
       setError,
     );
     let sessionsStints = {
-      practice1,
+      practice1: practice1.stints,
       practice2,
       practice3,
       sprint,
@@ -121,6 +120,7 @@ const Stints = () => {
       sprintQuali,
     };
 
+    setDriver(practice1.driver);
     setStints(sessionsStints);
     setStintsLoading(false);
   };
@@ -144,7 +144,13 @@ const Stints = () => {
       return null;
     }
 
-    return <DriverCard driver={driver} />;
+    return (
+      <>
+        <DriverStintsCard driver={driver} />
+
+        <Divider />
+      </>
+    );
   };
 
   if (error) {
@@ -177,12 +183,6 @@ const Stints = () => {
   return (
     <Layout>
       <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography sx={{ fontSize: '22px', fontWeight: 700 }}>
-            🚧 Work in progress 🚧
-          </Typography>
-        </Box>
-
         {renderLoading()}
 
         {renderDriverInfo()}
@@ -248,11 +248,15 @@ const Stints = () => {
         )}
 
         {quali && (
-          <SessionStints
-            session={quali}
-            title="Qualifying"
-            driverNumber={driverNumber}
-          />
+          <>
+            <SessionStints
+              session={quali}
+              title="Qualifying"
+              driverNumber={driverNumber}
+            />
+
+            <Divider />
+          </>
         )}
       </ParentContainer>
     </Layout>

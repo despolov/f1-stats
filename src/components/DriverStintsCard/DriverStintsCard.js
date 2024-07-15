@@ -1,13 +1,15 @@
 import React from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import getDriverColor from '../../utils/getDriverColor';
-import getStyles from './DriverCard.styles';
+import getStyles from './DriverStintsCard.styles';
 import { IconContext } from 'react-icons';
 import { IoIosPerson } from 'react-icons/io';
+import ReactCountryFlag from 'react-country-flag';
+import getDriverCountryCode from '../../utils/getDriverCountryCode';
 
 const styles = getStyles();
 
-const DriverCard = (props) => {
+const DriverStintsCard = (props) => {
   const { driver } = props;
   const {
     name_acronym,
@@ -17,17 +19,12 @@ const DriverCard = (props) => {
     team_colour,
     first_name,
     last_name,
+    country_code,
   } = driver;
 
   return (
-    <Grid
-      container
-      align="center"
-      justifyContent="center"
-      alignItems="center"
-      gap="5px"
-    >
-      <Grid item xs align="left">
+    <Box sx={styles.container}>
+      <Box>
         <Box sx={styles.nameContainer}>
           <Box
             sx={{
@@ -47,31 +44,44 @@ const DriverCard = (props) => {
           </Typography>
         </Box>
 
+        <Box sx={styles.additionalInfoContainer}>
+          <Typography
+            sx={{
+              color: `#${team_colour}`,
+              ...styles.driverNumber,
+            }}
+          >
+            {driver_number}
+          </Typography>
+
+          <ReactCountryFlag
+            countryCode={getDriverCountryCode(country_code)}
+            svg
+            title={country_code}
+            style={styles.flag}
+          />
+        </Box>
+
         <Typography sx={styles.teamName}>{team_name}</Typography>
-      </Grid>
+      </Box>
 
-      <Grid item xs align="center">
-        <Typography
-          sx={{
-            color: `#${team_colour}`,
-            ...styles.driverNumber,
-          }}
-        >
-          {driver_number}
-        </Typography>
-      </Grid>
-
-      <Grid item xs align="right">
+      <Box sx={styles.headshotContainer}>
         {headshot_url ? (
-          <img src={headshot_url} alt={name_acronym} loading="lazy" />
+          <img
+            src={headshot_url}
+            alt={name_acronym}
+            loading="lazy"
+            width={100}
+            height={100}
+          />
         ) : (
           <IconContext.Provider value={{ style: styles.iconPerson }}>
             <IoIosPerson />
           </IconContext.Provider>
         )}
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 
-export default DriverCard;
+export default DriverStintsCard;

@@ -30,9 +30,11 @@ const getSession = async (type, country, year) => {
   }
 };
 
-const getDrivers = async (sessionKey, isSessionLive) => {
+const getDrivers = async (sessionKey, isSessionLive, driverNumber) => {
   try {
-    const key = `drivers?session_key=${sessionKey}`;
+    const key = `drivers?session_key=${sessionKey}${
+      driverNumber ? `&driver_number=${driverNumber}` : ''
+    }`;
     const storageValue = getSessionStorageValue(key);
     let drivers;
 

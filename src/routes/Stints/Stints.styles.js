@@ -22,7 +22,7 @@ const getStyles = () => ({
     margin: '0 0 10px 0',
   },
   divider: {
-    borderBottom: '3px solid #f7f4f1',
+    borderBottom: '2px solid #dedcd9',
     margin: '20px 0',
   },
   goBackButton: {

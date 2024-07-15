@@ -1,12 +1,13 @@
-import { getSession, getStints } from '../api';
+import { getSession, getStints, getDrivers } from '../api';
 import moment from 'moment';
 
-const getSessionTyreStats = async (
+const getSessionStints = async (
   type,
   year,
   country,
   driverNumber,
   setError,
+  getDriver,
 ) => {
   const session = await getSession(type, country, year);
 
@@ -34,7 +35,21 @@ const getSessionTyreStats = async (
     return;
   }
 
+  if (getDriver) {
+    const drivers = await getDrivers(sessionKey, isLive, driverNumber);
+
+    if (drivers.hasError) {
+      setError(drivers.message);
+      return;
+    }
+
+    return {
+      stints: allStints,
+      driver: drivers[0],
+    };
+  }
+
   return allStints;
 };
 
-export default getSessionTyreStats;
+export default getSessionStints;
