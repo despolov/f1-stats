@@ -12,6 +12,8 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 - Used and New tyres count for each driver from every available session before the race
 
+- Stints for each driver from every available session before the race
+
 ## Sources
 
 - Data source: <https://openf1.org/>
