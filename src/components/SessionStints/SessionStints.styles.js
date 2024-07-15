@@ -12,8 +12,12 @@ const getStyles = () => ({
   title: {
     margin: '0 0 10px 0',
   },
+  titleNoLaps: {
+    margin: 0,
+  },
   subTitle: {
     margin: '0 0 5px 0',
+    fontWeight: 400,
   },
   titleContainer: {
     display: 'flex',
@@ -21,6 +25,10 @@ const getStyles = () => ({
   },
   subTitleContainer: {
     lineHeight: '27.5px',
+    fontWeight: 700,
+  },
+  subTitleContainerNoLaps: {
+    fontWeight: 700,
   },
   stintsContainer: {
     margin: '10px 0 20px 0',

@@ -29,6 +29,19 @@ const StyledAccordion = styled(Accordion)(() => styles.accordion);
 
 const SessionStints = (props) => {
   const { session, title, driverNumber } = props;
+
+  if (session.length === 0) {
+    return (
+      <>
+        <Box sx={styles.titleContainer}>
+          <Title sx={styles.titleNoLaps}>{title} -</Title>
+
+          <SubTitle sx={styles.subTitleContainerNoLaps}>Total laps: 0</SubTitle>
+        </Box>
+      </>
+    );
+  }
+
   const totalLaps = session[session.length - 1].lap_end;
 
   return (
