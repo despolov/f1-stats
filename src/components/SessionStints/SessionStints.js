@@ -12,6 +12,7 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import getStyles from './SessionStints.styles';
 import StintGraph from '../StintGraph';
 import StintCard from '../StintCard';
+import StintCardMobile from '../StintCardMobile';
 
 const styles = getStyles();
 
@@ -114,8 +115,20 @@ const SessionStints = (props) => {
                 stintColorRgba = styles.wetCompoundColorRgba;
               }
 
-              return (
+              return isDesktop ? (
                 <StintCard
+                  key={`${driverNumber}-stintTyreParent-${stint_number}`}
+                  stint_number={stint_number}
+                  stintColor={stintColor}
+                  stintColorRgba={stintColorRgba}
+                  currentStintLaps={currentStintLaps}
+                  lap_start={lap_start}
+                  compound={compound}
+                  lap_end={lap_end}
+                  tyre_age_at_start={tyre_age_at_start}
+                />
+              ) : (
+                <StintCardMobile
                   key={`${driverNumber}-stintTyreParent-${stint_number}`}
                   stint_number={stint_number}
                   stintColor={stintColor}

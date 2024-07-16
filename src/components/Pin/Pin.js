@@ -5,7 +5,16 @@ import getStyles from './Pin.styles';
 const styles = getStyles();
 
 const Pin = (props) => {
-  const { color, colorRgba, number, translate, rotate, rotateText } = props;
+  const {
+    color,
+    colorRgba,
+    number,
+    translate,
+    rotate,
+    translateText = '32px, -17px',
+    rotateText,
+    lineWidth = 32,
+  } = props;
 
   return (
     <Box
@@ -14,13 +23,19 @@ const Pin = (props) => {
         transform: `translate(${translate}) rotate(${rotate}deg)`,
       }}
     >
-      <Box sx={{ border: `1px solid ${color}` }} />
+      <Box
+        sx={{
+          border: `1px solid ${color}`,
+          backgroundColor: color,
+          width: `${lineWidth}px`,
+        }}
+      />
 
       <Box
         sx={{
           ...styles.circle,
           border: `2px solid ${color}`,
-          transform: `translate(32px, -17px) rotate(${rotateText}deg)`,
+          transform: `translate(${translateText}) rotate(${rotateText}deg)`,
           backgroundColor: colorRgba,
         }}
       >
