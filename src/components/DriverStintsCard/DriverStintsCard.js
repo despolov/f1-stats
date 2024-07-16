@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { useTheme, useMediaQuery, Box, Typography } from '@mui/material';
 import getDriverColor from '../../utils/getDriverColor';
 import getStyles from './DriverStintsCard.styles';
 import { IconContext } from 'react-icons';
@@ -21,9 +21,11 @@ const DriverStintsCard = (props) => {
     last_name,
     country_code,
   } = driver;
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
-    <Box sx={styles.container}>
+    <Box sx={isDesktop ? styles.container : styles.containerMobile}>
       <Box>
         <Box sx={styles.nameContainer}>
           <Box

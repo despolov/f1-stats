@@ -18,7 +18,6 @@ const DriverTyresCard = (props) => {
     sprintUsedTyres,
   } = stats;
   const { SOFT, MEDIUM, HARD, INTERMEDIATE, WET } = usedTyres;
-
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 

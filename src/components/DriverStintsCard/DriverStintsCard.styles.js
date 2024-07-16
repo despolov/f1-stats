@@ -5,6 +5,11 @@ const getStyles = () => ({
     marginBottom: '40px',
     justifyContent: 'center',
   },
+  containerMobile: {
+    display: 'flex',
+    marginBottom: '30px',
+    justifyContent: 'space-between',
+  },
   nameContainer: {
     display: 'flex',
     marginBottom: '10px',
