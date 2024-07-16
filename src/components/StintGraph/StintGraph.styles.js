@@ -30,6 +30,13 @@ const getStyles = () => ({
     borderRadius: '50%',
     margin: '0 0 0 -13px',
   },
+  tooltipStintText: {
+    textAlign: 'center',
+    fontWeight: 700,
+  },
+  tooltipBoldText: {
+    fontWeight: 700,
+  },
 });
 
 export default getStyles;

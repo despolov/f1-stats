@@ -29,15 +29,26 @@ const StintGraph = (props) => {
     <Tooltip
       title={
         <Box>
-          <Typography>Stint №: {stint_number}</Typography>
+          <Typography sx={styles.tooltipStintText}>
+            Stint №: {stint_number}
+          </Typography>
 
           <Typography>
             Compound: {tyre_age_at_start === 0 ? 'new' : 'used'} {compound}
           </Typography>
 
-          <Typography>Lap start: {lap_start}</Typography>
+          <Typography>
+            Lap - start:{' '}
+            <Typography component="span" sx={styles.tooltipBoldText}>
+              {lap_start}
+            </Typography>{' '}
+            end:{' '}
+            <Typography component="span" sx={styles.tooltipBoldText}>
+              {lap_end}
+            </Typography>
+          </Typography>
 
-          <Typography>Lap end: {lap_end}</Typography>
+          <Typography>Total laps: {currentStintLaps}</Typography>
 
           <Typography>Tyre age at start: {tyre_age_at_start}</Typography>
         </Box>
