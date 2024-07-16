@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/f1-stats/static/js/main.abd24cae.js",
+    "main.js": "/f1-stats/static/js/main.a7065cf6.js",
     "static/media/allCompounds.png": "/f1-stats/static/media/allCompounds.e2594e29659b7f5ca5d9.png",
     "static/media/wet.png": "/f1-stats/static/media/wet.2e382b19ae725dd499cc.png",
     "static/media/intermediate.png": "/f1-stats/static/media/intermediate.08c766ca45a9027c6244.png",
@@ -10,9 +10,9 @@
     "static/media/soft.png": "/f1-stats/static/media/soft.7eb66ec5389d41dd9202.png",
     "static/media/hard.png": "/f1-stats/static/media/hard.eec83d9b59321149c290.png",
     "index.html": "/f1-stats/index.html",
-    "main.abd24cae.js.map": "/f1-stats/static/js/main.abd24cae.js.map"
+    "main.a7065cf6.js.map": "/f1-stats/static/js/main.a7065cf6.js.map"
   },
   "entrypoints": [
-    "static/js/main.abd24cae.js"
+    "static/js/main.a7065cf6.js"
   ]
 }
