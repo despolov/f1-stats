@@ -14,7 +14,7 @@ import PracticeWeather from '../../components/PracticeWeather';
 import getSinglePracticeStats from '../../utils/getSinglePracticeStats';
 import addGapBetweenDrivers from '../../utils/addGapBetweenDrivers';
 import moment from 'moment';
-import RaceSelect from '../../components/RaceSelect/RaceSelect';
+import RaceSelect from '../../components/RaceSelect';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 const styles = getStyles();

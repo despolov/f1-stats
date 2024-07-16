@@ -10,8 +10,8 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import getStyles from './Stints.styles';
 import Layout from '../../components/Layout';
 import getSessionStints from '../../utils/getSessionStints';
-import DriverStintsCard from '../../components/DriverStintsCard/DriverStintsCard';
-import SessionStints from '../../components/SessionStints/SessionStints';
+import DriverStintsCard from '../../components/DriverStintsCard';
+import SessionStints from '../../components/SessionStints';
 
 const styles = getStyles();
 

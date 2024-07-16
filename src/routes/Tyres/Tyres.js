@@ -14,8 +14,8 @@ import getStyles from './Tyres.styles';
 import getSessionTyreStats from '../../utils/getSessionTyreStats';
 import RaceSelect from '../../components/RaceSelect';
 import checkIsSprintWeekend from '../../utils/checkIsSprintWeekend';
-import DriverTyresCard from '../../components/DriverTyresCard/DriverTyresCard';
-import TyresLegend from '../../components/TyresLegend/TyresLegend';
+import DriverTyresCard from '../../components/DriverTyresCard';
+import TyresLegend from '../../components/TyresLegend';
 import {
   useSearchParams,
   useNavigate,
