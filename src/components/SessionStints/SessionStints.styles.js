@@ -48,6 +48,10 @@ const getStyles = () => ({
     margin: '10px 0 0 0',
     gap: '2px',
   },
+  stintsGraphContainerMobile: {
+    width: '100%',
+    margin: '10px 0 0 0',
+  },
   stintsBreakDownTitle: {
     margin: '0',
   },

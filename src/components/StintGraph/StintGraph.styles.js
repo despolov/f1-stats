@@ -8,6 +8,11 @@ const getStyles = () => ({
     display: 'flex',
     height: '26px',
   },
+  containerMobile: {
+    display: 'flex',
+    height: '26px',
+    margin: '0 0 5px 0',
+  },
   line: {
     width: 'calc(100% - 24px)',
     margin: '0 0 0 -13px',

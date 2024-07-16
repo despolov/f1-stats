@@ -1,6 +1,8 @@
 import React from 'react';
 import {
   styled,
+  useTheme,
+  useMediaQuery,
   Box,
   Accordion,
   AccordionSummary,
@@ -29,6 +31,8 @@ const StyledAccordion = styled(Accordion)(() => styles.accordion);
 
 const SessionStints = (props) => {
   const { session, title, driverNumber } = props;
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   if (session.length === 0) {
     return (
@@ -55,9 +59,15 @@ const SessionStints = (props) => {
       </Box>
 
       <Box sx={styles.stintsContainer}>
-        <SubTitle>All stints</SubTitle>
+        <SubTitle>All stints: {session.length}</SubTitle>
 
-        <Box sx={styles.stintsGraphContainer}>
+        <Box
+          sx={
+            isDesktop
+              ? styles.stintsGraphContainer
+              : styles.stintsGraphContainerMobile
+          }
+        >
           {session.map((sessionStint) => (
             <StintGraph
               key={`${driverNumber}-stint-${sessionStint.stint_number}`}
