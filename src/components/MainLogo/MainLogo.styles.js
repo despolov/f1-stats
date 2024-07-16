@@ -7,6 +7,7 @@ const getStyles = () => ({
   },
   logoContainer: {
     height: '68px',
+    minWidth: '140px',
   },
   appLabel: {
     fontSize: '28px',

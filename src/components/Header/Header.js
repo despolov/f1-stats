@@ -126,11 +126,11 @@ const Header = () => {
               <MainLogo />
             </Grid>
 
-            <Grid item xs={1.1} align="left" sx={styles.headerGridItem}>
+            <Grid item xs={1.1} align="left" sx={styles.headerGridButtonItem}>
               <PracticeStatsLink pathname={pathname} />
             </Grid>
 
-            <Grid item xs={1} align="left" sx={styles.headerGridItem}>
+            <Grid item xs={1} align="left" sx={styles.headerGridButtonItem}>
               <TyresLink pathname={pathname} />
             </Grid>
           </>

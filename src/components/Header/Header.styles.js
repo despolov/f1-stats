@@ -11,6 +11,13 @@ const getStyles = () => ({
     height: '68px',
     display: 'flex',
     alignItems: 'center',
+    minWidth: '140px',
+  },
+  headerGridButtonItem: {
+    height: '68px',
+    display: 'flex',
+    alignItems: 'center',
+    minWidth: '170px',
   },
   buttonText: {
     fontSize: '14px',
