@@ -31,7 +31,9 @@ const StintGraph = (props) => {
         <Box>
           <Typography>Stint №: {stint_number}</Typography>
 
-          <Typography>Compound: {compound}</Typography>
+          <Typography>
+            Compound: {tyre_age_at_start === 0 ? 'new' : 'used'} {compound}
+          </Typography>
 
           <Typography>Lap start: {lap_start}</Typography>
 
@@ -50,7 +52,13 @@ const StintGraph = (props) => {
           <TyresCircle compound={compound} size="26" />
         </Box>
 
-        <Box sx={{ ...styles.line, backgroundColor: stintColor }} />
+        <Box
+          sx={{
+            ...styles.line,
+            ...(tyre_age_at_start === 0 ? {} : styles.lineUsedTyres),
+            backgroundColor: stintColor,
+          }}
+        />
 
         <Box sx={{ ...styles.lapsCircle, backgroundColor: stintColor }}>
           {currentStintLaps}

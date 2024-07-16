@@ -27,7 +27,5 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## TODO
 
-- Stints route
-  - show a stint with used tyres with a different shade or something else in the stints graph
-  - mobile support should be added for the stints breakdown and all stints
+- mobile support should be added for the stints breakdown and all stints graph
 - add tests on the components and utils

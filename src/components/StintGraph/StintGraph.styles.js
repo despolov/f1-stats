@@ -12,6 +12,9 @@ const getStyles = () => ({
     width: 'calc(100% - 24px)',
     margin: '0 0 0 -13px',
   },
+  lineUsedTyres: {
+    border: '2px dotted white',
+  },
   tyreCircle: {
     zIndex: 1,
     height: '26px',
