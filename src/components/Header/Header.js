@@ -75,31 +75,51 @@ const TyresLink = ({ pathname }) => {
   );
 };
 
-const DrawerList = ({ toggleDrawer, pathname }) => (
-  <Box
-    sx={styles.drawerListContainer}
-    role="presentation"
-    onClick={toggleDrawer(false)}
-  >
-    <List sx={styles.drawerList}>
-      <ListItem key="practiceStatsDrawerItem" disablePadding>
-        <ListItemButton>
-          <PracticeStatsLink pathname={pathname} />
-        </ListItemButton>
-      </ListItem>
+const DrawerList = ({ toggleDrawer, pathname }) => {
+  const navigate = useNavigate();
 
-      <Divider />
+  return (
+    <Box
+      sx={styles.drawerListContainer}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+    >
+      <List sx={styles.drawerList}>
+        <ListItem key="practiceStatsDrawerItem" disablePadding>
+          <ListItemButton
+            onClick={() => {
+              if (pathname === '/practiceStats') {
+                return;
+              }
 
-      <ListItem key="tyresDrawerItem" disablePadding>
-        <ListItemButton>
-          <TyresLink pathname={pathname} />
-        </ListItemButton>
-      </ListItem>
+              navigate('/practiceStats');
+            }}
+          >
+            <PracticeStatsLink pathname={pathname} />
+          </ListItemButton>
+        </ListItem>
 
-      <Divider />
-    </List>
-  </Box>
-);
+        <Divider />
+
+        <ListItem key="tyresDrawerItem" disablePadding>
+          <ListItemButton
+            onClick={() => {
+              if (pathname === '/tyres') {
+                return;
+              }
+
+              navigate('/tyres');
+            }}
+          >
+            <TyresLink pathname={pathname} />
+          </ListItemButton>
+        </ListItem>
+
+        <Divider />
+      </List>
+    </Box>
+  );
+};
 
 const Header = () => {
   const { pathname } = useLocation();
