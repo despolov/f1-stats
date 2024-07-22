@@ -16,6 +16,10 @@ const getStyles = () => ({
     padding: '0',
     width: ' 100%',
   },
+  childrenContainerFullScreen: {
+    padding: '0',
+    width: ' 100%',
+  },
 });
 
 export default getStyles;

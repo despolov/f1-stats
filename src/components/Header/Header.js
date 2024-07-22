@@ -121,7 +121,8 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
   );
 };
 
-const Header = () => {
+const Header = (props) => {
+  const { headerRef } = props;
   const { pathname } = useLocation();
   const [openDrawer, setOpenDrawer] = useState(false);
   const theme = useTheme();
@@ -132,7 +133,7 @@ const Header = () => {
   };
 
   return (
-    <MainContainer>
+    <MainContainer ref={headerRef}>
       <Grid
         container
         align="left"

@@ -9,12 +9,13 @@ import moment from 'moment';
 
 const styles = getStyles();
 
-const Footer = () => {
+const Footer = (props) => {
+  const { footerRef } = props;
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   return (
-    <Box component="footer" sx={styles.footer}>
+    <Box ref={footerRef} component="footer" sx={styles.footer}>
       <Grid
         container
         align="center"

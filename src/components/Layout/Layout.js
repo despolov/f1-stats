@@ -11,19 +11,24 @@ const MainContainer = styled('div')(() => styles.mainContainer);
 const ChildrenContainer = styled('div')(() => styles.childrenContainer);
 
 const Layout = (props) => {
-  const { children } = props;
+  const { children, fullScreen, headerRef, footerRef } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <MainContainer>
-      <Header />
+      <Header headerRef={headerRef} />
 
-      <ChildrenContainer sx={isDesktop ? {} : styles.childrenContainerMobile}>
+      <ChildrenContainer
+        sx={{
+          ...(isDesktop ? {} : styles.childrenContainerMobile),
+          ...(fullScreen ? styles.childrenContainerFullScreen : {}),
+        }}
+      >
         {children}
       </ChildrenContainer>
 
-      <Footer />
+      <Footer footerRef={footerRef} />
     </MainContainer>
   );
 };
