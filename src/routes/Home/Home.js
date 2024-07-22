@@ -7,8 +7,8 @@ import { GiSpeedometer } from 'react-icons/gi';
 import { ImStatsDots } from 'react-icons/im';
 import { PiTire } from 'react-icons/pi';
 import useDimensions from '../../hooks/useDimensions';
-import HomeHero from '../../components/HomeHero/HomeHero';
-import HomeExploreItem from '../../components/HomeExploreItem/HomeExploreItem';
+import HomeHero from '../../components/HomeHero';
+import HomeExploreItem from '../../components/HomeExploreItem';
 
 const styles = getStyles();
 
@@ -32,10 +32,16 @@ const Home = () => {
 
   return (
     <Layout fullScreen headerRef={headerRef} footerRef={footerRef}>
-      <Box sx={{ height: contianerHeight }}>
+      <Box sx={isDesktop ? { height: contianerHeight } : {}}>
         <HomeHero />
 
-        <Box sx={styles.exploreItemsContainer}>
+        <Box
+          sx={
+            isDesktop
+              ? styles.exploreItemsContainer
+              : styles.exploreItemsContainerMobile
+          }
+        >
           <HomeExploreItem
             title="Practice stats"
             icon={<ImStatsDots />}
