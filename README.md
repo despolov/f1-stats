@@ -27,6 +27,5 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## TODO
 
-- add a mobile support for the home page
 - add light and dark mode
 - add tests on the components and utils
