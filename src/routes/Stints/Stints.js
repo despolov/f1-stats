@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactGA from 'react-ga4';
 import {
   styled,
   useTheme,
@@ -20,6 +21,12 @@ const ParentContainer = styled('div')(() => styles.parentContainer);
 const Title = styled('h3')(() => styles.title);
 
 const Stints = () => {
+  ReactGA.send({
+    hitType: 'pageview',
+    page: '/stints',
+    title: 'Stints',
+  });
+
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const [year, setYear] = useState('');

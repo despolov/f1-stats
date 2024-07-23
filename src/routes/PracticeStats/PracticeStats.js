@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactGA from 'react-ga4';
 import { styled } from '@mui/material';
 import Layout from '../../components/Layout';
 import getStyles from './PracticeStats.styles';
@@ -30,6 +31,12 @@ const Title = styled('h3')(() => styles.title);
 const Divider = styled('div')(() => styles.divider);
 
 const PracticeStats = () => {
+  ReactGA.send({
+    hitType: 'pageview',
+    page: '/practiceStats',
+    title: 'Practice Stats',
+  });
+
   const [years, setYears] = useState([]);
   const [year, setYear] = useState('');
   const [country, setCountry] = useState('');

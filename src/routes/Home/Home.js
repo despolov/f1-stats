@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import ReactGA from 'react-ga4';
 import { useTheme, useMediaQuery, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import getStyles from './Home.styles';
@@ -13,6 +14,12 @@ import HomeExploreItem from '../../components/HomeExploreItem';
 const styles = getStyles();
 
 const Home = () => {
+  ReactGA.send({
+    hitType: 'pageview',
+    page: '/',
+    title: 'Home',
+  });
+
   const theme = useTheme();
   const navigate = useNavigate();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
