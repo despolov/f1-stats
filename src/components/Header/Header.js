@@ -11,13 +11,19 @@ import {
   Button,
   useTheme,
   useMediaQuery,
+  IconButton,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import getStyles from './Header.styles';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IconContext } from 'react-icons';
 import MainLogo from '../MainLogo';
+import {
+  Brightness4 as Brightness4Icon,
+  Brightness7 as Brightness7Icon,
+} from '@mui/icons-material';
+import { ColorModeContext } from '../ColorMode';
 
 const styles = getStyles();
 
@@ -127,6 +133,7 @@ const Header = (props) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode, toggleColorMode } = useContext(ColorModeContext);
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
@@ -143,16 +150,34 @@ const Header = (props) => {
       >
         {isDesktop && (
           <>
-            <Grid item xs={1} align="left" sx={styles.headerGridItem}>
-              <MainLogo />
+            <Grid container item xs={6} sx={styles.leftGridContainer}>
+              <Grid item sx={styles.headerGridItem}>
+                <MainLogo />
+              </Grid>
+
+              <Grid item sx={styles.headerGridButtonItem}>
+                <PracticeStatsLink pathname={pathname} />
+              </Grid>
+
+              <Grid item sx={styles.headerGridButtonItem}>
+                <TyresLink pathname={pathname} />
+              </Grid>
             </Grid>
 
-            <Grid item xs={1.1} align="left" sx={styles.headerGridButtonItem}>
-              <PracticeStatsLink pathname={pathname} />
-            </Grid>
-
-            <Grid item xs={1} align="left" sx={styles.headerGridButtonItem}>
-              <TyresLink pathname={pathname} />
+            <Grid container item xs={6} sx={styles.rightGridContainer}>
+              <Grid item sx={styles.iconContainer}>
+                <IconButton
+                  onClick={toggleColorMode}
+                  color="inherit"
+                  sx={{ padding: 0 }}
+                >
+                  {mode === 'dark' ? (
+                    <Brightness7Icon sx={styles.icon} />
+                  ) : (
+                    <Brightness4Icon sx={styles.icon} />
+                  )}
+                </IconButton>
+              </Grid>
             </Grid>
           </>
         )}

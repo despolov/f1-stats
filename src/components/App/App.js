@@ -5,18 +5,21 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../../theme.js';
 import AppRoute from '../AppRoute';
 import ReactGA from 'react-ga4';
+import { ColorModeProvider } from '../ColorMode';
 
 function App() {
   ReactGA.initialize('G-HB1R5JQSBX');
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <ColorModeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
 
-      <Router>
-        <AppRoute />
-      </Router>
-    </ThemeProvider>
+        <Router>
+          <AppRoute />
+        </Router>
+      </ThemeProvider>
+    </ColorModeProvider>
   );
 }
 

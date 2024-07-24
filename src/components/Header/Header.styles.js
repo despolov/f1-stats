@@ -3,21 +3,23 @@ const getStyles = () => ({
     background: '#E10600',
     height: '68px',
   },
+  leftGridContainer: {
+    gap: '20px',
+  },
+  rightGridContainer: {
+    justifyContent: 'end',
+  },
   headerGrid: {
     padding: '0 16px 0 16px',
     height: '68px',
   },
   headerGridItem: {
     height: '68px',
-    display: 'flex',
-    alignItems: 'center',
     minWidth: '140px',
   },
   headerGridButtonItem: {
     height: '68px',
-    display: 'flex',
-    alignItems: 'center',
-    minWidth: '170px',
+    alignContent: 'center',
   },
   buttonText: {
     fontSize: '14px',
@@ -52,6 +54,15 @@ const getStyles = () => ({
   drawerList: {
     margin: 0,
     padding: 0,
+  },
+  iconContainer: {
+    height: '68px',
+    alignContent: 'center',
+  },
+  icon: {
+    color: 'white',
+    width: '26px',
+    height: '26px',
   },
 });
 
