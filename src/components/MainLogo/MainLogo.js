@@ -5,18 +5,24 @@ import {
   useMediaQuery,
   styled,
 } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import getStyles from './MainLogo.styles';
 import logo512 from '../../assets/icons/logo-512x512.png';
+import { ColorModeContext } from '../ColorMode';
 
-const styles = getStyles();
-
-const StyledLink = styled(Link)(() => styles.link);
+const StyledLink = styled(Link)(() => ({
+  textDecoration: 'none',
+  '&:hover': {
+    textDecoration: 'none',
+  },
+}));
 
 const MainLogo = () => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Box sx={styles.logoContainer}>

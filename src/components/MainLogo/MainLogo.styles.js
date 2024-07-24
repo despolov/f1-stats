@@ -1,4 +1,4 @@
-const getStyles = () => ({
+const getStyles = (mode) => ({
   link: {
     textDecoration: 'none',
     '&:hover': {
@@ -13,13 +13,13 @@ const getStyles = () => ({
     fontSize: '28px',
     lineHeight: '68px',
     fontWeight: 600,
-    color: '#ffffff',
+    color: mode === 'light' ? '#ffffff' : '#E2E2E2',
   },
   appLabelLogoSmall: {
     fontSize: '14px',
     lineHeight: '68px',
     fontWeight: 600,
-    color: '#ffffff',
+    color: mode === 'light' ? '#ffffff' : '#E2E2E2',
   },
   logoImg: {
     position: 'relative',

@@ -7,7 +7,7 @@ import AppRoute from '../AppRoute';
 import ReactGA from 'react-ga4';
 import { ColorModeProvider } from '../ColorMode';
 
-function App() {
+const App = () => {
   ReactGA.initialize('G-HB1R5JQSBX');
 
   return (
@@ -21,6 +21,6 @@ function App() {
       </ThemeProvider>
     </ColorModeProvider>
   );
-}
+};
 
 export default App;

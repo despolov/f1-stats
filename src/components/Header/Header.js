@@ -1,5 +1,4 @@
 import {
-  styled,
   Grid,
   Typography,
   Box,
@@ -25,12 +24,10 @@ import {
 } from '@mui/icons-material';
 import { ColorModeContext } from '../ColorMode';
 
-const styles = getStyles();
-
-const MainContainer = styled('header')(() => styles.header);
-
 const PracticeStatsLink = ({ pathname }) => {
   const navigate = useNavigate();
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Button
@@ -59,6 +56,8 @@ const PracticeStatsLink = ({ pathname }) => {
 
 const TyresLink = ({ pathname }) => {
   const navigate = useNavigate();
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Button
@@ -83,6 +82,8 @@ const TyresLink = ({ pathname }) => {
 
 const DrawerList = ({ toggleDrawer, pathname }) => {
   const navigate = useNavigate();
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Box
@@ -134,13 +135,14 @@ const Header = (props) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode, toggleColorMode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
   };
 
   return (
-    <MainContainer ref={headerRef}>
+    <Box component="header" sx={styles.header} ref={headerRef}>
       <Grid
         container
         align="left"
@@ -169,7 +171,7 @@ const Header = (props) => {
                 <IconButton
                   onClick={toggleColorMode}
                   color="inherit"
-                  sx={{ padding: 0 }}
+                  sx={styles.modeIconContainer}
                 >
                   {mode === 'dark' ? (
                     <Brightness7Icon sx={styles.icon} />
@@ -188,7 +190,27 @@ const Header = (props) => {
               <MainLogo />
             </Grid>
 
-            <Grid item xs align="right">
+            <Grid
+              item
+              xs
+              sx={{
+                justifyContent: 'end',
+                display: 'flex',
+                alignItems: 'baseline',
+              }}
+            >
+              <IconButton
+                onClick={toggleColorMode}
+                color="inherit"
+                sx={styles.modeIconContainerMobile}
+              >
+                {mode === 'dark' ? (
+                  <Brightness7Icon sx={styles.icon} />
+                ) : (
+                  <Brightness4Icon sx={styles.icon} />
+                )}
+              </IconButton>
+
               <IconContext.Provider value={{ style: styles.drawerIcon }}>
                 <RxHamburgerMenu onClick={toggleDrawer(true)} />
               </IconContext.Provider>
@@ -205,7 +227,7 @@ const Header = (props) => {
       >
         <DrawerList toggleDrawer={toggleDrawer} pathname={pathname} />
       </Drawer>
-    </MainContainer>
+    </Box>
   );
 };
 
