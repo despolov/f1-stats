@@ -27,5 +27,8 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## TODO
 
-- add light and dark mode - main black color 121212 cards and etc 1F1F1F, the white becomes E2E2E2
+- add light and dark mode
+  - main black color 121212
+  - cards and etc 1E1E1E
+  - the white becomes E2E2E2
 - add tests on the components and utils

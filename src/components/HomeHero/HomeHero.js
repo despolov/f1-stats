@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import TyresCircle from '../TyresCircle';
 import getStyles from './HomeHero.styles';
 import logo512 from '../../assets/icons/logo-512x512.png';
 import { IconContext } from 'react-icons';
 import { GiTireTracks } from 'react-icons/gi';
-
-const styles = getStyles();
+import { ColorModeContext } from '../ColorMode';
 
 const HomeHero = (props) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return isDesktop ? (
     <Box sx={styles.container}>

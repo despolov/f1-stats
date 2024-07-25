@@ -1,35 +1,33 @@
-import React from 'react';
-import { styled, useTheme, useMediaQuery } from '@mui/material';
+import React, { useContext } from 'react';
+import { useTheme, useMediaQuery, Box } from '@mui/material';
 import Header from '../Header';
 import Footer from '../Footer';
 import getStyles from './Layout.styles';
-
-const styles = getStyles();
-
-const MainContainer = styled('div')(() => styles.mainContainer);
-
-const ChildrenContainer = styled('div')(() => styles.childrenContainer);
+import { ColorModeContext } from '../ColorMode';
 
 const Layout = (props) => {
   const { children, fullScreen, headerRef, footerRef } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
-    <MainContainer>
+    <Box sx={styles.mainContainer}>
       <Header headerRef={headerRef} />
 
-      <ChildrenContainer
+      <Box
         sx={{
+          ...styles.childrenContainer,
           ...(isDesktop ? {} : styles.childrenContainerMobile),
           ...(fullScreen ? styles.childrenContainerFullScreen : {}),
         }}
       >
         {children}
-      </ChildrenContainer>
+      </Box>
 
       <Footer footerRef={footerRef} />
-    </MainContainer>
+    </Box>
   );
 };
 

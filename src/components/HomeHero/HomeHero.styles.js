@@ -6,7 +6,7 @@ const spinBackTyre = keyframes`0% { transform: translate(60px, -292px) rotate(0d
 const spinBackTyreMobile = keyframes`0% { transform: translate(43px, -213px) rotate(0deg); } 100% { transform: translate(43px, -213px) rotate(360deg); }`;
 const spinFrontTyreMobile = keyframes`0% { transform: translate(240px, -213px) rotate(0deg); } 100% { transform: translate(240px, -213px) rotate(360deg); }`;
 
-const getStyles = () => ({
+const getStyles = (mode) => ({
   container: {
     height: '50%',
     display: 'flex',
@@ -21,12 +21,14 @@ const getStyles = () => ({
   title: {
     fontWeight: 900,
     fontSize: '62px',
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
   titleMobile: {
     fontWeight: 900,
     fontSize: '48px',
     textAlign: 'center',
     margin: '10px 0 -40px 0',
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
   imageContainer: {
     zIndex: '1',
@@ -78,6 +80,7 @@ const getStyles = () => ({
     height: '250px',
     transform:
       'translate(-630px, 198px) rotate(-8deg) rotate3d(117, 1, 1, -111deg)',
+    color: mode === 'light' ? '#000000' : '#5a5a5a',
   },
   tracksIconMobile: {
     position: 'fixed',
@@ -86,6 +89,7 @@ const getStyles = () => ({
     height: '250px',
     transform:
       'translate(-521px, 103px) rotate(-8deg) rotate3d(117, 1, 1, -111deg)',
+    color: mode === 'light' ? '#000000' : '#5a5a5a',
   },
 });
 

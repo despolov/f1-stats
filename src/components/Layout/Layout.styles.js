@@ -1,11 +1,11 @@
-const getStyles = () => ({
+const getStyles = (mode) => ({
   mainContainer: {
     position: 'relative',
     display: 'flex',
     flexFlow: 'column wrap',
     flexGrow: 1,
     minHeight: '100vh',
-    backgroundColor: '#f7f4f1',
+    backgroundColor: mode === 'light' ? '#f7f4f1' : '#121212',
     letterSpacing: '0.7px',
   },
   childrenContainer: {

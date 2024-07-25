@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import getStyles from './HomeExploreItem.styles';
 import { IconContext } from 'react-icons';
-
-const styles = getStyles();
+import { ColorModeContext } from '../ColorMode';
 
 const HomeExploreItem = (props) => {
   const { title, icon, description, onClick } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Box
