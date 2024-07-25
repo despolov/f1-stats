@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   OutlinedInput,
   MenuItem,
@@ -7,15 +7,17 @@ import {
   CircularProgress,
   useMediaQuery,
   useTheme,
+  Typography,
 } from '@mui/material';
 import getStyles from './Select.styles';
-
-const styles = getStyles();
+import { ColorModeContext } from '../ColorMode';
 
 const SimpleSelect = (props) => {
   const { disabled, value, onChange, label, data, loading } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <FormControl fullWidth>
@@ -30,14 +32,20 @@ const SimpleSelect = (props) => {
             return <CircularProgress size={17} sx={styles.loader} />;
           }
 
-          return selected || <em>{label}</em>;
+          return (
+            selected || (
+              <Typography component="em" sx={styles.placeholder}>
+                {label}
+              </Typography>
+            )
+          );
         }}
         inputProps={{ 'aria-label': 'Without label' }}
         sx={styles.select}
         fullWidth={false}
         MenuProps={{
           PaperProps: {
-            sx: isDesktop ? {} : styles.selectDropdownMobile,
+            sx: isDesktop ? styles.selectDropdown : styles.selectDropdownMobile,
           },
         }}
       >

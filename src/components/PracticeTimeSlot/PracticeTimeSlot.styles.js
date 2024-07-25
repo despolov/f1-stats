@@ -1,6 +1,7 @@
-const getStyles = () => ({
-  subTitleH4: {
+const getStyles = (mode) => ({
+  title: {
     margin: 0,
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
   iconLive: {
     color: 'red',

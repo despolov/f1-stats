@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { styled } from '@mui/material/styles';
 import {
   Table,
@@ -12,32 +12,32 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import { tooltipClasses } from '@mui/material/Tooltip';
 import getStyles from './AggregatedPracticeMobileTable.styles';
 import getDriverColor from '../../utils/getDriverColor';
 import { FaCircleInfo } from 'react-icons/fa6';
+import { ColorModeContext } from '../ColorMode';
 
-const styles = getStyles();
-
-const StyledTableRow = styled(TableRow)(() => ({
-  '&:nth-of-type(odd)': styles.tableRowOdd,
+const StyledTableRow = styled(TableRow)(({ mode, styles }) => ({
+  backgroundColor: mode === 'light' ? '#ffffff' : '#626262',
+  '&:nth-of-type(odd)':
+    mode === 'light' ? styles.tableRowOdd : styles.tableRowOddDark,
   '&:last-child td, &:last-child th': styles.tableRowLast,
 }));
 
-const TitleContainer = styled('div')(() => styles.titleContainer);
-
-const TableTitle = styled('h5')(() => styles.tableTitle);
-
-const DriverCellContainer = styled('div')(() => styles.driverCellContainer);
-
 const AggregatedPracticeTable = (props) => {
   const { data, title } = props;
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <TableContainer sx={styles.tableContainer} component={Paper}>
       {title && (
-        <TitleContainer>
-          <TableTitle>{title}</TableTitle>
-        </TitleContainer>
+        <Box sx={styles.titleContainer}>
+          <Typography component="h5" sx={styles.tableTitle}>
+            {title}
+          </Typography>
+        </Box>
       )}
 
       <Table>
@@ -72,7 +72,7 @@ const AggregatedPracticeTable = (props) => {
             } = value;
 
             return (
-              <StyledTableRow key={driver}>
+              <StyledTableRow key={driver} mode={mode} styles={styles}>
                 <TableCell align="center" sx={styles.tableCellBody}>
                   <Typography sx={styles.tableCellBodyText}>
                     {(index += 1)}
@@ -80,7 +80,7 @@ const AggregatedPracticeTable = (props) => {
                 </TableCell>
 
                 <TableCell align="center" sx={styles.tableCellBody}>
-                  <DriverCellContainer>
+                  <Box sx={styles.driverCellContainer}>
                     <Box
                       sx={[
                         { borderLeft: `5px solid ${getDriverColor(driver)}` },
@@ -91,7 +91,7 @@ const AggregatedPracticeTable = (props) => {
                     <Typography sx={styles.tableCellBodyText}>
                       {driver}
                     </Typography>
-                  </DriverCellContainer>
+                  </Box>
                 </TableCell>
 
                 <TableCell align="center" sx={styles.tableCellBody}>
@@ -129,6 +129,14 @@ const AggregatedPracticeTable = (props) => {
                     arrow
                     enterTouchDelay={0}
                     leaveTouchDelay={5000}
+                    slotProps={{
+                      popper: {
+                        sx: {
+                          [`&.${tooltipClasses.popper}[data-popper-placement*="top"] .${tooltipClasses.tooltip}`]:
+                            { marginBottom: '8px' },
+                        },
+                      },
+                    }}
                   >
                     <Box sx={styles.iconContainer}>
                       {aggregatedLap ? <FaCircleInfo /> : null}

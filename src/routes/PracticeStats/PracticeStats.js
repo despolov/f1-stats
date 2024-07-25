@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ReactGA from 'react-ga4';
-import { styled } from '@mui/material';
+import { Typography } from '@mui/material';
 import Layout from '../../components/Layout';
 import getStyles from './PracticeStats.styles';
 import { LinearProgress, useMediaQuery, useTheme, Box } from '@mui/material';
@@ -17,18 +17,7 @@ import addGapBetweenDrivers from '../../utils/addGapBetweenDrivers';
 import moment from 'moment';
 import RaceSelect from '../../components/RaceSelect';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-
-const styles = getStyles();
-
-const ParentContainer = styled('div')(() => styles.parentContainer);
-
-const TableContainer = styled('div')(() => styles.tableContainer);
-
-const PracticeContainer = styled('div')(() => styles.practiceContainer);
-
-const Title = styled('h3')(() => styles.title);
-
-const Divider = styled('div')(() => styles.divider);
+import { ColorModeContext } from '../../components/ColorMode';
 
 const PracticeStats = () => {
   ReactGA.send({
@@ -65,12 +54,13 @@ const PracticeStats = () => {
     (practice1Stats.length > 0 ||
       practice2Stats.length > 0 ||
       practice3Stats.length > 0);
-
   const shouldRenderInitMessage =
     !practiceStatsLoading &&
     practice1Stats.length === 0 &&
     practice2Stats.length === 0 &&
     practice3Stats.length === 0;
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   useEffect(() => {
     const startYear = 2023;
@@ -256,8 +246,10 @@ const PracticeStats = () => {
     }
 
     return (
-      <PracticeContainer>
-        <Title>{title}</Title>
+      <Box sx={styles.practiceContainer}>
+        <Typography component="h3" sx={styles.title}>
+          {title}
+        </Typography>
 
         {Object.keys(timePeriod).length > 0 && (
           <PracticeTimeSlot practiceTimePeriod={timePeriod} />
@@ -265,7 +257,12 @@ const PracticeStats = () => {
 
         {weather.length > 0 && <PracticeWeather practiceWeather={weather} />}
 
-        <TableContainer sx={isDesktop ? {} : styles.tableContainerMobile}>
+        <Box
+          sx={{
+            ...styles.tableContainer,
+            ...(isDesktop ? {} : styles.tableContainerMobile),
+          }}
+        >
           {isDesktop ? (
             <>
               <AggregatedPracticeTable
@@ -291,8 +288,8 @@ const PracticeStats = () => {
               />
             </>
           )}
-        </TableContainer>
-      </PracticeContainer>
+        </Box>
+      </Box>
     );
   };
 
@@ -337,7 +334,9 @@ const PracticeStats = () => {
 
     return (
       <>
-        <Title>Loading practice stats...</Title>
+        <Typography component="h3" sx={styles.title}>
+          Loading practice stats...
+        </Typography>
 
         <LinearProgress color="secondary" sx={styles.progressLoader} />
       </>
@@ -347,7 +346,12 @@ const PracticeStats = () => {
   if (error) {
     return (
       <Layout>
-        <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
+        <Box
+          sx={{
+            ...styles.parentContainer,
+            ...(isDesktop ? {} : styles.parentContainerMobile),
+          }}
+        >
           <RaceSelect
             year={year}
             handleYearChange={handleYearChange}
@@ -358,17 +362,24 @@ const PracticeStats = () => {
             countrieLoading={countrieLoading}
           />
 
-          <Divider />
+          <Box sx={styles.divider} />
 
-          <Title>{error}</Title>
-        </ParentContainer>
+          <Typography component="h3" sx={styles.title}>
+            {error}
+          </Typography>
+        </Box>
       </Layout>
     );
   }
 
   return (
     <Layout>
-      <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
+      <Box
+        sx={{
+          ...styles.parentContainer,
+          ...(isDesktop ? {} : styles.parentContainerMobile),
+        }}
+      >
         <RaceSelect
           year={year}
           handleYearChange={handleYearChange}
@@ -379,10 +390,10 @@ const PracticeStats = () => {
           countrieLoading={countrieLoading}
         />
 
-        <Divider />
+        <Box sx={styles.divider} />
 
         {shouldRenderInitMessage && (
-          <Box component="p">
+          <Box component="p" sx={styles.description}>
             Select year and country in order to see practice actual and
             aggregated results
           </Box>
@@ -391,7 +402,7 @@ const PracticeStats = () => {
         {renderLoading()}
 
         {renderPractices()}
-      </ParentContainer>
+      </Box>
     </Layout>
   );
 };

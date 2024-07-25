@@ -4,6 +4,7 @@ import Select from '../Select';
 import getStyles from './RaceSelect.styles';
 
 const styles = getStyles();
+
 const SelectFieldsContainer = styled('div')(() => styles.selectFieldsContainer);
 
 const RaceSelect = (props) => {

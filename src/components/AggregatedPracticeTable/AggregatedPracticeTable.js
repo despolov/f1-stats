@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { styled } from '@mui/material/styles';
 import {
   Table,
@@ -9,32 +9,32 @@ import {
   TableRow,
   Paper,
   Box,
+  Typography,
 } from '@mui/material';
 import getStyles from './AggregatedPracticeTable.styles';
 import getDriverColor from '../../utils/getDriverColor';
+import { ColorModeContext } from '../ColorMode';
 
-const styles = getStyles();
-
-const StyledTableRow = styled(TableRow)(() => ({
-  '&:nth-of-type(odd)': styles.tableRowOdd,
+const StyledTableRow = styled(TableRow)(({ mode, styles }) => ({
+  backgroundColor: mode === 'light' ? '#ffffff' : '#626262',
+  '&:nth-of-type(odd)':
+    mode === 'light' ? styles.tableRowOdd : styles.tableRowOddDark,
   '&:last-child td, &:last-child th': styles.tableRowLast,
 }));
 
-const TitleContainer = styled('div')(() => styles.titleContainer);
-
-const TableTitle = styled('h5')(() => styles.tableTitle);
-
-const DriverCellContainer = styled('div')(() => styles.driverCellContainer);
-
 const AggregatedPracticeTable = (props) => {
   const { data, title } = props;
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <TableContainer sx={styles.tableContainer} component={Paper}>
       {title && (
-        <TitleContainer>
-          <TableTitle>{title}</TableTitle>
-        </TitleContainer>
+        <Box sx={styles.titleContainer}>
+          <Typography component="h5" sx={styles.tableTitle}>
+            {title}
+          </Typography>
+        </Box>
       )}
 
       <Table aria-label="customized table">
@@ -87,13 +87,13 @@ const AggregatedPracticeTable = (props) => {
             } = value;
 
             return (
-              <StyledTableRow key={driver}>
+              <StyledTableRow key={driver} mode={mode} styles={styles}>
                 <TableCell sx={styles.tableCellBody} align="left">
                   {(index += 1)}
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">
-                  <DriverCellContainer>
+                  <Box sx={styles.driverCellContainer}>
                     <Box
                       sx={[
                         { borderLeft: `5px solid ${getDriverColor(driver)}` },
@@ -102,7 +102,7 @@ const AggregatedPracticeTable = (props) => {
                     />
 
                     {driver}
-                  </DriverCellContainer>
+                  </Box>
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">
