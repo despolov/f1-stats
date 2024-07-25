@@ -1,7 +1,7 @@
 const getStyles = (mode) => ({
   tableContainer: {
     width: '50%',
-    backgroundColor: '#1E1E1E',
+    backgroundColor: mode === 'light' ? '#ffffff' : '#1E1E1E',
   },
   tableCellHeader: {
     backgroundColor: '#363030',

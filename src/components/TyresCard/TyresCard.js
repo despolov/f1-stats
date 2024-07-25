@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   useTheme,
   useMediaQuery,
@@ -10,8 +10,7 @@ import getStyles from './TyresCard.styles';
 import { IconContext } from 'react-icons';
 import { FaCircleInfo } from 'react-icons/fa6';
 import TyresCircle from '../TyresCircle';
-
-const styles = getStyles();
+import { ColorModeContext } from '../ColorMode';
 
 const TyresCard = (props) => {
   const {
@@ -26,6 +25,8 @@ const TyresCard = (props) => {
   } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Box sx={isDesktop ? styles.container : styles.containerMobile}>

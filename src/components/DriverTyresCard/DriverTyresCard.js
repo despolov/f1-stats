@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useMediaQuery, useTheme, Box, Button } from '@mui/material';
 import getStyles from './DriverTyresCard.styles';
-import TyresCard from '../TyresCard/TyresCard';
-import DriverCard from '../DriverCard/DriverCard';
-
-const styles = getStyles();
+import TyresCard from '../TyresCard';
+import DriverCard from '../DriverCard';
+import { ColorModeContext } from '../ColorMode';
 
 const DriverTyresCard = (props) => {
   const { stats, isSprintWeekend, onAllStintsClick } = props;
@@ -20,6 +19,8 @@ const DriverTyresCard = (props) => {
   const { SOFT, MEDIUM, HARD, INTERMEDIATE, WET } = usedTyres;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Box sx={isDesktop ? styles.container : styles.containerMobile}>
@@ -87,8 +88,8 @@ const DriverTyresCard = (props) => {
       <Button
         onClick={onAllStintsClick}
         variant="contained"
-        color="primary"
         fullWidth
+        sx={styles.allStintsButton}
       >
         All stints
       </Button>

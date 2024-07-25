@@ -1,4 +1,4 @@
-const getStyles = () => ({
+const getStyles = (mode) => ({
   nameContainer: {
     display: 'flex',
     marginBottom: '10px',
@@ -8,9 +8,11 @@ const getStyles = () => ({
   },
   firstName: {
     marginRight: '5px',
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
   lastName: {
     fontWeight: 600,
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
   teamName: {
     color: '#67676D',
@@ -23,6 +25,7 @@ const getStyles = () => ({
   iconPerson: {
     width: '93px',
     height: '93px',
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
 });
 

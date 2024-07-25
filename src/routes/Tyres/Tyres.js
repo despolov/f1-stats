@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReactGA from 'react-ga4';
 import {
-  styled,
   useTheme,
   useMediaQuery,
   Typography,
@@ -22,14 +21,7 @@ import {
   useNavigate,
   createSearchParams,
 } from 'react-router-dom';
-
-const styles = getStyles();
-
-const ParentContainer = styled('div')(() => styles.parentContainer);
-
-const Title = styled('h3')(() => styles.title);
-
-const Divider = styled('div')(() => styles.divider);
+import { ColorModeContext } from '../../components/ColorMode';
 
 const Tyres = () => {
   ReactGA.send({
@@ -53,6 +45,8 @@ const Tyres = () => {
   const navigate = useNavigate();
   const shouldRenderInitMessage =
     !tyresStatsLoading && Object.keys(tyresStats).length === 0;
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   useEffect(() => {
     const startYear = 2023;
@@ -264,7 +258,9 @@ const Tyres = () => {
 
     return (
       <>
-        <Title>Loading tyre stats...</Title>
+        <Typography component="h3" sx={styles.title}>
+          Loading tyre stats...
+        </Typography>
 
         <LinearProgress color="secondary" sx={styles.progressLoader} />
       </>
@@ -315,7 +311,12 @@ const Tyres = () => {
   if (error) {
     return (
       <Layout>
-        <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
+        <Box
+          sx={{
+            ...styles.parentContainer,
+            ...(isDesktop ? {} : styles.parentContainerMobile),
+          }}
+        >
           <RaceSelect
             year={year}
             handleYearChange={handleYearChange}
@@ -326,17 +327,24 @@ const Tyres = () => {
             countrieLoading={countrieLoading}
           />
 
-          <Divider />
+          <Box sx={styles.divider} />
 
-          <Title>{error}</Title>
-        </ParentContainer>
+          <Typography component="h3" sx={styles.title}>
+            {error}
+          </Typography>
+        </Box>
       </Layout>
     );
   }
 
   return (
     <Layout>
-      <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
+      <Box
+        sx={{
+          ...styles.parentContainer,
+          ...(isDesktop ? {} : styles.parentContainerMobile),
+        }}
+      >
         <RaceSelect
           year={year}
           handleYearChange={handleYearChange}
@@ -347,10 +355,10 @@ const Tyres = () => {
           countrieLoading={countrieLoading}
         />
 
-        <Divider />
+        <Box sx={styles.divider} />
 
         {shouldRenderInitMessage && (
-          <Box component="p">
+          <Box component="p" sx={styles.description}>
             Select year and country in order to see tyre stats
           </Box>
         )}
@@ -358,7 +366,7 @@ const Tyres = () => {
         {renderLoading()}
 
         {renderTyresStats()}
-      </ParentContainer>
+      </Box>
     </Layout>
   );
 };

@@ -1,4 +1,4 @@
-const getStyles = () => ({
+const getStyles = (mode) => ({
   container: {
     width: '262px',
     height: '230px',
@@ -18,6 +18,7 @@ const getStyles = () => ({
   },
   title: {
     fontSize: '16px',
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
   tyresRow: {
     display: 'flex',
@@ -37,6 +38,9 @@ const getStyles = () => ({
   },
   mediumLabel: {
     color: '#F3C302',
+  },
+  hardLabel: {
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
   intermediateLabel: {
     color: '#019D2E',

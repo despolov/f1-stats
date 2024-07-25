@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTheme, useMediaQuery, Typography, Box } from '@mui/material';
 import TyresCircle from '../TyresCircle';
 import getStyles from './TyresLegend.styles';
 import allCompoundsImg from '../../assets/icons/allCompounds.png';
-
-const styles = getStyles();
+import { ColorModeContext } from '../ColorMode';
 
 const TyresLegend = (props) => {
   const { isSprintWeekend, component } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   if (component === 'legend') {
     return (
@@ -35,7 +36,7 @@ const TyresLegend = (props) => {
 
           <TyresCircle compound="HARD" size="45" />
 
-          <Typography>2 sets</Typography>
+          <Typography sx={styles.hardLabel}>2 sets</Typography>
         </Box>
 
         <Box sx={styles.tyresRow}>
@@ -72,7 +73,7 @@ const TyresLegend = (props) => {
 
         <TyresCircle compound="HARD" size="45" />
 
-        <Typography>2 sets</Typography>
+        <Typography sx={styles.hardLabel}>2 sets</Typography>
 
         <TyresCircle compound="INTERMEDIATE" size="45" />
 
@@ -103,7 +104,7 @@ const TyresLegend = (props) => {
 
           <TyresCircle compound="HARD" size="45" />
 
-          <Typography>2 sets</Typography>
+          <Typography sx={styles.hardLabel}>2 sets</Typography>
 
           <TyresCircle compound="INTERMEDIATE" size="45" />
 
@@ -133,7 +134,7 @@ const TyresLegend = (props) => {
         />
 
         <Box sx={styles.labelsContainerImage}>
-          <Typography>2 sets</Typography>
+          <Typography sx={styles.hardLabel}>2 sets</Typography>
 
           <Typography sx={styles.mediumLabel}>
             {isSprintWeekend ? '4 sets' : '3 sets'}
@@ -163,7 +164,7 @@ const TyresLegend = (props) => {
         />
 
         <Box sx={styles.labelsContainerImageMobile}>
-          <Typography>2 sets</Typography>
+          <Typography sx={styles.hardLabel}>2 sets</Typography>
 
           <Typography sx={styles.mediumLabel}>
             {isSprintWeekend ? '4 sets' : '3 sets'}

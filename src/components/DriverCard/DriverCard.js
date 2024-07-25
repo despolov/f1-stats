@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import getDriverColor from '../../utils/getDriverColor';
 import getStyles from './DriverCard.styles';
 import { IconContext } from 'react-icons';
 import { IoIosPerson } from 'react-icons/io';
-
-const styles = getStyles();
+import { ColorModeContext } from '../ColorMode';
 
 const DriverCard = (props) => {
   const { driver } = props;
@@ -18,6 +17,8 @@ const DriverCard = (props) => {
     first_name,
     last_name,
   } = driver;
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Grid
