@@ -1,4 +1,4 @@
-const getStyles = () => ({
+const getStyles = (mode) => ({
   container: {
     position: 'absolute',
   },
@@ -11,7 +11,7 @@ const getStyles = () => ({
     textAlign: 'center',
   },
   number: {
-    color: '#000000',
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
 });
 

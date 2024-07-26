@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Typography } from '@mui/material';
 import getStyles from './Pin.styles';
-
-const styles = getStyles();
+import { ColorModeContext } from '../ColorMode';
 
 const Pin = (props) => {
   const {
@@ -15,6 +14,8 @@ const Pin = (props) => {
     rotateText,
     lineWidth = 32,
   } = props;
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Box

@@ -1,9 +1,9 @@
-const getStyles = () => ({
+const getStyles = (mode) => ({
   container: {
     textAlign: 'center',
     alignContent: 'center',
-    borderTop: '2px solid black',
-    borderRight: '2px solid black',
+    borderTop: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderRight: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
     borderTopRightRadius: '8px',
     borderBottomRightRadius: '0',
     borderTopLeftRadius: '0',
@@ -22,10 +22,18 @@ const getStyles = () => ({
   },
   infoText: {
     margin: '0 0 30px 0',
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
+  },
+  infoTextNoM: {
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
   textsContainer: {
     textAlign: 'end',
     margin: '0 5px 0 0',
+  },
+  stintNumber: {
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    backgroundColor: mode === 'light' ? '#ffffff' : '#1E1E1E',
   },
 });
 

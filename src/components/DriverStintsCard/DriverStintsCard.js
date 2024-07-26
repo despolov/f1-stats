@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTheme, useMediaQuery, Box, Typography } from '@mui/material';
 import getDriverColor from '../../utils/getDriverColor';
 import getStyles from './DriverStintsCard.styles';
@@ -6,8 +6,7 @@ import { IconContext } from 'react-icons';
 import { IoIosPerson } from 'react-icons/io';
 import ReactCountryFlag from 'react-country-flag';
 import getDriverCountryCode from '../../utils/getDriverCountryCode';
-
-const styles = getStyles();
+import { ColorModeContext } from '../ColorMode';
 
 const DriverStintsCard = (props) => {
   const { driver } = props;
@@ -23,6 +22,8 @@ const DriverStintsCard = (props) => {
   } = driver;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Box sx={isDesktop ? styles.container : styles.containerMobile}>

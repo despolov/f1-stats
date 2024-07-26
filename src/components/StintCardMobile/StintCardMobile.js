@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Typography } from '@mui/material';
 import getStyles from './StintCardMobile.styles';
 import TyresCircle from '../TyresCircle';
-import Pin from '../Pin/Pin';
-
-const styles = getStyles();
+import Pin from '../Pin';
+import { ColorModeContext } from '../ColorMode';
 
 const StintCardMobile = (props) => {
   const {
@@ -17,6 +16,8 @@ const StintCardMobile = (props) => {
     lap_end,
     tyre_age_at_start,
   } = props;
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Box sx={styles.container}>
@@ -78,7 +79,7 @@ const StintCardMobile = (props) => {
 
           <Typography sx={styles.infoText}>Lap end</Typography>
 
-          <Typography>Tyres age at start</Typography>
+          <Typography sx={styles.infoTextNoM}>Tyres age at start</Typography>
         </Box>
       </Box>
     </Box>

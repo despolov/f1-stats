@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   styled,
   useTheme,
@@ -7,41 +7,49 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Typography,
 } from '@mui/material';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import getStyles from './SessionStints.styles';
 import StintGraph from '../StintGraph';
 import StintCard from '../StintCard';
 import StintCardMobile from '../StintCardMobile';
-
-const styles = getStyles();
-
-const Title = styled('h3')(() => styles.title);
-
-const SubTitle = styled('h4')(() => styles.subTitle);
+import { ColorModeContext } from '../ColorMode';
 
 const StyledAccordionDetails = styled(AccordionDetails)(
-  () => styles.accordionDetails,
+  ({ styles }) => styles.accordionDetails,
 );
 
 const StyledAccordionSummary = styled(AccordionSummary)(
-  () => styles.accordionSummary,
+  ({ styles }) => styles.accordionSummary,
 );
 
-const StyledAccordion = styled(Accordion)(() => styles.accordion);
+const StyledAccordion = styled(Accordion)(({ styles }) => styles.accordion);
 
 const SessionStints = (props) => {
   const { session, title, driverNumber } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   if (session.length === 0) {
     return (
       <>
         <Box sx={styles.titleContainer}>
-          <Title sx={styles.titleNoLaps}>{title} -</Title>
+          <Typography
+            component="h3"
+            sx={{ ...styles.title, ...styles.titleNoLaps }}
+          >
+            {title} -
+          </Typography>
 
-          <SubTitle sx={styles.subTitleContainerNoLaps}>Total laps: 0</SubTitle>
+          <Typography
+            component="h4"
+            sx={{ ...styles.subTitle, ...styles.subTitleContainerNoLaps }}
+          >
+            Total laps: 0
+          </Typography>
         </Box>
       </>
     );
@@ -52,15 +60,22 @@ const SessionStints = (props) => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.titleContainer}>
-        <Title>{title} -</Title>
+        <Typography component="h3" sx={styles.title}>
+          {title} -
+        </Typography>
 
-        <SubTitle sx={styles.subTitleContainer}>
+        <Typography
+          component="h4"
+          sx={{ ...styles.subTitle, ...styles.subTitleContainer }}
+        >
           Total laps: {totalLaps}
-        </SubTitle>
+        </Typography>
       </Box>
 
       <Box sx={styles.stintsContainer}>
-        <SubTitle>All stints: {session.length}</SubTitle>
+        <Typography component="h4" sx={styles.subTitle}>
+          All stints: {session.length}
+        </Typography>
 
         <Box
           sx={
@@ -79,12 +94,20 @@ const SessionStints = (props) => {
         </Box>
       </Box>
 
-      <StyledAccordion disableGutters square>
-        <StyledAccordionSummary expandIcon={<ArrowForwardIosSharpIcon />}>
-          <SubTitle sx={styles.stintsBreakDownTitle}>Stints breakdown</SubTitle>
+      <StyledAccordion styles={styles} disableGutters square>
+        <StyledAccordionSummary
+          styles={styles}
+          expandIcon={<ArrowForwardIosSharpIcon sx={styles.expandIcon} />}
+        >
+          <Typography
+            component="h4"
+            sx={{ ...styles.subTitle, ...styles.stintsBreakDownTitle }}
+          >
+            Stints breakdown
+          </Typography>
         </StyledAccordionSummary>
 
-        <StyledAccordionDetails>
+        <StyledAccordionDetails styles={styles}>
           <Box sx={styles.stintCardsContainer}>
             {session.map((sessionStint) => {
               const {

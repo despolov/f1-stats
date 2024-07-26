@@ -1,9 +1,9 @@
-const getStyles = () => ({
+const getStyles = (mode) => ({
   container: {
     textAlign: 'center',
     alignContent: 'center',
-    borderTop: '2px solid black',
-    borderRight: '2px solid black',
+    borderTop: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderRight: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
     borderTopRightRadius: '8px',
     borderBottomRightRadius: '0',
     borderTopLeftRadius: '0',
@@ -17,12 +17,20 @@ const getStyles = () => ({
     fontWeight: 700,
     fontSize: '16px',
     padding: '0 7px 0 0',
-    backgroundColor: 'white',
     top: '-12px',
     left: 0,
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    backgroundColor: mode === 'light' ? '#ffffff' : '#1E1E1E',
   },
   lapsCount: {
     height: '55px',
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
+  },
+  lapStart: {
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
+  },
+  lapEnd: {
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
   tyreCircleContainer: {
     display: 'flex',
@@ -36,6 +44,7 @@ const getStyles = () => ({
   },
   tyreAge: {
     alignSelf: 'flex-end',
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
 });
 

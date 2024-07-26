@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import getStyles from './StintCard.styles';
 import TyresCircle from '../TyresCircle';
-import Pin from '../Pin/Pin';
-
-const styles = getStyles();
+import Pin from '../Pin';
+import { ColorModeContext } from '../ColorMode';
 
 const StintCard = (props) => {
   const {
@@ -17,6 +16,8 @@ const StintCard = (props) => {
     lap_end,
     tyre_age_at_start,
   } = props;
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   return (
     <Box sx={styles.container}>
@@ -33,7 +34,7 @@ const StintCard = (props) => {
           <Typography>Laps count</Typography>
         </Grid>
 
-        <Grid item xs={2.5} align="right">
+        <Grid item xs={2.5} align="right" sx={styles.lapStart}>
           <Typography>Lap start</Typography>
         </Grid>
 
@@ -81,7 +82,7 @@ const StintCard = (props) => {
           />
         </Grid>
 
-        <Grid item xs={2.5} align="left">
+        <Grid item xs={2.5} align="left" sx={styles.lapEnd}>
           <Typography>Lap end</Typography>
         </Grid>
 

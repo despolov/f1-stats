@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReactGA from 'react-ga4';
 import {
-  styled,
   useTheme,
   useMediaQuery,
   LinearProgress,
   Button,
+  Box,
+  Typography,
 } from '@mui/material';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import getStyles from './Stints.styles';
@@ -13,12 +14,7 @@ import Layout from '../../components/Layout';
 import getSessionStints from '../../utils/getSessionStints';
 import DriverStintsCard from '../../components/DriverStintsCard';
 import SessionStints from '../../components/SessionStints';
-
-const styles = getStyles();
-
-const ParentContainer = styled('div')(() => styles.parentContainer);
-
-const Title = styled('h3')(() => styles.title);
+import { ColorModeContext } from '../../components/ColorMode';
 
 const Stints = () => {
   ReactGA.send({
@@ -40,6 +36,8 @@ const Stints = () => {
   const navigate = useNavigate();
   const { practice1, practice2, practice3, sprintQuali, sprint, quali } =
     stints;
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
 
   useEffect(() => {
     const paramYear = searchParams.get('year');
@@ -137,7 +135,9 @@ const Stints = () => {
 
     return (
       <>
-        <Title>Loading stints...</Title>
+        <Typography component="h3" sx={styles.title}>
+          Loading stints...
+        </Typography>
 
         <LinearProgress color="secondary" sx={styles.progressLoader} />
       </>
@@ -155,14 +155,20 @@ const Stints = () => {
   if (error) {
     return (
       <Layout>
-        <ParentContainer
-          sx={
-            isDesktop
+        <Box
+          sx={{
+            ...styles.parentContainer,
+            ...(isDesktop
               ? styles.parentContainerError
-              : styles.parentContainerMobileError
-          }
+              : styles.parentContainerMobileError),
+          }}
         >
-          <Title sx={styles.errorMessage}>{error}</Title>
+          <Typography
+            component="h3"
+            sx={{ ...styles.title, ...styles.errorMessage }}
+          >
+            {error}
+          </Typography>
 
           <Button
             onClick={() => {
@@ -174,14 +180,19 @@ const Stints = () => {
           >
             GO BACK
           </Button>
-        </ParentContainer>
+        </Box>
       </Layout>
     );
   }
 
   return (
     <Layout>
-      <ParentContainer sx={isDesktop ? {} : styles.parentContainerMobile}>
+      <Box
+        sx={{
+          ...styles.parentContainer,
+          ...(isDesktop ? {} : styles.parentContainerMobile),
+        }}
+      >
         {renderLoading()}
 
         {renderDriverInfo()}
@@ -233,7 +244,7 @@ const Stints = () => {
             driverNumber={driverNumber}
           />
         )}
-      </ParentContainer>
+      </Box>
     </Layout>
   );
 };
