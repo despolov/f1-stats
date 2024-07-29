@@ -196,6 +196,29 @@ const getMeeting = async (country, year) => {
   }
 };
 
+const getIpLocation = async (date) => {
+  try {
+    const key = `ipLocation-${date}`;
+    const storageValue = getSessionStorageValue(key);
+    let ipLocation;
+
+    if (storageValue) {
+      ipLocation = storageValue;
+    } else {
+      const response = await fetch('https://ipapi.co/json/');
+      ipLocation = await response.json();
+      setSessionStorageValue(key, ipLocation);
+    }
+
+    return ipLocation;
+  } catch {
+    return {
+      hasError: true,
+      message: `There was an error with the fetch of the public ip and location of the user!`,
+    };
+  }
+};
+
 export {
   getSession,
   getDrivers,
@@ -205,4 +228,5 @@ export {
   getWeather,
   getStints,
   getMeeting,
+  getIpLocation,
 };
