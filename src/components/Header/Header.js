@@ -80,6 +80,19 @@ const TyresLink = ({ pathname }) => {
   );
 };
 
+const StintsLink = () => {
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
+
+  return (
+    <Button sx={styles.buttonActive}>
+      <Typography component="span" sx={styles.buttonTextActive}>
+        Stints
+      </Typography>
+    </Button>
+  );
+};
+
 const DrawerList = ({ toggleDrawer, pathname }) => {
   const navigate = useNavigate();
   const { mode } = useContext(ColorModeContext);
@@ -121,6 +134,14 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
             <TyresLink pathname={pathname} />
           </ListItemButton>
         </ListItem>
+
+        {pathname === '/stints' ? (
+          <ListItem key="stintsDrawerItem" disablePadding>
+            <ListItemButton>
+              <StintsLink />
+            </ListItemButton>
+          </ListItem>
+        ) : null}
 
         <Divider />
       </List>
@@ -164,6 +185,12 @@ const Header = (props) => {
               <Grid item sx={styles.headerGridButtonItem}>
                 <TyresLink pathname={pathname} />
               </Grid>
+
+              {pathname === '/stints' ? (
+                <Grid item sx={styles.headerGridButtonItem}>
+                  <StintsLink />
+                </Grid>
+              ) : null}
             </Grid>
 
             <Grid container item xs={6} sx={styles.rightGridContainer}>
