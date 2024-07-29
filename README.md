@@ -27,5 +27,4 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## TODO
 
-- make the light/dark mode based on the sunrise/sunset
 - add tests on the components and utils
