@@ -20,7 +20,7 @@ const getStyles = (mode) => ({
     top: '-12px',
     left: 0,
     color: mode === 'light' ? '#000000' : '#E2E2E2',
-    backgroundColor: mode === 'light' ? '#ffffff' : '#1E1E1E',
+    backgroundColor: mode === 'light' ? '#f7f4f1' : '#121212',
   },
   lapsCount: {
     height: '55px',

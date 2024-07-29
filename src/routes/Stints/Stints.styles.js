@@ -1,7 +1,6 @@
 const getStyles = (mode) => ({
   parentContainer: {
     padding: '20px',
-    backgroundColor: mode === 'light' ? '#ffffff' : '#1E1E1E',
   },
   parentContainerMobile: {
     padding: '8px 8px 24px 8px',

@@ -1,7 +1,7 @@
 const getStyles = (mode) => ({
   select: {
     width: '100%',
-    backgroundColor: mode === 'light' ? 'transparent' : '#1E1E1E',
+    backgroundColor: mode === 'light' ? '#ffffff' : '#1E1E1E',
     color: mode === 'light' ? '#000000' : '#E2E2E2',
     '.MuiOutlinedInput-notchedOutline': {
       borderColor: mode === 'light' ? '#C4C4C4' : '#5a5a5a',
