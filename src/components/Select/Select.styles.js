@@ -7,6 +7,7 @@ const getStyles = (mode) => ({
       borderColor: mode === 'light' ? '#C4C4C4' : '#5a5a5a',
     },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      border: '1px solid',
       borderColor: mode === 'light' ? '#C4C4C4' : '#5a5a5a',
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
@@ -17,12 +18,18 @@ const getStyles = (mode) => ({
     },
     '&.Mui-disabled': {
       color: mode === 'light' ? '#000000' : '#E2E2E2',
-      WebkitTextFillColor: 'rgba(255, 255, 255, 0.38) !important', // doesnt work
       '&:hover': {
         borderColor: `${mode === 'light' ? '#C4C4C4' : '#5a5a5a'}`,
       },
       '.MuiOutlinedInput-notchedOutline': {
         borderColor: mode === 'light' ? '#C4C4C4' : '#5a5a5a',
+      },
+
+      '& div': {
+        WebkitTextFillColor:
+          mode === 'light'
+            ? 'rgba(0, 0, 0, 0.38)'
+            : 'rgba(255, 255, 255, 0.38)',
       },
     },
   },
@@ -41,9 +48,6 @@ const getStyles = (mode) => ({
   },
   placeholder: {
     color: mode === 'light' ? '#000000' : '#E2E2E2',
-    '&.Mui-disabled': {
-      WebkitTextFillColor: 'rgba(255, 255, 255, 0.38)', // doesnt work
-    },
   },
 });
 
