@@ -1,6 +1,7 @@
-import { defineConfig, transformWithEsbuild } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
+import eslint from 'vite-plugin-eslint';
 
 export default defineConfig({
   base: '/',
@@ -11,6 +12,7 @@ export default defineConfig({
         plugins: ['@emotion/babel-plugin'],
       },
     }),
+    eslint(),
   ],
   server: {
     open: true,
