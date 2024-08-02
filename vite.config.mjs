@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 
 export default defineConfig({
-  base: '/f1-stats/',
+  base: '/',
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
