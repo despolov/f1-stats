@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://f1-stats.tech",
   "dependencies": {
+    "@emotion/babel-plugin": "^11.12.0",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.6",
@@ -11,6 +12,7 @@
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
+    "@vitejs/plugin-react": "^4.3.1",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "react": "^18.3.1",
@@ -19,14 +21,14 @@
     "react-ga4": "^2.1.0",
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.26.0",
-    "react-scripts": "5.0.1",
-    "suncalc": "^1.9.0"
+    "suncalc": "^1.9.0",
+    "vite": "^5.3.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "react-scripts test --watchAll",
-    "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build --cname f1-stats.tech"
   },

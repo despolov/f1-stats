@@ -3,9 +3,9 @@ import { HashRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../../theme.js';
-import AppRoute from '../AppRoute';
+import AppRoute from '../AppRoute/index.js';
 import ReactGA from 'react-ga4';
-import { ColorModeProvider } from '../ColorMode';
+import { ColorModeProvider } from '../ColorMode/index.js';
 
 const App = () => {
   ReactGA.initialize('G-HB1R5JQSBX');
