@@ -5,7 +5,8 @@ import {
   setSessionStorageValue,
 } from '../utils/sessionStorage';
 
-const API_ENDPOINT = 'https://api.openf1.org/v1';
+const F1_API_ENDPOINT = 'https://api.openf1.org/v1';
+const IPAPI_API_ENDPOINT = 'https://ipapi.co/json/';
 
 const getSession = async (type, country, year) => {
   try {
@@ -16,7 +17,7 @@ const getSession = async (type, country, year) => {
     if (storageValue) {
       session = storageValue;
     } else {
-      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       session = await response.json();
       setSessionStorageValue(key, session);
     }
@@ -41,7 +42,7 @@ const getDrivers = async (sessionKey, isSessionLive, driverNumber) => {
     if (storageValue && !isSessionLive) {
       drivers = storageValue;
     } else {
-      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       drivers = await response.json();
       setSessionStorageValue(key, drivers);
     }
@@ -61,7 +62,7 @@ const getDrivers = async (sessionKey, isSessionLive, driverNumber) => {
 const getLapsForDriver = async (sessionKey, driverNumber) => {
   try {
     const response = await fetch(
-      `${API_ENDPOINT}/laps?session_key=${sessionKey}&driver_number=${driverNumber}&is_pit_out_lap=false`,
+      `${F1_API_ENDPOINT}/laps?session_key=${sessionKey}&driver_number=${driverNumber}&is_pit_out_lap=false`,
     );
     const lapsPerDriver = await response.json();
 
@@ -83,7 +84,7 @@ const getLapsForSession = async (sessionKey, isSessionLive) => {
     if (storageValue && !isSessionLive) {
       lapsPerSession = storageValue;
     } else {
-      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       lapsPerSession = await response.json();
       setSessionStorageValue(key, lapsPerSession);
     }
@@ -99,7 +100,7 @@ const getLapsForSession = async (sessionKey, isSessionLive) => {
 
 const getAllGrandPrix = async (year) => {
   try {
-    const response = await fetch(`${API_ENDPOINT}/meetings?year=${year}`);
+    const response = await fetch(`${F1_API_ENDPOINT}/meetings?year=${year}`);
     const allGrandPrix = await response.json();
     // guard because sometimes the api returns duplicated grand prixs
     const uniqueAllGrandPrix = uniqBy(allGrandPrix, (p) => p.circuit_key);
@@ -122,7 +123,7 @@ const getWeather = async (sessionKey, dateStart, dateEnd, isSessionLive) => {
     if (storageValue && !isSessionLive) {
       weather = storageValue;
     } else {
-      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       weather = await response.json();
       setSessionStorageValue(key, weather);
     }
@@ -166,7 +167,7 @@ const getStints = async (session_key, isSessionLive, driverNumber) => {
     if (storageValue && !isSessionLive) {
       stints = storageValue;
     } else {
-      const response = await fetch(`${API_ENDPOINT}/${key}`);
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       stints = await response.json();
       setSessionStorageValue(key, stints);
     }
@@ -183,7 +184,7 @@ const getStints = async (session_key, isSessionLive, driverNumber) => {
 const getMeeting = async (country, year) => {
   try {
     const response = await fetch(
-      `${API_ENDPOINT}/meetings?year=${year}&country_name=${country}`,
+      `${F1_API_ENDPOINT}/meetings?year=${year}&country_name=${country}`,
     );
     const meeting = await response.json();
 
@@ -205,7 +206,7 @@ const getIpLocation = async (date) => {
     if (storageValue) {
       ipLocation = storageValue;
     } else {
-      const response = await fetch('https://ipapi.co/json/');
+      const response = await fetch(IPAPI_API_ENDPOINT);
       ipLocation = await response.json();
       setSessionStorageValue(key, ipLocation);
     }
