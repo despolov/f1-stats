@@ -7,6 +7,8 @@ import {
 
 const F1_API_ENDPOINT = 'https://api.openf1.org/v1';
 const IPAPI_API_ENDPOINT = 'https://ipapi.co/json/';
+// thu, fri, sat, sun
+const f1RaceWeekDays = [4, 5, 6, 0];
 
 const getSession = async (type, country, year) => {
   try {
@@ -31,15 +33,18 @@ const getSession = async (type, country, year) => {
   }
 };
 
-const getDrivers = async (sessionKey, isSessionLive, driverNumber) => {
+const getDrivers = async (sessionKey, driverNumber) => {
   try {
     const key = `drivers?session_key=${sessionKey}${
       driverNumber ? `&driver_number=${driverNumber}` : ''
     }`;
     const storageValue = getSessionStorageValue(key);
     let drivers;
+    const isTodayARaceWeekDay = f1RaceWeekDays.some(
+      (day) => day === new Date().getDay(),
+    );
 
-    if (storageValue && !isSessionLive) {
+    if (storageValue && !isTodayARaceWeekDay) {
       drivers = storageValue;
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
@@ -75,13 +80,16 @@ const getLapsForDriver = async (sessionKey, driverNumber) => {
   }
 };
 
-const getLapsForSession = async (sessionKey, isSessionLive) => {
+const getLapsForSession = async (sessionKey) => {
   try {
     const key = `laps?session_key=${sessionKey}&is_pit_out_lap=false`;
     const storageValue = getSessionStorageValue(key);
     let lapsPerSession;
+    const isTodayARaceWeekDay = f1RaceWeekDays.some(
+      (day) => day === new Date().getDay(),
+    );
 
-    if (storageValue && !isSessionLive) {
+    if (storageValue && !isTodayARaceWeekDay) {
       lapsPerSession = storageValue;
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
@@ -114,13 +122,16 @@ const getAllGrandPrix = async (year) => {
   }
 };
 
-const getWeather = async (sessionKey, dateStart, dateEnd, isSessionLive) => {
+const getWeather = async (sessionKey, dateStart, dateEnd) => {
   try {
     const key = `weather?session_key=${sessionKey}`;
     const storageValue = getSessionStorageValue(key);
     let weather;
+    const isTodayARaceWeekDay = f1RaceWeekDays.some(
+      (day) => day === new Date().getDay(),
+    );
 
-    if (storageValue && !isSessionLive) {
+    if (storageValue && !isTodayARaceWeekDay) {
       weather = storageValue;
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
@@ -156,15 +167,18 @@ const getWeather = async (sessionKey, dateStart, dateEnd, isSessionLive) => {
   }
 };
 
-const getStints = async (session_key, isSessionLive, driverNumber) => {
+const getStints = async (session_key, driverNumber) => {
   try {
     const key = `stints?session_key=${session_key}${
       driverNumber ? `&driver_number=${driverNumber}` : ''
     }`;
     const storageValue = getSessionStorageValue(key);
     let stints;
+    const isTodayARaceWeekDay = f1RaceWeekDays.some(
+      (day) => day === new Date().getDay(),
+    );
 
-    if (storageValue && !isSessionLive) {
+    if (storageValue && !isTodayARaceWeekDay) {
       stints = storageValue;
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);

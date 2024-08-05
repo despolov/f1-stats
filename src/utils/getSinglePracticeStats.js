@@ -1,7 +1,6 @@
 import secondsToMinutes from './secondsToMinutes';
 import secondsToFixed from './secondsToFixed';
 import { getDrivers, getLapsForSession, getSession, getWeather } from '../api';
-import moment from 'moment';
 
 const orderLapsPerDriver = (laps) =>
   laps.reduce((accumulator, lap) => {
@@ -43,18 +42,15 @@ const getSinglePracticeStats = async (
     date_start: dateStart,
     date_end: dateEnd,
   } = session[0];
-  const startDate = moment(dateStart);
-  const endDate = moment(dateEnd);
-  const isLive = moment().isBetween(startDate, endDate);
   const timePeriod = { start: dateStart, end: dateEnd };
-  const weather = await getWeather(sessionKey, dateStart, dateEnd, isLive);
+  const weather = await getWeather(sessionKey, dateStart, dateEnd);
 
   if (weather.hasError) {
     setError(weather.message);
     return;
   }
 
-  const drivers = await getDrivers(sessionKey, isLive);
+  const drivers = await getDrivers(sessionKey);
 
   if (drivers.hasError) {
     setError(drivers.message);
@@ -63,7 +59,7 @@ const getSinglePracticeStats = async (
 
   const bestSectorsPerDriver = [];
   const bestLapPerDriver = [];
-  const allLaps = await getLapsForSession(sessionKey, isLive);
+  const allLaps = await getLapsForSession(sessionKey);
 
   if (allLaps.hasError) {
     setError(allLaps.message);

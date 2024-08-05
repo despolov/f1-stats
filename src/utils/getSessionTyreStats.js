@@ -1,5 +1,4 @@
 import { getDrivers, getSession, getStints } from '../api';
-import moment from 'moment';
 import { orderBy } from 'lodash';
 
 const orderStintsPerDriver = (stints) =>
@@ -32,15 +31,8 @@ const getSessionTyreStats = async (
     return null;
   }
 
-  const {
-    session_key: sessionKey,
-    date_start: dateStart,
-    date_end: dateEnd,
-  } = session[0];
-  const startDate = moment(dateStart);
-  const endDate = moment(dateEnd);
-  const isLive = moment().isBetween(startDate, endDate);
-  const allDrivers = await getDrivers(sessionKey, isLive);
+  const { session_key: sessionKey } = session[0];
+  const allDrivers = await getDrivers(sessionKey);
   const drivers = orderBy(allDrivers, ['team_name']);
 
   if (drivers.hasError) {
@@ -48,7 +40,7 @@ const getSessionTyreStats = async (
     return;
   }
 
-  const allStints = await getStints(sessionKey, isLive);
+  const allStints = await getStints(sessionKey);
 
   if (allStints.hasError) {
     setError(allStints.message);

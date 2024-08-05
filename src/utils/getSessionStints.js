@@ -1,5 +1,4 @@
 import { getSession, getStints, getDrivers } from '../api';
-import moment from 'moment';
 
 const getSessionStints = async (
   type,
@@ -20,15 +19,8 @@ const getSessionStints = async (
     return null;
   }
 
-  const {
-    session_key: sessionKey,
-    date_start: dateStart,
-    date_end: dateEnd,
-  } = session[0];
-  const startDate = moment(dateStart);
-  const endDate = moment(dateEnd);
-  const isLive = moment().isBetween(startDate, endDate);
-  const allStints = await getStints(sessionKey, isLive, driverNumber);
+  const { session_key: sessionKey } = session[0];
+  const allStints = await getStints(sessionKey, driverNumber);
 
   if (allStints.hasError) {
     setError(allStints.message);
@@ -36,7 +28,7 @@ const getSessionStints = async (
   }
 
   if (getDriver) {
-    const drivers = await getDrivers(sessionKey, isLive, driverNumber);
+    const drivers = await getDrivers(sessionKey, driverNumber);
 
     if (drivers.hasError) {
       setError(drivers.message);
