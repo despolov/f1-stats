@@ -15,12 +15,13 @@ import {
   resultStats,
   resultStatsForSessionWithNullSectors,
 } from '../mockedData/getSinglePracticeStats';
+import { vi } from 'vitest';
 
-jest.mock('../../api', () => ({
-  getDrivers: jest.fn(),
-  getLapsForSession: jest.fn(),
-  getSession: jest.fn(),
-  getWeather: jest.fn(),
+vi.mock('../../api', () => ({
+  getDrivers: vi.fn(),
+  getLapsForSession: vi.fn(),
+  getSession: vi.fn(),
+  getWeather: vi.fn(),
 }));
 
 const type = 'Practice 1';
@@ -34,7 +35,7 @@ test('getSinglePracticeStats to return empty data when the session return data l
     type,
     selectedYear,
     selectedCountry,
-    jest.fn,
+    vi.fn,
   );
 
   expect(getSession).toHaveBeenCalledTimes(1);
@@ -47,7 +48,7 @@ test('getSinglePracticeStats to return empty data when the session return data l
 });
 
 test('getSinglePracticeStats to exit and set an error message when session returns an error', async () => {
-  const setError = jest.fn();
+  const setError = vi.fn();
   const sessionErrorMessage = 'session error message during GET';
 
   getSession.mockImplementation(() => ({
@@ -69,7 +70,7 @@ test('getSinglePracticeStats to exit and set an error message when session retur
 });
 
 test('getSinglePracticeStats to exit and set an error message when weather returns an error', async () => {
-  const setError = jest.fn();
+  const setError = vi.fn();
   const weatherErrorMessage = 'weather error message during GET';
 
   getSession.mockImplementation(() => mockedSessionResponse);
@@ -93,7 +94,7 @@ test('getSinglePracticeStats to exit and set an error message when weather retur
 });
 
 test('getSinglePracticeStats to exit and set an error message when drivers returns an error', async () => {
-  const setError = jest.fn();
+  const setError = vi.fn();
   const driversErrorMessage = 'drivers error message during GET';
 
   getSession.mockImplementation(() => mockedSessionResponse);
@@ -119,7 +120,7 @@ test('getSinglePracticeStats to exit and set an error message when drivers retur
 });
 
 test('getSinglePracticeStats to exit and set an error message when laps for session returns an error', async () => {
-  const setError = jest.fn();
+  const setError = vi.fn();
   const lapsForSessiomErrorMessage =
     'laps for session error message during GET';
 
@@ -157,7 +158,7 @@ test('getSinglePracticeStats to return correct data when all endpoints resolve',
     type,
     selectedYear,
     selectedCountry,
-    jest.fn,
+    vi.fn,
   );
 
   expect(getSession).toHaveBeenCalledTimes(1);
@@ -181,7 +182,7 @@ test('getSinglePracticeStats to return correct data when all endpoints resolve a
     type,
     selectedYear,
     selectedCountry,
-    jest.fn,
+    vi.fn,
   );
 
   expect(getSession).toHaveBeenCalledTimes(1);
