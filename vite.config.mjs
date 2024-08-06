@@ -21,4 +21,13 @@ export default defineConfig({
   build: {
     target: browserslistToEsbuild(['>0.2%', 'not dead', 'not op_mini all']),
   },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: './src/tests/setup.js',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+    },
+  },
 });
