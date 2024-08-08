@@ -3,7 +3,7 @@ import ReactGA from 'react-ga4';
 import { Typography } from '@mui/material';
 import Layout from '../../components/Layout';
 import getStyles from './PracticeStats.styles';
-import { LinearProgress, useMediaQuery, useTheme, Box } from '@mui/material';
+import { useMediaQuery, useTheme, Box } from '@mui/material';
 import { getAllGrandPrix } from '../../api';
 import AggregatedPracticeTable from '../../components/AggregatedPracticeTable';
 import AggregatedPracticeMobileTable from '../../components/AggregatedPracticeMobileTable';
@@ -12,6 +12,7 @@ import ActualPracticeMobileTable from '../../components/ActualPracticeMobileTabl
 import { orderBy } from 'lodash';
 import PracticeTimeSlot from '../../components/PracticeTimeSlot';
 import PracticeWeather from '../../components/PracticeWeather';
+import LinearProgressBar from '../../components/LinearProgressBar';
 import getSinglePracticeStats from '../../utils/getSinglePracticeStats';
 import addGapBetweenDrivers from '../../utils/addGapBetweenDrivers';
 import moment from 'moment';
@@ -44,6 +45,7 @@ const PracticeStats = () => {
   const [practice2TimePeriod, setPractice2TimePeriod] = useState({});
   const [practice3TimePeriod, setPractice3TimePeriod] = useState({});
   const [practiceStatsLoading, setPracticeStatsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [error, setStateError] = useState('');
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
@@ -118,6 +120,7 @@ const PracticeStats = () => {
     setCountry('');
     setCountries([]);
     setStateError(errorMessage);
+    setProgress(0);
   };
 
   const handleYearChange = (e) => {
@@ -186,19 +189,25 @@ const PracticeStats = () => {
       selectedYear,
       selectedCountry,
       setError,
+      setProgress,
     );
+    setProgress(35);
     const practice2 = await getSinglePracticeStats(
       'Practice 2',
       selectedYear,
       selectedCountry,
       setError,
+      setProgress,
     );
+    setProgress(70);
     const practice3 = await getSinglePracticeStats(
       'Practice 3',
       selectedYear,
       selectedCountry,
       setError,
+      setProgress,
     );
+    setProgress(100);
     const practice1WithGap = addGapBetweenDrivers(
       orderBy(practice1.bestSectorsPerDriver, ['aggregatedLap']),
       'aggregatedLap',
@@ -211,7 +220,6 @@ const PracticeStats = () => {
       orderBy(practice3.bestSectorsPerDriver, ['aggregatedLap']),
       'aggregatedLap',
     );
-
     const practice1ActualWithGap = addGapBetweenDrivers(
       orderBy(practice1.bestLapPerDriver, ['lapDuration']),
       'lapDuration',
@@ -238,6 +246,7 @@ const PracticeStats = () => {
     setPractice2TimePeriod(practice2.timePeriod);
     setPractice3TimePeriod(practice3.timePeriod);
     setPracticeStatsLoading(false);
+    setProgress(0);
   };
 
   const renderPractice = (title, stats, actualStats, weather, timePeriod) => {
@@ -333,13 +342,7 @@ const PracticeStats = () => {
     }
 
     return (
-      <>
-        <Typography component="h3" sx={styles.title}>
-          Loading practice stats...
-        </Typography>
-
-        <LinearProgress color="secondary" sx={styles.progressLoader} />
-      </>
+      <LinearProgressBar title="Loading practice stats..." value={progress} />
     );
   };
 
@@ -364,7 +367,11 @@ const PracticeStats = () => {
 
           <Box sx={styles.divider} />
 
-          <Typography component="h3" sx={styles.title}>
+          <Typography component="h3" sx={styles.titleError}>
+            There seems to be a problem!
+          </Typography>
+
+          <Typography component="h3" sx={styles.subTitleError}>
             {error}
           </Typography>
         </Box>

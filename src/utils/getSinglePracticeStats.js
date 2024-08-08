@@ -15,13 +15,53 @@ const orderLapsPerDriver = (laps) =>
     return accumulator;
   }, {});
 
+const setInternalProgress = (type, setProgress, progressValue) => {
+  if (type === 'Practice 1') {
+    if (progressValue === 1) {
+      setProgress(9);
+    } else if (progressValue === 2) {
+      setProgress(18);
+    } else if (progressValue === 3) {
+      setProgress(27);
+    } else if (progressValue === 4) {
+      setProgress(35);
+    }
+  }
+
+  if (type === 'Practice 2') {
+    if (progressValue === 1) {
+      setProgress(44);
+    } else if (progressValue === 2) {
+      setProgress(53);
+    } else if (progressValue === 3) {
+      setProgress(62);
+    } else if (progressValue === 4) {
+      setProgress(70);
+    }
+  }
+
+  if (type === 'Practice 3') {
+    if (progressValue === 1) {
+      setProgress(78);
+    } else if (progressValue === 2) {
+      setProgress(86);
+    } else if (progressValue === 3) {
+      setProgress(94);
+    } else if (progressValue === 4) {
+      setProgress(100);
+    }
+  }
+};
+
 const getSinglePracticeStats = async (
   type,
   selectedYear,
   selectedCountry,
   setError,
+  setProgress,
 ) => {
   const session = await getSession(type, selectedCountry, selectedYear);
+  setInternalProgress(type, setProgress, 1);
 
   if (session.hasError) {
     setError(session.message);
@@ -44,6 +84,7 @@ const getSinglePracticeStats = async (
   } = session[0];
   const timePeriod = { start: dateStart, end: dateEnd };
   const weather = await getWeather(sessionKey, dateStart, dateEnd);
+  setInternalProgress(type, setProgress, 2);
 
   if (weather.hasError) {
     setError(weather.message);
@@ -51,6 +92,7 @@ const getSinglePracticeStats = async (
   }
 
   const drivers = await getDrivers(sessionKey);
+  setInternalProgress(type, setProgress, 3);
 
   if (drivers.hasError) {
     setError(drivers.message);
@@ -60,6 +102,7 @@ const getSinglePracticeStats = async (
   const bestSectorsPerDriver = [];
   const bestLapPerDriver = [];
   const allLaps = await getLapsForSession(sessionKey);
+  setInternalProgress(type, setProgress, 4);
 
   if (allLaps.hasError) {
     setError(allLaps.message);

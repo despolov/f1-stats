@@ -16,19 +16,29 @@ const getStyles = (mode) => ({
   title: {
     margin: 0,
     color: mode === 'light' ? '#000000' : '#E2E2E2',
+    fontWeight: 600,
   },
   divider: {
     borderBottom: mode === 'light' ? '2px solid #ffffff' : '2px solid #5a5a5a',
     margin: '20px 0 20px 0',
-  },
-  progressLoader: {
-    marginTop: '20px',
   },
   tableContainerMobile: {
     flexFlow: 'row',
   },
   description: {
     color: mode === 'light' ? '#000000' : '#E2E2E2',
+    textAlign: 'center',
+  },
+  titleError: {
+    margin: 0,
+    color: mode === 'light' ? '#E10600' : '#870400',
+    fontSize: '20px',
+    textAlign: 'center',
+  },
+  subTitleError: {
+    margin: 0,
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    textAlign: 'center',
   },
 });
 
