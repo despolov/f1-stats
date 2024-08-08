@@ -4,11 +4,11 @@ import {
   getSessionStorageValue,
   setSessionStorageValue,
 } from '../utils/sessionStorage';
-
-const F1_API_ENDPOINT = 'https://api.openf1.org/v1';
-const IPAPI_API_ENDPOINT = 'https://ipapi.co/json/';
-// thu, fri, sat, sun
-const f1RaceWeekDays = [4, 5, 6, 0];
+import {
+  F1_API_ENDPOINT,
+  IPAPI_API_ENDPOINT,
+  F1_RACE_WEEK_DAYS,
+} from '../constants/apiConsts';
 
 const getSession = async (type, country, year) => {
   try {
@@ -40,7 +40,7 @@ const getDrivers = async (sessionKey, driverNumber) => {
     }`;
     const storageValue = getSessionStorageValue(key);
     let drivers;
-    const isTodayARaceWeekDay = f1RaceWeekDays.some(
+    const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
       (day) => day === new Date().getDay(),
     );
 
@@ -85,7 +85,7 @@ const getLapsForSession = async (sessionKey) => {
     const key = `laps?session_key=${sessionKey}&is_pit_out_lap=false`;
     const storageValue = getSessionStorageValue(key);
     let lapsPerSession;
-    const isTodayARaceWeekDay = f1RaceWeekDays.some(
+    const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
       (day) => day === new Date().getDay(),
     );
 
@@ -127,7 +127,7 @@ const getWeather = async (sessionKey, dateStart, dateEnd) => {
     const key = `weather?session_key=${sessionKey}`;
     const storageValue = getSessionStorageValue(key);
     let weather;
-    const isTodayARaceWeekDay = f1RaceWeekDays.some(
+    const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
       (day) => day === new Date().getDay(),
     );
 
@@ -174,7 +174,7 @@ const getStints = async (session_key, driverNumber) => {
     }`;
     const storageValue = getSessionStorageValue(key);
     let stints;
-    const isTodayARaceWeekDay = f1RaceWeekDays.some(
+    const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
       (day) => day === new Date().getDay(),
     );
 
