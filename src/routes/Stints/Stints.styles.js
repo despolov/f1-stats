@@ -24,6 +24,12 @@ const getStyles = (mode) => ({
   goBackButton: {
     minWidth: '250px',
   },
+  titleError: {
+    margin: 0,
+    color: mode === 'light' ? '#E10600' : '#870400',
+    fontSize: '20px',
+    textAlign: 'center',
+  },
 });
 
 export default getStyles;

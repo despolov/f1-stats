@@ -35,6 +35,18 @@ const getStyles = (mode) => ({
   },
   description: {
     color: mode === 'light' ? '#000000' : '#E2E2E2',
+    textAlign: 'center',
+  },
+  titleError: {
+    margin: 0,
+    color: mode === 'light' ? '#E10600' : '#870400',
+    fontSize: '20px',
+    textAlign: 'center',
+  },
+  subTitleError: {
+    margin: 0,
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    textAlign: 'center',
   },
 });
 

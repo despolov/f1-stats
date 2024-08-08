@@ -163,6 +163,10 @@ const Stints = () => {
               : styles.parentContainerMobileError),
           }}
         >
+          <Typography component="h3" sx={styles.titleError}>
+            There seems to be a problem!
+          </Typography>
+
           <Typography
             component="h3"
             sx={{ ...styles.title, ...styles.errorMessage }}

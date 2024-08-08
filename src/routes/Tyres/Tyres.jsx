@@ -329,7 +329,11 @@ const Tyres = () => {
 
           <Box sx={styles.divider} />
 
-          <Typography component="h3" sx={styles.title}>
+          <Typography component="h3" sx={styles.titleError}>
+            There seems to be a problem!
+          </Typography>
+
+          <Typography component="h3" sx={styles.subTitleError}>
             {error}
           </Typography>
         </Box>
