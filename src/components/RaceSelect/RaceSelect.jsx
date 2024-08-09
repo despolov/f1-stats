@@ -15,7 +15,7 @@ const RaceSelect = (props) => {
     country,
     handleCountryChange,
     countries,
-    countrieLoading,
+    countriesLoading,
   } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
@@ -37,7 +37,7 @@ const RaceSelect = (props) => {
         label="Select country"
         data={countries}
         disabled={countries.length === 0}
-        loading={countrieLoading}
+        loading={countriesLoading}
       />
     </SelectFieldsContainer>
   );

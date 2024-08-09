@@ -31,7 +31,7 @@ const PracticeStats = () => {
   const [year, setYear] = useState('');
   const [country, setCountry] = useState('');
   const [countries, setCountries] = useState([]);
-  const [countrieLoading, setCountriesLoading] = useState(false);
+  const [countriesLoading, setCountriesLoading] = useState(false);
   const [practice1Stats, setPractice1Stats] = useState([]);
   const [practice2Stats, setPractice2Stats] = useState([]);
   const [practice3Stats, setPractice3Stats] = useState([]);
@@ -362,7 +362,7 @@ const PracticeStats = () => {
             country={country}
             handleCountryChange={handleCountryChange}
             countries={countries}
-            countrieLoading={countrieLoading}
+            countriesLoading={countriesLoading}
           />
 
           <Box sx={styles.divider} />
@@ -394,7 +394,7 @@ const PracticeStats = () => {
           country={country}
           handleCountryChange={handleCountryChange}
           countries={countries}
-          countrieLoading={countrieLoading}
+          countriesLoading={countriesLoading}
         />
 
         <Box sx={styles.divider} />

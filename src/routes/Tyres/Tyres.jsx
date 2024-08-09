@@ -36,7 +36,7 @@ const Tyres = () => {
   const [year, setYear] = useState('');
   const [country, setCountry] = useState('');
   const [countries, setCountries] = useState([]);
-  const [countrieLoading, setCountriesLoading] = useState(false);
+  const [countriesLoading, setCountriesLoading] = useState(false);
   const [tyresStatsLoading, setTyresStatsLoading] = useState(false);
   const [error, setStateError] = useState('');
   const [tyresStats, setTyresStats] = useState({});
@@ -324,7 +324,7 @@ const Tyres = () => {
             country={country}
             handleCountryChange={handleCountryChange}
             countries={countries}
-            countrieLoading={countrieLoading}
+            countriesLoading={countriesLoading}
           />
 
           <Box sx={styles.divider} />
@@ -356,7 +356,7 @@ const Tyres = () => {
           country={country}
           handleCountryChange={handleCountryChange}
           countries={countries}
-          countrieLoading={countrieLoading}
+          countriesLoading={countriesLoading}
         />
 
         <Box sx={styles.divider} />
