@@ -144,6 +144,7 @@ const PracticeStats = () => {
     setPractice2TimePeriod({});
     setPractice3TimePeriod({});
     setStateError('');
+    setProgress(0);
   };
 
   const handleCountryChange = (e) => {
@@ -192,6 +193,7 @@ const PracticeStats = () => {
       setProgress,
     );
     setProgress(35);
+
     const practice2 = await getSinglePracticeStats(
       'Practice 2',
       selectedYear,
@@ -200,6 +202,7 @@ const PracticeStats = () => {
       setProgress,
     );
     setProgress(70);
+
     const practice3 = await getSinglePracticeStats(
       'Practice 3',
       selectedYear,
@@ -208,6 +211,7 @@ const PracticeStats = () => {
       setProgress,
     );
     setProgress(100);
+
     const practice1WithGap = addGapBetweenDrivers(
       orderBy(practice1.bestSectorsPerDriver, ['aggregatedLap']),
       'aggregatedLap',

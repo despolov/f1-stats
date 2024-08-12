@@ -1,12 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactGA from 'react-ga4';
-import {
-  useTheme,
-  useMediaQuery,
-  Typography,
-  LinearProgress,
-  Box,
-} from '@mui/material';
+import { useTheme, useMediaQuery, Typography, Box } from '@mui/material';
 import moment from 'moment';
 import { getAllGrandPrix } from '../../api';
 import Layout from '../../components/Layout';
@@ -22,6 +16,7 @@ import {
   createSearchParams,
 } from 'react-router-dom';
 import { ColorModeContext } from '../../components/ColorMode';
+import LinearProgressBar from '../../components/LinearProgressBar';
 
 const Tyres = () => {
   ReactGA.send({
@@ -41,6 +36,7 @@ const Tyres = () => {
   const [error, setStateError] = useState('');
   const [tyresStats, setTyresStats] = useState({});
   const [isSprintWeekend, setIsSprintWeekend] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const shouldRenderInitMessage =
@@ -105,6 +101,7 @@ const Tyres = () => {
     setTyresStats({});
     setIsSprintWeekend(false);
     setStateError('');
+    setProgress(0);
   };
 
   const handleYearChange = (e) => {
@@ -126,6 +123,7 @@ const Tyres = () => {
     setCountry('');
     setCountries([]);
     setStateError(errorMessage);
+    setProgress(0);
   };
 
   const getCountries = async (selectedYear) => {
@@ -208,37 +206,55 @@ const Tyres = () => {
       selectedYear,
       selectedCountry,
       setError,
+      setProgress,
     );
+    setProgress(20);
+
     const practice2 = await getSessionTyreStats(
       'Practice 2',
       selectedYear,
       selectedCountry,
       setError,
+      setProgress,
     );
+    setProgress(35);
+
     const practice3 = await getSessionTyreStats(
       'Practice 3',
       selectedYear,
       selectedCountry,
       setError,
+      setProgress,
     );
+    setProgress(50);
+
     const sprintQuali = await getSessionTyreStats(
       'Sprint Qualifying',
       selectedYear,
       selectedCountry,
       setError,
+      setProgress,
     );
+    setProgress(70);
+
     const sprint = await getSessionTyreStats(
       'Sprint',
       selectedYear,
       selectedCountry,
       setError,
+      setProgress,
     );
+    setProgress(85);
+
     const quali = await getSessionTyreStats(
       'Qualifying',
       selectedYear,
       selectedCountry,
       setError,
+      setProgress,
     );
+    setProgress(100);
+
     let sessionsUsedTyres = {};
 
     addSessionTyresStats(practice1, sessionsUsedTyres, 'practice1');
@@ -256,15 +272,7 @@ const Tyres = () => {
       return null;
     }
 
-    return (
-      <>
-        <Typography component="h3" sx={styles.title}>
-          Loading tyre stats...
-        </Typography>
-
-        <LinearProgress color="secondary" sx={styles.progressLoader} />
-      </>
-    );
+    return <LinearProgressBar title="Loading tyre stats..." value={progress} />;
   };
 
   const renderTyresStats = () => {

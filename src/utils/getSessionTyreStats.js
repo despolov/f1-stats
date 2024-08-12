@@ -14,13 +14,72 @@ const orderStintsPerDriver = (stints) =>
     return accumulator;
   }, {});
 
+const setInternalProgress = (type, setProgress, progressValue) => {
+  if (type === 'Practice 1') {
+    if (progressValue === 1) {
+      setProgress(10);
+    } else if (progressValue === 2) {
+      setProgress(15);
+    } else if (progressValue === 3) {
+      setProgress(20);
+    }
+  }
+  if (type === 'Practice 2') {
+    if (progressValue === 1) {
+      setProgress(25);
+    } else if (progressValue === 2) {
+      setProgress(30);
+    } else if (progressValue === 3) {
+      setProgress(35);
+    }
+  }
+  if (type === 'Practice 3') {
+    if (progressValue === 1) {
+      setProgress(40);
+    } else if (progressValue === 2) {
+      setProgress(45);
+    } else if (progressValue === 3) {
+      setProgress(50);
+    }
+  }
+  if (type === 'Sprint Qualifying') {
+    if (progressValue === 1) {
+      setProgress(55);
+    } else if (progressValue === 2) {
+      setProgress(60);
+    } else if (progressValue === 3) {
+      setProgress(70);
+    }
+  }
+  if (type === 'Sprint') {
+    if (progressValue === 1) {
+      setProgress(75);
+    } else if (progressValue === 2) {
+      setProgress(80);
+    } else if (progressValue === 3) {
+      setProgress(85);
+    }
+  }
+  if (type === 'Qualifying') {
+    if (progressValue === 1) {
+      setProgress(90);
+    } else if (progressValue === 2) {
+      setProgress(95);
+    } else if (progressValue === 3) {
+      setProgress(100);
+    }
+  }
+};
+
 const getSessionTyreStats = async (
   type,
   selectedYear,
   selectedCountry,
   setError,
+  setProgress,
 ) => {
   const session = await getSession(type, selectedCountry, selectedYear);
+  setInternalProgress(type, setProgress, 1);
 
   if (session.hasError) {
     setError(session.message);
@@ -33,6 +92,7 @@ const getSessionTyreStats = async (
 
   const { session_key: sessionKey } = session[0];
   const allDrivers = await getDrivers(sessionKey);
+  setInternalProgress(type, setProgress, 2);
   const drivers = orderBy(allDrivers, ['team_name']);
 
   if (drivers.hasError) {
@@ -41,6 +101,7 @@ const getSessionTyreStats = async (
   }
 
   const allStints = await getStints(sessionKey);
+  setInternalProgress(type, setProgress, 3);
 
   if (allStints.hasError) {
     setError(allStints.message);
