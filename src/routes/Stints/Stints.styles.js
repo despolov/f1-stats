@@ -14,9 +14,6 @@ const getStyles = (mode) => ({
   errorMessage: {
     marginBottom: '20px',
   },
-  progressLoader: {
-    marginTop: '20px',
-  },
   title: {
     margin: '0 0 10px 0',
     color: mode === 'light' ? '#000000' : '#E2E2E2',

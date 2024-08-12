@@ -3,7 +3,6 @@ import ReactGA from 'react-ga4';
 import {
   useTheme,
   useMediaQuery,
-  LinearProgress,
   Button,
   Box,
   Typography,
@@ -15,6 +14,7 @@ import getSessionStints from '../../utils/getSessionStints';
 import DriverStintsCard from '../../components/DriverStintsCard';
 import SessionStints from '../../components/SessionStints';
 import { ColorModeContext } from '../../components/ColorMode';
+import LinearProgressBar from '../../components/LinearProgressBar';
 
 const Stints = () => {
   ReactGA.send({
@@ -38,6 +38,7 @@ const Stints = () => {
     stints;
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const paramYear = searchParams.get('year');
@@ -68,6 +69,7 @@ const Stints = () => {
     setCountry('');
     setDriverNumber('');
     setStateError(errorMessage);
+    setProgress(0);
   };
 
   const getStints = async () => {
@@ -78,42 +80,65 @@ const Stints = () => {
       driverNumber,
       setError,
       true,
+      setProgress,
     );
+    setProgress(20);
+
     const practice2 = await getSessionStints(
       'Practice 2',
       year,
       country,
       driverNumber,
       setError,
+      false,
+      setProgress,
     );
+    setProgress(35);
+
     const practice3 = await getSessionStints(
       'Practice 3',
       year,
       country,
       driverNumber,
       setError,
+      false,
+      setProgress,
     );
-    const sprint = await getSessionStints(
-      'Sprint',
-      year,
-      country,
-      driverNumber,
-      setError,
-    );
-    const quali = await getSessionStints(
-      'Qualifying',
-      year,
-      country,
-      driverNumber,
-      setError,
-    );
+    setProgress(50);
+
     const sprintQuali = await getSessionStints(
       'Sprint Qualifying',
       year,
       country,
       driverNumber,
       setError,
+      false,
+      setProgress,
     );
+    setProgress(70);
+
+    const sprint = await getSessionStints(
+      'Sprint',
+      year,
+      country,
+      driverNumber,
+      setError,
+      false,
+      setProgress,
+    );
+    setProgress(85);
+
+    const quali = await getSessionStints(
+      'Qualifying',
+      year,
+      country,
+      driverNumber,
+      setError,
+      false,
+      setProgress,
+    );
+    setProgress(100);
+
     let sessionsStints = {
       practice1: practice1.stints,
       practice2,
@@ -133,15 +158,7 @@ const Stints = () => {
       return null;
     }
 
-    return (
-      <>
-        <Typography component="h3" sx={styles.title}>
-          Loading stints...
-        </Typography>
-
-        <LinearProgress color="secondary" sx={styles.progressLoader} />
-      </>
-    );
+    return <LinearProgressBar title="Loading stints..." value={progress} />;
   };
 
   const renderDriverInfo = () => {

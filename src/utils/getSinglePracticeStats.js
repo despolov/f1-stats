@@ -27,7 +27,6 @@ const setInternalProgress = (type, setProgress, progressValue) => {
       setProgress(35);
     }
   }
-
   if (type === 'Practice 2') {
     if (progressValue === 1) {
       setProgress(44);
@@ -39,7 +38,6 @@ const setInternalProgress = (type, setProgress, progressValue) => {
       setProgress(70);
     }
   }
-
   if (type === 'Practice 3') {
     if (progressValue === 1) {
       setProgress(78);
