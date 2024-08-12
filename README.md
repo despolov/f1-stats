@@ -27,6 +27,6 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## TODO
 
-- add loading in percentage on the routes
+- make loading % based on the weekend format in Tyres and Stints routes
 - fix possible problems with the calc of timings; problem example: Belgian GP - Practice 3
 - add tests on the components and utils
