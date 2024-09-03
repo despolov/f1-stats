@@ -50,11 +50,12 @@ const getSessionStints = async (
   year,
   country,
   driverNumber,
+  meetingKey,
   setError,
   getDriver,
   setProgress,
 ) => {
-  const session = await getSession(type, country, year);
+  const session = await getSession(type, country, year, meetingKey);
   setInternalProgress(type, setProgress, 1);
 
   if (session.hasError) {

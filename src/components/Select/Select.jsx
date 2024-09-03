@@ -32,12 +32,12 @@ const SimpleSelect = (props) => {
             return <CircularProgress size={17} sx={styles.loader} />;
           }
 
-          return (
-            selected || (
-              <Typography component="em" sx={styles.placeholder}>
-                {label}
-              </Typography>
-            )
+          return selected ? (
+            selected.toString().split(' | ')[0]
+          ) : (
+            <Typography component="em" sx={styles.placeholder}>
+              {label}
+            </Typography>
           );
         }}
         inputProps={{ 'aria-label': 'Without label' }}
@@ -53,11 +53,21 @@ const SimpleSelect = (props) => {
           <em>{label}</em>
         </MenuItem>
 
-        {data.map((dataValue) => (
-          <MenuItem key={dataValue} value={dataValue}>
-            {dataValue}
-          </MenuItem>
-        ))}
+        {data.map((dataValue) => {
+          let value = dataValue;
+          let displayValue = dataValue;
+
+          if (Object.getPrototypeOf(dataValue) === Object.prototype) {
+            value = dataValue.value;
+            displayValue = dataValue.displayValue;
+          }
+
+          return (
+            <MenuItem key={value} value={value}>
+              {displayValue}
+            </MenuItem>
+          );
+        })}
       </Select>
     </FormControl>
   );

@@ -55,10 +55,16 @@ const getSinglePracticeStats = async (
   type,
   selectedYear,
   selectedCountry,
+  meetingKey,
   setError,
   setProgress,
 ) => {
-  const session = await getSession(type, selectedCountry, selectedYear);
+  const session = await getSession(
+    type,
+    selectedCountry,
+    selectedYear,
+    meetingKey,
+  );
   setInternalProgress(type, setProgress, 1);
 
   if (session.hasError) {

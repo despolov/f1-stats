@@ -27,7 +27,8 @@ const Stints = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const [year, setYear] = useState('');
   const [country, setCountry] = useState('');
-  const [driverNumber, setDriverNumber] = useState([]);
+  const [driverNumber, setDriverNumber] = useState('');
+  const [meetingKey, setMeetingKey] = useState('');
   const [driver, setDriver] = useState();
   const [stintsLoading, setStintsLoading] = useState(false);
   const [error, setStateError] = useState('');
@@ -44,14 +45,16 @@ const Stints = () => {
     const paramYear = searchParams.get('year');
     const paramCountry = searchParams.get('country');
     const paramDriver = searchParams.get('driverNumber');
+    const paramMeetingKey = searchParams.get('meetingKey');
 
-    if (paramYear && paramCountry && paramDriver) {
+    if (paramYear && paramCountry && paramDriver && paramMeetingKey) {
       setYear(paramYear);
       setCountry(paramCountry);
       setDriverNumber(paramDriver);
+      setMeetingKey(paramMeetingKey);
     } else {
       setError(
-        'It seems that year, country and driver number were not provided correctly, please check the link!',
+        'It seems that year, country, driver number and meeting key were not provided correctly, please check the link!',
       );
     }
   }, []);
@@ -68,6 +71,7 @@ const Stints = () => {
     setYear('');
     setCountry('');
     setDriverNumber('');
+    setMeetingKey('');
     setStateError(errorMessage);
     setProgress(0);
   };
@@ -78,6 +82,7 @@ const Stints = () => {
       year,
       country,
       driverNumber,
+      meetingKey,
       setError,
       true,
       setProgress,
@@ -89,6 +94,7 @@ const Stints = () => {
       year,
       country,
       driverNumber,
+      meetingKey,
       setError,
       false,
       setProgress,
@@ -100,6 +106,7 @@ const Stints = () => {
       year,
       country,
       driverNumber,
+      meetingKey,
       setError,
       false,
       setProgress,
@@ -111,6 +118,7 @@ const Stints = () => {
       year,
       country,
       driverNumber,
+      meetingKey,
       setError,
       false,
       setProgress,
@@ -122,6 +130,7 @@ const Stints = () => {
       year,
       country,
       driverNumber,
+      meetingKey,
       setError,
       false,
       setProgress,
@@ -133,6 +142,7 @@ const Stints = () => {
       year,
       country,
       driverNumber,
+      meetingKey,
       setError,
       false,
       setProgress,

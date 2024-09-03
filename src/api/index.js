@@ -10,9 +10,9 @@ import {
   F1_RACE_WEEK_DAYS,
 } from '../constants/apiConsts';
 
-const getSession = async (type, country, year) => {
+const getSession = async (type, country, year, meetingKey) => {
   try {
-    const key = `sessions?country_name=${country}&session_name=${type}&year=${year}`;
+    const key = `sessions?country_name=${country}&session_name=${type}&year=${year}&meeting_key=${meetingKey}`;
     const storageValue = getSessionStorageValue(key);
     let session;
 
@@ -195,22 +195,6 @@ const getStints = async (session_key, driverNumber) => {
   }
 };
 
-const getMeeting = async (country, year) => {
-  try {
-    const response = await fetch(
-      `${F1_API_ENDPOINT}/meetings?year=${year}&country_name=${country}`,
-    );
-    const meeting = await response.json();
-
-    return meeting;
-  } catch {
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of a meeting in country ${country}, for year ${year}!`,
-    };
-  }
-};
-
 const getIpLocation = async (date) => {
   try {
     const key = `ipLocation-${date}`;
@@ -242,6 +226,5 @@ export {
   getAllGrandPrix,
   getWeather,
   getStints,
-  getMeeting,
   getIpLocation,
 };

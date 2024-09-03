@@ -35,7 +35,10 @@ const RaceSelect = (props) => {
         value={country}
         onChange={handleCountryChange}
         label="Select country"
-        data={countries}
+        data={countries.map((c) => ({
+          value: c,
+          displayValue: c.split(' | ')[0],
+        }))}
         disabled={countries.length === 0}
         loading={countriesLoading}
       />

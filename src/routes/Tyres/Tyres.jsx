@@ -96,7 +96,7 @@ const Tyres = () => {
         return params;
       });
       setTyresStatsLoading(true);
-      getTyresStats(year, country.split(' - ')[0]);
+      getTyresStats(year, country.split(' - ')[0], country.split(' | ')[1]);
 
       const isSprint = checkIsSprintWeekend(Number(year), country);
 
@@ -142,7 +142,8 @@ const Tyres = () => {
     }
 
     const mappedCountries = allGrandPrix.map(
-      (granPrix) => `${granPrix.country_name} - ${granPrix.meeting_name}`,
+      (granPrix) =>
+        `${granPrix.country_name} - ${granPrix.meeting_name} | ${granPrix.meeting_key}`,
     );
 
     setCountries(mappedCountries);
@@ -207,11 +208,12 @@ const Tyres = () => {
     }
   };
 
-  const getTyresStats = async (selectedYear, selectedCountry) => {
+  const getTyresStats = async (selectedYear, selectedCountry, meetingKey) => {
     const practice1 = await getSessionTyreStats(
       'Practice 1',
       selectedYear,
       selectedCountry,
+      meetingKey,
       setError,
       setProgress,
     );
@@ -221,6 +223,7 @@ const Tyres = () => {
       'Practice 2',
       selectedYear,
       selectedCountry,
+      meetingKey,
       setError,
       setProgress,
     );
@@ -230,6 +233,7 @@ const Tyres = () => {
       'Practice 3',
       selectedYear,
       selectedCountry,
+      meetingKey,
       setError,
       setProgress,
     );
@@ -239,6 +243,7 @@ const Tyres = () => {
       'Sprint Qualifying',
       selectedYear,
       selectedCountry,
+      meetingKey,
       setError,
       setProgress,
     );
@@ -248,6 +253,7 @@ const Tyres = () => {
       'Sprint',
       selectedYear,
       selectedCountry,
+      meetingKey,
       setError,
       setProgress,
     );
@@ -257,6 +263,7 @@ const Tyres = () => {
       'Qualifying',
       selectedYear,
       selectedCountry,
+      meetingKey,
       setError,
       setProgress,
     );
@@ -313,6 +320,7 @@ const Tyres = () => {
                     country: country.split(' - ')[0],
                     driverNumber:
                       tyresStats[driverAcronym].driver.driver_number,
+                    meetingKey: country.split(' | ')[1],
                   }).toString(),
                 });
               }}

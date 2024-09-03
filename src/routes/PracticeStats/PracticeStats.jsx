@@ -115,7 +115,11 @@ const PracticeStats = () => {
         return params;
       });
       setPracticeStatsLoading(true);
-      getAllPracticesStats(year, country.split(' - ')[0]);
+      getAllPracticesStats(
+        year,
+        country.split(' - ')[0],
+        country.split(' | ')[1],
+      );
     }
   }, [country]);
 
@@ -167,7 +171,8 @@ const PracticeStats = () => {
     }
 
     const mappedCountries = allGrandPrix.map(
-      (granPrix) => `${granPrix.country_name} - ${granPrix.meeting_name}`,
+      (granPrix) =>
+        `${granPrix.country_name} - ${granPrix.meeting_name} | ${granPrix.meeting_key}`,
     );
 
     setCountries(mappedCountries);
@@ -190,11 +195,16 @@ const PracticeStats = () => {
     }
   };
 
-  const getAllPracticesStats = async (selectedYear, selectedCountry) => {
+  const getAllPracticesStats = async (
+    selectedYear,
+    selectedCountry,
+    meetingKey,
+  ) => {
     const practice1 = await getSinglePracticeStats(
       'Practice 1',
       selectedYear,
       selectedCountry,
+      meetingKey,
       setError,
       setProgress,
     );
@@ -204,6 +214,7 @@ const PracticeStats = () => {
       'Practice 2',
       selectedYear,
       selectedCountry,
+      meetingKey,
       setError,
       setProgress,
     );
@@ -213,6 +224,7 @@ const PracticeStats = () => {
       'Practice 3',
       selectedYear,
       selectedCountry,
+      meetingKey,
       setError,
       setProgress,
     );
