@@ -188,7 +188,7 @@ const Stints = () => {
             component="h3"
             sx={{ ...styles.title, ...styles.errorMessage }}
           >
-            {error}
+            "{error}"
           </Typography>
 
           <Button

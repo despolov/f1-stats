@@ -1,9 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
 import ReactGA from 'react-ga4';
-import { Typography } from '@mui/material';
 import Layout from '../../components/Layout';
 import getStyles from './PracticeStats.styles';
-import { useMediaQuery, useTheme, Box } from '@mui/material';
+import {
+  useMediaQuery,
+  useTheme,
+  Box,
+  Typography,
+  IconButton,
+} from '@mui/material';
+import { Refresh as RefreshIcon } from '@mui/icons-material';
 import { getAllGrandPrix } from '../../api';
 import AggregatedPracticeTable from '../../components/AggregatedPracticeTable';
 import AggregatedPracticeMobileTable from '../../components/AggregatedPracticeMobileTable';
@@ -376,8 +382,21 @@ const PracticeStats = () => {
           </Typography>
 
           <Typography component="h3" sx={styles.subTitleError}>
-            {error}
+            "{error}"
           </Typography>
+
+          <Box sx={styles.refreshContianerError}>
+            <Typography sx={styles.refreshLabelError}>
+              Try refreshing the page →
+            </Typography>
+
+            <IconButton
+              sx={styles.refreshButtonError}
+              onClick={() => window.location.reload()}
+            >
+              <RefreshIcon sx={styles.refreshIconError} />
+            </IconButton>
+          </Box>
         </Box>
       </Layout>
     );

@@ -22,7 +22,7 @@ const getStyles = (mode) => ({
     minWidth: '250px',
   },
   titleError: {
-    margin: 0,
+    margin: '0 0 10px 0',
     color: mode === 'light' ? '#E10600' : '#870400',
     fontSize: '20px',
     textAlign: 'center',

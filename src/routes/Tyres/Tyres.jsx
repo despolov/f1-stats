@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactGA from 'react-ga4';
-import { useTheme, useMediaQuery, Typography, Box } from '@mui/material';
+import {
+  useTheme,
+  useMediaQuery,
+  Typography,
+  Box,
+  IconButton,
+} from '@mui/material';
+import { Refresh as RefreshIcon } from '@mui/icons-material';
 import moment from 'moment';
 import { getAllGrandPrix } from '../../api';
 import Layout from '../../components/Layout';
@@ -342,8 +349,21 @@ const Tyres = () => {
           </Typography>
 
           <Typography component="h3" sx={styles.subTitleError}>
-            {error}
+            "{error}"
           </Typography>
+
+          <Box sx={styles.refreshContianerError}>
+            <Typography sx={styles.refreshLabelError}>
+              Try refreshing the page →
+            </Typography>
+
+            <IconButton
+              sx={styles.refreshButtonError}
+              onClick={() => window.location.reload()}
+            >
+              <RefreshIcon sx={styles.refreshIconError} />
+            </IconButton>
+          </Box>
         </Box>
       </Layout>
     );
