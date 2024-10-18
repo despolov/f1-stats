@@ -10,6 +10,7 @@ const getStyles = () => ({
   },
   bottomItem: {
     padding: '12px',
+    display: 'grid',
   },
   rightsText: {
     color: '#d0d0d2',
@@ -33,6 +34,10 @@ const getStyles = () => ({
   },
   linkContainer: {
     margin: '0 0 20px 0',
+  },
+  versionText: {
+    color: '#3e3e3f',
+    fontSize: '10px',
   },
 });
 
