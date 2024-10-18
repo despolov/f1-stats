@@ -2,6 +2,7 @@ const getDriverColor = (driver) => {
   switch (driver) {
     case 'RIC':
     case 'TSU':
+    case 'LAW':
       return '#6692FF';
 
     case 'NOR':
@@ -30,6 +31,7 @@ const getDriverColor = (driver) => {
 
     case 'ALB':
     case 'SAR':
+    case 'COL':
       return '#64C4FF';
 
     case 'OCO':
