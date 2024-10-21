@@ -10,6 +10,9 @@ const theme = createTheme({
     secondary: {
       main: '#E10600',
     },
+    secondaryDark: {
+      main: '#870400',
+    },
   },
   typography: {
     fontFamily: 'Formula1',

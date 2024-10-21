@@ -91,7 +91,7 @@ const DriverTyresCard = (props) => {
         fullWidth
         sx={styles.allStintsButton}
       >
-        All stints
+        ALL STINTS
       </Button>
     </Box>
   );

@@ -1,45 +1,74 @@
 const getStyles = (mode) => ({
   container: {
-    borderRadius: '4px',
-    padding: '10px',
-    backgroundColor: mode === 'light' ? '#ffffff' : '#1E1E1E',
     width: '30%',
+    padding: '10px',
     minHeight: '160px',
-    cursor: 'pointer',
-    boxShadow: `0px 2px 1px -1px ${
-      mode === 'light' ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.2)'
-    }, 0px 1px 1px 0px ${
-      mode === 'light' ? 'rgba(0, 0, 0, 0.14)' : 'rgba(255, 255, 255, 0.14)'
-    }, 0px 1px 3px 0px ${
-      mode === 'light' ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)'
-    }`,
+    borderTop: `4px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderRight: `4px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderBottom: `4px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderTopRightRadius: '25px',
+    borderTopLeftRadius: '0',
+    borderBottomRightRadius: '25px',
+    borderBottomLeftRadius: '0',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '16px',
   },
   containerMobile: {
-    borderRadius: '4px',
-    padding: '10px',
-    backgroundColor: mode === 'light' ? '#ffffff' : '#1E1E1E',
     width: '100%',
-    minHeight: '160px',
-    cursor: 'pointer',
-    boxShadow:
-      '0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)',
-  },
-  title: {
-    fontSize: '18px',
-    fontWeight: 600,
-    textAlign: 'center',
-    margin: '0 0 15px 0',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    padding: '10px',
+    minHeight: '175px',
+    borderTop: `4px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderRight: `4px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderBottom: `4px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderTopRightRadius: '25px',
+    borderTopLeftRadius: '0',
+    borderBottomRightRadius: '25px',
+    borderBottomLeftRadius: '0',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
   },
   icon: {
-    width: '40px',
-    height: '40px',
-    margin: '0 10px -10px 0',
+    width: '35px',
+    height: '35px',
+    position: 'absolute',
+    margin: '-157px 0px 0px -490px',
+    color: mode === 'light' ? '#121212' : '#E2E2E2',
+    backgroundColor: mode === 'light' ? '#f7f4f1' : '#121212',
+  },
+  iconMobile: {
+    width: '35px',
+    height: '35px',
+    position: 'absolute',
+    margin: '-170px 0px 0px -333px',
+    color: mode === 'light' ? '#121212' : '#E2E2E2',
+    backgroundColor: mode === 'light' ? '#f7f4f1' : '#121212',
   },
   description: {
     fontSize: '14px',
     fontWeight: 400,
     color: mode === 'light' ? '#000000' : '#E2E2E2',
+  },
+  cta: {
+    fontWeight: 'bold',
+    color: mode === 'light' ? '#ffffff' : '#E2E2E2',
+    backgroundColor: mode === 'light' ? '#E10600' : '#870400',
+    borderRadius: '4px',
+    margin: 0,
+    padding: '5px 10px',
+    fontSize: '12px',
+    minWidth: '150px',
+    boxShadow:
+      '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12)',
+
+    '&:hover': {
+      boxShadow:
+        '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12)',
+      backgroundColor: mode === 'light' ? '#b40500' : '#6c0300',
+    },
   },
 });
 

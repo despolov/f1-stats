@@ -1,5 +1,11 @@
 import React, { useContext } from 'react';
-import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Typography,
+  useTheme,
+  useMediaQuery,
+  Button,
+} from '@mui/material';
 import getStyles from './HomeExploreItem.styles';
 import { IconContext } from 'react-icons';
 import { ColorModeContext } from '../ColorMode';
@@ -12,16 +18,16 @@ const HomeExploreItem = (props) => {
   const styles = getStyles(mode);
 
   return (
-    <Box
-      onClick={onClick}
-      sx={isDesktop ? styles.container : styles.containerMobile}
-    >
-      <Typography sx={styles.title}>
-        <IconContext.Provider value={{ style: styles.icon }}>
-          {icon}
-        </IconContext.Provider>
+    <Box sx={isDesktop ? styles.container : styles.containerMobile}>
+      <IconContext.Provider
+        value={{ style: isDesktop ? styles.icon : styles.iconMobile }}
+      >
+        {icon}
+      </IconContext.Provider>
+
+      <Button onClick={onClick} sx={styles.cta}>
         {title}
-      </Typography>
+      </Button>
 
       <Typography sx={styles.description}>{description}</Typography>
     </Box>

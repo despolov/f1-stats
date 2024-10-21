@@ -14,6 +14,7 @@ const getStyles = (mode) => ({
     backgroundColor: mode === 'light' ? '#ffffff' : '#2e2e2e',
   },
   allStintsButton: {
+    fontSize: '13px',
     backgroundColor: mode === 'light' ? '#333333' : '#808080',
     '&:hover': {
       backgroundColor: mode === 'light' ? '#4d4d4d' : '#999999',

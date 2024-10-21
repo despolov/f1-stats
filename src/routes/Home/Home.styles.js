@@ -10,7 +10,7 @@ const getStyles = () => ({
     display: 'flex',
     flexWrap: 'wrap',
     padding: '10px',
-    gap: '10px',
+    gap: '35px',
   },
 });
 

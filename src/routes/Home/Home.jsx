@@ -50,7 +50,7 @@ const Home = () => {
           }
         >
           <HomeExploreItem
-            title="Practice stats"
+            title="PRACTICE STATS"
             icon={<ImStatsDots />}
             onClick={() => navigate('/practiceStats')}
             description="Aggregated lap time based on the best sectors of each driver from every
@@ -58,14 +58,14 @@ const Home = () => {
           />
 
           <HomeExploreItem
-            title="Tyre stats"
+            title="TYRE STATS"
             icon={<PiTire />}
             onClick={() => navigate('/tyres')}
             description="Used and New tyres count for each driver from every available session before the race"
           />
 
           <HomeExploreItem
-            title="Stints stats"
+            title="STINTS STATS"
             icon={<GiSpeedometer />}
             onClick={() => navigate('/tyres')}
             description="All Stints for each driver from every available session before the race"
