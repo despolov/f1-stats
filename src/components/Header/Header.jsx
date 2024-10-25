@@ -80,13 +80,28 @@ const TyresLink = ({ pathname }) => {
   );
 };
 
-const StintsLink = () => {
+const StintsLink = ({ pathname }) => {
+  const navigate = useNavigate();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
 
   return (
-    <Button sx={styles.buttonActive}>
-      <Typography component="span" sx={styles.buttonTextActive}>
+    <Button
+      sx={pathname === '/stints' ? styles.buttonActive : {}}
+      onClick={() => {
+        if (pathname === '/stints') {
+          return;
+        }
+
+        navigate('/stints');
+      }}
+    >
+      <Typography
+        component="span"
+        sx={
+          pathname === '/stints' ? styles.buttonTextActive : styles.buttonText
+        }
+      >
         Stints
       </Typography>
     </Button>
@@ -135,13 +150,19 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
           </ListItemButton>
         </ListItem>
 
-        {pathname === '/stints' ? (
-          <ListItem key="stintsDrawerItem" disablePadding>
-            <ListItemButton>
-              <StintsLink />
-            </ListItemButton>
-          </ListItem>
-        ) : null}
+        <ListItem key="stintsDrawerItem" disablePadding>
+          <ListItemButton
+            onClick={() => {
+              if (pathname === '/stints') {
+                return;
+              }
+
+              navigate('/stints');
+            }}
+          >
+            <StintsLink pathname={pathname} />
+          </ListItemButton>
+        </ListItem>
 
         <Divider />
       </List>
@@ -186,11 +207,9 @@ const Header = (props) => {
                 <TyresLink pathname={pathname} />
               </Grid>
 
-              {pathname === '/stints' ? (
-                <Grid item sx={styles.headerGridButtonItem}>
-                  <StintsLink />
-                </Grid>
-              ) : null}
+              <Grid item sx={styles.headerGridButtonItem}>
+                <StintsLink pathname={pathname} />
+              </Grid>
             </Grid>
 
             <Grid container item xs={6} sx={styles.rightGridContainer}>
@@ -220,11 +239,7 @@ const Header = (props) => {
             <Grid
               item
               xs
-              sx={{
-                justifyContent: 'end',
-                display: 'flex',
-                alignItems: 'baseline',
-              }}
+              sx={styles.headerGridButtonsItem}
             >
               <IconButton
                 onClick={toggleColorMode}

@@ -36,8 +36,8 @@ const Tyres = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const [years, setYears] = useState([]);
   const [year, setYear] = useState('');
-  const [country, setCountry] = useState('');
   const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState('');
   const [countriesLoading, setCountriesLoading] = useState(false);
   const [tyresStatsLoading, setTyresStatsLoading] = useState(false);
   const [error, setStateError] = useState('');
@@ -52,6 +52,7 @@ const Tyres = () => {
   const styles = getStyles(mode);
 
   useEffect(() => {
+    // TODO: extract to the contants file
     const startYear = 2023;
     const currentYear = moment().year();
     const availableYears = [];
@@ -313,14 +314,16 @@ const Tyres = () => {
               stats={tyresStats[driverAcronym]}
               isSprintWeekend={isSprintWeekend}
               onAllStintsClick={() => {
+                const { team_name, full_name, driver_number } =
+                  tyresStats[driverAcronym].driver;
                 navigate({
                   pathname: '/stints',
                   search: createSearchParams({
                     year,
-                    country: country.split(' - ')[0],
-                    driverNumber:
-                      tyresStats[driverAcronym].driver.driver_number,
-                    meetingKey: country.split(' | ')[1],
+                    country: country,
+                    driver: `${
+                      team_name || 'n/a'
+                    } - ${full_name} | ${driver_number}`,
                   }).toString(),
                 });
               }}

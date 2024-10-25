@@ -27,6 +27,14 @@ const getStyles = (mode) => ({
     fontSize: '20px',
     textAlign: 'center',
   },
+  description: {
+    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    textAlign: 'center',
+  },
+  divider: {
+    borderBottom: mode === 'light' ? '2px solid #ffffff' : '2px solid #5a5a5a',
+    margin: '20px 0 20px 0',
+  },
 });
 
 export default getStyles;

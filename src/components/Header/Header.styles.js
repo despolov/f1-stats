@@ -71,6 +71,11 @@ const getStyles = (mode) => ({
     padding: 0,
     margin: '0 10px 0 0',
   },
+  headerGridButtonsItem: {
+    justifyContent: 'end',
+    display: 'flex',
+    alignItems: 'baseline',
+  },
 });
 
 export default getStyles;

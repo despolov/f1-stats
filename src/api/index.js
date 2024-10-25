@@ -33,11 +33,11 @@ const getSession = async (type, country, year, meetingKey) => {
   }
 };
 
-const getDrivers = async (sessionKey, driverNumber) => {
+const getDrivers = async (sessionKey, driverNumber, meetingKey) => {
   try {
-    const key = `drivers?session_key=${sessionKey}${
+    const key = `drivers?${sessionKey ? `session_key=${sessionKey}` : ''}${
       driverNumber ? `&driver_number=${driverNumber}` : ''
-    }`;
+    }${meetingKey ? `&meeting_key=${meetingKey}` : ''}`;
     const storageValue = getSessionStorageValue(key);
     let drivers;
     const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(

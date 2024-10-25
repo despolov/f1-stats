@@ -8,13 +8,18 @@ import {
   Typography,
 } from '@mui/material';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import { orderBy } from 'lodash';
 import getStyles from './Stints.styles';
+import { getAllGrandPrix, getDrivers } from '../../api';
 import Layout from '../../components/Layout';
 import getSessionStints from '../../utils/getSessionStints';
 import DriverStintsCard from '../../components/DriverStintsCard';
 import SessionStints from '../../components/SessionStints';
 import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
+import RaceSelect from '../../components/RaceSelect';
+import checkIsSprintWeekend from '../../utils/checkIsSprintWeekend';
 
 const Stints = () => {
   ReactGA.send({
@@ -25,46 +30,99 @@ const Stints = () => {
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const [years, setYears] = useState([]);
   const [year, setYear] = useState('');
+  const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState('');
+  const [countriesLoading, setCountriesLoading] = useState(false);
+  const [drivers, setDrivers] = useState([]);
   const [driverNumber, setDriverNumber] = useState('');
+  const [driversLoading, setDriversLoading] = useState(false);
   const [meetingKey, setMeetingKey] = useState('');
-  const [driver, setDriver] = useState();
+  const [driver, setDriver] = useState('');
+  const [driverData, setDriverData] = useState();
   const [stintsLoading, setStintsLoading] = useState(false);
   const [error, setStateError] = useState('');
   const [stints, setStints] = useState({});
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { practice1, practice2, practice3, sprintQuali, sprint, quali } =
     stints;
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
   const [progress, setProgress] = useState(0);
+  const [isSprintWeekend, setIsSprintWeekend] = useState(false);
+  const shouldRenderInitMessage =
+    !stintsLoading && Object.keys(stints).length === 0;
 
   useEffect(() => {
     const paramYear = searchParams.get('year');
-    const paramCountry = searchParams.get('country');
-    const paramDriver = searchParams.get('driverNumber');
-    const paramMeetingKey = searchParams.get('meetingKey');
+    // TODO: extract to the contants file
+    const startYear = 2023;
+    const currentYear = moment().year();
+    const availableYears = [];
 
-    if (paramYear && paramCountry && paramDriver && paramMeetingKey) {
-      setYear(paramYear);
-      setCountry(paramCountry);
-      setDriverNumber(paramDriver);
-      setMeetingKey(paramMeetingKey);
-    } else {
-      setError(
-        'It seems that year, country, driver number and meeting key were not provided correctly, please check the link!',
+    for (let index = startYear; index <= currentYear; index++) {
+      availableYears.push(index);
+    }
+
+    setYears(availableYears);
+
+    if (paramYear) {
+      const isParamYearValid = availableYears.some(
+        (availableYear) => availableYear === Number(paramYear),
       );
+
+      if (isParamYearValid) {
+        handleYearChange({ target: { value: paramYear } });
+      } else {
+        resetData();
+        navigate('/stints');
+      }
+
+      // setYear(paramYear);
+      // setCountry(paramCountry);
+      // setMeetingKey(paramMeetingKey);
+      // setDriverNumber(paramDriver);
     }
   }, []);
 
   useEffect(() => {
-    if (year && country && driverNumber) {
+    if (year) {
+      setSearchParams((params) => {
+        params.set('year', year);
+        return params;
+      });
+      getCountries(year);
+      setCountriesLoading(true);
+    }
+  }, [year]);
+
+  useEffect(() => {
+    if (country) {
+      const isSprint = checkIsSprintWeekend(Number(year), country);
+
+      setSearchParams((params) => {
+        params.set('country', country);
+        return params;
+      });
+      setIsSprintWeekend(isSprint);
+      setDriversLoading(true);
+      getAllDrivers(meetingKey);
+    }
+  }, [country]);
+
+  useEffect(() => {
+    if (driver && driverNumber) {
+      setSearchParams((params) => {
+        params.set('driver', driver);
+        return params;
+      });
+
       setStintsLoading(true);
       getStints();
     }
-  }, [year, country, driverNumber]);
+  }, [driver, driverNumber]);
 
   const setError = (errorMessage) => {
     setStintsLoading(false);
@@ -76,11 +134,117 @@ const Stints = () => {
     setProgress(0);
   };
 
+  const handleYearChange = (e) => {
+    setYear(e.target.value);
+    setCountry('');
+    setCountries([]);
+    setDriverNumber('');
+    setDriver('');
+    resetData();
+  };
+
+  const resetData = () => {
+    setStints({});
+    setIsSprintWeekend(false);
+    setStateError('');
+    setProgress(0);
+  };
+
+  const getAllDrivers = async (selectedMeetingKey) => {
+    const allDrivers = await getDrivers(
+      undefined,
+      undefined,
+      selectedMeetingKey,
+    );
+    let drivers = orderBy(allDrivers, ['team_name']);
+    drivers = drivers.map(
+      (d) => `${d.team_name || 'n/a'} - ${d.full_name} | ${d.driver_number}`,
+    );
+
+    if (drivers.hasError) {
+      setError(drivers.message);
+    } else {
+      setDrivers(drivers);
+    }
+
+    setDriversLoading(false);
+
+    const paramDriver = searchParams.get('driver');
+
+    if (paramDriver) {
+      const isParamDriverValid = drivers.some(
+        (mappedDriver) => mappedDriver === paramDriver,
+      );
+
+      if (isParamDriverValid) {
+        handleDriverChange({ target: { value: paramDriver } });
+      } else {
+        resetData();
+        setYear('');
+        setCountry('');
+        setDriverNumber('');
+        setDriver('');
+        navigate('/stints');
+      }
+    }
+  };
+
+  const handleCountryChange = (e) => {
+    const selectedMeetingKey = e.target.value.split(' | ')[1];
+
+    setCountry(e.target.value);
+    setMeetingKey(selectedMeetingKey);
+    setDriverNumber('');
+    setDriver('');
+    resetData();
+  };
+
+  const handleDriverChange = (e) => {
+    setDriver(e.target.value);
+    setDriverNumber(e.target.value.split(' | ')[1]);
+  };
+
+  const getCountries = async (selectedYear) => {
+    const allGrandPrix = await getAllGrandPrix(selectedYear);
+
+    if (allGrandPrix.hasError) {
+      setError(allGrandPrix.message);
+      return;
+    }
+
+    const mappedCountries = allGrandPrix.map(
+      (granPrix) =>
+        `${granPrix.country_name} - ${granPrix.meeting_name} | ${granPrix.meeting_key}`,
+    );
+
+    setCountries(mappedCountries);
+    setCountriesLoading(false);
+
+    const paramCountry = searchParams.get('country');
+
+    if (paramCountry) {
+      const isParamCountryValid = mappedCountries.some(
+        (mappedCountry) => mappedCountry === paramCountry,
+      );
+
+      if (isParamCountryValid) {
+        handleCountryChange({ target: { value: paramCountry } });
+      } else {
+        resetData();
+        setYear('');
+        setCountry('');
+        setDriverNumber('');
+        setDriver('');
+        navigate('/stints');
+      }
+    }
+  };
+
   const getStints = async () => {
     const practice1 = await getSessionStints(
       'Practice 1',
       year,
-      country,
+      country.split(' - ')[0],
       driverNumber,
       meetingKey,
       setError,
@@ -92,7 +256,7 @@ const Stints = () => {
     const practice2 = await getSessionStints(
       'Practice 2',
       year,
-      country,
+      country.split(' - ')[0],
       driverNumber,
       meetingKey,
       setError,
@@ -104,7 +268,7 @@ const Stints = () => {
     const practice3 = await getSessionStints(
       'Practice 3',
       year,
-      country,
+      country.split(' - ')[0],
       driverNumber,
       meetingKey,
       setError,
@@ -116,7 +280,7 @@ const Stints = () => {
     const sprintQuali = await getSessionStints(
       'Sprint Qualifying',
       year,
-      country,
+      country.split(' - ')[0],
       driverNumber,
       meetingKey,
       setError,
@@ -128,7 +292,7 @@ const Stints = () => {
     const sprint = await getSessionStints(
       'Sprint',
       year,
-      country,
+      country.split(' - ')[0],
       driverNumber,
       meetingKey,
       setError,
@@ -140,7 +304,7 @@ const Stints = () => {
     const quali = await getSessionStints(
       'Qualifying',
       year,
-      country,
+      country.split(' - ')[0],
       driverNumber,
       meetingKey,
       setError,
@@ -158,7 +322,7 @@ const Stints = () => {
       sprintQuali,
     };
 
-    setDriver(practice1.driver);
+    setDriverData(practice1.driver);
     setStints(sessionsStints);
     setStintsLoading(false);
   };
@@ -172,11 +336,11 @@ const Stints = () => {
   };
 
   const renderDriverInfo = () => {
-    if (!driver) {
+    if (!driverData) {
       return null;
     }
 
-    return <DriverStintsCard driver={driver} />;
+    return <DriverStintsCard driver={driverData} />;
   };
 
   if (error) {
@@ -224,6 +388,29 @@ const Stints = () => {
           ...(isDesktop ? {} : styles.parentContainerMobile),
         }}
       >
+        <RaceSelect
+          year={year}
+          handleYearChange={handleYearChange}
+          years={years}
+          country={country}
+          handleCountryChange={handleCountryChange}
+          countries={countries}
+          countriesLoading={countriesLoading}
+          isDriversVisible
+          driver={driver}
+          handleDriverChange={handleDriverChange}
+          drivers={drivers}
+          driversLoading={driversLoading}
+        />
+
+        <Box sx={styles.divider} />
+
+        {shouldRenderInitMessage && (
+          <Box component="p" sx={styles.description}>
+            Select year, country and driver in order to see stint stats
+          </Box>
+        )}
+
         {renderLoading()}
 
         {renderDriverInfo()}
