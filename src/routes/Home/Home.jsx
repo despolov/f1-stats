@@ -67,8 +67,8 @@ const Home = () => {
           <HomeExploreItem
             title="STINTS STATS"
             icon={<GiSpeedometer />}
-            onClick={() => navigate('/tyres')}
-            description="All Stints for each driver from every available session before the race (accessed through the tyres stats)"
+            onClick={() => navigate('/stints')}
+            description="All Stints for each driver from every available session before the race"
           />
         </Box>
       </Box>
