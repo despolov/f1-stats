@@ -7,10 +7,12 @@ const getDriverColor = (driver) => {
 
     case 'NOR':
     case 'PIA':
+    case 'OWA':
       return '#FF8000';
 
     case 'ALO':
     case 'STR':
+    case 'DRU':
       return '#229971';
 
     case 'VER':
@@ -19,14 +21,17 @@ const getDriverColor = (driver) => {
 
     case 'RUS':
     case 'HAM':
+    case 'ANT':
       return '#27F4D2';
 
     case 'BOT':
     case 'ZHO':
+    case 'SHW':
       return '#52E252';
 
     case 'LEC':
     case 'SAI':
+    case 'BEA':
       return '#E8002D';
 
     case 'ALB':
