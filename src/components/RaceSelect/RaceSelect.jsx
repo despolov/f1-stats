@@ -1,11 +1,38 @@
 import React from 'react';
-import { useMediaQuery, useTheme, styled } from '@mui/material';
+import {
+  useMediaQuery,
+  useTheme,
+  styled,
+  Typography,
+  Box,
+} from '@mui/material';
+import ReactCountryFlag from 'react-country-flag';
 import Select from '../Select';
 import getStyles from './RaceSelect.styles';
+import getRaceCountryCode from '../../utils/getRaceCountryCode';
+import getTeamLogoSrc from '../../utils/getTeamLogoSrc';
 
 const styles = getStyles();
 
 const SelectFieldsContainer = styled('div')(() => styles.selectFieldsContainer);
+
+const getCountryFlag = (country) => (
+  <ReactCountryFlag
+    countryCode={getRaceCountryCode(country)}
+    svg
+    title={country}
+    style={styles.countryFlag}
+  />
+);
+
+const getTeamIcon = (team, isPrefix) => (
+  <Box
+    component="img"
+    src={getTeamLogoSrc(team)}
+    alt=""
+    sx={{ ...styles.teamIcon, ...(isPrefix ? styles.teamIconPrefix : {}) }}
+  />
+);
 
 const RaceSelect = (props) => {
   const {
@@ -16,6 +43,11 @@ const RaceSelect = (props) => {
     handleCountryChange,
     countries,
     countriesLoading,
+    isDriversVisible,
+    driver,
+    handleDriverChange,
+    drivers,
+    driversLoading,
   } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
@@ -33,15 +65,59 @@ const RaceSelect = (props) => {
 
       <Select
         value={country}
+        prefix={
+          country ? getCountryFlag(country.split(' | ')[0].split(' - ')[0]) : ''
+        }
         onChange={handleCountryChange}
         label="Select country"
-        data={countries.map((c) => ({
-          value: c,
-          displayValue: c.split(' | ')[0],
-        }))}
+        data={countries.map((c) => {
+          const displayCountry = c.split(' | ')[0];
+          const flagCountry = displayCountry.split(' - ')[0];
+
+          return {
+            value: c,
+            displayValue: (
+              <Typography>
+                {getCountryFlag(flagCountry)}
+
+                {displayCountry}
+              </Typography>
+            ),
+          };
+        })}
         disabled={countries.length === 0}
         loading={countriesLoading}
       />
+
+      {isDriversVisible && (
+        <Select
+          value={driver}
+          prefix={
+            driver
+              ? getTeamIcon(driver.split(' | ')[0].split(' - ')[0], true)
+              : ''
+          }
+          onChange={handleDriverChange}
+          label="Select driver"
+          data={drivers.map((d) => {
+            const displayDriver = d.split(' | ')[0];
+            const driverTeam = displayDriver.split(' - ')[0];
+
+            return {
+              value: d,
+              displayValue: (
+                <Typography>
+                  {getTeamIcon(driverTeam)}
+
+                  {displayDriver}
+                </Typography>
+              ),
+            };
+          })}
+          disabled={drivers.length === 0}
+          loading={driversLoading}
+        />
+      )}
     </SelectFieldsContainer>
   );
 };

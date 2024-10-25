@@ -13,7 +13,7 @@ import getStyles from './Select.styles';
 import { ColorModeContext } from '../ColorMode';
 
 const SimpleSelect = (props) => {
-  const { disabled, value, onChange, label, data, loading } = props;
+  const { disabled, value, onChange, label, data, loading, prefix } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode } = useContext(ColorModeContext);
@@ -33,7 +33,9 @@ const SimpleSelect = (props) => {
           }
 
           return selected ? (
-            selected.toString().split(' | ')[0]
+            <Typography sx={styles.placeholder}>
+              {prefix || ''} {selected.toString().split(' | ')[0]}
+            </Typography>
           ) : (
             <Typography component="em" sx={styles.placeholder}>
               {label}

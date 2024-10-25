@@ -1,5 +1,6 @@
 const getStyles = (mode) => ({
   select: {
+    minHeight: '61px',
     width: '100%',
     backgroundColor: mode === 'light' ? '#ffffff' : '#1E1E1E',
     color: mode === 'light' ? '#000000' : '#E2E2E2',
