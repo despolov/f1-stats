@@ -25,6 +25,7 @@ import moment from 'moment';
 import RaceSelect from '../../components/RaceSelect';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { ColorModeContext } from '../../components/ColorMode';
+import PracticeBarChart from '../../components/PracticeBarChart';
 
 const PracticeStats = () => {
   ReactGA.send({
@@ -278,15 +279,17 @@ const PracticeStats = () => {
 
     return (
       <Box sx={styles.practiceContainer}>
-        <Typography component="h3" sx={styles.title}>
-          {title}
-        </Typography>
+        <Box sx={styles.practiceDataContinaer}>
+          <Typography component="h3" sx={styles.title}>
+            {title}
+          </Typography>
 
-        {Object.keys(timePeriod).length > 0 && (
-          <PracticeTimeSlot practiceTimePeriod={timePeriod} />
-        )}
+          {Object.keys(timePeriod).length > 0 && (
+            <PracticeTimeSlot practiceTimePeriod={timePeriod} />
+          )}
 
-        {weather.length > 0 && <PracticeWeather practiceWeather={weather} />}
+          {weather.length > 0 && <PracticeWeather practiceWeather={weather} />}
+        </Box>
 
         <Box
           sx={{
@@ -319,6 +322,23 @@ const PracticeStats = () => {
               />
             </>
           )}
+        </Box>
+
+        <Box
+          sx={{
+            ...styles.chartContainer,
+            ...(isDesktop ? {} : styles.chartContainerMobile),
+          }}
+        >
+          <PracticeBarChart
+            data={stats}
+            title="Aggregated Gap to first (sec)"
+          />
+
+          <PracticeBarChart
+            data={actualStats}
+            title="Actual Gap to first (sec)"
+          />
         </Box>
       </Box>
     );
@@ -364,7 +384,11 @@ const PracticeStats = () => {
     }
 
     return (
-      <LinearProgressBar title="Loading practice stats..." value={progress} />
+      <>
+        <Box sx={styles.divider} />
+
+        <LinearProgressBar title="Loading practice stats..." value={progress} />
+      </>
     );
   };
 
@@ -432,13 +456,15 @@ const PracticeStats = () => {
           countriesLoading={countriesLoading}
         />
 
-        <Box sx={styles.divider} />
-
         {shouldRenderInitMessage && (
-          <Box component="p" sx={styles.description}>
-            Select year and country in order to see practice actual and
-            aggregated results
-          </Box>
+          <>
+            <Box sx={styles.divider} />
+
+            <Box component="p" sx={styles.description}>
+              Select year and country in order to see practice actual and
+              aggregated results
+            </Box>
+          </>
         )}
 
         {renderLoading()}
