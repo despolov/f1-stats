@@ -27,7 +27,6 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## TODO
 
-- selector for the driver to check the stints
 - team radios for each driver
 - fix possible problems with the calc of timings; problem example: Belgian GP - Practice 3
 - scatter plots with the driver laps for each practice and quali
