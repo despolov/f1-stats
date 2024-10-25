@@ -14,7 +14,7 @@ const getStyles = (mode) => ({
     padding: '5px 5px 5px 0',
     borderTop: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
     borderRight: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
-    borderTopRightRadius: '8px',
+    borderTopRightRadius: '25px',
     borderBottomRightRadius: '0',
     borderTopLeftRadius: '0',
     marginBottom: '40px',

@@ -4,7 +4,7 @@ const getStyles = (mode) => ({
     alignContent: 'center',
     borderTop: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
     borderRight: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
-    borderTopRightRadius: '8px',
+    borderTopRightRadius: '25px',
     borderBottomRightRadius: '0',
     borderTopLeftRadius: '0',
     position: 'relative',
