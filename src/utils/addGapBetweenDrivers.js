@@ -24,8 +24,8 @@ const addGapBetweenDrivers = (practice, typeOfLap) => {
 
       practiceStats.push({
         ...driverStats,
-        gap: gapBetweenInSeconds,
-        gapToFirst: gapToFirstInSeconds,
+        gap: gapBetweenInSeconds || null,
+        gapToFirst: gapToFirstInSeconds || null,
       });
     } else {
       practiceStats.push({ ...driverStats, gap: '', gapToFirst: '' });
