@@ -19,7 +19,6 @@ import SessionStints from '../../components/SessionStints';
 import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
 import RaceSelect from '../../components/RaceSelect';
-import checkIsSprintWeekend from '../../utils/checkIsSprintWeekend';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const Stints = () => {
@@ -52,7 +51,6 @@ const Stints = () => {
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
   const [progress, setProgress] = useState(0);
-  const [isSprintWeekend, setIsSprintWeekend] = useState(false);
   const shouldRenderInitMessage =
     !stintsLoading && Object.keys(stints).length === 0;
 
@@ -95,13 +93,10 @@ const Stints = () => {
 
   useEffect(() => {
     if (country) {
-      const isSprint = checkIsSprintWeekend(Number(year), country);
-
       setSearchParams((params) => {
         params.set('country', country);
         return params;
       });
-      setIsSprintWeekend(isSprint);
       setDriversLoading(true);
       getAllDrivers(meetingKey);
     }
@@ -140,7 +135,6 @@ const Stints = () => {
 
   const resetData = () => {
     setStints({});
-    setIsSprintWeekend(false);
     setStateError('');
     setProgress(0);
   };
