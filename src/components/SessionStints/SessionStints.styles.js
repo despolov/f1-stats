@@ -25,10 +25,6 @@ const getStyles = (mode) => ({
     fontWeight: 'bold',
     color: mode === 'light' ? '#000000' : '#E2E2E2',
   },
-  titleNoLaps: {
-    margin: 0,
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
-  },
   subTitle: {
     margin: '0 0 5px 0',
     fontWeight: 400,
@@ -40,9 +36,6 @@ const getStyles = (mode) => ({
   },
   subTitleContainer: {
     lineHeight: '27.5px',
-    fontWeight: 700,
-  },
-  subTitleContainerNoLaps: {
     fontWeight: 700,
   },
   stintsContainer: {

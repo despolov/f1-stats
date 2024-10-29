@@ -1,4 +1,5 @@
 const getStyles = () => ({
+  defaultCompoundColor: '#808080',
   softCompoundColor: '#F90021',
   mediumCompoundColor: '#F3C302',
   hardCompoundColor: '#2F2D2B',

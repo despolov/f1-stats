@@ -3,10 +3,11 @@ import ReactGA from 'react-ga4';
 import {
   useTheme,
   useMediaQuery,
-  Button,
+  IconButton,
   Box,
   Typography,
 } from '@mui/material';
+import { Refresh as RefreshIcon } from '@mui/icons-material';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { orderBy } from 'lodash';
@@ -135,6 +136,7 @@ const Stints = () => {
 
   const resetData = () => {
     setStints({});
+    setDriverData();
     setStateError('');
     setProgress(0);
   };
@@ -189,6 +191,7 @@ const Stints = () => {
   };
 
   const handleDriverChange = (e) => {
+    resetData();
     setDriver(e.target.value);
     setDriverNumber(e.target.value.split(' | ')[1]);
   };
@@ -354,16 +357,18 @@ const Stints = () => {
             "{error}"
           </Typography>
 
-          <Button
-            onClick={() => {
-              navigate('/tyres');
-            }}
-            variant="contained"
-            color="primary"
-            sx={styles.goBackButton}
-          >
-            GO BACK
-          </Button>
+          <Box sx={styles.refreshContianerError}>
+            <Typography sx={styles.refreshLabelError}>
+              Try refreshing the page →
+            </Typography>
+
+            <IconButton
+              sx={styles.refreshButtonError}
+              onClick={() => window.location.reload()}
+            >
+              <RefreshIcon sx={styles.refreshIconError} />
+            </IconButton>
+          </Box>
         </Box>
       </Layout>
     );

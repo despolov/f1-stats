@@ -35,23 +35,20 @@ const SessionStints = (props) => {
 
   if (session.length === 0) {
     return (
-      <>
+      <Box sx={styles.container}>
         <Box sx={styles.titleContainer}>
-          <Typography
-            component="h3"
-            sx={{ ...styles.title, ...styles.titleNoLaps }}
-          >
+          <Typography component="h3" sx={styles.title}>
             {title} -
           </Typography>
 
           <Typography
             component="h4"
-            sx={{ ...styles.subTitle, ...styles.subTitleContainerNoLaps }}
+            sx={{ ...styles.subTitle, ...styles.subTitleContainer }}
           >
             Total laps: 0
           </Typography>
         </Box>
-      </>
+      </Box>
     );
   }
 

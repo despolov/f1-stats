@@ -64,7 +64,7 @@ const getRaceCountryCode = (country) => {
     case 'Qatar': {
       return 'QA';
     }
-    case 'Abu Dhabi': {
+    case 'United Arab Emirates': {
       return 'AE';
     }
 

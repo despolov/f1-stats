@@ -18,7 +18,8 @@ const StintGraph = (props) => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { compound, lap_start, lap_end, stint_number, tyre_age_at_start } =
     sessionStint;
-  let stintColor;
+  let stintColor = styles.defaultCompoundColor;
+  let compoundLabel = 'UNKNOWN';
   const currentStintLaps = lap_end - lap_start + 1;
   let currentStintPercentage = (100 * currentStintLaps) / totalLaps;
 
@@ -32,14 +33,19 @@ const StintGraph = (props) => {
 
   if (compound === 'SOFT') {
     stintColor = styles.softCompoundColor;
+    compoundLabel = compound;
   } else if (compound === 'MEDIUM') {
     stintColor = styles.mediumCompoundColor;
+    compoundLabel = compound;
   } else if (compound === 'HARD') {
     stintColor = styles.hardCompoundColor;
+    compoundLabel = compound;
   } else if (compound === 'INTERMEDIATE') {
     stintColor = styles.intermediateCompoundColor;
+    compoundLabel = compound;
   } else if (compound === 'WET') {
     stintColor = styles.wetCompoundColor;
+    compoundLabel = compound;
   }
 
   return (
@@ -51,7 +57,7 @@ const StintGraph = (props) => {
           </Typography>
 
           <Typography>
-            Compound: {tyre_age_at_start === 0 ? 'new' : 'used'} {compound}
+            Compound: {tyre_age_at_start === 0 ? 'new' : 'used'} {compoundLabel}
           </Typography>
 
           <Typography>
