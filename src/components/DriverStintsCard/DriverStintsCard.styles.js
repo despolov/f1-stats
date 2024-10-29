@@ -56,6 +56,10 @@ const getStyles = (mode) => ({
     display: 'flex',
     alignItems: 'center',
   },
+  headshotImg: {
+    width: `100px`,
+    height: `100px`,
+  },
 });
 
 export default getStyles;

@@ -18,12 +18,18 @@ const DriverStintsCard = (props) => {
     team_colour,
     first_name,
     last_name,
+    full_name,
     country_code,
   } = driver;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
+  const firstName = first_name || full_name.split(' ')[0];
+  const lastName = last_name || full_name.split(' ')[1];
+  const colorStripeColor = team_colour
+    ? `#${team_colour}`
+    : getDriverColor(name_acronym);
 
   return (
     <Box sx={isDesktop ? styles.container : styles.containerMobile}>
@@ -31,51 +37,53 @@ const DriverStintsCard = (props) => {
         <Box sx={styles.nameContainer}>
           <Box
             sx={{
-              borderLeft: `5px solid #${
-                team_colour || getDriverColor(name_acronym)
-              }`,
+              borderLeft: `5px solid ${colorStripeColor}`,
               ...styles.nameColorStripe,
             }}
           />
 
           <Typography component="span" sx={styles.firstName}>
-            {first_name}
+            {firstName}
           </Typography>
 
           <Typography component="span" sx={styles.lastName}>
-            {last_name}
+            {lastName}
           </Typography>
         </Box>
 
         <Box sx={styles.additionalInfoContainer}>
           <Typography
             sx={{
-              color: `#${team_colour}`,
+              color: colorStripeColor,
               ...styles.driverNumber,
             }}
           >
             {driver_number}
           </Typography>
 
-          <ReactCountryFlag
-            countryCode={getDriverCountryCode(country_code)}
-            svg
-            title={country_code}
-            style={styles.flag}
-          />
+          {country_code ? (
+            <ReactCountryFlag
+              countryCode={getDriverCountryCode(country_code)}
+              svg
+              title={country_code}
+              style={styles.flag}
+            />
+          ) : (
+            <Box sx={styles.flag} />
+          )}
         </Box>
 
-        <Typography sx={styles.teamName}>{team_name}</Typography>
+        <Typography sx={styles.teamName}>{team_name || 'n/a'}</Typography>
       </Box>
 
       <Box sx={styles.headshotContainer}>
         {headshot_url ? (
-          <img
+          <Box
+            component="img"
             src={headshot_url}
             alt={name_acronym}
             loading="lazy"
-            width={100}
-            height={100}
+            sx={styles.headshotImg}
           />
         ) : (
           <IconContext.Provider value={{ style: styles.iconPerson }}>

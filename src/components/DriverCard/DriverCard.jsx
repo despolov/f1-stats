@@ -64,7 +64,12 @@ const DriverCard = (props) => {
 
       <Grid item xs align="right">
         {headshot_url ? (
-          <img src={headshot_url} alt={name_acronym} loading="lazy" />
+          <Box
+            component="img"
+            src={headshot_url}
+            alt={name_acronym}
+            loading="lazy"
+          />
         ) : (
           <IconContext.Provider value={{ style: styles.iconPerson }}>
             <IoIosPerson />
