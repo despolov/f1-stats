@@ -125,12 +125,15 @@ const TyresLegend = (props) => {
       <Box sx={styles.containerImage}>
         <Typography sx={styles.title}>Available tyres</Typography>
 
-        <img
+        <Box
+          component="img"
           src={allCompoundsImg}
           alt="allTyres"
-          width={600}
-          height={180}
-          style={styles.allTyresImg}
+          style={{
+            ...styles.allTyresImg,
+            width: `600px`,
+            height: '180px',
+          }}
         />
 
         <Box sx={styles.labelsContainerImage}>
@@ -155,12 +158,15 @@ const TyresLegend = (props) => {
       <Box sx={styles.containerImageMobile}>
         <Typography sx={styles.title}>Available tyres </Typography>
 
-        <img
+        <Box
+          component="img"
           src={allCompoundsImg}
           alt="allTyres"
-          width={window.innerWidth - 16}
-          height={100}
-          style={styles.allTyresImg}
+          sx={{
+            ...styles.allTyresImg,
+            width: `${window.innerWidth - 16}px`,
+            height: '100px',
+          }}
         />
 
         <Box sx={styles.labelsContainerImageMobile}>
