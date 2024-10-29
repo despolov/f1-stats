@@ -11,6 +11,8 @@ import Select from '../Select';
 import getStyles from './RaceSelect.styles';
 import getRaceCountryCode from '../../utils/getRaceCountryCode';
 import getTeamLogoSrc from '../../utils/getTeamLogoSrc';
+import { AiOutlineTeam } from 'react-icons/ai';
+import { IconContext } from 'react-icons';
 
 const styles = getStyles();
 
@@ -25,14 +27,29 @@ const getCountryFlag = (country) => (
   />
 );
 
-const getTeamIcon = (team, isPrefix) => (
-  <Box
-    component="img"
-    src={getTeamLogoSrc(team)}
-    alt=""
-    sx={{ ...styles.teamIcon, ...(isPrefix ? styles.teamIconPrefix : {}) }}
-  />
-);
+const getTeamIcon = (team, isPrefix) => {
+  const teamLogSrc = getTeamLogoSrc(team);
+
+  return teamLogSrc ? (
+    <Box
+      component="img"
+      src={teamLogSrc}
+      alt=""
+      sx={{ ...styles.teamIcon, ...(isPrefix ? styles.teamIconPrefix : {}) }}
+    />
+  ) : (
+    <IconContext.Provider
+      value={{
+        style: {
+          ...styles.teamIcon,
+          ...(isPrefix ? styles.teamIconPrefix : {}),
+        },
+      }}
+    >
+      <AiOutlineTeam />
+    </IconContext.Provider>
+  );
+};
 
 const RaceSelect = (props) => {
   const {
