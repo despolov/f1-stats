@@ -27,5 +27,6 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## TODO
 
-- team radios for each driver
-- scatter plots with the driver laps for each practice and quali
+- there should be no minus numbers in the tyres route
+- scatter plots with the driver laps for each practice and quali in the stints route
+- team radios for each driver - separate route again with selector for the race, year, driver
