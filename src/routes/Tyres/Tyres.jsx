@@ -24,6 +24,7 @@ import {
 } from 'react-router-dom';
 import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
+import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const Tyres = () => {
   ReactGA.send({
@@ -52,8 +53,7 @@ const Tyres = () => {
   const styles = getStyles(mode);
 
   useEffect(() => {
-    // TODO: extract to the contants file
-    const startYear = 2023;
+    const startYear = STATS_START_YEAR;
     const currentYear = moment().year();
     const availableYears = [];
 

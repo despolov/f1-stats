@@ -20,6 +20,7 @@ import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
 import RaceSelect from '../../components/RaceSelect';
 import checkIsSprintWeekend from '../../utils/checkIsSprintWeekend';
+import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const Stints = () => {
   ReactGA.send({
@@ -57,8 +58,7 @@ const Stints = () => {
 
   useEffect(() => {
     const paramYear = searchParams.get('year');
-    // TODO: extract to the contants file
-    const startYear = 2023;
+    const startYear = STATS_START_YEAR;
     const currentYear = moment().year();
     const availableYears = [];
 
@@ -79,11 +79,6 @@ const Stints = () => {
         resetData();
         navigate('/stints');
       }
-
-      // setYear(paramYear);
-      // setCountry(paramCountry);
-      // setMeetingKey(paramMeetingKey);
-      // setDriverNumber(paramDriver);
     }
   }, []);
 

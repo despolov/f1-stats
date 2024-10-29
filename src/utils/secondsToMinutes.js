@@ -7,10 +7,12 @@ const secondsToMinutes = (totalSeconds) => {
 
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = secondsToFixed(totalSeconds % 60);
+  const [secIntPart, secDecPart] = seconds.split('.');
+  const paddedSeconds = `${secIntPart.padStart(2, '0')}${
+    secDecPart ? `.${secDecPart}` : ''
+  }`;
 
-  return `${minutes.toString().padStart(2, '0')}:${seconds
-    .toString()
-    .padStart(2, '0')}`;
+  return `${minutes.toString().padStart(2, '0')}:${paddedSeconds}`;
 };
 
 export default secondsToMinutes;
