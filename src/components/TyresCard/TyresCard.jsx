@@ -34,7 +34,7 @@ const TyresCard = (props) => {
 
       <Typography>Used: {tyresCount}</Typography>
 
-      <Typography>New: {totalTyresCount - tyresCount}</Typography>
+      <Typography>New: {Math.max(0, totalTyresCount - tyresCount)}</Typography>
 
       <Tooltip
         title={
