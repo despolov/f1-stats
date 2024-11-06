@@ -218,6 +218,34 @@ const getIpLocation = async (date) => {
   }
 };
 
+const getTeamRadio = async (session_key, driverNumber) => {
+  try {
+    const key = `team_radio?session_key=${session_key}${
+      driverNumber ? `&driver_number=${driverNumber}` : ''
+    }`;
+    const storageValue = getSessionStorageValue(key);
+    let teamRadio;
+    const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
+      (day) => day === new Date().getDay(),
+    );
+
+    if (storageValue && !isTodayARaceWeekDay) {
+      teamRadio = storageValue;
+    } else {
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
+      teamRadio = await response.json();
+      setSessionStorageValue(key, teamRadio);
+    }
+
+    return teamRadio;
+  } catch {
+    return {
+      hasError: true,
+      message: `There was an error with the fetch of the team radio for session with key ${session_key}!`,
+    };
+  }
+};
+
 export {
   getSession,
   getDrivers,
@@ -227,4 +255,5 @@ export {
   getWeather,
   getStints,
   getIpLocation,
+  getTeamRadio,
 };

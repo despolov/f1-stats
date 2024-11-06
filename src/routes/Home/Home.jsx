@@ -70,6 +70,8 @@ const Home = () => {
             onClick={() => navigate('/stints')}
             description="All Stints for each driver from every available session before the race"
           />
+
+          {/* TODO: add here the team radio route and description */}
         </Box>
       </Box>
     </Layout>

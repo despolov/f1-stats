@@ -14,6 +14,8 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 - Stints for each driver from every available session before the race
 
+- Team radio for each driver from every available session, including the race
+
 ## Sources
 
 - Data source: <https://openf1.org/>
@@ -24,8 +26,3 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 - local run: npm run start
 - tests run: npm run test
 - app deploy: npm run deploy
-
-## TODO
-
-- scatter plots with the driver laps for each practice and quali in the stints route
-- team radios for each driver - separate route again with selector for the race, year, driver

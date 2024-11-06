@@ -108,6 +108,36 @@ const StintsLink = ({ pathname }) => {
   );
 };
 
+const TeamRadioLink = ({ pathname }) => {
+  const navigate = useNavigate();
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
+
+  return (
+    <Button
+      sx={pathname === '/teamRadio' ? styles.buttonActive : {}}
+      onClick={() => {
+        if (pathname === '/teamRadio') {
+          return;
+        }
+
+        navigate('/teamRadio');
+      }}
+    >
+      <Typography
+        component="span"
+        sx={
+          pathname === '/teamRadio'
+            ? styles.buttonTextActive
+            : styles.buttonText
+        }
+      >
+        Team Radio
+      </Typography>
+    </Button>
+  );
+};
+
 const DrawerList = ({ toggleDrawer, pathname }) => {
   const navigate = useNavigate();
   const { mode } = useContext(ColorModeContext);
@@ -164,6 +194,20 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
           </ListItemButton>
         </ListItem>
 
+        <ListItem key="teamRadiosDrawerItem" disablePadding>
+          <ListItemButton
+            onClick={() => {
+              if (pathname === '/teamRadio') {
+                return;
+              }
+
+              navigate('/teamRadio');
+            }}
+          >
+            <TeamRadioLink pathname={pathname} />
+          </ListItemButton>
+        </ListItem>
+
         <Divider />
       </List>
     </Box>
@@ -210,6 +254,10 @@ const Header = (props) => {
               <Grid item sx={styles.headerGridButtonItem}>
                 <StintsLink pathname={pathname} />
               </Grid>
+
+              <Grid item sx={styles.headerGridButtonItem}>
+                <TeamRadioLink pathname={pathname} />
+              </Grid>
             </Grid>
 
             <Grid container item xs={6} sx={styles.rightGridContainer}>
@@ -236,11 +284,7 @@ const Header = (props) => {
               <MainLogo />
             </Grid>
 
-            <Grid
-              item
-              xs
-              sx={styles.headerGridButtonsItem}
-            >
+            <Grid item xs sx={styles.headerGridButtonsItem}>
               <IconButton
                 onClick={toggleColorMode}
                 color="inherit"

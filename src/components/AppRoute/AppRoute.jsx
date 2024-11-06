@@ -4,6 +4,7 @@ import Home from '../../routes/Home';
 import PracticeStats from '../../routes/PracticeStats';
 import Tyres from '../../routes/Tyres';
 import Stints from '../../routes/Stints';
+import TeamRadio from '../../routes/TeamRadio';
 
 const AppRoute = () => (
   <Routes>
@@ -14,6 +15,8 @@ const AppRoute = () => (
     <Route exact path="/tyres" element={<Tyres />} />
 
     <Route exact path="/stints" element={<Stints />} />
+
+    <Route exact path="/teamRadio" element={<TeamRadio />} />
 
     <Route path="*" element={<Navigate to="/" replace />} />
   </Routes>
