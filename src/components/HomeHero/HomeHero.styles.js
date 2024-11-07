@@ -8,7 +8,7 @@ const spinFrontTyreMobile = keyframes`0% { transform: translate(240px, -213px) r
 
 const getStyles = (mode) => ({
   container: {
-    height: '50%',
+    height: '360px',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',

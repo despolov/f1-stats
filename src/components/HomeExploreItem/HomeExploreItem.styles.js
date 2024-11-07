@@ -3,6 +3,7 @@ const getStyles = (mode) => ({
     width: '30%',
     padding: '10px',
     minHeight: '160px',
+    minWidth: '520px',
     borderTop: `4px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
     borderRight: `4px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
     borderBottom: `4px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
