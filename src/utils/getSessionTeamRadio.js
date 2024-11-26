@@ -5,40 +5,47 @@ const setInternalProgress = (type, setProgress, progressValue) => {
     if (progressValue === 1) {
       setProgress(10);
     } else if (progressValue === 2) {
-      setProgress(20);
+      setProgress(15);
     }
   }
   if (type === 'Practice 2') {
     if (progressValue === 1) {
-      setProgress(25);
+      setProgress(20);
     } else if (progressValue === 2) {
-      setProgress(35);
+      setProgress(30);
     }
   }
   if (type === 'Practice 3') {
     if (progressValue === 1) {
-      setProgress(40);
+      setProgress(35);
     } else if (progressValue === 2) {
-      setProgress(50);
+      setProgress(45);
     }
   }
   if (type === 'Sprint Qualifying') {
     if (progressValue === 1) {
-      setProgress(60);
+      setProgress(50);
     } else if (progressValue === 2) {
-      setProgress(70);
+      setProgress(60);
     }
   }
   if (type === 'Sprint') {
     if (progressValue === 1) {
-      setProgress(80);
+      setProgress(70);
     } else if (progressValue === 2) {
-      setProgress(85);
+      setProgress(75);
     }
   }
   if (type === 'Qualifying') {
     if (progressValue === 1) {
+      setProgress(80);
+    } else if (progressValue === 2) {
       setProgress(90);
+    }
+  }
+  if (type === 'Race') {
+    if (progressValue === 1) {
+      setProgress(95);
     } else if (progressValue === 2) {
       setProgress(100);
     }

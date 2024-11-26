@@ -42,13 +42,12 @@ const TeamRadio = () => {
   const [meetingKey, setMeetingKey] = useState('');
   const [driver, setDriver] = useState('');
   const [driverData, setDriverData] = useState();
-
   const [teamRadioLoading, setTeamRadioLoading] = useState(false);
   const [error, setStateError] = useState('');
   const [teamRadio, setTeamRadio] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { practice1, practice2, practice3, sprintQuali, sprint, quali } =
+  const { practice1, practice2, practice3, sprintQuali, sprint, quali, race } =
     teamRadio;
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
@@ -246,7 +245,7 @@ const TeamRadio = () => {
       true,
       setProgress,
     );
-    setProgress(20);
+    setProgress(15);
 
     const practice2 = await getSessionTeamRadio(
       'Practice 2',
@@ -258,7 +257,7 @@ const TeamRadio = () => {
       !Boolean(practice1.driver),
       setProgress,
     );
-    setProgress(35);
+    setProgress(30);
 
     const practice3 = await getSessionTeamRadio(
       'Practice 3',
@@ -270,7 +269,7 @@ const TeamRadio = () => {
       false,
       setProgress,
     );
-    setProgress(50);
+    setProgress(45);
 
     const sprintQuali = await getSessionTeamRadio(
       'Sprint Qualifying',
@@ -282,7 +281,7 @@ const TeamRadio = () => {
       false,
       setProgress,
     );
-    setProgress(70);
+    setProgress(60);
 
     const sprint = await getSessionTeamRadio(
       'Sprint',
@@ -294,7 +293,7 @@ const TeamRadio = () => {
       false,
       setProgress,
     );
-    setProgress(85);
+    setProgress(75);
 
     const quali = await getSessionTeamRadio(
       'Qualifying',
@@ -306,9 +305,19 @@ const TeamRadio = () => {
       false,
       setProgress,
     );
-    setProgress(100);
+    setProgress(90);
 
-    // TODO: add here also the race and change the increment of the progress bar
+    const race = await getSessionTeamRadio(
+      'Race',
+      year,
+      countryKey,
+      driverNumber,
+      meetingKey,
+      setError,
+      false,
+      setProgress,
+    );
+    setProgress(100);
 
     let sessionsTeamRadio = {
       practice1: practice1.stints,
@@ -317,6 +326,7 @@ const TeamRadio = () => {
       sprint,
       quali,
       sprintQuali,
+      race,
     };
 
     setDriverData(practice1.driver || practice2.driver);
@@ -462,7 +472,13 @@ const TeamRadio = () => {
           />
         )}
 
-        {/* TODO: add team radio for the race here */}
+        {race && (
+          <SessionTeamRadio
+            session={race}
+            title="Race"
+            teamColour={driverData?.team_colour}
+          />
+        )}
       </Box>
     </Layout>
   );
