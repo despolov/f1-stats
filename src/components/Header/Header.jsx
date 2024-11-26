@@ -13,7 +13,7 @@ import {
   IconButton,
 } from '@mui/material';
 import React, { useState, useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import getStyles from './Header.styles';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IconContext } from 'react-icons';

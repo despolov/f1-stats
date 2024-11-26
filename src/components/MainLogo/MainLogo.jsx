@@ -6,7 +6,7 @@ import {
   styled,
 } from '@mui/material';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import getStyles from './MainLogo.styles';
 import logo512 from '../../assets/icons/logo-512x512.png';
 import { ColorModeContext } from '../ColorMode';

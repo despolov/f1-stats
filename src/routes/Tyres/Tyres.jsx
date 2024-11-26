@@ -17,11 +17,7 @@ import RaceSelect from '../../components/RaceSelect';
 import checkIsSprintWeekend from '../../utils/checkIsSprintWeekend';
 import DriverTyresCard from '../../components/DriverTyresCard';
 import TyresLegend from '../../components/TyresLegend';
-import {
-  useSearchParams,
-  useNavigate,
-  createSearchParams,
-} from 'react-router-dom';
+import { useSearchParams, useNavigate, createSearchParams } from 'react-router';
 import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
 import { STATS_START_YEAR } from '../../constants/globalConsts';

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactGA from 'react-ga4';
 import { useTheme, useMediaQuery, Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import getStyles from './Home.styles';
 import Layout from '../../components/Layout';
 import { GiSpeedometer } from 'react-icons/gi';

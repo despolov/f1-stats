@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Grid, Typography, Button } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import getStyles from './Footer.styles';
 import MainLogo from '../MainLogo';
 import { FaGithub } from 'react-icons/fa';

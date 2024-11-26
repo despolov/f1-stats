@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Refresh as RefreshIcon } from '@mui/icons-material';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router';
 import moment from 'moment';
 import { orderBy } from 'lodash';
 import getStyles from './Stints.styles';

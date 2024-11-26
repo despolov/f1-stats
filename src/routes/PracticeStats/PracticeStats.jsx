@@ -23,7 +23,7 @@ import getSinglePracticeStats from '../../utils/getSinglePracticeStats';
 import addGapBetweenDrivers from '../../utils/addGapBetweenDrivers';
 import moment from 'moment';
 import RaceSelect from '../../components/RaceSelect';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router';
 import { ColorModeContext } from '../../components/ColorMode';
 import PracticeBarChart from '../../components/PracticeBarChart';
 
