@@ -21,7 +21,14 @@ const StintGraph = (props) => {
   let stintColor = styles.defaultCompoundColor;
   let compoundLabel = 'UNKNOWN';
   const currentStintLaps = lap_end - lap_start + 1;
-  let currentStintPercentage = (100 * currentStintLaps) / totalLaps;
+  let currentStintLapsForPercentage = lap_end - lap_start + 1;
+
+  if (currentStintLapsForPercentage < 1) {
+    currentStintLapsForPercentage = 1;
+  }
+
+  let currentStintPercentage =
+    (100 * currentStintLapsForPercentage) / totalLaps;
 
   if (!isDesktop) {
     currentStintPercentage = currentStintPercentage + 10;

@@ -115,8 +115,8 @@ const SessionStints = (props) => {
                 tyre_age_at_start,
               } = sessionStint;
               const currentStintLaps = lap_end - lap_start + 1;
-              let stintColor;
-              let stintColorRgba;
+              let stintColor = styles.defaultCompoundColor;
+              let stintColorRgba = styles.defaultCompoundColorRgba;
 
               if (compound === 'SOFT') {
                 stintColor = styles.softCompoundColor;

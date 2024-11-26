@@ -1,9 +1,11 @@
 const getStyles = (mode) => ({
+  defaultCompoundColor: '#808080',
   softCompoundColor: '#F90021',
   mediumCompoundColor: '#F3C302',
   hardCompoundColor: mode === 'light' ? '#2F2D2B' : '#6d6c6b',
   intermediateCompoundColor: '#019D2E',
   wetCompoundColor: '#2F62A1',
+  defaultCompoundColorRgba: 'rgb(128,128,128, 0.1)',
   softCompoundColorRgba: 'rgb(249, 0, 33, 0.1)',
   mediumCompoundColorRgba: 'rgb(243, 195, 2, 0.1)',
   hardCompoundColorRgba:
