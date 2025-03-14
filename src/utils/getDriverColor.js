@@ -1,51 +1,44 @@
 const getDriverColor = (driver) => {
   switch (driver) {
-    case 'RIC':
-    case 'TSU':
-    case 'LAW':
-      return '#6692FF';
-
-    case 'NOR':
-    case 'PIA':
-    case 'OWA':
-      return '#FF8000';
+    case 'GAS':
+    case 'DOO':
+      return '#FF87BC';
 
     case 'ALO':
     case 'STR':
-    case 'DRU':
       return '#229971';
 
+    case 'LEC':
+    case 'HAM':
+      return '#E8002D';
+
+    case 'OCO':
+    case 'BEA':
+      return '#B6BABD';
+
+    case 'BOR':
+    case 'HUL':
+      return '#52E252';
+
+    case 'NOR':
+    case 'PIA':
+      return '#FF8000';
+
+    case 'HAD':
+    case 'TSU':
+      return '#6692FF';
+
     case 'VER':
-    case 'PER':
+    case 'LAW':
       return '#3671C6';
 
     case 'RUS':
-    case 'HAM':
     case 'ANT':
       return '#27F4D2';
 
-    case 'BOT':
-    case 'ZHO':
-    case 'SHW':
-      return '#52E252';
-
-    case 'LEC':
-    case 'SAI':
-    case 'BEA':
-      return '#E8002D';
-
     case 'ALB':
-    case 'SAR':
-    case 'COL':
+    case 'SAI':
       return '#64C4FF';
-
-    case 'OCO':
-    case 'GAS':
-      return '#FF87BC';
-
-    case 'MAG':
-    case 'HUL':
-      return '#B6BABD';
 
     default:
       return '#000000';

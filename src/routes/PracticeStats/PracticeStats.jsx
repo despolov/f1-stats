@@ -26,6 +26,7 @@ import RaceSelect from '../../components/RaceSelect';
 import { useSearchParams, useNavigate } from 'react-router';
 import { ColorModeContext } from '../../components/ColorMode';
 import PracticeBarChart from '../../components/PracticeBarChart';
+import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const PracticeStats = () => {
   ReactGA.send({
@@ -72,11 +73,10 @@ const PracticeStats = () => {
   const styles = getStyles(mode);
 
   useEffect(() => {
-    const startYear = 2023;
     const currentYear = moment().year();
     const availableYears = [];
 
-    for (let index = startYear; index <= currentYear; index++) {
+    for (let index = STATS_START_YEAR; index <= currentYear; index++) {
       availableYears.push(index);
     }
 
