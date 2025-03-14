@@ -12,7 +12,10 @@ export default defineConfig({
         plugins: ['@emotion/babel-plugin'],
       },
     }),
-    eslint(),
+    eslint({
+      overrideConfigFile: 'eslint.config.mjs',
+      include: ['src/**/*.js', 'src/**/*.jsx'],
+    }),
   ],
   server: {
     open: true,
