@@ -111,7 +111,7 @@ const getAllGrandPrix = async (year) => {
     const response = await fetch(`${F1_API_ENDPOINT}/meetings?year=${year}`);
     const allGrandPrix = await response.json();
     // guard because sometimes the api returns duplicated grand prixs
-    const uniqueAllGrandPrix = uniqBy(allGrandPrix, (p) => p.circuit_key);
+    const uniqueAllGrandPrix = uniqBy(allGrandPrix, (p) => p.meeting_key);
 
     return uniqueAllGrandPrix;
   } catch {
