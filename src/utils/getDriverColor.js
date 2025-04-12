@@ -25,11 +25,11 @@ const getDriverColor = (driver) => {
       return '#FF8000';
 
     case 'HAD':
-    case 'TSU':
+    case 'LAW':
       return '#6692FF';
 
     case 'VER':
-    case 'LAW':
+    case 'TSU':
       return '#3671C6';
 
     case 'RUS':
