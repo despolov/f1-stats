@@ -1,6 +1,6 @@
 {
   "name": "f1-stats",
-  "version": "1.3.11",
+  "version": "1.3.12",
   "private": true,
   "homepage": "https://f1-stats.tech",
   "dependencies": {

@@ -1,6 +1,6 @@
 # TODO
 
-- driver colors should be based on the selected year
+- driver colors should be based on the selected year and race due to driver swaps mid season
 
 - scatter plots with the driver laps for each practice and quali in the stints route (this will maybe not happen, beacuse we dont have the lap times, only the stints, maybe it can happen if we have a new route and fetch all of the)
 
