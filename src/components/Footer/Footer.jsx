@@ -26,7 +26,8 @@ const Footer = (props) => {
         <Grid item xs align="left">
           <MainLogo />
 
-          <Box sx={styles.linkContainer}>
+          {/* Comment footer navi until its better looking not just the same as the header */}
+          {/* <Box sx={styles.linkContainer}>
             <Button
               sx={styles.linkButton}
               onClick={() => {
@@ -56,7 +57,7 @@ const Footer = (props) => {
                 Tyres
               </Typography>
             </Button>
-          </Box>
+          </Box> */}
         </Grid>
 
         <Grid item xs align="right">
@@ -66,6 +67,7 @@ const Footer = (props) => {
               href="https://github.com/despolov/f1-stats"
               target="_blank"
               rel="noopener noreferrer"
+              sx={styles.iconContainer}
             >
               <FaGithub />
             </Box>

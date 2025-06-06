@@ -20,7 +20,11 @@ const getStyles = () => ({
     color: 'white',
     width: '25px',
     height: '25px',
-    marginLeft: '18px',
+  },
+  iconContainer: {
+    display: 'block',
+    width: '25px',
+    height: '25px',
   },
   mainButton: {
     fontSize: '13px',

@@ -48,8 +48,7 @@ const getStyles = (mode) => ({
   flag: {
     width: '45px',
     height: '34px',
-    border: '1px solid black',
-    borderRadius: '4px',
+    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
     margin: '4px 0 0 0',
   },
   headshotContainer: {

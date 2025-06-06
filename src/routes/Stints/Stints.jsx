@@ -15,7 +15,7 @@ import getStyles from './Stints.styles';
 import { getAllGrandPrix, getDrivers } from '../../api';
 import Layout from '../../components/Layout';
 import getSessionStints from '../../utils/getSessionStints';
-import DriverStintsCard from '../../components/DriverStintsCard';
+import DriverBigCard from '../../components/DriverBigCard';
 import SessionStints from '../../components/SessionStints';
 import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
@@ -332,7 +332,7 @@ const Stints = () => {
       return null;
     }
 
-    return <DriverStintsCard driver={driverData} />;
+    return <DriverBigCard driver={driverData} />;
   };
 
   if (error) {

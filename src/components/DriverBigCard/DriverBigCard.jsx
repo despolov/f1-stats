@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { useTheme, useMediaQuery, Box, Typography } from '@mui/material';
 import getDriverColor from '../../utils/getDriverColor';
-import getStyles from './DriverStintsCard.styles';
+import getStyles from './DriverBigCard.styles';
 import { IconContext } from 'react-icons';
 import { IoIosPerson } from 'react-icons/io';
 import ReactCountryFlag from 'react-country-flag';
 import getDriverCountryCode from '../../utils/getDriverCountryCode';
 import { ColorModeContext } from '../ColorMode';
 
-const DriverStintsCard = (props) => {
+const DriverBigCard = (props) => {
   const { driver } = props;
   const {
     name_acronym,
@@ -61,15 +61,13 @@ const DriverStintsCard = (props) => {
             {driver_number}
           </Typography>
 
-          {country_code ? (
+          {country_code && (
             <ReactCountryFlag
               countryCode={getDriverCountryCode(country_code)}
               svg
               title={country_code}
               style={styles.flag}
             />
-          ) : (
-            <Box sx={styles.flag} />
           )}
         </Box>
 
@@ -95,4 +93,4 @@ const DriverStintsCard = (props) => {
   );
 };
 
-export default DriverStintsCard;
+export default DriverBigCard;

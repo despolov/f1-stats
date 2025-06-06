@@ -15,7 +15,7 @@ import getStyles from './TeamRadio.styles';
 import { getAllGrandPrix, getDrivers } from '../../api';
 import Layout from '../../components/Layout';
 import getSessionTeamRadio from '../../utils/getSessionTeamRadio';
-import DriverStintsCard from '../../components/DriverStintsCard';
+import DriverBigCard from '../../components/DriverBigCard';
 import SessionTeamRadio from '../../components/SessionTeamRadio';
 import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
@@ -347,7 +347,7 @@ const TeamRadio = () => {
       return null;
     }
 
-    return <DriverStintsCard driver={driverData} />;
+    return <DriverBigCard driver={driverData} />;
   };
 
   if (error) {
