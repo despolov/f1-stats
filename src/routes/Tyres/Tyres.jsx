@@ -88,14 +88,22 @@ const Tyres = () => {
 
   useEffect(() => {
     if (country) {
+      const countrySplittedByMeetingDelimiter = country.split(' | ');
+
       setSearchParams((params) => {
         params.set('country', country);
         return params;
       });
       setTyresStatsLoading(true);
-      getTyresStats(year, country.split(' - ')[0], country.split(' | ')[1]);
-
-      const isSprint = checkIsSprintWeekend(Number(year), country);
+      getTyresStats(
+        year,
+        country.split(' - ')[0],
+        countrySplittedByMeetingDelimiter[1],
+      );
+      const isSprint = checkIsSprintWeekend(
+        Number(year),
+        countrySplittedByMeetingDelimiter[0],
+      );
 
       setIsSprintWeekend(isSprint);
     }
