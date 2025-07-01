@@ -1,9 +1,10 @@
 import { uniqBy } from 'lodash';
 import moment from 'moment';
 import {
-  getSessionStorageValue,
-  setSessionStorageValue,
-} from '../utils/sessionStorage';
+  getFromCache,
+  setInCache,
+  removeFromCache,
+} from '../utils/cacheService';
 import {
   F1_API_ENDPOINT,
   IPAPI_API_ENDPOINT,
@@ -11,9 +12,14 @@ import {
 } from '../constants/apiConsts';
 
 const getSession = async (type, country, year, meetingKey) => {
+  const key = `sessions?country_name=${country}&session_name=${type}&year=${year}&meeting_key=${meetingKey}`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the session (${type}) for year ${year} in ${country}!`,
+  };
+
   try {
-    const key = `sessions?country_name=${country}&session_name=${type}&year=${year}&meeting_key=${meetingKey}`;
-    const storageValue = getSessionStorageValue(key);
+    const storageValue = getFromCache(key);
     let session;
 
     if (storageValue) {
@@ -21,24 +27,35 @@ const getSession = async (type, country, year, meetingKey) => {
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       session = await response.json();
-      setSessionStorageValue(key, session);
+
+      setInCache(key, session);
+
+      if (session.error) {
+        removeFromCache(key);
+
+        return errorPayload;
+      }
     }
 
     return session;
   } catch {
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of the session (${type}) for year ${year} in ${country}!`,
-    };
+    removeFromCache(key);
+
+    return errorPayload;
   }
 };
 
 const getDrivers = async (sessionKey, driverNumber, meetingKey) => {
+  const key = `drivers?${sessionKey ? `session_key=${sessionKey}` : ''}${
+    driverNumber ? `&driver_number=${driverNumber}` : ''
+  }${meetingKey ? `&meeting_key=${meetingKey}` : ''}`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the drivers for session ${sessionKey}!`,
+  };
+
   try {
-    const key = `drivers?${sessionKey ? `session_key=${sessionKey}` : ''}${
-      driverNumber ? `&driver_number=${driverNumber}` : ''
-    }${meetingKey ? `&meeting_key=${meetingKey}` : ''}`;
-    const storageValue = getSessionStorageValue(key);
+    const storageValue = getFromCache(key);
     let drivers;
     const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
       (day) => day === new Date().getDay(),
@@ -49,7 +66,13 @@ const getDrivers = async (sessionKey, driverNumber, meetingKey) => {
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       drivers = await response.json();
-      setSessionStorageValue(key, drivers);
+
+      setInCache(key, drivers);
+    }
+    if (drivers.error) {
+      removeFromCache(key);
+
+      return errorPayload;
     }
 
     // guard because sometimes the api returns duplicated drivers
@@ -57,10 +80,9 @@ const getDrivers = async (sessionKey, driverNumber, meetingKey) => {
 
     return uniqueDrivers;
   } catch {
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of the drivers for session ${sessionKey}!`,
-    };
+    removeFromCache(key);
+
+    return errorPayload;
   }
 };
 
@@ -81,9 +103,14 @@ const getLapsForDriver = async (sessionKey, driverNumber) => {
 };
 
 const getLapsForSession = async (sessionKey) => {
+  const key = `laps?session_key=${sessionKey}&is_pit_out_lap=false`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the laps for session ${sessionKey}!`,
+  };
+
   try {
-    const key = `laps?session_key=${sessionKey}&is_pit_out_lap=false`;
-    const storageValue = getSessionStorageValue(key);
+    const storageValue = getFromCache(key);
     let lapsPerSession;
     const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
       (day) => day === new Date().getDay(),
@@ -94,15 +121,21 @@ const getLapsForSession = async (sessionKey) => {
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       lapsPerSession = await response.json();
-      setSessionStorageValue(key, lapsPerSession);
+
+      setInCache(key, lapsPerSession);
+    }
+
+    if (lapsPerSession.error) {
+      removeFromCache(key);
+
+      return errorPayload;
     }
 
     return lapsPerSession;
   } catch {
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of the laps for session ${sessionKey}!`,
-    };
+    removeFromCache(key);
+
+    return errorPayload;
   }
 };
 
@@ -123,9 +156,14 @@ const getAllGrandPrix = async (year) => {
 };
 
 const getWeather = async (sessionKey, dateStart, dateEnd) => {
+  const key = `weather?session_key=${sessionKey}`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the weather for session ${sessionKey}, from ${dateStart} till ${dateEnd}!`,
+  };
+
   try {
-    const key = `weather?session_key=${sessionKey}`;
-    const storageValue = getSessionStorageValue(key);
+    const storageValue = getFromCache(key);
     let weather;
     const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
       (day) => day === new Date().getDay(),
@@ -136,7 +174,14 @@ const getWeather = async (sessionKey, dateStart, dateEnd) => {
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       weather = await response.json();
-      setSessionStorageValue(key, weather);
+
+      setInCache(key, weather);
+    }
+
+    if (weather.error) {
+      removeFromCache(key);
+
+      return errorPayload;
     }
 
     if (dateStart && dateEnd && weather.length > 0) {
@@ -160,19 +205,23 @@ const getWeather = async (sessionKey, dateStart, dateEnd) => {
 
     return [];
   } catch {
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of the weather for session ${sessionKey}, from ${dateStart} till ${dateEnd}!`,
-    };
+    removeFromCache(key);
+
+    return errorPayload;
   }
 };
 
 const getStints = async (session_key, driverNumber) => {
+  const key = `stints?session_key=${session_key}${
+    driverNumber ? `&driver_number=${driverNumber}` : ''
+  }`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the stints for session with key ${session_key}!`,
+  };
+
   try {
-    const key = `stints?session_key=${session_key}${
-      driverNumber ? `&driver_number=${driverNumber}` : ''
-    }`;
-    const storageValue = getSessionStorageValue(key);
+    const storageValue = getFromCache(key);
     let stints;
     const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
       (day) => day === new Date().getDay(),
@@ -183,22 +232,29 @@ const getStints = async (session_key, driverNumber) => {
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       stints = await response.json();
-      setSessionStorageValue(key, stints);
+
+      setInCache(key, stints);
+    }
+
+    if (stints.error) {
+      removeFromCache(key);
+
+      return errorPayload;
     }
 
     return stints;
   } catch {
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of the stints for session with key ${session_key}!`,
-    };
+    removeFromCache(key);
+
+    return errorPayload;
   }
 };
 
 const getIpLocation = async (date) => {
+  const key = `ipLocation-${date}`;
+
   try {
-    const key = `ipLocation-${date}`;
-    const storageValue = getSessionStorageValue(key);
+    const storageValue = getFromCache(key);
     let ipLocation;
 
     if (storageValue) {
@@ -206,11 +262,14 @@ const getIpLocation = async (date) => {
     } else {
       const response = await fetch(IPAPI_API_ENDPOINT);
       ipLocation = await response.json();
-      setSessionStorageValue(key, ipLocation);
+
+      setInCache(key, ipLocation);
     }
 
     return ipLocation;
   } catch {
+    removeFromCache(key);
+
     return {
       hasError: true,
       message: `There was an error with the fetch of the public ip and location of the user!`,
@@ -219,11 +278,16 @@ const getIpLocation = async (date) => {
 };
 
 const getTeamRadio = async (session_key, driverNumber) => {
+  const key = `team_radio?session_key=${session_key}${
+    driverNumber ? `&driver_number=${driverNumber}` : ''
+  }`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the team radio for session with key ${session_key}!`,
+  };
+
   try {
-    const key = `team_radio?session_key=${session_key}${
-      driverNumber ? `&driver_number=${driverNumber}` : ''
-    }`;
-    const storageValue = getSessionStorageValue(key);
+    const storageValue = getFromCache(key);
     let teamRadio;
     const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
       (day) => day === new Date().getDay(),
@@ -234,11 +298,20 @@ const getTeamRadio = async (session_key, driverNumber) => {
     } else {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       teamRadio = await response.json();
-      setSessionStorageValue(key, teamRadio);
+
+      setInCache(key, teamRadio);
+    }
+
+    if (teamRadio.error) {
+      removeFromCache(key);
+
+      return errorPayload;
     }
 
     return teamRadio;
   } catch {
+    removeFromCache(key);
+
     return {
       hasError: true,
       message: `There was an error with the fetch of the team radio for session with key ${session_key}!`,
