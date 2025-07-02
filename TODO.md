@@ -8,3 +8,5 @@
   get meeting - api.openf1.org/v1/sessions?country_name=Brazil&year=2024&session_name=Race
   get drivers for the meeting - api.openf1.org/v1/drivers?session_key=9636
   get positions after that for the race (this will give all drivers and all position changes) - api.openf1.org/v1/position?session_key=9636 (session_key comes from the meeting)
+
+- Intl of the whole app
