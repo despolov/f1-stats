@@ -8,13 +8,13 @@ F1 stats is an app for quick check of F1 stats from Practice sessions for each r
 
 ## Main Features
 
-- Aggregated lap time based on the best sectors of each driver from every Practice session and the actual standings for comparison
+- Aggregated lap times based on best sectors from Practice sessions with actual standings comparison
 
-- Used and New tyres count for each driver from every available session before the race
+- Tire usage analytics showing new and used compound counts across all practice sessions
 
-- Stints for each driver from every available session before the race
+- Detailed stint breakdowns including lap times, tire compounds, and performance metrics per driver
 
-- Team radio for each driver from every available session, including the race
+- Complete team radio communications from practice, qualifying, and race sessions
 
 ## Sources
 

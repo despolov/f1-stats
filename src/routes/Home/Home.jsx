@@ -4,8 +4,8 @@ import { useTheme, useMediaQuery, Box } from '@mui/material';
 import { useNavigate } from 'react-router';
 import getStyles from './Home.styles';
 import Layout from '../../components/Layout';
-import { GiSpeedometer } from 'react-icons/gi';
-import { PiTire } from 'react-icons/pi';
+import { GiSpeedometer, GiCarWheel } from 'react-icons/gi';
+import { TbCar4Wd } from 'react-icons/tb';
 import { IoIosRadio } from 'react-icons/io';
 import { IoStatsChart } from 'react-icons/io5';
 import HomeHero from '../../components/HomeHero';
@@ -42,14 +42,14 @@ const Home = () => {
                 title="PRACTICE STATS"
                 icon={<IoStatsChart />}
                 onClick={() => navigate('/practiceStats')}
-                description="Aggregated lap time based on the best sectors of each driver from every Practice session and the actual standings for comparison"
+                description="Aggregated lap times based on best sectors from Practice sessions with actual standings comparison"
               />
 
               <HomeExploreItem
-                title="TYRE STATS"
-                icon={<PiTire />}
+                title="TYRE STRATEGY"
+                icon={<GiCarWheel />}
                 onClick={() => navigate('/tyres')}
-                description="Used and New tyres count for each driver from every available session before the race"
+                description="Tire usage analytics showing new and used compound counts across all practice sessions"
               />
             </Box>
 
@@ -61,17 +61,17 @@ const Home = () => {
               }}
             >
               <HomeExploreItem
-                title="STINTS STATS"
+                title="STINT ANALYSIS"
                 icon={<GiSpeedometer />}
                 onClick={() => navigate('/stints')}
-                description="All Stints for each driver from every available session before the race"
+                description="Detailed stint breakdowns including lap times, tire compounds, and performance metrics per driver"
               />
 
               <HomeExploreItem
                 title="TEAM RADIO"
                 icon={<IoIosRadio />}
                 onClick={() => navigate('/teamRadio')}
-                description="Team radio for each driver from every available session, including the race"
+                description="Complete team radio communications from practice, qualifying, and race sessions"
               />
             </Box>
           </Box>
@@ -81,27 +81,28 @@ const Home = () => {
               title="PRACTICE STATS"
               icon={<IoStatsChart />}
               onClick={() => navigate('/practiceStats')}
-              description="Aggregated lap time based on the best sectors of each driver from every Practice session and the actual standings for comparison"
+              description="Aggregated lap times based on best sectors from Practice sessions with actual standings comparison"
             />
 
             <HomeExploreItem
-              title="TYRE STATS"
-              icon={<PiTire />}
+              title="TYRE STRATEGY"
+              icon={<GiCarWheel />}
               onClick={() => navigate('/tyres')}
-              description="Used and New tyres count for each driver from every available session before the race"
+              description="Tire usage analytics showing new and used compound counts across all practice sessions"
             />
+
             <HomeExploreItem
-              title="STINTS STATS"
+              title="STINT ANALYSIS"
               icon={<GiSpeedometer />}
               onClick={() => navigate('/stints')}
-              description="All Stints for each driver from every available session before the race"
+              description="Detailed stint breakdowns including lap times, tire compounds, and performance metrics per driver"
             />
 
             <HomeExploreItem
               title="TEAM RADIO"
               icon={<IoIosRadio />}
               onClick={() => navigate('/teamRadio')}
-              description="Team radio for each driver from every available session, including the race"
+              description="Complete team radio communications from practice, qualifying, and race sessions"
             />
           </Box>
         )}
