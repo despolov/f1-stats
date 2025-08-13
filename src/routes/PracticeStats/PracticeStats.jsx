@@ -421,7 +421,7 @@ const PracticeStats = () => {
             "{error}"
           </Typography>
 
-          <Box sx={styles.refreshContianerError}>
+          <Box sx={styles.refreshContainerError}>
             <Typography sx={styles.refreshLabelError}>
               Try refreshing the page →
             </Typography>

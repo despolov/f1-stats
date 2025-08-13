@@ -55,7 +55,7 @@ const getStyles = (mode) => ({
     color: mode === 'light' ? '#000000' : '#E2E2E2',
     textAlign: 'center',
   },
-  refreshContianerError: {
+  refreshContainerError: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

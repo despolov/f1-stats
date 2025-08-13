@@ -314,7 +314,7 @@ const Stints = () => {
       sprintQuali,
     };
 
-    setDriverData(practice1.driver);
+    setDriverData(practice1.driver || practice2.driver);
     setStints(sessionsStints);
     setStintsLoading(false);
   };
@@ -357,7 +357,7 @@ const Stints = () => {
             "{error}"
           </Typography>
 
-          <Box sx={styles.refreshContianerError}>
+          <Box sx={styles.refreshContainerError}>
             <Typography sx={styles.refreshLabelError}>
               Try refreshing the page →
             </Typography>

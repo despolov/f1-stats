@@ -4,69 +4,69 @@ const getRaceCountryCode = (country) => {
   }
 
   switch (country) {
-    case 'Bahrain': {
+    case 'Bahrain':
       return 'BH';
-    }
-    case 'Saudi Arabia': {
+
+    case 'Saudi Arabia':
       return 'SA';
-    }
-    case 'Australia': {
+
+    case 'Australia':
       return 'AU';
-    }
-    case 'Japan': {
+
+    case 'Japan':
       return 'JP';
-    }
-    case 'China': {
+
+    case 'China':
       return 'CN';
-    }
-    case 'United States': {
+
+    case 'United States':
       return 'US';
-    }
-    case 'Italy': {
+
+    case 'Italy':
       return 'IT';
-    }
-    case 'Monaco': {
+
+    case 'Monaco':
       return 'MC';
-    }
-    case 'Canada': {
+
+    case 'Canada':
       return 'CA';
-    }
-    case 'Spain': {
+
+    case 'Spain':
       return 'ES';
-    }
-    case 'Austria': {
+
+    case 'Austria':
       return 'AT';
-    }
-    case 'Great Britain': {
+
+    case 'Great Britain':
+    case 'United Kingdom':
       return 'GB';
-    }
-    case 'Hungary': {
+
+    case 'Hungary':
       return 'HU';
-    }
-    case 'Belgium': {
+
+    case 'Belgium':
       return 'BE';
-    }
-    case 'Netherlands': {
+
+    case 'Netherlands':
       return 'NL';
-    }
-    case 'Azerbaijan': {
+
+    case 'Azerbaijan':
       return 'AZ';
-    }
-    case 'Singapore': {
+
+    case 'Singapore':
       return 'SG';
-    }
-    case 'Mexico': {
+
+    case 'Mexico':
       return 'MX';
-    }
-    case 'Brazil': {
+
+    case 'Brazil':
       return 'BR';
-    }
-    case 'Qatar': {
+
+    case 'Qatar':
       return 'QA';
-    }
-    case 'United Arab Emirates': {
+
+    case 'United Arab Emirates':
       return 'AE';
-    }
 
     default:
       return '';

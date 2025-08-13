@@ -32,7 +32,7 @@ const getStyles = (mode) => ({
     borderBottom: mode === 'light' ? '2px solid #ffffff' : '2px solid #5a5a5a',
     margin: '20px 0 20px 0',
   },
-  refreshContianerError: {
+  refreshContainerError: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
