@@ -65,9 +65,43 @@ const RaceSelect = (props) => {
     handleDriverChange,
     drivers,
     driversLoading,
+    allowEmptyDriver = false, // New prop to control empty driver behavior
   } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+
+  const getDriverSelectData = () => {
+    const baseDriverData = drivers.map((d) => {
+      const displayDriver = d.split(' | ')[0];
+      const driverTeam = displayDriver.split(' - ')[0];
+
+      return {
+        value: d,
+        displayValue: (
+          <Typography sx={styles.driverOption}>
+            {getTeamIcon(driverTeam)} {displayDriver}
+          </Typography>
+        ),
+      };
+    });
+
+    // Only add empty option for Race route
+    if (allowEmptyDriver) {
+      return [
+        {
+          value: '',
+          displayValue: (
+            <Typography sx={styles.driverOption}>
+              {driver ? "← Back to race overview" : "-- View all drivers --"}
+            </Typography>
+          ),
+        },
+        ...baseDriverData,
+      ];
+    }
+
+    return baseDriverData;
+  };
 
   return (
     <SelectFieldsContainer
@@ -115,22 +149,14 @@ const RaceSelect = (props) => {
               : ''
           }
           onChange={handleDriverChange}
-          label="Select driver"
-          data={drivers.map((d) => {
-            const displayDriver = d.split(' | ')[0];
-            const driverTeam = displayDriver.split(' - ')[0];
-
-            return {
-              value: d,
-              displayValue: (
-                <Typography>
-                  {getTeamIcon(driverTeam)}
-
-                  {displayDriver}
-                </Typography>
-              ),
-            };
-          })}
+          label={
+            allowEmptyDriver && driver 
+              ? "Change driver" 
+              : allowEmptyDriver 
+                ? "Select driver (optional)" 
+                : "Select driver"
+          }
+          data={getDriverSelectData()}
           disabled={drivers.length === 0}
           loading={driversLoading}
         />

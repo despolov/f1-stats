@@ -138,6 +138,32 @@ const TeamRadioLink = ({ pathname }) => {
   );
 };
 
+const RaceLink = ({ pathname }) => {
+  const navigate = useNavigate();
+  const { mode } = useContext(ColorModeContext);
+  const styles = getStyles(mode);
+
+  return (
+    <Button
+      sx={pathname === '/race' ? styles.buttonActive : {}}
+      onClick={() => {
+        if (pathname === '/race') {
+          return;
+        }
+
+        navigate('/race');
+      }}
+    >
+      <Typography
+        component="span"
+        sx={pathname === '/race' ? styles.buttonTextActive : styles.buttonText}
+      >
+        Race
+      </Typography>
+    </Button>
+  );
+};
+
 const DrawerList = ({ toggleDrawer, pathname }) => {
   const navigate = useNavigate();
   const { mode } = useContext(ColorModeContext);
@@ -165,6 +191,20 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
         </ListItem>
 
         <Divider />
+
+        <ListItem key="raceDrawerItem" disablePadding>
+          <ListItemButton
+            onClick={() => {
+              if (pathname === '/race') {
+                return;
+              }
+
+              navigate('/race');
+            }}
+          >
+            <RaceLink pathname={pathname} />
+          </ListItemButton>
+        </ListItem>
 
         <ListItem key="tyresDrawerItem" disablePadding>
           <ListItemButton
@@ -245,6 +285,10 @@ const Header = (props) => {
 
               <Grid item sx={styles.headerGridButtonItem}>
                 <PracticeStatsLink pathname={pathname} />
+              </Grid>
+
+              <Grid item sx={styles.headerGridButtonItem}>
+                <RaceLink pathname={pathname} />
               </Grid>
 
               <Grid item sx={styles.headerGridButtonItem}>

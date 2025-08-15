@@ -22,6 +22,9 @@ const getStyles = () => ({
     height: '2rem',
     marginBottom: '-10px',
   },
+  driverOption: {
+    lineHeight: 2,
+  },
 });
 
 export default getStyles;

@@ -46,10 +46,10 @@ const Home = () => {
               />
 
               <HomeExploreItem
-                title="TYRE STRATEGY"
-                icon={<GiCarWheel />}
-                onClick={() => navigate('/tyres')}
-                description="Tire usage analytics showing new and used compound counts across all practice sessions"
+                title="RACE ANALYSIS"
+                icon={<TbCar4Wd />}
+                onClick={() => navigate('/race')}
+                description="Live position changes, gap analysis, and interval tracking for individual drivers throughout the race"
               />
             </Box>
 
@@ -60,6 +60,13 @@ const Home = () => {
                 width: '100%',
               }}
             >
+              <HomeExploreItem
+                title="TYRE STRATEGY"
+                icon={<GiCarWheel />}
+                onClick={() => navigate('/tyres')}
+                description="Tire usage analytics showing new and used compound counts across all practice sessions"
+              />
+
               <HomeExploreItem
                 title="STINT ANALYSIS"
                 icon={<GiSpeedometer />}
@@ -82,6 +89,13 @@ const Home = () => {
               icon={<IoStatsChart />}
               onClick={() => navigate('/practiceStats')}
               description="Aggregated lap times based on best sectors from Practice sessions with actual standings comparison"
+            />
+
+            <HomeExploreItem
+              title="RACE ANALYSIS"
+              icon={<TbCar4Wd />}
+              onClick={() => navigate('/race')}
+              description="Live position changes, gap analysis, and interval tracking for individual drivers throughout the race"
             />
 
             <HomeExploreItem

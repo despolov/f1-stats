@@ -140,18 +140,40 @@ const getLapsForSession = async (sessionKey) => {
 };
 
 const getAllGrandPrix = async (year) => {
+  const key = `meetings?year=${year}`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the grand prix for year ${year}!`,
+  };
+
   try {
-    const response = await fetch(`${F1_API_ENDPOINT}/meetings?year=${year}`);
-    const allGrandPrix = await response.json();
+    const storageValue = getFromCache(key);
+    let allGrandPrix;
+    const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
+      (day) => day === new Date().getDay(),
+    );
+
+    if (storageValue && !isTodayARaceWeekDay) {
+      allGrandPrix = storageValue;
+    } else {
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
+      allGrandPrix = await response.json();
+
+      setInCache(key, allGrandPrix);
+
+      if (allGrandPrix.error) {
+        removeFromCache(key);
+        return errorPayload;
+      }
+    }
+
     // guard because sometimes the api returns duplicated grand prixs
     const uniqueAllGrandPrix = uniqBy(allGrandPrix, (p) => p.meeting_key);
 
     return uniqueAllGrandPrix;
   } catch {
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of the grand prix for year ${year}!`,
-    };
+    removeFromCache(key);
+    return errorPayload;
   }
 };
 
@@ -319,6 +341,115 @@ const getTeamRadio = async (session_key, driverNumber) => {
   }
 };
 
+const getSessionByMeetingAndName = async (meetingKey, sessionName) => {
+  const key = `sessions?meeting_key=${meetingKey}&session_name=${sessionName}`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the ${sessionName} session for meeting ${meetingKey}!`,
+  };
+
+  try {
+    const storageValue = getFromCache(key);
+    let session;
+    const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
+      (day) => day === new Date().getDay(),
+    );
+
+    if (storageValue && !isTodayARaceWeekDay) {
+      session = storageValue;
+    } else {
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
+      session = await response.json();
+
+      setInCache(key, session);
+
+      if (session.error) {
+        removeFromCache(key);
+        return errorPayload;
+      }
+    }
+
+    return session;
+  } catch {
+    removeFromCache(key);
+    return errorPayload;
+  }
+};
+
+const getIntervals = async (sessionKey, driverNumber) => {
+  const key = `intervals?session_key=${sessionKey}${
+    driverNumber ? `&driver_number=${driverNumber}` : ''
+  }`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the intervals for session ${sessionKey}!`,
+  };
+
+  try {
+    const storageValue = getFromCache(key);
+    let intervals;
+    const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
+      (day) => day === new Date().getDay(),
+    );
+
+    if (storageValue && !isTodayARaceWeekDay) {
+      intervals = storageValue;
+    } else {
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
+      intervals = await response.json();
+
+      setInCache(key, intervals);
+
+      if (intervals.error) {
+        removeFromCache(key);
+        return errorPayload;
+      }
+    }
+
+    return intervals;
+  } catch {
+    removeFromCache(key);
+    return errorPayload;
+  }
+};
+
+const getPosition = async (sessionKey, driverNumber) => {
+  const key = `position?session_key=${sessionKey}${
+    driverNumber ? `&driver_number=${driverNumber}` : ''
+  }`;
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the position data for session ${sessionKey}!`,
+  };
+
+  try {
+    const storageValue = getFromCache(key);
+    let position;
+    const isTodayARaceWeekDay = F1_RACE_WEEK_DAYS.some(
+      (day) => day === new Date().getDay(),
+    );
+
+    if (storageValue && !isTodayARaceWeekDay) {
+      position = storageValue;
+    } else {
+      const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
+      position = await response.json();
+
+      setInCache(key, position);
+
+      if (position.error) {
+        removeFromCache(key);
+        return errorPayload;
+      }
+    }
+
+    return position;
+  } catch {
+    removeFromCache(key);
+    return errorPayload;
+  }
+};
+
 export {
   getSession,
   getDrivers,
@@ -329,4 +460,7 @@ export {
   getStints,
   getIpLocation,
   getTeamRadio,
+  getSessionByMeetingAndName,
+  getIntervals,
+  getPosition,
 };
