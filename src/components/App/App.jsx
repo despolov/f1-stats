@@ -22,7 +22,9 @@ const AppContent = () => {
 };
 
 const App = () => {
-  ReactGA.initialize('G-HB1R5JQSBX');
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.initialize('G-HB1R5JQSBX');
+  }
 
   return (
     <ColorModeProvider>

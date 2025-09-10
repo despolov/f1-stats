@@ -29,11 +29,16 @@ import RaceSelect from '../../components/RaceSelect';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const Race = () => {
-  ReactGA.send({
-    hitType: 'pageview',
-    page: '/race',
-    title: 'Race',
-  });
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.send({
+      hitType: 'pageview',
+      page: '/race',
+      title: 'Race',
+    });
+  }
+
+  // TODO: remove this debug log later after verifiying NODE_ENV is prod when app is deployed
+  console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));

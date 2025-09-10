@@ -23,11 +23,13 @@ import LinearProgressBar from '../../components/LinearProgressBar';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const Tyres = () => {
-  ReactGA.send({
-    hitType: 'pageview',
-    page: '/tyres',
-    title: 'Tyres',
-  });
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.send({
+      hitType: 'pageview',
+      page: '/tyres',
+      title: 'Tyres',
+    });
+  }
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));

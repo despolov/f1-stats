@@ -29,11 +29,13 @@ import PracticeBarChart from '../../components/PracticeBarChart';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const PracticeStats = () => {
-  ReactGA.send({
-    hitType: 'pageview',
-    page: '/practiceStats',
-    title: 'Practice Stats',
-  });
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.send({
+      hitType: 'pageview',
+      page: '/practiceStats',
+      title: 'Practice Stats',
+    });
+  }
 
   const [years, setYears] = useState([]);
   const [year, setYear] = useState('');

@@ -14,11 +14,13 @@ import HomeExploreItem from '../../components/HomeExploreItem';
 const styles = getStyles();
 
 const Home = () => {
-  ReactGA.send({
-    hitType: 'pageview',
-    page: '/',
-    title: 'Home',
-  });
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.send({
+      hitType: 'pageview',
+      page: '/',
+      title: 'Home',
+    });
+  }
 
   const theme = useTheme();
   const navigate = useNavigate();

@@ -23,11 +23,13 @@ import RaceSelect from '../../components/RaceSelect';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const TeamRadio = () => {
-  ReactGA.send({
-    hitType: 'pageview',
-    page: '/teamRadio',
-    title: 'Team Radio',
-  });
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.send({
+      hitType: 'pageview',
+      page: '/teamRadio',
+      title: 'Team Radio',
+    });
+  }
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));

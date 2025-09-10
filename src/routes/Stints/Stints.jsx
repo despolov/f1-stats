@@ -23,11 +23,13 @@ import RaceSelect from '../../components/RaceSelect';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const Stints = () => {
-  ReactGA.send({
-    hitType: 'pageview',
-    page: '/stints',
-    title: 'Stints',
-  });
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.send({
+      hitType: 'pageview',
+      page: '/stints',
+      title: 'Stints',
+    });
+  }
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
