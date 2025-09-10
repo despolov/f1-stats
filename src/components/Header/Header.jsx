@@ -206,6 +206,8 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
           </ListItemButton>
         </ListItem>
 
+        <Divider />
+
         <ListItem key="tyresDrawerItem" disablePadding>
           <ListItemButton
             onClick={() => {
@@ -220,6 +222,8 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
           </ListItemButton>
         </ListItem>
 
+        <Divider />
+
         <ListItem key="stintsDrawerItem" disablePadding>
           <ListItemButton
             onClick={() => {
@@ -233,6 +237,8 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
             <StintsLink pathname={pathname} />
           </ListItemButton>
         </ListItem>
+
+        <Divider />
 
         <ListItem key="teamRadiosDrawerItem" disablePadding>
           <ListItemButton
