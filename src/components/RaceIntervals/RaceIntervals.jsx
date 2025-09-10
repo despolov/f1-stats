@@ -259,9 +259,29 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               ]}
               yAxis={[
                 {
+                  id: 'left-axis',
                   reverse: true,
-                  min: 1,
-                  max: 20,
+                  min: 0,
+                  max: 21,
+                  tickNumber: 22,
+                  tickMinStep: 1,
+                  valueFormatter: (value) => {
+                    if (value === 0 || value === 21) return '🚦';
+                    return `P${value}`;
+                  },
+                },
+                {
+                  id: 'right-axis',
+                  reverse: true,
+                  min: 0,
+                  max: 21,
+                  tickNumber: 22,
+                  tickMinStep: 1,
+                  position: 'right',
+                  valueFormatter: (value) => {
+                    if (value === 0 || value === 21) return '🏁';
+                    return `P${value}`;
+                  },
                 },
               ]}
               series={[
@@ -270,10 +290,29 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                   label: 'Position',
                   color: chartColor,
                   curve: 'stepAfter',
+                  yAxisKey: 'left-axis',
+                  highlightScope: {
+                    highlighted: 'series',
+                    faded: 'global',
+                  },
+                  showMark: false,
                 },
               ]}
               height={400}
               grid={{ vertical: true, horizontal: true }}
+              tooltip={{
+                trigger: 'item',
+              }}
+              disableAxisListener
+              slotProps={{
+                mark: {
+                  style: { display: 'none' },
+                },
+                line: {
+                  style: { strokeWidth: 5 },
+                },
+              }}
+              rightAxis="right-axis"
             />
           </Box>
         </Box>
@@ -366,6 +405,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                   label: 'Gap to Leader (s)',
                   color: chartColor,
                   curve: 'linear',
+                  showMark: false,
                 },
               ]}
               height={400}
@@ -391,6 +431,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                   label: 'Interval (s)',
                   color: chartColor,
                   curve: 'linear',
+                  showMark: false,
                 },
               ]}
               height={400}
