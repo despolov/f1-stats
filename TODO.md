@@ -3,6 +3,7 @@
 - driver colors should be based on the selected year and race due to driver swaps mid season
 
 - Race stats
+  mobile version needed
   add more stats there
 
 - Home route

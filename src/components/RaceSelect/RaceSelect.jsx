@@ -14,10 +14,6 @@ import getTeamLogoSrc from '../../utils/getTeamLogoSrc';
 import { AiOutlineTeam } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 
-const styles = getStyles();
-
-const SelectFieldsContainer = styled('div')(() => styles.selectFieldsContainer);
-
 const getCountryFlag = (country) => (
   <ReactCountryFlag
     countryCode={getRaceCountryCode(country)}
@@ -65,10 +61,11 @@ const RaceSelect = (props) => {
     handleDriverChange,
     drivers,
     driversLoading,
-    allowEmptyDriver = false, // New prop to control empty driver behavior
+    allowEmptyDriver = false,
   } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const styles = getStyles();
 
   const getDriverSelectData = () => {
     const baseDriverData = drivers.map((d) => {
@@ -85,14 +82,13 @@ const RaceSelect = (props) => {
       };
     });
 
-    // Only add empty option for Race route
     if (allowEmptyDriver) {
       return [
         {
           value: '',
           displayValue: (
             <Typography sx={styles.driverOption}>
-              {driver ? "← Back to race overview" : "-- View all drivers --"}
+              {driver ? '← Back to race overview' : '-- View all drivers --'}
             </Typography>
           ),
         },
@@ -104,8 +100,12 @@ const RaceSelect = (props) => {
   };
 
   return (
-    <SelectFieldsContainer
-      sx={isDesktop ? {} : styles.selectFieldsContainerMobile}
+    <Box
+      sx={
+        isDesktop
+          ? styles.selectFieldsContainer
+          : styles.selectFieldsContainerMobile
+      }
     >
       <Select
         value={year}
@@ -150,18 +150,18 @@ const RaceSelect = (props) => {
           }
           onChange={handleDriverChange}
           label={
-            allowEmptyDriver && driver 
-              ? "Change driver" 
-              : allowEmptyDriver 
-                ? "Select driver (optional)" 
-                : "Select driver"
+            allowEmptyDriver && driver
+              ? 'Change driver'
+              : allowEmptyDriver
+              ? 'Select driver (optional)'
+              : 'Select driver'
           }
           data={getDriverSelectData()}
           disabled={drivers.length === 0}
           loading={driversLoading}
         />
       )}
-    </SelectFieldsContainer>
+    </Box>
   );
 };
 

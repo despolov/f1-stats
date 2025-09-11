@@ -16,7 +16,7 @@ const HomeHero = (props) => {
   return isDesktop ? (
     <Box sx={styles.container}>
       <Typography component="h1" sx={styles.title}>
-        F1 Statistics
+        F1 Stats
       </Typography>
 
       <Box sx={styles.imageContainer}>
@@ -38,7 +38,7 @@ const HomeHero = (props) => {
   ) : (
     <Box sx={styles.containerMobile}>
       <Typography component="h1" sx={styles.titleMobile}>
-        F1 Statistics
+        F1 Stats
       </Typography>
 
       <Box sx={styles.imageContainerMobile}>
@@ -46,10 +46,7 @@ const HomeHero = (props) => {
           component="img"
           alt="logo image"
           src={logo512}
-          sx={{
-            height: '370px',
-            width: '370px',
-          }}
+          sx={styles.imageMobile}
         />
 
         <Box sx={styles.backTyreContainerMobile}>

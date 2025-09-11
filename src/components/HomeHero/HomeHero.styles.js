@@ -91,6 +91,10 @@ const getStyles = (mode) => ({
       'translate(-521px, 103px) rotate(-8deg) rotate3d(117, 1, 1, -111deg)',
     color: mode === 'light' ? '#000000' : '#5a5a5a',
   },
+  imageMobile: {
+    height: '370px',
+    width: '370px',
+  },
 });
 
 export default getStyles;
