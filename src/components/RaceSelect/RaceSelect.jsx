@@ -14,6 +14,8 @@ import getTeamLogoSrc from '../../utils/getTeamLogoSrc';
 import { AiOutlineTeam } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 
+const styles = getStyles();
+
 const getCountryFlag = (country) => (
   <ReactCountryFlag
     countryCode={getRaceCountryCode(country)}
@@ -65,7 +67,6 @@ const RaceSelect = (props) => {
   } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
-  const styles = getStyles();
 
   const getDriverSelectData = () => {
     const baseDriverData = drivers.map((d) => {
