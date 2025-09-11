@@ -1,5 +1,12 @@
 import React, { useMemo, useContext } from 'react';
-import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  useMediaQuery,
+} from '@mui/material';
 import { LineChart } from '@mui/x-charts/LineChart';
 import moment from 'moment';
 import { ColorModeContext } from '../ColorMode';
@@ -10,6 +17,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
   const { mode } = useContext(ColorModeContext);
   const theme = useTheme();
   const styles = getStyles(mode);
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   const processedData = useMemo(() => {
     if (!positions || positions.length === 0 || !allDriverData)
@@ -275,9 +283,16 @@ const RaceOverview = ({ positions, allDriverData }) => {
           This chart shows position changes for all drivers throughout the race.
           Each line represents a different driver, color-coded by their team.
         </Typography>
+
         <Typography variant="body2" sx={styles.helpText}>
           Hover over a line to see the driver's position changes.
         </Typography>
+
+        {!isDesktop && (
+          <Typography variant="body2">
+            🚧 mobile version of the chart is under construction 🚧
+          </Typography>
+        )}
 
         <Box sx={styles.chartContainer}>
           <LineChart
