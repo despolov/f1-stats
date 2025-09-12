@@ -1,0 +1,18 @@
+{
+  "home.practiceStats.title": "TRAININGSSTATISTIKEN",
+  "home.practiceStats.description": "Zusammengefasste Rundenzeiten basierend auf den besten Sektoren aus Trainingssitzungen mit Vergleich der tatsächlichen Standings",
+  "home.raceAnalysis.title": "RENNANALYSE",
+  "home.raceAnalysis.description": "Live-Positionswechsel, Gap-Analyse und Intervall-Tracking für einzelne Fahrer während des Rennens",
+  "home.tyreStrategy.title": "REIFENSTRATEGIE",
+  "home.tyreStrategy.description": "Reifennutzungsanalyse mit neuen und gebrauchten Mischungsanzahlen aus allen Trainingssitzungen",
+  "home.stintAnalysis.title": "STINT-ANALYSE",
+  "home.stintAnalysis.description": "Detaillierte Stint-Aufschlüsselungen einschließlich Rundenzeiten, Reifenmischungen und Leistungsmetriken pro Fahrer",
+  "home.teamRadio.title": "TEAMFUNK",
+  "home.teamRadio.description": "Vollständige Teamfunk-Kommunikation aus Training, Qualifying und Rennsitzungen",
+
+  "header.practiceStats": "Trainingsstatistiken",
+  "header.tyres": "Reifen",
+  "header.stints": "Stints",
+  "header.teamRadio": "Teamfunk",
+  "header.race": "Rennen"
+}

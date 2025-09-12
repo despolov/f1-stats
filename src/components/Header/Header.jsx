@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import React, { useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import { useIntl } from 'react-intl';
 import getStyles from './Header.styles';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IconContext } from 'react-icons';
@@ -21,34 +22,38 @@ import MainLogo from '../MainLogo';
 import {
   Brightness4 as Brightness4Icon,
   Brightness7 as Brightness7Icon,
+  Language as LanguageIcon,
 } from '@mui/icons-material';
 import { ColorModeContext } from '../ColorMode';
+import { locales, getLocaleFromUrl } from '../../i18n';
 
 const PracticeStatsLink = ({ pathname }) => {
   const navigate = useNavigate();
+  const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
+  const currentLocale = getLocaleFromUrl() || 'en';
 
   return (
     <Button
-      sx={pathname === '/practiceStats' ? styles.buttonActive : {}}
+      sx={pathname.endsWith('/practiceStats') ? styles.buttonActive : {}}
       onClick={() => {
-        if (pathname === '/practiceStats') {
+        if (pathname.endsWith('/practiceStats')) {
           return;
         }
 
-        navigate('/practiceStats');
+        navigate(`/${currentLocale}/practiceStats`);
       }}
     >
       <Typography
         component="span"
         sx={
-          pathname === '/practiceStats'
+          pathname.endsWith('/practiceStats')
             ? styles.buttonTextActive
             : styles.buttonText
         }
       >
-        Practice stats
+        {intl.formatMessage({ id: 'header.practiceStats' })}
       </Typography>
     </Button>
   );
@@ -56,25 +61,31 @@ const PracticeStatsLink = ({ pathname }) => {
 
 const TyresLink = ({ pathname }) => {
   const navigate = useNavigate();
+  const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
+  const currentLocale = getLocaleFromUrl() || 'en';
 
   return (
     <Button
-      sx={pathname === '/tyres' ? styles.buttonActive : {}}
+      sx={pathname.endsWith('/tyres') ? styles.buttonActive : {}}
       onClick={() => {
-        if (pathname === '/tyres') {
+        if (pathname.endsWith('/tyres')) {
           return;
         }
 
-        navigate('/tyres');
+        navigate(`/${currentLocale}/tyres`);
       }}
     >
       <Typography
         component="span"
-        sx={pathname === '/tyres' ? styles.buttonTextActive : styles.buttonText}
+        sx={
+          pathname.endsWith('/tyres')
+            ? styles.buttonTextActive
+            : styles.buttonText
+        }
       >
-        Tyres
+        {intl.formatMessage({ id: 'header.tyres' })}
       </Typography>
     </Button>
   );
@@ -82,27 +93,31 @@ const TyresLink = ({ pathname }) => {
 
 const StintsLink = ({ pathname }) => {
   const navigate = useNavigate();
+  const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
+  const currentLocale = getLocaleFromUrl() || 'en';
 
   return (
     <Button
-      sx={pathname === '/stints' ? styles.buttonActive : {}}
+      sx={pathname.endsWith('/stints') ? styles.buttonActive : {}}
       onClick={() => {
-        if (pathname === '/stints') {
+        if (pathname.endsWith('/stints')) {
           return;
         }
 
-        navigate('/stints');
+        navigate(`/${currentLocale}/stints`);
       }}
     >
       <Typography
         component="span"
         sx={
-          pathname === '/stints' ? styles.buttonTextActive : styles.buttonText
+          pathname.endsWith('/stints')
+            ? styles.buttonTextActive
+            : styles.buttonText
         }
       >
-        Stints
+        {intl.formatMessage({ id: 'header.stints' })}
       </Typography>
     </Button>
   );
@@ -110,29 +125,31 @@ const StintsLink = ({ pathname }) => {
 
 const TeamRadioLink = ({ pathname }) => {
   const navigate = useNavigate();
+  const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
+  const currentLocale = getLocaleFromUrl() || 'en';
 
   return (
     <Button
-      sx={pathname === '/teamRadio' ? styles.buttonActive : {}}
+      sx={pathname.endsWith('/teamRadio') ? styles.buttonActive : {}}
       onClick={() => {
-        if (pathname === '/teamRadio') {
+        if (pathname.endsWith('/teamRadio')) {
           return;
         }
 
-        navigate('/teamRadio');
+        navigate(`/${currentLocale}/teamRadio`);
       }}
     >
       <Typography
         component="span"
         sx={
-          pathname === '/teamRadio'
+          pathname.endsWith('/teamRadio')
             ? styles.buttonTextActive
             : styles.buttonText
         }
       >
-        Team Radio
+        {intl.formatMessage({ id: 'header.teamRadio' })}
       </Typography>
     </Button>
   );
@@ -140,25 +157,31 @@ const TeamRadioLink = ({ pathname }) => {
 
 const RaceLink = ({ pathname }) => {
   const navigate = useNavigate();
+  const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
+  const currentLocale = getLocaleFromUrl() || 'en';
 
   return (
     <Button
-      sx={pathname === '/race' ? styles.buttonActive : {}}
+      sx={pathname.endsWith('/race') ? styles.buttonActive : {}}
       onClick={() => {
-        if (pathname === '/race') {
+        if (pathname.endsWith('/race')) {
           return;
         }
 
-        navigate('/race');
+        navigate(`/${currentLocale}/race`);
       }}
     >
       <Typography
         component="span"
-        sx={pathname === '/race' ? styles.buttonTextActive : styles.buttonText}
+        sx={
+          pathname.endsWith('/race')
+            ? styles.buttonTextActive
+            : styles.buttonText
+        }
       >
-        Race
+        {intl.formatMessage({ id: 'header.race' })}
       </Typography>
     </Button>
   );
@@ -168,6 +191,7 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
   const navigate = useNavigate();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
+  const currentLocale = getLocaleFromUrl() || 'en';
 
   return (
     <Box
@@ -179,11 +203,11 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
         <ListItem key="practiceStatsDrawerItem" disablePadding>
           <ListItemButton
             onClick={() => {
-              if (pathname === '/practiceStats') {
+              if (pathname.endsWith('/practiceStats')) {
                 return;
               }
 
-              navigate('/practiceStats');
+              navigate(`/${currentLocale}/practiceStats`);
             }}
           >
             <PracticeStatsLink pathname={pathname} />
@@ -195,11 +219,11 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
         <ListItem key="raceDrawerItem" disablePadding>
           <ListItemButton
             onClick={() => {
-              if (pathname === '/race') {
+              if (pathname.endsWith('/race')) {
                 return;
               }
 
-              navigate('/race');
+              navigate(`/${currentLocale}/race`);
             }}
           >
             <RaceLink pathname={pathname} />
@@ -211,11 +235,11 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
         <ListItem key="tyresDrawerItem" disablePadding>
           <ListItemButton
             onClick={() => {
-              if (pathname === '/tyres') {
+              if (pathname.endsWith('/tyres')) {
                 return;
               }
 
-              navigate('/tyres');
+              navigate(`/${currentLocale}/tyres`);
             }}
           >
             <TyresLink pathname={pathname} />
@@ -227,11 +251,11 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
         <ListItem key="stintsDrawerItem" disablePadding>
           <ListItemButton
             onClick={() => {
-              if (pathname === '/stints') {
+              if (pathname.endsWith('/stints')) {
                 return;
               }
 
-              navigate('/stints');
+              navigate(`/${currentLocale}/stints`);
             }}
           >
             <StintsLink pathname={pathname} />
@@ -243,11 +267,11 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
         <ListItem key="teamRadiosDrawerItem" disablePadding>
           <ListItemButton
             onClick={() => {
-              if (pathname === '/teamRadio') {
+              if (pathname.endsWith('/teamRadio')) {
                 return;
               }
 
-              navigate('/teamRadio');
+              navigate(`/${currentLocale}/teamRadio`);
             }}
           >
             <TeamRadioLink pathname={pathname} />
@@ -263,6 +287,7 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
 const Header = (props) => {
   const { headerRef } = props;
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [openDrawer, setOpenDrawer] = useState(false);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
@@ -271,6 +296,24 @@ const Header = (props) => {
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
+  };
+
+  const toggleLanguage = () => {
+    const hash = window.location.hash;
+    const currentPath = hash.replace('#', '');
+    const segments = currentPath.split('/').filter(Boolean);
+    const currentLocale =
+      segments[0] && locales[segments[0]] ? segments[0] : 'en';
+    const localeKeys = Object.keys(locales);
+    const currentIndex = localeKeys.indexOf(currentLocale);
+    const nextIndex = (currentIndex + 1) % localeKeys.length;
+    const nextLocale = localeKeys[nextIndex];
+    const pathWithoutLocale = segments.slice(1).join('/');
+    const newPath = `/${nextLocale}${
+      pathWithoutLocale ? '/' + pathWithoutLocale : ''
+    }`;
+
+    navigate(newPath);
   };
 
   return (
@@ -313,6 +356,15 @@ const Header = (props) => {
             <Grid container item xs={6} sx={styles.rightGridContainer}>
               <Grid item sx={styles.iconContainer}>
                 <IconButton
+                  onClick={toggleLanguage}
+                  color="inherit"
+                  sx={styles.modeIconContainerWithMargin}
+                >
+                  <LanguageIcon sx={styles.icon} />
+                </IconButton>
+              </Grid>
+              <Grid item sx={styles.iconContainer}>
+                <IconButton
                   onClick={toggleColorMode}
                   color="inherit"
                   sx={styles.modeIconContainer}
@@ -335,6 +387,14 @@ const Header = (props) => {
             </Grid>
 
             <Grid item xs sx={styles.headerGridButtonsItem}>
+              <IconButton
+                onClick={toggleLanguage}
+                color="inherit"
+                sx={styles.modeIconContainerMobile}
+              >
+                <LanguageIcon sx={styles.icon} />
+              </IconButton>
+
               <IconButton
                 onClick={toggleColorMode}
                 color="inherit"

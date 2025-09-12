@@ -1,23 +1,40 @@
-import React, { useContext } from 'react';
-import { HashRouter as Router } from 'react-router';
+import React, { useContext, useState, useEffect } from 'react';
+import { HashRouter as Router, useLocation } from 'react-router';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { IntlProvider } from 'react-intl';
 import getTheme from '../../theme.js';
 import AppRoute from '../AppRoute/index.js';
 import ReactGA from 'react-ga4';
 import { ColorModeProvider, ColorModeContext } from '../ColorMode/index.js';
+import { messages, getUserLocale } from '../../i18n/index.js';
 
-const AppContent = () => {
+const AppRouterContent = () => {
   const { mode } = useContext(ColorModeContext);
   const theme = getTheme(mode);
+  const location = useLocation();
+  const [locale, setLocale] = useState(getUserLocale());
+
+  useEffect(() => {
+    const newLocale = getUserLocale();
+    setLocale(newLocale);
+  }, [location.pathname]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
+    <IntlProvider locale={locale} messages={messages[locale]}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <AppRoute />
-      </Router>
-    </ThemeProvider>
+      </ThemeProvider>
+    </IntlProvider>
+  );
+};
+
+const AppContent = () => {
+  return (
+    <Router>
+      <AppRouterContent />
+    </Router>
   );
 };
 

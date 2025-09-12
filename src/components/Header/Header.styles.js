@@ -67,6 +67,10 @@ const getStyles = (mode) => ({
   modeIconContainer: {
     padding: 0,
   },
+  modeIconContainerWithMargin: {
+    padding: 0,
+    margin: '0 10px 0 0',
+  },
   modeIconContainerMobile: {
     padding: 0,
     margin: '0 10px 0 0',

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactGA from 'react-ga4';
 import { useTheme, useMediaQuery, Box } from '@mui/material';
 import { useNavigate } from 'react-router';
+import { useIntl } from 'react-intl';
 import getStyles from './Home.styles';
 import Layout from '../../components/Layout';
 import { GiSpeedometer, GiCarWheel } from 'react-icons/gi';
@@ -10,6 +11,7 @@ import { IoIosRadio } from 'react-icons/io';
 import { IoStatsChart } from 'react-icons/io5';
 import HomeHero from '../../components/HomeHero';
 import HomeExploreItem from '../../components/HomeExploreItem';
+import { getLocaleFromUrl } from '../../i18n';
 
 const styles = getStyles();
 
@@ -22,9 +24,11 @@ const Home = () => {
     });
   }
 
+  const intl = useIntl();
   const theme = useTheme();
   const navigate = useNavigate();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const currentLocale = getLocaleFromUrl() || 'en';
 
   return (
     <Layout fullScreen>
@@ -41,17 +45,21 @@ const Home = () => {
               }}
             >
               <HomeExploreItem
-                title="PRACTICE STATS"
+                title={intl.formatMessage({ id: 'home.practiceStats.title' })}
                 icon={<IoStatsChart />}
-                onClick={() => navigate('/practiceStats')}
-                description="Aggregated lap times based on best sectors from Practice sessions with actual standings comparison"
+                onClick={() => navigate(`/${currentLocale}/practiceStats`)}
+                description={intl.formatMessage({
+                  id: 'home.practiceStats.description',
+                })}
               />
 
               <HomeExploreItem
-                title="RACE ANALYSIS"
+                title={intl.formatMessage({ id: 'home.raceAnalysis.title' })}
                 icon={<TbCar4Wd />}
-                onClick={() => navigate('/race')}
-                description="Live position changes, gap analysis, and interval tracking for individual drivers throughout the race"
+                onClick={() => navigate(`/${currentLocale}/race`)}
+                description={intl.formatMessage({
+                  id: 'home.raceAnalysis.description',
+                })}
               />
             </Box>
 
@@ -63,62 +71,78 @@ const Home = () => {
               }}
             >
               <HomeExploreItem
-                title="TYRE STRATEGY"
+                title={intl.formatMessage({ id: 'home.tyreStrategy.title' })}
                 icon={<GiCarWheel />}
-                onClick={() => navigate('/tyres')}
-                description="Tire usage analytics showing new and used compound counts across all practice sessions"
+                onClick={() => navigate(`/${currentLocale}/tyres`)}
+                description={intl.formatMessage({
+                  id: 'home.tyreStrategy.description',
+                })}
               />
 
               <HomeExploreItem
-                title="STINT ANALYSIS"
+                title={intl.formatMessage({ id: 'home.stintAnalysis.title' })}
                 icon={<GiSpeedometer />}
-                onClick={() => navigate('/stints')}
-                description="Detailed stint breakdowns including lap times, tire compounds, and performance metrics per driver"
+                onClick={() => navigate(`/${currentLocale}/stints`)}
+                description={intl.formatMessage({
+                  id: 'home.stintAnalysis.description',
+                })}
               />
 
               <HomeExploreItem
-                title="TEAM RADIO"
+                title={intl.formatMessage({ id: 'home.teamRadio.title' })}
                 icon={<IoIosRadio />}
-                onClick={() => navigate('/teamRadio')}
-                description="Complete team radio communications from practice, qualifying, and race sessions"
+                onClick={() => navigate(`/${currentLocale}/teamRadio`)}
+                description={intl.formatMessage({
+                  id: 'home.teamRadio.description',
+                })}
               />
             </Box>
           </Box>
         ) : (
           <Box sx={styles.exploreItemsContainerMobile}>
             <HomeExploreItem
-              title="PRACTICE STATS"
+              title={intl.formatMessage({ id: 'home.practiceStats.title' })}
               icon={<IoStatsChart />}
               onClick={() => navigate('/practiceStats')}
-              description="Aggregated lap times based on best sectors from Practice sessions with actual standings comparison"
+              description={intl.formatMessage({
+                id: 'home.practiceStats.description',
+              })}
             />
 
             <HomeExploreItem
-              title="RACE ANALYSIS"
+              title={intl.formatMessage({ id: 'home.raceAnalysis.title' })}
               icon={<TbCar4Wd />}
               onClick={() => navigate('/race')}
-              description="Live position changes, gap analysis, and interval tracking for individual drivers throughout the race"
+              description={intl.formatMessage({
+                id: 'home.raceAnalysis.description',
+              })}
             />
 
             <HomeExploreItem
-              title="TYRE STRATEGY"
+              title={intl.formatMessage({ id: 'home.tyreStrategy.title' })}
               icon={<GiCarWheel />}
               onClick={() => navigate('/tyres')}
-              description="Tire usage analytics showing new and used compound counts across all practice sessions"
+              description={intl.formatMessage({
+                id: 'home.tyreStrategy.description',
+              })}
             />
 
             <HomeExploreItem
-              title="STINT ANALYSIS"
+              title={intl.formatMessage({ id: 'home.stintAnalysis.title' })}
               icon={<GiSpeedometer />}
               onClick={() => navigate('/stints')}
-              description="Detailed stint breakdowns including lap times, tire compounds, and performance metrics per driver"
+              description={intl.formatMessage({
+                id: 'home.stintAnalysis.description',
+              })}
             />
 
             <HomeExploreItem
-              title="TEAM RADIO"
+              title={intl.formatMessage({ id: 'home.teamRadio.title' })}
               icon={<IoIosRadio />}
               onClick={() => navigate('/teamRadio')}
-              description="Complete team radio communications from practice, qualifying, and race sessions"
+              description={intl.formatMessage({
+                id: 'home.teamRadio.description',
+              })}
             />
           </Box>
         )}

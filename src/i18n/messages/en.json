@@ -1,0 +1,18 @@
+{
+  "home.practiceStats.title": "PRACTICE STATS",
+  "home.practiceStats.description": "Aggregated lap times based on best sectors from Practice sessions with actual standings comparison",
+  "home.raceAnalysis.title": "RACE ANALYSIS",
+  "home.raceAnalysis.description": "Live position changes, gap analysis, and interval tracking for individual drivers throughout the race",
+  "home.tyreStrategy.title": "TYRE STRATEGY",
+  "home.tyreStrategy.description": "Tire usage analytics showing new and used compound counts across all practice sessions",
+  "home.stintAnalysis.title": "STINT ANALYSIS",
+  "home.stintAnalysis.description": "Detailed stint breakdowns including lap times, tire compounds, and performance metrics per driver",
+  "home.teamRadio.title": "TEAM RADIO",
+  "home.teamRadio.description": "Complete team radio communications from practice, qualifying, and race sessions",
+
+  "header.practiceStats": "Practice stats",
+  "header.tyres": "Tyres",
+  "header.stints": "Stints",
+  "header.teamRadio": "Team Radio",
+  "header.race": "Race"
+}

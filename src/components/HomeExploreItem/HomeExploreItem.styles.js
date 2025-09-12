@@ -61,7 +61,10 @@ const getStyles = (mode) => ({
     margin: 0,
     padding: '5px 10px',
     fontSize: '12px',
-    minWidth: '160px',
+    whiteSpace: 'nowrap',
+    width: 'auto',
+    minWidth: 'auto',
+    maxWidth: 'none',
     boxShadow:
       '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12)',
 
