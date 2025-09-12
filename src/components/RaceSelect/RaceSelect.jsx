@@ -102,11 +102,10 @@ const RaceSelect = (props) => {
 
   return (
     <Box
-      sx={
-        isDesktop
-          ? styles.selectFieldsContainer
-          : styles.selectFieldsContainerMobile
-      }
+      sx={{
+        ...styles.selectFieldsContainer,
+        ...(isDesktop ? {} : styles.selectFieldsContainerMobile),
+      }}
     >
       <Select
         value={year}
