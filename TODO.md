@@ -9,8 +9,6 @@
 - Home route
   buttons under the hero image are not clickable
 
-- Intl of the whole app
-
 - Articles section in the Home route
   desktop - articles on right, fast route clicks on left
   mobile - ?
