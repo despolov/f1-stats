@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { useIntl } from 'react-intl';
 import getStyles from './PracticeBarChart.styles';
 import getDriverColor from '../../utils/getDriverColor';
 import { ColorModeContext } from '../ColorMode';
@@ -10,6 +11,7 @@ const PracticeBarChart = (props) => {
   const { mode } = useContext(ColorModeContext);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const intl = useIntl();
   const styles = getStyles(mode);
   const barColors = data.map((item) => getDriverColor(item.driver));
 
@@ -31,7 +33,9 @@ const PracticeBarChart = (props) => {
           {
             dataKey: 'gapToFirst',
             label: (location) =>
-              location === 'tooltip' ? 'Gap to first' : title,
+              location === 'tooltip'
+                ? intl.formatMessage({ id: 'practiceChart.gapToFirst' })
+                : title,
             valueFormatter: (v, { dataIndex }) => {
               const { gapToFirst } = data[dataIndex];
 

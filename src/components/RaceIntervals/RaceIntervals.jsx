@@ -1,16 +1,15 @@
 import React, { useMemo, useContext } from 'react';
 import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { useTheme } from '@mui/material/styles';
 import moment from 'moment';
 import { ColorModeContext } from '../ColorMode';
 import getStyles from './RaceIntervals.styles';
-import { useTheme } from '@mui/material/styles';
 
 const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
   const { mode } = useContext(ColorModeContext);
   const theme = useTheme();
   const styles = getStyles(mode);
-
   const optimizedChartData = useMemo(() => {
     const rawData = intervals
       .map((interval, index) => ({
@@ -224,6 +223,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                   <Typography variant="h6" component="div">
                     Start → Finish
                   </Typography>
+
                   <Typography variant="h4" sx={{ color: chartColor }}>
                     P{stats.startPosition} → P{stats.finishPosition}
                   </Typography>
@@ -237,6 +237,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                   <Typography variant="h6" component="div">
                     Best Position
                   </Typography>
+
                   <Typography variant="h4" sx={{ color: chartColor }}>
                     P{stats.bestPosition}
                   </Typography>
@@ -248,6 +249,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
           <Typography variant="h6" sx={styles.chartTitle}>
             Position Changes Over Time
           </Typography>
+
           <Box sx={styles.chartContainer}>
             <LineChart
               xAxis={[
@@ -331,6 +333,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                   <Typography variant="h6" component="div">
                     Max Gap
                   </Typography>
+
                   <Typography variant="h4" sx={{ color: chartColor }}>
                     {stats.maxGap}s
                   </Typography>
@@ -344,6 +347,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                   <Typography variant="h6" component="div">
                     Min Gap
                   </Typography>
+
                   <Typography variant="h4" sx={{ color: chartColor }}>
                     {stats.minGap}s
                   </Typography>
@@ -357,6 +361,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                   <Typography variant="h6" component="div">
                     Avg Gap
                   </Typography>
+
                   <Typography variant="h4" sx={{ color: chartColor }}>
                     {stats.avgGap}s
                   </Typography>
@@ -370,10 +375,12 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                   <Typography variant="h6" component="div">
                     Chart Points
                   </Typography>
+
                   <Box sx={styles.chartPointsContainer}>
                     <Typography variant="h4" sx={{ color: chartColor }}>
                       {stats.optimizedPoints}
                     </Typography>
+
                     <Typography
                       variant="caption"
                       component="div"
@@ -390,6 +397,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
           <Typography variant="h6" sx={styles.chartTitle}>
             Gap to Race Leader Over Time
           </Typography>
+
           <Box sx={styles.chartContainer}>
             <LineChart
               xAxis={[
@@ -416,6 +424,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
           <Typography variant="h6" sx={styles.chartTitle}>
             Interval to Car Ahead Over Time
           </Typography>
+
           <Box sx={styles.chartContainer}>
             <LineChart
               xAxis={[

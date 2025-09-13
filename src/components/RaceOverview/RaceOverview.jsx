@@ -8,17 +8,16 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { useTheme } from '@mui/material/styles';
 import moment from 'moment';
 import { ColorModeContext } from '../ColorMode';
 import getStyles from './RaceOverview.styles';
-import { useTheme } from '@mui/material/styles';
 
 const RaceOverview = ({ positions, allDriverData }) => {
   const { mode } = useContext(ColorModeContext);
   const theme = useTheme();
   const styles = getStyles(mode);
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
-
   const processedData = useMemo(() => {
     if (!positions || positions.length === 0 || !allDriverData)
       return { series: [], xAxisData: [] };
@@ -164,7 +163,6 @@ const RaceOverview = ({ positions, allDriverData }) => {
       xAxisData: sampledTimePoints.map((_, index) => index + 1),
     };
   }, [positions, allDriverData]);
-
   const stats = useMemo(() => {
     if (!positions || positions.length === 0) return {};
 
@@ -217,6 +215,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
               <Typography variant="h6" component="div">
                 Total Drivers
               </Typography>
+
               <Typography variant="h4" sx={styles.statValue}>
                 {stats.totalDrivers}
               </Typography>
@@ -230,6 +229,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
               <Typography variant="h6" component="div">
                 Race Duration
               </Typography>
+
               <Typography variant="h4" sx={styles.statValue}>
                 {stats.raceDuration}
               </Typography>
@@ -243,6 +243,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
               <Typography variant="h6" component="div">
                 Position Changes
               </Typography>
+
               <Typography variant="h4" sx={styles.statValue}>
                 {stats.totalDataPoints}
               </Typography>
@@ -261,6 +262,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
                 <Typography variant="h4" sx={styles.statValue}>
                   {stats.sampledPoints}
                 </Typography>
+
                 <Typography
                   variant="caption"
                   component="div"

@@ -98,7 +98,11 @@ const AggregatedPracticeTable = (props) => {
 
                 <TableCell align="center" sx={styles.tableCellBody}>
                   <Typography sx={styles.tableCellBodyText}>
-                    {aggregatedLap ? aggregatedLap : intl.formatMessage({ id: 'practiceTable.notAvailable' })}
+                    {aggregatedLap
+                      ? aggregatedLap
+                      : intl.formatMessage({
+                          id: 'practiceTable.notAvailable',
+                        })}
                   </Typography>
                 </TableCell>
 
@@ -107,23 +111,36 @@ const AggregatedPracticeTable = (props) => {
                     title={
                       <Box>
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.sec1' })}: {sector1.duration} {intl.formatMessage({ id: 'practiceTable.inLap' })} {sector1.lapNumber}
+                          {intl.formatMessage({ id: 'practiceTable.sec1' })}:{' '}
+                          {sector1.duration}{' '}
+                          {intl.formatMessage({ id: 'practiceTable.inLap' })}{' '}
+                          {sector1.lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.sec2' })}: {sector2.duration} {intl.formatMessage({ id: 'practiceTable.inLap' })} {sector2.lapNumber}
+                          {intl.formatMessage({ id: 'practiceTable.sec2' })}:{' '}
+                          {sector2.duration}{' '}
+                          {intl.formatMessage({ id: 'practiceTable.inLap' })}{' '}
+                          {sector2.lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.sec3' })}: {sector3.duration} {intl.formatMessage({ id: 'practiceTable.inLap' })} {sector3.lapNumber}
+                          {intl.formatMessage({ id: 'practiceTable.sec3' })}:{' '}
+                          {sector3.duration}{' '}
+                          {intl.formatMessage({ id: 'practiceTable.inLap' })}{' '}
+                          {sector3.lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.gap' })}: {gap ? `+${gap}s` : ''}
+                          {intl.formatMessage({ id: 'practiceTable.gap' })}:{' '}
+                          {gap ? `+${gap}s` : ''}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.gapToFirst' })}: {gapToFirst ? `+${gapToFirst}s` : ''}
+                          {intl.formatMessage({
+                            id: 'practiceTable.gapToFirst',
+                          })}
+                          : {gapToFirst ? `+${gapToFirst}s` : ''}
                         </Typography>
                       </Box>
                     }

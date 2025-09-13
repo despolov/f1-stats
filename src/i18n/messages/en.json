@@ -53,5 +53,7 @@
   "practiceTable.notAvailable": "N/A",
   "practiceTable.sec1": "Sec 1",
   "practiceTable.sec2": "Sec 2",
-  "practiceTable.sec3": "Sec 3"
+  "practiceTable.sec3": "Sec 3",
+
+  "practiceChart.gapToFirst": "Gap to first"
 }

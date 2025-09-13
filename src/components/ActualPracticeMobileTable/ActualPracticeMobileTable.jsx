@@ -99,7 +99,11 @@ const ActualPracticeMobileTable = (props) => {
 
                 <TableCell sx={styles.tableCellBody} align="center">
                   <Typography sx={styles.tableCellBodyText}>
-                    {lapDuration ? lapDuration : intl.formatMessage({ id: 'practiceTable.notAvailable' })}
+                    {lapDuration
+                      ? lapDuration
+                      : intl.formatMessage({
+                          id: 'practiceTable.notAvailable',
+                        })}
                   </Typography>
                 </TableCell>
 
@@ -108,23 +112,36 @@ const ActualPracticeMobileTable = (props) => {
                     title={
                       <Box>
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.sec1' })}: {sector1} {intl.formatMessage({ id: 'practiceTable.inLap' })} {lapNumber}
+                          {intl.formatMessage({ id: 'practiceTable.sec1' })}:{' '}
+                          {sector1}{' '}
+                          {intl.formatMessage({ id: 'practiceTable.inLap' })}{' '}
+                          {lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.sec2' })}: {sector2} {intl.formatMessage({ id: 'practiceTable.inLap' })} {lapNumber}
+                          {intl.formatMessage({ id: 'practiceTable.sec2' })}:{' '}
+                          {sector2}{' '}
+                          {intl.formatMessage({ id: 'practiceTable.inLap' })}{' '}
+                          {lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.sec3' })}: {sector3} {intl.formatMessage({ id: 'practiceTable.inLap' })} {lapNumber}
+                          {intl.formatMessage({ id: 'practiceTable.sec3' })}:{' '}
+                          {sector3}{' '}
+                          {intl.formatMessage({ id: 'practiceTable.inLap' })}{' '}
+                          {lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.gap' })}: {gap ? `+${gap}s` : ''}
+                          {intl.formatMessage({ id: 'practiceTable.gap' })}:{' '}
+                          {gap ? `+${gap}s` : ''}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          {intl.formatMessage({ id: 'practiceTable.gapToFirst' })}: {gapToFirst ? `+${gapToFirst}s` : ''}
+                          {intl.formatMessage({
+                            id: 'practiceTable.gapToFirst',
+                          })}
+                          : {gapToFirst ? `+${gapToFirst}s` : ''}
                         </Typography>
                       </Box>
                     }
