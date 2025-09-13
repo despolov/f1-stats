@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import {
   useTheme,
   useMediaQuery,
@@ -13,6 +14,7 @@ import TyresCircle from '../TyresCircle';
 import { ColorModeContext } from '../ColorMode';
 
 const TyresCard = (props) => {
+  const intl = useIntl();
   const {
     compound,
     tyresCount,
@@ -32,31 +34,63 @@ const TyresCard = (props) => {
     <Box sx={isDesktop ? styles.container : styles.containerMobile}>
       <TyresCircle compound={compound} />
 
-      <Typography>Used: {tyresCount}</Typography>
+      <Typography>
+        {intl.formatMessage({ id: 'tyresCard.used' }, { count: tyresCount })}
+      </Typography>
 
-      <Typography>New: {Math.max(0, totalTyresCount - tyresCount)}</Typography>
+      <Typography>
+        {intl.formatMessage(
+          { id: 'tyresCard.new' },
+          { count: Math.max(0, totalTyresCount - tyresCount) },
+        )}
+      </Typography>
 
       <Tooltip
         title={
           <Box>
             {typeof practice1UsedTyres === 'number' ? (
-              <Typography>Practice 1 - {practice1UsedTyres} set/s</Typography>
+              <Typography>
+                {intl.formatMessage(
+                  { id: 'tyresCard.practice1' },
+                  { count: practice1UsedTyres },
+                )}
+              </Typography>
             ) : null}
 
             {typeof practice2UsedTyres === 'number' ? (
-              <Typography>Practice 2 - {practice2UsedTyres} set/s</Typography>
+              <Typography>
+                {intl.formatMessage(
+                  { id: 'tyresCard.practice2' },
+                  { count: practice2UsedTyres },
+                )}
+              </Typography>
             ) : null}
 
             {typeof practice3UsedTyres === 'number' ? (
-              <Typography>Practice 3 - {practice3UsedTyres} set/s</Typography>
+              <Typography>
+                {intl.formatMessage(
+                  { id: 'tyresCard.practice3' },
+                  { count: practice3UsedTyres },
+                )}
+              </Typography>
             ) : null}
 
             {typeof sprintUsedTyres === 'number' ? (
-              <Typography>Sprint - {sprintUsedTyres} set/s</Typography>
+              <Typography>
+                {intl.formatMessage(
+                  { id: 'tyresCard.sprint' },
+                  { count: sprintUsedTyres },
+                )}
+              </Typography>
             ) : null}
 
             {typeof qualiUsedTyres === 'number' ? (
-              <Typography>Qualification - {qualiUsedTyres} set/s</Typography>
+              <Typography>
+                {intl.formatMessage(
+                  { id: 'tyresCard.qualification' },
+                  { count: qualiUsedTyres },
+                )}
+              </Typography>
             ) : null}
           </Box>
         }

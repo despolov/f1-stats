@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactGA from 'react-ga4';
+import { useIntl } from 'react-intl';
 import {
   useTheme,
   useMediaQuery,
@@ -21,8 +22,11 @@ import { useSearchParams, useNavigate, createSearchParams } from 'react-router';
 import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
+import { getLocaleFromUrl, defaultLocale } from '../../i18n';
 
 const Tyres = () => {
+  const intl = useIntl();
+
   if (process.env.NODE_ENV === 'production') {
     ReactGA.send({
       hitType: 'pageview',
@@ -72,7 +76,8 @@ const Tyres = () => {
         handleYearChange({ target: { value: paramYear } });
       } else {
         resetData();
-        navigate('/tyres');
+        const currentLocale = getLocaleFromUrl() || defaultLocale;
+        navigate(`/${currentLocale}/tyres`);
       }
     }
   }, []);
@@ -168,7 +173,8 @@ const Tyres = () => {
       } else {
         resetData();
         setYear('');
-        navigate('/tyres');
+        const currentLocale = getLocaleFromUrl() || defaultLocale;
+        navigate(`/${currentLocale}/tyres`);
       }
     }
   };
@@ -293,7 +299,12 @@ const Tyres = () => {
       return null;
     }
 
-    return <LinearProgressBar title="Loading tyre stats..." value={progress} />;
+    return (
+      <LinearProgressBar
+        title={intl.formatMessage({ id: 'tyres.loadingStats' })}
+        value={progress}
+      />
+    );
   };
 
   const renderTyresStats = () => {
@@ -304,9 +315,11 @@ const Tyres = () => {
     return (
       <>
         <Typography component="h4" sx={styles.subTitle}>
-          {isSprintWeekend
-            ? 'New and used tyres from practices, sprint and qualifying'
-            : 'New and used tyres from practices and qualifying'}
+          {intl.formatMessage({
+            id: isSprintWeekend
+              ? 'tyres.subTitleSprint'
+              : 'tyres.subTitleRegular',
+          })}
         </Typography>
 
         <TyresLegend isSprintWeekend={isSprintWeekend} component="image" />
@@ -322,13 +335,15 @@ const Tyres = () => {
               onAllStintsClick={() => {
                 const { team_name, full_name, driver_number } =
                   tyresStats[driverAcronym].driver;
+                const currentLocale = getLocaleFromUrl() || defaultLocale;
                 navigate({
-                  pathname: '/stints',
+                  pathname: `/${currentLocale}/stints`,
                   search: createSearchParams({
                     year,
                     country: country,
                     driver: `${
-                      team_name || 'n/a'
+                      team_name ||
+                      intl.formatMessage({ id: 'tyres.notAvailable' })
                     } - ${full_name} | ${driver_number}`,
                   }).toString(),
                 });
@@ -362,7 +377,7 @@ const Tyres = () => {
           <Box sx={styles.divider} />
 
           <Typography component="h3" sx={styles.titleError}>
-            There seems to be a problem!
+            {intl.formatMessage({ id: 'tyres.errorTitle' })}
           </Typography>
 
           <Typography component="h3" sx={styles.subTitleError}>
@@ -371,7 +386,7 @@ const Tyres = () => {
 
           <Box sx={styles.refreshContainerError}>
             <Typography sx={styles.refreshLabelError}>
-              Try refreshing the page →
+              {intl.formatMessage({ id: 'tyres.refreshLabel' })}
             </Typography>
 
             <IconButton
@@ -408,7 +423,7 @@ const Tyres = () => {
 
         {shouldRenderInitMessage && (
           <Box component="p" sx={styles.description}>
-            Select year and country in order to see tyre stats
+            {intl.formatMessage({ id: 'tyres.description' })}
           </Box>
         )}
 

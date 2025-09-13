@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { useMediaQuery, useTheme, Box, Button } from '@mui/material';
 import getStyles from './DriverTyresCard.styles';
 import TyresCard from '../TyresCard';
@@ -7,6 +8,7 @@ import { ColorModeContext } from '../ColorMode';
 
 const DriverTyresCard = (props) => {
   const { stats, isSprintWeekend, onAllStintsClick } = props;
+  const intl = useIntl();
   const {
     driver,
     usedTyres,
@@ -91,7 +93,7 @@ const DriverTyresCard = (props) => {
         fullWidth
         sx={styles.allStintsButton}
       >
-        ALL STINTS
+        {intl.formatMessage({ id: 'driverTyresCard.allStints' })}
       </Button>
     </Box>
   );

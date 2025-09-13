@@ -97,5 +97,27 @@
   "raceOverview.chartHelp2": "Hover over a line to see the driver's position changes.",
   "raceOverview.mobileConstruction": "🚧 mobile version of the chart is under construction 🚧",
   "raceOverview.raceProgress": "Race Progress",
-  "raceOverview.pointLabel": "Point {value}"
+  "raceOverview.pointLabel": "Point {value}",
+
+  "tyres.loadingStats": "Loading tyre stats...",
+  "tyres.errorTitle": "There seems to be a problem!",
+  "tyres.refreshLabel": "Try refreshing the page →",
+  "tyres.description": "Select year and country in order to see tyre stats",
+  "tyres.subTitleSprint": "New and used tyres from practices, sprint and qualifying",
+  "tyres.subTitleRegular": "New and used tyres from practices and qualifying",
+  "tyres.notAvailable": "n/a",
+
+  "tyresCard.used": "Used: {count}",
+  "tyresCard.new": "New: {count}",
+  "tyresCard.practice1": "Practice 1 - {count} set/s",
+  "tyresCard.practice2": "Practice 2 - {count} set/s",
+  "tyresCard.practice3": "Practice 3 - {count} set/s",
+  "tyresCard.sprint": "Sprint - {count} set/s",
+  "tyresCard.qualification": "Qualification - {count} set/s",
+
+  "tyresLegend.availableTyres": "Available tyres",
+  "tyresLegend.availableTyresColon": "Available tyres: ",
+  "tyresLegend.sets": "{count} sets",
+
+  "driverTyresCard.allStints": "ALL STINTS"
 }

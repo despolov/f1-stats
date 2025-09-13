@@ -97,5 +97,27 @@
   "raceOverview.chartHelp2": "Bewegen Sie den Mauszeiger über eine Linie, um die Positionswechsel des Fahrers zu sehen.",
   "raceOverview.mobileConstruction": "🚧 Mobile Version des Diagramms ist im Aufbau 🚧",
   "raceOverview.raceProgress": "Rennverlauf",
-  "raceOverview.pointLabel": "Punkt {value}"
+  "raceOverview.pointLabel": "Punkt {value}",
+
+  "tyres.loadingStats": "Reifenstatistiken laden...",
+  "tyres.errorTitle": "Es scheint ein Problem zu geben!",
+  "tyres.refreshLabel": "Versuche die Seite zu aktualisieren →",
+  "tyres.description": "Wählen Sie Jahr und Land aus, um Reifenstatistiken zu sehen",
+  "tyres.subTitleSprint": "Neue und gebrauchte Reifen aus Training, Sprint und Qualifying",
+  "tyres.subTitleRegular": "Neue und gebrauchte Reifen aus Training und Qualifying",
+  "tyres.notAvailable": "n/v",
+
+  "tyresCard.used": "Gebraucht: {count}",
+  "tyresCard.new": "Neu: {count}",
+  "tyresCard.practice1": "Training 1 - {count} Satz/Sätze",
+  "tyresCard.practice2": "Training 2 - {count} Satz/Sätze",
+  "tyresCard.practice3": "Training 3 - {count} Satz/Sätze",
+  "tyresCard.sprint": "Sprint - {count} Satz/Sätze",
+  "tyresCard.qualification": "Qualifying - {count} Satz/Sätze",
+
+  "tyresLegend.availableTyres": "Verfügbare Reifen",
+  "tyresLegend.availableTyresColon": "Verfügbare Reifen: ",
+  "tyresLegend.sets": "{count} Sätze",
+
+  "driverTyresCard.allStints": "ALLE STINTS"
 }
