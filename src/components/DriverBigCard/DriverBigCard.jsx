@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { useTheme, useMediaQuery, Box, Typography } from '@mui/material';
 import getDriverColor from '../../utils/getDriverColor';
 import getStyles from './DriverBigCard.styles';
@@ -10,6 +11,7 @@ import { ColorModeContext } from '../ColorMode';
 
 const DriverBigCard = (props) => {
   const { driver } = props;
+  const intl = useIntl();
   const {
     name_acronym,
     driver_number,
@@ -71,7 +73,9 @@ const DriverBigCard = (props) => {
           )}
         </Box>
 
-        <Typography sx={styles.teamName}>{team_name || 'n/a'}</Typography>
+        <Typography sx={styles.teamName}>
+          {team_name || intl.formatMessage({ id: 'race.notAvailable' })}
+        </Typography>
       </Box>
 
       <Box sx={styles.headshotContainer}>

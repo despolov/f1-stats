@@ -1,4 +1,5 @@
 import React, { useMemo, useContext } from 'react';
+import { useIntl } from 'react-intl';
 import {
   Box,
   Typography,
@@ -15,6 +16,7 @@ import getStyles from './RaceOverview.styles';
 
 const RaceOverview = ({ positions, allDriverData }) => {
   const { mode } = useContext(ColorModeContext);
+  const intl = useIntl();
   const theme = useTheme();
   const styles = getStyles(mode);
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
@@ -190,7 +192,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
     return (
       <Box sx={styles.emptyState}>
         <Typography variant="h6" sx={styles.emptyStateText}>
-          No race position data available for this meeting
+          {intl.formatMessage({ id: 'raceOverview.noDataAvailable' })}
         </Typography>
       </Box>
     );
@@ -200,11 +202,11 @@ const RaceOverview = ({ positions, allDriverData }) => {
     <Box>
       <Box sx={styles.titleContainer}>
         <Typography variant="h5" sx={styles.title}>
-          Race Overview - All Drivers
+          {intl.formatMessage({ id: 'raceOverview.title' })}
         </Typography>
 
         <Typography variant="h7" sx={styles.subTitle}>
-          Select a specific driver above to see detailed interval analysis
+          {intl.formatMessage({ id: 'raceOverview.subtitle' })}
         </Typography>
       </Box>
 
@@ -213,7 +215,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
           <Card sx={styles.statCard}>
             <CardContent>
               <Typography variant="h6" component="div">
-                Total Drivers
+                {intl.formatMessage({ id: 'raceOverview.totalDrivers' })}
               </Typography>
 
               <Typography variant="h4" sx={styles.statValue}>
@@ -227,7 +229,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
           <Card sx={styles.statCard}>
             <CardContent>
               <Typography variant="h6" component="div">
-                Race Duration
+                {intl.formatMessage({ id: 'raceOverview.raceDuration' })}
               </Typography>
 
               <Typography variant="h4" sx={styles.statValue}>
@@ -241,7 +243,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
           <Card sx={styles.statCard}>
             <CardContent>
               <Typography variant="h6" component="div">
-                Position Changes
+                {intl.formatMessage({ id: 'raceOverview.positionChanges' })}
               </Typography>
 
               <Typography variant="h4" sx={styles.statValue}>
@@ -255,7 +257,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
           <Card sx={styles.statCard}>
             <CardContent>
               <Typography variant="h6" component="div">
-                Chart Points
+                {intl.formatMessage({ id: 'raceOverview.chartPoints' })}
               </Typography>
 
               <Box sx={styles.chartPointsContainer}>
@@ -268,7 +270,7 @@ const RaceOverview = ({ positions, allDriverData }) => {
                   component="div"
                   sx={styles.statCaption}
                 >
-                  per driver
+                  {intl.formatMessage({ id: 'raceOverview.perDriver' })}
                 </Typography>
               </Box>
             </CardContent>
@@ -278,21 +280,20 @@ const RaceOverview = ({ positions, allDriverData }) => {
 
       <Box sx={styles.chartSection}>
         <Typography variant="h6" sx={styles.chartTitle}>
-          All Driver Positions Throughout the Race
+          {intl.formatMessage({ id: 'raceOverview.chartTitle' })}
         </Typography>
 
         <Typography variant="body2" sx={styles.helpText}>
-          This chart shows position changes for all drivers throughout the race.
-          Each line represents a different driver, color-coded by their team.
+          {intl.formatMessage({ id: 'raceOverview.chartHelp1' })}
         </Typography>
 
         <Typography variant="body2" sx={styles.helpText}>
-          Hover over a line to see the driver's position changes.
+          {intl.formatMessage({ id: 'raceOverview.chartHelp2' })}
         </Typography>
 
         {!isDesktop && (
           <Typography variant="body2">
-            🚧 mobile version of the chart is under construction 🚧
+            {intl.formatMessage({ id: 'raceOverview.mobileConstruction' })}
           </Typography>
         )}
 
@@ -301,8 +302,12 @@ const RaceOverview = ({ positions, allDriverData }) => {
             xAxis={[
               {
                 data: processedData.xAxisData,
-                label: 'Race Progress',
-                valueFormatter: (value) => `Point ${value}`,
+                label: intl.formatMessage({ id: 'raceOverview.raceProgress' }),
+                valueFormatter: (value) =>
+                  intl.formatMessage(
+                    { id: 'raceOverview.pointLabel' },
+                    { value },
+                  ),
               },
             ]}
             yAxis={[

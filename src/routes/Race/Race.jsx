@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactGA from 'react-ga4';
+import { useIntl } from 'react-intl';
 import {
   useTheme,
   useMediaQuery,
@@ -29,6 +30,8 @@ import RaceSelect from '../../components/RaceSelect';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const Race = () => {
+  const intl = useIntl();
+
   if (process.env.NODE_ENV === 'production') {
     ReactGA.send({
       hitType: 'pageview',
@@ -176,7 +179,10 @@ const Race = () => {
     );
     let drivers = orderBy(allDrivers, ['team_name']);
     drivers = drivers.map(
-      (d) => `${d.team_name || 'n/a'} - ${d.full_name} | ${d.driver_number}`,
+      (d) =>
+        `${d.team_name || intl.formatMessage({ id: 'race.notAvailable' })} - ${
+          d.full_name
+        } | ${d.driver_number}`,
     );
 
     if (drivers.hasError) {
@@ -275,7 +281,7 @@ const Race = () => {
       }
 
       if (sessionData.length === 0) {
-        setError('No race session found for this meeting');
+        setError(intl.formatMessage({ id: 'race.noSessionFound' }));
         return;
       }
 
@@ -301,7 +307,7 @@ const Race = () => {
       }
 
       if (intervalsData.length === 0 && positionData.length === 0) {
-        setError('No race data available for this driver in this race');
+        setError(intl.formatMessage({ id: 'race.noDataAvailable' }));
         return;
       }
 
@@ -339,7 +345,10 @@ const Race = () => {
     }
 
     return (
-      <LinearProgressBar title="Loading race intervals..." value={progress} />
+      <LinearProgressBar
+        title={intl.formatMessage({ id: 'race.loadingIntervals' })}
+        value={progress}
+      />
     );
   };
 
@@ -363,7 +372,7 @@ const Race = () => {
           }}
         >
           <Typography component="h3" sx={styles.titleError}>
-            There seems to be a problem!
+            {intl.formatMessage({ id: 'race.errorTitle' })}
           </Typography>
 
           <Typography
@@ -375,7 +384,7 @@ const Race = () => {
 
           <Box sx={styles.refreshContainerError}>
             <Typography sx={styles.refreshLabelError}>
-              Try refreshing the page →
+              {intl.formatMessage({ id: 'race.refreshLabel' })}
             </Typography>
 
             <IconButton
@@ -418,7 +427,7 @@ const Race = () => {
 
         {shouldRenderInitMessage && !allPositions.length && (
           <Box component="p" sx={styles.description}>
-            Select year, country and driver to see race interval data
+            {intl.formatMessage({ id: 'race.description' })}
           </Box>
         )}
 

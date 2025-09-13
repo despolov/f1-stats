@@ -1,4 +1,5 @@
 import React, { useMemo, useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { useTheme } from '@mui/material/styles';
@@ -8,6 +9,7 @@ import getStyles from './RaceIntervals.styles';
 
 const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
   const { mode } = useContext(ColorModeContext);
+  const intl = useIntl();
   const theme = useTheme();
   const styles = getStyles(mode);
   const optimizedChartData = useMemo(() => {
@@ -213,7 +215,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
       {optimizedPositionData.length > 0 && (
         <Box sx={styles.chartSection}>
           <Typography variant="h5" sx={styles.title}>
-            Positions
+            {intl.formatMessage({ id: 'raceIntervals.positions' })}
           </Typography>
 
           <Grid container spacing={3} sx={styles.statsContainer}>
@@ -221,7 +223,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               <Card sx={styles.statCard}>
                 <CardContent>
                   <Typography variant="h6" component="div">
-                    Start → Finish
+                    {intl.formatMessage({ id: 'raceIntervals.startFinish' })}
                   </Typography>
 
                   <Typography variant="h4" sx={{ color: chartColor }}>
@@ -235,7 +237,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               <Card sx={styles.statCard}>
                 <CardContent>
                   <Typography variant="h6" component="div">
-                    Best Position
+                    {intl.formatMessage({ id: 'raceIntervals.bestPosition' })}
                   </Typography>
 
                   <Typography variant="h4" sx={{ color: chartColor }}>
@@ -247,7 +249,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
           </Grid>
 
           <Typography variant="h6" sx={styles.chartTitle}>
-            Position Changes Over Time
+            {intl.formatMessage({ id: 'raceIntervals.positionChanges' })}
           </Typography>
 
           <Box sx={styles.chartContainer}>
@@ -255,8 +257,14 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               xAxis={[
                 {
                   data: positionXAxisData,
-                  label: 'Race Progress',
-                  valueFormatter: (value) => `Point ${value}`,
+                  label: intl.formatMessage({
+                    id: 'raceIntervals.raceProgress',
+                  }),
+                  valueFormatter: (value) =>
+                    intl.formatMessage(
+                      { id: 'raceIntervals.pointLabel' },
+                      { value },
+                    ),
                 },
               ]}
               yAxis={[
@@ -289,7 +297,9 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               series={[
                 {
                   data: positionData,
-                  label: 'Position',
+                  label: intl.formatMessage({
+                    id: 'raceIntervals.positionLabel',
+                  }),
                   color: chartColor,
                   curve: 'stepAfter',
                   yAxisKey: 'left-axis',
@@ -323,7 +333,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
       {optimizedChartData.length > 0 && (
         <Box sx={styles.chartSection}>
           <Typography variant="h5" sx={styles.title}>
-            Intervals
+            {intl.formatMessage({ id: 'raceIntervals.intervals' })}
           </Typography>
 
           <Grid container spacing={3} sx={styles.statsContainer}>
@@ -331,7 +341,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               <Card sx={styles.statCard}>
                 <CardContent>
                   <Typography variant="h6" component="div">
-                    Max Gap
+                    {intl.formatMessage({ id: 'raceIntervals.maxGap' })}
                   </Typography>
 
                   <Typography variant="h4" sx={{ color: chartColor }}>
@@ -345,7 +355,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               <Card sx={styles.statCard}>
                 <CardContent>
                   <Typography variant="h6" component="div">
-                    Min Gap
+                    {intl.formatMessage({ id: 'raceIntervals.minGap' })}
                   </Typography>
 
                   <Typography variant="h4" sx={{ color: chartColor }}>
@@ -359,7 +369,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               <Card sx={styles.statCard}>
                 <CardContent>
                   <Typography variant="h6" component="div">
-                    Avg Gap
+                    {intl.formatMessage({ id: 'raceIntervals.avgGap' })}
                   </Typography>
 
                   <Typography variant="h4" sx={{ color: chartColor }}>
@@ -373,7 +383,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               <Card sx={styles.statCard}>
                 <CardContent>
                   <Typography variant="h6" component="div">
-                    Chart Points
+                    {intl.formatMessage({ id: 'raceIntervals.chartPoints' })}
                   </Typography>
 
                   <Box sx={styles.chartPointsContainer}>
@@ -386,7 +396,10 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
                       component="div"
                       sx={styles.totalDataPoints}
                     >
-                      of {stats.totalDataPoints} total
+                      {intl.formatMessage(
+                        { id: 'raceIntervals.totalDataPoints' },
+                        { total: stats.totalDataPoints },
+                      )}
                     </Typography>
                   </Box>
                 </CardContent>
@@ -395,7 +408,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
           </Grid>
 
           <Typography variant="h6" sx={styles.chartTitle}>
-            Gap to Race Leader Over Time
+            {intl.formatMessage({ id: 'raceIntervals.gapToLeader' })}
           </Typography>
 
           <Box sx={styles.chartContainer}>
@@ -403,14 +416,22 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               xAxis={[
                 {
                   data: xAxisData,
-                  label: 'Time Progress',
-                  valueFormatter: (value) => `Point ${value}`,
+                  label: intl.formatMessage({
+                    id: 'raceIntervals.timeProgress',
+                  }),
+                  valueFormatter: (value) =>
+                    intl.formatMessage(
+                      { id: 'raceIntervals.pointLabel' },
+                      { value },
+                    ),
                 },
               ]}
               series={[
                 {
                   data: gapToLeaderData,
-                  label: 'Gap to Leader (s)',
+                  label: intl.formatMessage({
+                    id: 'raceIntervals.gapToLeaderLabel',
+                  }),
                   color: chartColor,
                   curve: 'linear',
                   showMark: false,
@@ -422,7 +443,7 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
           </Box>
 
           <Typography variant="h6" sx={styles.chartTitle}>
-            Interval to Car Ahead Over Time
+            {intl.formatMessage({ id: 'raceIntervals.intervalToNext' })}
           </Typography>
 
           <Box sx={styles.chartContainer}>
@@ -430,14 +451,22 @@ const RaceIntervals = ({ intervals, positions, driverNumber, teamColour }) => {
               xAxis={[
                 {
                   data: xAxisData,
-                  label: 'Time Progress',
-                  valueFormatter: (value) => `Point ${value}`,
+                  label: intl.formatMessage({
+                    id: 'raceIntervals.timeProgress',
+                  }),
+                  valueFormatter: (value) =>
+                    intl.formatMessage(
+                      { id: 'raceIntervals.pointLabel' },
+                      { value },
+                    ),
                 },
               ]}
               series={[
                 {
                   data: intervalData,
-                  label: 'Interval (s)',
+                  label: intl.formatMessage({
+                    id: 'raceIntervals.intervalLabel',
+                  }),
                   color: chartColor,
                   curve: 'linear',
                   showMark: false,
