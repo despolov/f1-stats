@@ -150,5 +150,22 @@
   "stintGraph.compoundUsed": "used",
   "stintGraph.lapStartEnd": "Lap - start: {start} end: {end}",
   "stintGraph.totalLaps": "Total laps: {count}",
-  "stintGraph.tyreAgeAtStart": "Tyre age at start: {age}"
+  "stintGraph.tyreAgeAtStart": "Tyre age at start: {age}",
+
+  "teamRadio.loadingTeamRadio": "Loading team radio...",
+  "teamRadio.errorTitle": "There seems to be a problem!",
+  "teamRadio.refreshLabel": "Try refreshing the page →",
+  "teamRadio.description": "Select year, country and driver in order to see team radio",
+  "teamRadio.notAvailable": "n/a",
+
+  "sessionTeamRadio.noRadioAvailable": "No team radio available",
+  "sessionTeamRadio.practice1": "Practice 1",
+  "sessionTeamRadio.practice2": "Practice 2",
+  "sessionTeamRadio.practice3": "Practice 3",
+  "sessionTeamRadio.sprintQualifying": "Sprint Qualifying",
+  "sessionTeamRadio.sprint": "Sprint",
+  "sessionTeamRadio.qualifying": "Qualifying",
+  "sessionTeamRadio.race": "Race",
+
+  "audioPlayer.openInNewTab": "Open in New Tab"
 }

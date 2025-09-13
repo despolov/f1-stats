@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactGA from 'react-ga4';
+import { useIntl } from 'react-intl';
 import {
   useTheme,
   useMediaQuery,
@@ -21,8 +22,10 @@ import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
 import RaceSelect from '../../components/RaceSelect';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
+import { getLocaleFromUrl, defaultLocale } from '../../i18n';
 
 const TeamRadio = () => {
+  const intl = useIntl();
   if (process.env.NODE_ENV === 'production') {
     ReactGA.send({
       hitType: 'pageview',
@@ -78,7 +81,8 @@ const TeamRadio = () => {
         handleYearChange({ target: { value: paramYear } });
       } else {
         resetData();
-        navigate('/teamRadio');
+        const currentLocale = getLocaleFromUrl() || defaultLocale;
+        navigate(`/${currentLocale}/teamRadio`);
       }
     }
   }, []);
@@ -151,7 +155,10 @@ const TeamRadio = () => {
     );
     let drivers = orderBy(allDrivers, ['team_name']);
     drivers = drivers.map(
-      (d) => `${d.team_name || 'n/a'} - ${d.full_name} | ${d.driver_number}`,
+      (d) =>
+        `${
+          d.team_name || intl.formatMessage({ id: 'teamRadio.notAvailable' })
+        } - ${d.full_name} | ${d.driver_number}`,
     );
 
     if (drivers.hasError) {
@@ -177,7 +184,8 @@ const TeamRadio = () => {
         setCountry('');
         setDriverNumber('');
         setDriver('');
-        navigate('/teamRadio');
+        const currentLocale = getLocaleFromUrl() || defaultLocale;
+        navigate(`/${currentLocale}/teamRadio`);
       }
     }
   };
@@ -229,7 +237,8 @@ const TeamRadio = () => {
         setCountry('');
         setDriverNumber('');
         setDriver('');
-        navigate('/teamRadio');
+        const currentLocale = getLocaleFromUrl() || defaultLocale;
+        navigate(`/${currentLocale}/teamRadio`);
       }
     }
   };
@@ -341,7 +350,12 @@ const TeamRadio = () => {
       return null;
     }
 
-    return <LinearProgressBar title="Loading team radio..." value={progress} />;
+    return (
+      <LinearProgressBar
+        title={intl.formatMessage({ id: 'teamRadio.loadingTeamRadio' })}
+        value={progress}
+      />
+    );
   };
 
   const renderDriverInfo = () => {
@@ -364,7 +378,7 @@ const TeamRadio = () => {
           }}
         >
           <Typography component="h3" sx={styles.titleError}>
-            There seems to be a problem!
+            {intl.formatMessage({ id: 'teamRadio.errorTitle' })}
           </Typography>
 
           <Typography
@@ -376,7 +390,7 @@ const TeamRadio = () => {
 
           <Box sx={styles.refreshContainerError}>
             <Typography sx={styles.refreshLabelError}>
-              Try refreshing the page →
+              {intl.formatMessage({ id: 'teamRadio.refreshLabel' })}
             </Typography>
 
             <IconButton
@@ -418,7 +432,7 @@ const TeamRadio = () => {
 
         {shouldRenderInitMessage && (
           <Box component="p" sx={styles.description}>
-            Select year, country and driver in order to see team radio
+            {intl.formatMessage({ id: 'teamRadio.description' })}
           </Box>
         )}
 
@@ -429,7 +443,7 @@ const TeamRadio = () => {
         {practice1 && (
           <SessionTeamRadio
             session={practice1}
-            title="Practice 1"
+            title={intl.formatMessage({ id: 'sessionTeamRadio.practice1' })}
             teamColour={driverData?.team_colour}
           />
         )}
@@ -437,7 +451,7 @@ const TeamRadio = () => {
         {practice2 && (
           <SessionTeamRadio
             session={practice2}
-            title="Practice 2"
+            title={intl.formatMessage({ id: 'sessionTeamRadio.practice2' })}
             teamColour={driverData?.team_colour}
           />
         )}
@@ -445,7 +459,7 @@ const TeamRadio = () => {
         {practice3 && (
           <SessionTeamRadio
             session={practice3}
-            title="Practice 3"
+            title={intl.formatMessage({ id: 'sessionTeamRadio.practice3' })}
             teamColour={driverData?.team_colour}
           />
         )}
@@ -453,7 +467,9 @@ const TeamRadio = () => {
         {sprintQuali && (
           <SessionTeamRadio
             session={sprintQuali}
-            title="Sprint Qualifying"
+            title={intl.formatMessage({
+              id: 'sessionTeamRadio.sprintQualifying',
+            })}
             teamColour={driverData?.team_colour}
           />
         )}
@@ -461,7 +477,7 @@ const TeamRadio = () => {
         {sprint && (
           <SessionTeamRadio
             session={sprint}
-            title="Sprint"
+            title={intl.formatMessage({ id: 'sessionTeamRadio.sprint' })}
             teamColour={driverData?.team_colour}
           />
         )}
@@ -469,7 +485,7 @@ const TeamRadio = () => {
         {quali && (
           <SessionTeamRadio
             session={quali}
-            title="Qualifying"
+            title={intl.formatMessage({ id: 'sessionTeamRadio.qualifying' })}
             teamColour={driverData?.team_colour}
           />
         )}
@@ -477,7 +493,7 @@ const TeamRadio = () => {
         {race && (
           <SessionTeamRadio
             session={race}
-            title="Race"
+            title={intl.formatMessage({ id: 'sessionTeamRadio.race' })}
             teamColour={driverData?.team_colour}
           />
         )}

@@ -1,4 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
+import { useIntl } from 'react-intl';
 import {
   useTheme,
   useMediaQuery,
@@ -17,6 +18,7 @@ import VolumeSlider from './VolumeSlider';
 
 const AudioPlayer = (props) => {
   const { audioUrl, audioDate, teamColour } = props;
+  const intl = useIntl();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode } = useContext(ColorModeContext);
@@ -248,7 +250,8 @@ const AudioPlayer = (props) => {
         onClose={handleCloseMore}
       >
         <MenuItem onClick={handleOpenExternal}>
-          <OpenInNew sx={styles.openExternalButton} /> Open in New Tab
+          <OpenInNew sx={styles.openExternalButton} />{' '}
+          {intl.formatMessage({ id: 'audioPlayer.openInNewTab' })}
         </MenuItem>
       </Menu>
     </Box>

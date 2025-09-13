@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { useTheme, useMediaQuery, Box, Typography } from '@mui/material';
 
 import getStyles from './SessionTeamRadio.styles';
@@ -7,6 +8,7 @@ import AudioPlayer from '../AudioPlayer';
 
 const SessionTeamRadio = (props) => {
   const { session, title, teamColour } = props;
+  const intl = useIntl();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode } = useContext(ColorModeContext);
@@ -22,7 +24,7 @@ const SessionTeamRadio = (props) => {
 
       {Object.keys(session).length === 0 ? (
         <Typography component="h4" sx={styles.subTitle}>
-          No team radio available
+          {intl.formatMessage({ id: 'sessionTeamRadio.noRadioAvailable' })}
         </Typography>
       ) : null}
 

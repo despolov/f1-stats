@@ -150,5 +150,22 @@
   "stintGraph.compoundUsed": "gebrauchte",
   "stintGraph.lapStartEnd": "Runde - Start: {start} Ende: {end}",
   "stintGraph.totalLaps": "Gesamtrunden: {count}",
-  "stintGraph.tyreAgeAtStart": "Reifenalter zu Beginn: {age}"
+  "stintGraph.tyreAgeAtStart": "Reifenalter zu Beginn: {age}",
+
+  "teamRadio.loadingTeamRadio": "Teamfunk laden...",
+  "teamRadio.errorTitle": "Es scheint ein Problem zu geben!",
+  "teamRadio.refreshLabel": "Versuche die Seite zu aktualisieren →",
+  "teamRadio.description": "Wählen Sie Jahr, Land und Fahrer aus, um den Teamfunk zu sehen",
+  "teamRadio.notAvailable": "n/v",
+
+  "sessionTeamRadio.noRadioAvailable": "Kein Teamfunk verfügbar",
+  "sessionTeamRadio.practice1": "Training 1",
+  "sessionTeamRadio.practice2": "Training 2",
+  "sessionTeamRadio.practice3": "Training 3",
+  "sessionTeamRadio.sprintQualifying": "Sprint-Qualifying",
+  "sessionTeamRadio.sprint": "Sprint",
+  "sessionTeamRadio.qualifying": "Qualifying",
+  "sessionTeamRadio.race": "Rennen",
+
+  "audioPlayer.openInNewTab": "In neuem Tab öffnen"
 }
