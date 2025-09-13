@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { Box, Typography, Grid } from '@mui/material';
 import getStyles from './StintCard.styles';
 import TyresCircle from '../TyresCircle';
@@ -6,6 +7,7 @@ import Pin from '../Pin';
 import { ColorModeContext } from '../ColorMode';
 
 const StintCard = (props) => {
+  const intl = useIntl();
   const {
     stint_number,
     stintColor,
@@ -21,7 +23,12 @@ const StintCard = (props) => {
 
   return (
     <Box sx={styles.container}>
-      <Typography sx={styles.stintNumber}>Stint {stint_number}</Typography>
+      <Typography sx={styles.stintNumber}>
+        {intl.formatMessage(
+          { id: 'stintCard.stint' },
+          { number: stint_number },
+        )}
+      </Typography>
 
       <Grid
         container
@@ -31,11 +38,15 @@ const StintCard = (props) => {
         gap="5px"
       >
         <Grid item xs={12} align="center" sx={styles.lapsCount}>
-          <Typography>Laps count</Typography>
+          <Typography>
+            {intl.formatMessage({ id: 'stintCard.lapsCount' })}
+          </Typography>
         </Grid>
 
         <Grid item xs={2.5} align="right" sx={styles.lapStart}>
-          <Typography>Lap start</Typography>
+          <Typography>
+            {intl.formatMessage({ id: 'stintCard.lapStart' })}
+          </Typography>
         </Grid>
 
         <Grid item xs={4.5} align="center" sx={styles.tyreCircleContainer}>
@@ -83,11 +94,15 @@ const StintCard = (props) => {
         </Grid>
 
         <Grid item xs={2.5} align="left" sx={styles.lapEnd}>
-          <Typography>Lap end</Typography>
+          <Typography>
+            {intl.formatMessage({ id: 'stintCard.lapEnd' })}
+          </Typography>
         </Grid>
 
         <Grid item xs={12} sx={styles.tyreAgeContainer}>
-          <Typography sx={styles.tyreAge}>Tyres age at start</Typography>
+          <Typography sx={styles.tyreAge}>
+            {intl.formatMessage({ id: 'stintCard.tyresAgeAtStart' })}
+          </Typography>
         </Grid>
       </Grid>
     </Box>

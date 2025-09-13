@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactGA from 'react-ga4';
+import { useIntl } from 'react-intl';
 import {
   useTheme,
   useMediaQuery,
@@ -21,8 +22,10 @@ import { ColorModeContext } from '../../components/ColorMode';
 import LinearProgressBar from '../../components/LinearProgressBar';
 import RaceSelect from '../../components/RaceSelect';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
+import { getLocaleFromUrl, defaultLocale } from '../../i18n';
 
 const Stints = () => {
+  const intl = useIntl();
   if (process.env.NODE_ENV === 'production') {
     ReactGA.send({
       hitType: 'pageview',
@@ -78,7 +81,8 @@ const Stints = () => {
         handleYearChange({ target: { value: paramYear } });
       } else {
         resetData();
-        navigate('/stints');
+        const currentLocale = getLocaleFromUrl() || defaultLocale;
+        navigate(`/${currentLocale}/stints`);
       }
     }
   }, []);
@@ -151,7 +155,10 @@ const Stints = () => {
     );
     let drivers = orderBy(allDrivers, ['team_name']);
     drivers = drivers.map(
-      (d) => `${d.team_name || 'n/a'} - ${d.full_name} | ${d.driver_number}`,
+      (d) =>
+        `${
+          d.team_name || intl.formatMessage({ id: 'stints.notAvailable' })
+        } - ${d.full_name} | ${d.driver_number}`,
     );
 
     if (drivers.hasError) {
@@ -177,7 +184,8 @@ const Stints = () => {
         setCountry('');
         setDriverNumber('');
         setDriver('');
-        navigate('/stints');
+        const currentLocale = getLocaleFromUrl() || defaultLocale;
+        navigate(`/${currentLocale}/stints`);
       }
     }
   };
@@ -229,7 +237,8 @@ const Stints = () => {
         setCountry('');
         setDriverNumber('');
         setDriver('');
-        navigate('/stints');
+        const currentLocale = getLocaleFromUrl() || defaultLocale;
+        navigate(`/${currentLocale}/stints`);
       }
     }
   };
@@ -326,7 +335,12 @@ const Stints = () => {
       return null;
     }
 
-    return <LinearProgressBar title="Loading stints..." value={progress} />;
+    return (
+      <LinearProgressBar
+        title={intl.formatMessage({ id: 'stints.loadingStints' })}
+        value={progress}
+      />
+    );
   };
 
   const renderDriverInfo = () => {
@@ -349,7 +363,7 @@ const Stints = () => {
           }}
         >
           <Typography component="h3" sx={styles.titleError}>
-            There seems to be a problem!
+            {intl.formatMessage({ id: 'stints.errorTitle' })}
           </Typography>
 
           <Typography
@@ -361,7 +375,7 @@ const Stints = () => {
 
           <Box sx={styles.refreshContainerError}>
             <Typography sx={styles.refreshLabelError}>
-              Try refreshing the page →
+              {intl.formatMessage({ id: 'stints.refreshLabel' })}
             </Typography>
 
             <IconButton
@@ -403,7 +417,7 @@ const Stints = () => {
 
         {shouldRenderInitMessage && (
           <Box component="p" sx={styles.description}>
-            Select year, country and driver in order to see stint stats
+            {intl.formatMessage({ id: 'stints.description' })}
           </Box>
         )}
 
@@ -414,7 +428,7 @@ const Stints = () => {
         {practice1 && (
           <SessionStints
             session={practice1}
-            title="Practice 1"
+            title={intl.formatMessage({ id: 'sessionStints.practice1' })}
             driverNumber={driverNumber}
           />
         )}
@@ -422,7 +436,7 @@ const Stints = () => {
         {practice2 && (
           <SessionStints
             session={practice2}
-            title="Practice 2"
+            title={intl.formatMessage({ id: 'sessionStints.practice2' })}
             driverNumber={driverNumber}
           />
         )}
@@ -430,7 +444,7 @@ const Stints = () => {
         {practice3 && (
           <SessionStints
             session={practice3}
-            title="Practice 3"
+            title={intl.formatMessage({ id: 'sessionStints.practice3' })}
             driverNumber={driverNumber}
           />
         )}
@@ -438,7 +452,7 @@ const Stints = () => {
         {sprintQuali && (
           <SessionStints
             session={sprintQuali}
-            title="Sprint Qualifying"
+            title={intl.formatMessage({ id: 'sessionStints.sprintQualifying' })}
             driverNumber={driverNumber}
           />
         )}
@@ -446,7 +460,7 @@ const Stints = () => {
         {sprint && (
           <SessionStints
             session={sprint}
-            title="Sprint"
+            title={intl.formatMessage({ id: 'sessionStints.sprint' })}
             driverNumber={driverNumber}
           />
         )}
@@ -454,7 +468,7 @@ const Stints = () => {
         {quali && (
           <SessionStints
             session={quali}
-            title="Qualifying"
+            title={intl.formatMessage({ id: 'sessionStints.qualifying' })}
             driverNumber={driverNumber}
           />
         )}

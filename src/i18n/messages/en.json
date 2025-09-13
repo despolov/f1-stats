@@ -119,5 +119,36 @@
   "tyresLegend.availableTyresColon": "Available tyres: ",
   "tyresLegend.sets": "{count} sets",
 
-  "driverTyresCard.allStints": "ALL STINTS"
+  "driverTyresCard.allStints": "ALL STINTS",
+
+  "stints.loadingStints": "Loading stints...",
+  "stints.errorTitle": "There seems to be a problem!",
+  "stints.refreshLabel": "Try refreshing the page →",
+  "stints.description": "Select year, country and driver in order to see stint stats",
+  "stints.notAvailable": "n/a",
+
+  "sessionStints.totalLaps": "Total laps: {count}",
+  "sessionStints.allStints": "All stints: {count}",
+  "sessionStints.stintsBreakdown": "Stints breakdown",
+  "sessionStints.practice1": "Practice 1",
+  "sessionStints.practice2": "Practice 2",
+  "sessionStints.practice3": "Practice 3",
+  "sessionStints.sprintQualifying": "Sprint Qualifying",
+  "sessionStints.sprint": "Sprint",
+  "sessionStints.qualifying": "Qualifying",
+
+  "stintCard.stint": "Stint {number}",
+  "stintCard.lapsCount": "Laps count",
+  "stintCard.lapStart": "Lap start",
+  "stintCard.lapEnd": "Lap end",
+  "stintCard.tyresAgeAtStart": "Tyres age at start",
+  "stintCard.totalLaps": "Total laps",
+
+  "stintGraph.stintNumber": "Stint №: {number}",
+  "stintGraph.compound": "Compound: {condition} {compound}",
+  "stintGraph.compoundNew": "new",
+  "stintGraph.compoundUsed": "used",
+  "stintGraph.lapStartEnd": "Lap - start: {start} end: {end}",
+  "stintGraph.totalLaps": "Total laps: {count}",
+  "stintGraph.tyreAgeAtStart": "Tyre age at start: {age}"
 }

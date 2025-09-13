@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import {
   styled,
   useTheme,
@@ -28,6 +29,7 @@ const StyledAccordion = styled(Accordion)(({ styles }) => styles.accordion);
 
 const SessionStints = (props) => {
   const { session, title, driverNumber } = props;
+  const intl = useIntl();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode } = useContext(ColorModeContext);
@@ -45,7 +47,10 @@ const SessionStints = (props) => {
             component="h4"
             sx={{ ...styles.subTitle, ...styles.subTitleContainer }}
           >
-            Total laps: 0
+            {intl.formatMessage(
+              { id: 'sessionStints.totalLaps' },
+              { count: 0 },
+            )}
           </Typography>
         </Box>
       </Box>
@@ -65,13 +70,19 @@ const SessionStints = (props) => {
           component="h4"
           sx={{ ...styles.subTitle, ...styles.subTitleContainer }}
         >
-          Total laps: {totalLaps}
+          {intl.formatMessage(
+            { id: 'sessionStints.totalLaps' },
+            { count: totalLaps },
+          )}
         </Typography>
       </Box>
 
       <Box sx={styles.stintsContainer}>
         <Typography component="h4" sx={styles.subTitle}>
-          All stints: {session.length}
+          {intl.formatMessage(
+            { id: 'sessionStints.allStints' },
+            { count: session.length },
+          )}
         </Typography>
 
         <Box
@@ -100,7 +111,7 @@ const SessionStints = (props) => {
             component="h4"
             sx={{ ...styles.subTitle, ...styles.stintsBreakDownTitle }}
           >
-            Stints breakdown
+            {intl.formatMessage({ id: 'sessionStints.stintsBreakdown' })}
           </Typography>
         </StyledAccordionSummary>
 

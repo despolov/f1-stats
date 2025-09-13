@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { Box, Typography } from '@mui/material';
 import getStyles from './StintCardMobile.styles';
 import TyresCircle from '../TyresCircle';
@@ -6,6 +7,7 @@ import Pin from '../Pin';
 import { ColorModeContext } from '../ColorMode';
 
 const StintCardMobile = (props) => {
+  const intl = useIntl();
   const {
     stint_number,
     stintColor,
@@ -21,7 +23,12 @@ const StintCardMobile = (props) => {
 
   return (
     <Box sx={styles.container}>
-      <Typography sx={styles.stintNumber}>Stint {stint_number}</Typography>
+      <Typography sx={styles.stintNumber}>
+        {intl.formatMessage(
+          { id: 'stintCard.stint' },
+          { number: stint_number },
+        )}
+      </Typography>
 
       <Box sx={styles.innerContainer}>
         <Box sx={styles.tyreCircleContainer}>
@@ -73,13 +80,21 @@ const StintCardMobile = (props) => {
         </Box>
 
         <Box sx={styles.textsContainer}>
-          <Typography sx={styles.infoText}>Total laps</Typography>
+          <Typography sx={styles.infoText}>
+            {intl.formatMessage({ id: 'stintCard.totalLaps' })}
+          </Typography>
 
-          <Typography sx={styles.infoText}>Lap start</Typography>
+          <Typography sx={styles.infoText}>
+            {intl.formatMessage({ id: 'stintCard.lapStart' })}
+          </Typography>
 
-          <Typography sx={styles.infoText}>Lap end</Typography>
+          <Typography sx={styles.infoText}>
+            {intl.formatMessage({ id: 'stintCard.lapEnd' })}
+          </Typography>
 
-          <Typography sx={styles.infoTextNoM}>Tyres age at start</Typography>
+          <Typography sx={styles.infoTextNoM}>
+            {intl.formatMessage({ id: 'stintCard.tyresAgeAtStart' })}
+          </Typography>
         </Box>
       </Box>
     </Box>

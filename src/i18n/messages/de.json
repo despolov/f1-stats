@@ -119,5 +119,36 @@
   "tyresLegend.availableTyresColon": "Verfügbare Reifen: ",
   "tyresLegend.sets": "{count} Sätze",
 
-  "driverTyresCard.allStints": "ALLE STINTS"
+  "driverTyresCard.allStints": "ALLE STINTS",
+
+  "stints.loadingStints": "Stints laden...",
+  "stints.errorTitle": "Es scheint ein Problem zu geben!",
+  "stints.refreshLabel": "Versuche die Seite zu aktualisieren →",
+  "stints.description": "Wählen Sie Jahr, Land und Fahrer aus, um Stint-Statistiken zu sehen",
+  "stints.notAvailable": "n/v",
+
+  "sessionStints.totalLaps": "Gesamtrunden: {count}",
+  "sessionStints.allStints": "Alle Stints: {count}",
+  "sessionStints.stintsBreakdown": "Stint-Aufschlüsselung",
+  "sessionStints.practice1": "Training 1",
+  "sessionStints.practice2": "Training 2",
+  "sessionStints.practice3": "Training 3",
+  "sessionStints.sprintQualifying": "Sprint-Qualifying",
+  "sessionStints.sprint": "Sprint",
+  "sessionStints.qualifying": "Qualifying",
+
+  "stintCard.stint": "Stint {number}",
+  "stintCard.lapsCount": "Rundenanzahl",
+  "stintCard.lapStart": "Startrunde",
+  "stintCard.lapEnd": "Endrunde",
+  "stintCard.tyresAgeAtStart": "Reifenalter zu Beginn",
+  "stintCard.totalLaps": "Gesamtrunden",
+
+  "stintGraph.stintNumber": "Stint №: {number}",
+  "stintGraph.compound": "Mischung: {condition} {compound}",
+  "stintGraph.compoundNew": "neue",
+  "stintGraph.compoundUsed": "gebrauchte",
+  "stintGraph.lapStartEnd": "Runde - Start: {start} Ende: {end}",
+  "stintGraph.totalLaps": "Gesamtrunden: {count}",
+  "stintGraph.tyreAgeAtStart": "Reifenalter zu Beginn: {age}"
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import {
   useTheme,
   useMediaQuery,
@@ -14,6 +15,7 @@ const styles = getStyles();
 
 const StintGraph = (props) => {
   const { sessionStint, totalLaps } = props;
+  const intl = useIntl();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { compound, lap_start, lap_end, stint_number, tyre_age_at_start } =
@@ -60,27 +62,48 @@ const StintGraph = (props) => {
       title={
         <Box>
           <Typography sx={styles.tooltipStintText}>
-            Stint №: {stint_number}
+            {intl.formatMessage(
+              { id: 'stintGraph.stintNumber' },
+              { number: stint_number },
+            )}
           </Typography>
 
           <Typography>
-            Compound: {tyre_age_at_start === 0 ? 'new' : 'used'} {compoundLabel}
+            {intl.formatMessage(
+              { id: 'stintGraph.compound' },
+              {
+                condition:
+                  tyre_age_at_start === 0
+                    ? intl.formatMessage({ id: 'stintGraph.compoundNew' })
+                    : intl.formatMessage({ id: 'stintGraph.compoundUsed' }),
+                compound: compoundLabel,
+              },
+            )}
           </Typography>
 
           <Typography>
-            Lap - start:{' '}
-            <Typography component="span" sx={styles.tooltipBoldText}>
-              {lap_start}
-            </Typography>{' '}
-            end:{' '}
-            <Typography component="span" sx={styles.tooltipBoldText}>
-              {lap_end}
-            </Typography>
+            {intl.formatMessage(
+              { id: 'stintGraph.lapStartEnd' },
+              {
+                start: lap_start,
+                end: lap_end,
+              },
+            )}
           </Typography>
 
-          <Typography>Total laps: {currentStintLaps}</Typography>
+          <Typography>
+            {intl.formatMessage(
+              { id: 'stintGraph.totalLaps' },
+              { count: currentStintLaps },
+            )}
+          </Typography>
 
-          <Typography>Tyre age at start: {tyre_age_at_start}</Typography>
+          <Typography>
+            {intl.formatMessage(
+              { id: 'stintGraph.tyreAgeAtStart' },
+              { age: tyre_age_at_start },
+            )}
+          </Typography>
         </Box>
       }
       placement="top"
