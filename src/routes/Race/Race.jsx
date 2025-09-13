@@ -37,9 +37,6 @@ const Race = () => {
     });
   }
 
-  // TODO: remove this debug log later after verifiying NODE_ENV is prod when app is deployed
-  console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
-
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const [years, setYears] = useState([]);

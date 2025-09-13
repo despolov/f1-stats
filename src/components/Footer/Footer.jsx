@@ -64,7 +64,7 @@ const Footer = (props) => {
           <IconContext.Provider value={{ style: styles.icons }}>
             <Box
               component="a"
-              href="https://github.com/despolov/f1-stats"
+              href="https://github.com/despolov/f1-stats/discussions"
               target="_blank"
               rel="noopener noreferrer"
               sx={styles.iconContainer}
@@ -84,7 +84,7 @@ const Footer = (props) => {
           </Typography>
 
           <Typography component="span" sx={styles.versionText}>
-            v. {version}
+            v. {version} {process.env.NODE_ENV}
           </Typography>
         </Grid>
       </Grid>

@@ -44,7 +44,6 @@ const getStyles = (mode) => ({
     color: mode === 'light' ? '#ffffff' : '#E2E2E2',
     height: '28px',
     width: '28px',
-    margin: '6px 0 0 0',
   },
   drawerListContainer: {
     width: 250,
@@ -63,6 +62,10 @@ const getStyles = (mode) => ({
     color: mode === 'light' ? '#ffffff' : '#E2E2E2',
     width: '26px',
     height: '26px',
+
+    '&:hover': {
+      color: 'rgba(255, 255, 255, 0.7)',
+    },
   },
   modeIconContainer: {
     padding: 0,
@@ -70,6 +73,11 @@ const getStyles = (mode) => ({
   modeIconContainerWithMargin: {
     padding: 0,
     margin: '0 10px 0 0',
+    minWidth: 'auto',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 0.5,
+    padding: '8px',
   },
   modeIconContainerMobile: {
     padding: 0,
@@ -78,7 +86,24 @@ const getStyles = (mode) => ({
   headerGridButtonsItem: {
     justifyContent: 'end',
     display: 'flex',
-    alignItems: 'baseline',
+    alignItems: 'center',
+  },
+  countryIcon: {
+    width: '20px',
+    height: '20px',
+  },
+  countryIconWithMargin: {
+    width: '20px',
+    height: '20px',
+    marginRight: '8px',
+  },
+  modeIconLanguageContainerMobile: {
+    padding: 0,
+    margin: '0 10px 0 0',
+    minWidth: 'auto',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 0.5,
   },
 });
 

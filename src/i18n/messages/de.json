@@ -14,5 +14,6 @@
   "header.tyres": "Reifen",
   "header.stints": "Stints",
   "header.teamRadio": "Teamfunk",
-  "header.race": "Rennen"
+  "header.race": "Rennen",
+  "header.selectLanguage": "Sprache auswählen"
 }

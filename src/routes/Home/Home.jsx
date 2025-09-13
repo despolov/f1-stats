@@ -11,7 +11,7 @@ import { IoIosRadio } from 'react-icons/io';
 import { IoStatsChart } from 'react-icons/io5';
 import HomeHero from '../../components/HomeHero';
 import HomeExploreItem from '../../components/HomeExploreItem';
-import { getLocaleFromUrl } from '../../i18n';
+import { getLocaleFromUrl, defaultLocale } from '../../i18n';
 
 const styles = getStyles();
 
@@ -28,7 +28,7 @@ const Home = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
-  const currentLocale = getLocaleFromUrl() || 'en';
+  const currentLocale = getLocaleFromUrl() || defaultLocale;
 
   return (
     <Layout fullScreen>

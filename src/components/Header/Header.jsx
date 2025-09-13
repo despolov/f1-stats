@@ -11,10 +11,13 @@ import {
   useTheme,
   useMediaQuery,
   IconButton,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import React, { useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { useIntl } from 'react-intl';
+import ReactCountryFlag from 'react-country-flag';
 import getStyles from './Header.styles';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IconContext } from 'react-icons';
@@ -23,16 +26,26 @@ import {
   Brightness4 as Brightness4Icon,
   Brightness7 as Brightness7Icon,
   Language as LanguageIcon,
+  KeyboardArrowDown as KeyboardArrowDownIcon,
 } from '@mui/icons-material';
 import { ColorModeContext } from '../ColorMode';
-import { locales, getLocaleFromUrl } from '../../i18n';
+import { locales, getLocaleFromUrl, defaultLocale } from '../../i18n';
+
+const getCountryCode = (locale) => {
+  const countryMap = {
+    en: 'GB',
+    de: 'DE',
+  };
+
+  return countryMap[locale] || 'XX';
+};
 
 const PracticeStatsLink = ({ pathname }) => {
   const navigate = useNavigate();
   const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || 'en';
+  const currentLocale = getLocaleFromUrl() || defaultLocale;
 
   return (
     <Button
@@ -64,7 +77,7 @@ const TyresLink = ({ pathname }) => {
   const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || 'en';
+  const currentLocale = getLocaleFromUrl() || defaultLocale;
 
   return (
     <Button
@@ -96,7 +109,7 @@ const StintsLink = ({ pathname }) => {
   const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || 'en';
+  const currentLocale = getLocaleFromUrl() || defaultLocale;
 
   return (
     <Button
@@ -128,7 +141,7 @@ const TeamRadioLink = ({ pathname }) => {
   const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || 'en';
+  const currentLocale = getLocaleFromUrl() || defaultLocale;
 
   return (
     <Button
@@ -160,7 +173,7 @@ const RaceLink = ({ pathname }) => {
   const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || 'en';
+  const currentLocale = getLocaleFromUrl() || defaultLocale;
 
   return (
     <Button
@@ -191,7 +204,7 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
   const navigate = useNavigate();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || 'en';
+  const currentLocale = getLocaleFromUrl() || defaultLocale;
 
   return (
     <Box
@@ -289,31 +302,38 @@ const Header = (props) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode, toggleColorMode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
+  const intl = useIntl();
+  const currentLocale = getLocaleFromUrl() || defaultLocale;
+  const open = Boolean(anchorEl);
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
   };
 
-  const toggleLanguage = () => {
+  const handleLanguageMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleLanguageMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLanguageSelect = (locale) => {
     const hash = window.location.hash;
     const currentPath = hash.replace('#', '');
     const segments = currentPath.split('/').filter(Boolean);
-    const currentLocale =
-      segments[0] && locales[segments[0]] ? segments[0] : 'en';
-    const localeKeys = Object.keys(locales);
-    const currentIndex = localeKeys.indexOf(currentLocale);
-    const nextIndex = (currentIndex + 1) % localeKeys.length;
-    const nextLocale = localeKeys[nextIndex];
     const pathWithoutLocale = segments.slice(1).join('/');
-    const newPath = `/${nextLocale}${
+    const newPath = `/${locale}${
       pathWithoutLocale ? '/' + pathWithoutLocale : ''
     }`;
 
     navigate(newPath);
+    handleLanguageMenuClose();
   };
 
   return (
@@ -355,13 +375,27 @@ const Header = (props) => {
 
             <Grid container item xs={6} sx={styles.rightGridContainer}>
               <Grid item sx={styles.iconContainer}>
-                <IconButton
-                  onClick={toggleLanguage}
+                <Button
+                  onClick={handleLanguageMenuClick}
                   color="inherit"
                   sx={styles.modeIconContainerWithMargin}
+                  aria-label={intl.formatMessage({
+                    id: 'header.selectLanguage',
+                  })}
                 >
-                  <LanguageIcon sx={styles.icon} />
-                </IconButton>
+                  <ReactCountryFlag
+                    countryCode={getCountryCode(currentLocale)}
+                    svg
+                    style={styles.countryIcon}
+                  />
+                  <KeyboardArrowDownIcon
+                    sx={{
+                      ...styles.icon,
+                      transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.2s ease-in-out',
+                    }}
+                  />
+                </Button>
               </Grid>
               <Grid item sx={styles.iconContainer}>
                 <IconButton
@@ -387,13 +421,25 @@ const Header = (props) => {
             </Grid>
 
             <Grid item xs sx={styles.headerGridButtonsItem}>
-              <IconButton
-                onClick={toggleLanguage}
+              <Button
+                onClick={handleLanguageMenuClick}
                 color="inherit"
-                sx={styles.modeIconContainerMobile}
+                sx={styles.modeIconLanguageContainerMobile}
+                aria-label={intl.formatMessage({ id: 'header.selectLanguage' })}
               >
-                <LanguageIcon sx={styles.icon} />
-              </IconButton>
+                <ReactCountryFlag
+                  countryCode={getCountryCode(currentLocale)}
+                  svg
+                  style={styles.countryIcon}
+                />
+                <KeyboardArrowDownIcon
+                  sx={{
+                    ...styles.icon,
+                    transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s ease-in-out',
+                  }}
+                />
+              </Button>
 
               <IconButton
                 onClick={toggleColorMode}
@@ -423,6 +469,36 @@ const Header = (props) => {
       >
         <DrawerList toggleDrawer={toggleDrawer} pathname={pathname} />
       </Drawer>
+
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleLanguageMenuClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        {Object.entries(locales).map(([code, name]) => (
+          <MenuItem
+            key={code}
+            onClick={() => handleLanguageSelect(code)}
+            selected={code === currentLocale}
+          >
+            <ReactCountryFlag
+              countryCode={getCountryCode(code)}
+              svg
+              style={styles.countryIconWithMargin}
+            />
+
+            {name}
+          </MenuItem>
+        ))}
+      </Menu>
     </Box>
   );
 };

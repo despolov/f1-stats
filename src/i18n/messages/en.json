@@ -14,5 +14,6 @@
   "header.tyres": "Tyres",
   "header.stints": "Stints",
   "header.teamRadio": "Team Radio",
-  "header.race": "Race"
+  "header.race": "Race",
+  "header.selectLanguage": "Select language"
 }

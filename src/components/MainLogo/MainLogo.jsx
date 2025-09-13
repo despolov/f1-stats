@@ -10,7 +10,7 @@ import { Link } from 'react-router';
 import getStyles from './MainLogo.styles';
 import logo512 from '../../assets/icons/logo-512x512.png';
 import { ColorModeContext } from '../ColorMode';
-import { getLocaleFromUrl } from '../../i18n';
+import { getLocaleFromUrl, defaultLocale } from '../../i18n';
 
 const StyledLink = styled(Link)(() => ({
   textDecoration: 'none',
@@ -24,7 +24,7 @@ const MainLogo = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || 'en';
+  const currentLocale = getLocaleFromUrl() || defaultLocale;
 
   return (
     <Box sx={styles.logoContainer}>
