@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { styled } from '@mui/material/styles';
 import {
   Table,
@@ -25,6 +26,7 @@ const StyledTableRow = styled(TableRow)(({ mode, styles }) => ({
 const ActualPracticeTable = (props) => {
   const { data, title } = props;
   const { mode } = useContext(ColorModeContext);
+  const intl = useIntl();
   const styles = getStyles(mode);
 
   return (
@@ -41,39 +43,39 @@ const ActualPracticeTable = (props) => {
         <TableHead>
           <TableRow>
             <TableCell sx={styles.tableCellHeader} align="left">
-              Pos
+              {intl.formatMessage({ id: 'practiceTable.pos' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Driver
+              {intl.formatMessage({ id: 'practiceTable.driver' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Sector 1
+              {intl.formatMessage({ id: 'practiceTable.sector1' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Sector 2
+              {intl.formatMessage({ id: 'practiceTable.sector2' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Sector 3
+              {intl.formatMessage({ id: 'practiceTable.sector3' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Lap №
+              {intl.formatMessage({ id: 'practiceTable.lapNumber' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Time
+              {intl.formatMessage({ id: 'practiceTable.time' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Gap
+              {intl.formatMessage({ id: 'practiceTable.gap' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Gap To #1
+              {intl.formatMessage({ id: 'practiceTable.gapToFirst' })}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -127,7 +129,9 @@ const ActualPracticeTable = (props) => {
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">
-                  {lapDuration ? lapDuration : 'No time set'}
+                  {lapDuration
+                    ? lapDuration
+                    : intl.formatMessage({ id: 'practiceTable.noTimeSet' })}
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">

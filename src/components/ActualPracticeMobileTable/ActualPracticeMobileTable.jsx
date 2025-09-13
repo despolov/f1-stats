@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { styled } from '@mui/material/styles';
 import {
   Table,
@@ -28,6 +29,7 @@ const StyledTableRow = styled(TableRow)(({ mode, styles }) => ({
 const ActualPracticeMobileTable = (props) => {
   const { data, title } = props;
   const { mode } = useContext(ColorModeContext);
+  const intl = useIntl();
   const styles = getStyles(mode);
 
   return (
@@ -44,15 +46,15 @@ const ActualPracticeMobileTable = (props) => {
         <TableHead>
           <TableRow>
             <TableCell sx={styles.tableCellHeader} align="center">
-              Pos
+              {intl.formatMessage({ id: 'practiceTable.pos' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="center">
-              Driver
+              {intl.formatMessage({ id: 'practiceTable.driver' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="center">
-              Time
+              {intl.formatMessage({ id: 'practiceTable.time' })}
             </TableCell>
 
             <TableCell sx={styles.emptyHeaderCell}></TableCell>
@@ -97,7 +99,7 @@ const ActualPracticeMobileTable = (props) => {
 
                 <TableCell sx={styles.tableCellBody} align="center">
                   <Typography sx={styles.tableCellBodyText}>
-                    {lapDuration ? lapDuration : 'N/A'}
+                    {lapDuration ? lapDuration : intl.formatMessage({ id: 'practiceTable.notAvailable' })}
                   </Typography>
                 </TableCell>
 
@@ -106,23 +108,23 @@ const ActualPracticeMobileTable = (props) => {
                     title={
                       <Box>
                         <Typography sx={styles.tooltipText}>
-                          Sec 1: {sector1} in lap {lapNumber}
+                          {intl.formatMessage({ id: 'practiceTable.sec1' })}: {sector1} {intl.formatMessage({ id: 'practiceTable.inLap' })} {lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          Sec 2: {sector2} in lap {lapNumber}
+                          {intl.formatMessage({ id: 'practiceTable.sec2' })}: {sector2} {intl.formatMessage({ id: 'practiceTable.inLap' })} {lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          Sec 3: {sector3} in lap {lapNumber}
+                          {intl.formatMessage({ id: 'practiceTable.sec3' })}: {sector3} {intl.formatMessage({ id: 'practiceTable.inLap' })} {lapNumber}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          Gap: {gap ? `+${gap}s` : ''}
+                          {intl.formatMessage({ id: 'practiceTable.gap' })}: {gap ? `+${gap}s` : ''}
                         </Typography>
 
                         <Typography sx={styles.tooltipText}>
-                          Gap To #1: {gapToFirst ? `+${gapToFirst}s` : ''}
+                          {intl.formatMessage({ id: 'practiceTable.gapToFirst' })}: {gapToFirst ? `+${gapToFirst}s` : ''}
                         </Typography>
                       </Box>
                     }

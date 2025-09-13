@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import { styled } from '@mui/material/styles';
 import {
   Table,
@@ -25,6 +26,7 @@ const StyledTableRow = styled(TableRow)(({ mode, styles }) => ({
 const AggregatedPracticeTable = (props) => {
   const { data, title } = props;
   const { mode } = useContext(ColorModeContext);
+  const intl = useIntl();
   const styles = getStyles(mode);
 
   return (
@@ -41,35 +43,35 @@ const AggregatedPracticeTable = (props) => {
         <TableHead>
           <TableRow>
             <TableCell sx={styles.tableCellHeader} align="left">
-              Pos
+              {intl.formatMessage({ id: 'practiceTable.pos' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Driver
+              {intl.formatMessage({ id: 'practiceTable.driver' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Sector 1
+              {intl.formatMessage({ id: 'practiceTable.sector1' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Sector 2
+              {intl.formatMessage({ id: 'practiceTable.sector2' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Sector 3
+              {intl.formatMessage({ id: 'practiceTable.sector3' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Time
+              {intl.formatMessage({ id: 'practiceTable.time' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Gap
+              {intl.formatMessage({ id: 'practiceTable.gap' })}
             </TableCell>
 
             <TableCell sx={styles.tableCellHeader} align="left">
-              Gap To #1
+              {intl.formatMessage({ id: 'practiceTable.gapToFirst' })}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -107,24 +109,32 @@ const AggregatedPracticeTable = (props) => {
 
                 <TableCell sx={styles.tableCellBody} align="left">
                   {sector1.duration
-                    ? `${sector1.duration} in lap ${sector1.lapNumber}`
+                    ? `${sector1.duration} ${intl.formatMessage({
+                        id: 'practiceTable.inLap',
+                      })} ${sector1.lapNumber}`
                     : null}
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">
                   {sector2.duration
-                    ? `${sector2.duration} in lap ${sector2.lapNumber} `
+                    ? `${sector2.duration} ${intl.formatMessage({
+                        id: 'practiceTable.inLap',
+                      })} ${sector2.lapNumber}`
                     : null}
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">
                   {sector3.duration
-                    ? `${sector3.duration} in lap ${sector3.lapNumber}`
+                    ? `${sector3.duration} ${intl.formatMessage({
+                        id: 'practiceTable.inLap',
+                      })} ${sector3.lapNumber}`
                     : null}
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">
-                  {aggregatedLap ? aggregatedLap : 'No time set'}
+                  {aggregatedLap
+                    ? aggregatedLap
+                    : intl.formatMessage({ id: 'practiceTable.noTimeSet' })}
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">

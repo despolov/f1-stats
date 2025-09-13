@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import {
   useMediaQuery,
   useTheme,
@@ -50,6 +51,7 @@ const getTeamIcon = (team, isPrefix) => {
 };
 
 const RaceSelect = (props) => {
+  const intl = useIntl();
   const {
     year,
     handleYearChange,
@@ -89,7 +91,9 @@ const RaceSelect = (props) => {
           value: '',
           displayValue: (
             <Typography sx={styles.driverOption}>
-              {driver ? '← Back to race overview' : '-- View all drivers --'}
+              {driver
+                ? intl.formatMessage({ id: 'raceSelect.backToRaceOverview' })
+                : intl.formatMessage({ id: 'raceSelect.viewAllDrivers' })}
             </Typography>
           ),
         },
@@ -110,7 +114,7 @@ const RaceSelect = (props) => {
       <Select
         value={year}
         onChange={handleYearChange}
-        label="Select year"
+        label={intl.formatMessage({ id: 'raceSelect.selectYear' })}
         data={years}
       />
 
@@ -120,7 +124,7 @@ const RaceSelect = (props) => {
           country ? getCountryFlag(country.split(' | ')[0].split(' - ')[0]) : ''
         }
         onChange={handleCountryChange}
-        label="Select country"
+        label={intl.formatMessage({ id: 'raceSelect.selectCountry' })}
         data={countries.map((c) => {
           const displayCountry = c.split(' | ')[0];
           const flagCountry = displayCountry.split(' - ')[0];
@@ -151,10 +155,10 @@ const RaceSelect = (props) => {
           onChange={handleDriverChange}
           label={
             allowEmptyDriver && driver
-              ? 'Change driver'
+              ? intl.formatMessage({ id: 'raceSelect.changeDriver' })
               : allowEmptyDriver
-              ? 'Select driver (optional)'
-              : 'Select driver'
+              ? intl.formatMessage({ id: 'raceSelect.selectDriverOptional' })
+              : intl.formatMessage({ id: 'raceSelect.selectDriver' })
           }
           data={getDriverSelectData()}
           disabled={drivers.length === 0}

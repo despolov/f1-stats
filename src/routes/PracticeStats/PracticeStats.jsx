@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import ReactGA from 'react-ga4';
+import { useIntl } from 'react-intl';
 import Layout from '../../components/Layout';
 import getStyles from './PracticeStats.styles';
 import {
@@ -29,6 +30,8 @@ import PracticeBarChart from '../../components/PracticeBarChart';
 import { STATS_START_YEAR } from '../../constants/globalConsts';
 
 const PracticeStats = () => {
+  const intl = useIntl();
+
   if (process.env.NODE_ENV === 'production') {
     ReactGA.send({
       hitType: 'pageview',
@@ -302,24 +305,30 @@ const PracticeStats = () => {
           {isDesktop ? (
             <>
               <AggregatedPracticeTable
-                title="Aggregated positions"
+                title={intl.formatMessage({
+                  id: 'practiceStats.aggregatedPositions',
+                })}
                 data={stats}
               />
 
               <ActualPracticeTable
-                title="Actual positions"
+                title={intl.formatMessage({
+                  id: 'practiceStats.actualPositions',
+                })}
                 data={actualStats}
               />
             </>
           ) : (
             <>
               <AggregatedPracticeMobileTable
-                title="Aggregated pos"
+                title={intl.formatMessage({
+                  id: 'practiceStats.aggregatedPos',
+                })}
                 data={stats}
               />
 
               <ActualPracticeMobileTable
-                title="Actual pos"
+                title={intl.formatMessage({ id: 'practiceStats.actualPos' })}
                 data={actualStats}
               />
             </>
@@ -334,12 +343,14 @@ const PracticeStats = () => {
         >
           <PracticeBarChart
             data={stats}
-            title="Aggregated Gap to first (sec)"
+            title={intl.formatMessage({
+              id: 'practiceStats.aggregatedGapToFirst',
+            })}
           />
 
           <PracticeBarChart
             data={actualStats}
-            title="Actual Gap to first (sec)"
+            title={intl.formatMessage({ id: 'practiceStats.actualGapToFirst' })}
           />
         </Box>
       </Box>
@@ -354,7 +365,7 @@ const PracticeStats = () => {
     return (
       <>
         {renderPractice(
-          'Practice 1',
+          intl.formatMessage({ id: 'practiceStats.practice1' }),
           practice1Stats,
           practice1ActualStats,
           practice1Weather,
@@ -362,7 +373,7 @@ const PracticeStats = () => {
         )}
 
         {renderPractice(
-          'Practice 2',
+          intl.formatMessage({ id: 'practiceStats.practice2' }),
           practice2Stats,
           practice2ActualStats,
           practice2Weather,
@@ -370,7 +381,7 @@ const PracticeStats = () => {
         )}
 
         {renderPractice(
-          'Practice 3',
+          intl.formatMessage({ id: 'practiceStats.practice3' }),
           practice3Stats,
           practice3ActualStats,
           practice3Weather,
@@ -389,7 +400,10 @@ const PracticeStats = () => {
       <>
         <Box sx={styles.divider} />
 
-        <LinearProgressBar title="Loading practice stats..." value={progress} />
+        <LinearProgressBar
+          title={intl.formatMessage({ id: 'practiceStats.loadingStats' })}
+          value={progress}
+        />
       </>
     );
   };
@@ -416,7 +430,7 @@ const PracticeStats = () => {
           <Box sx={styles.divider} />
 
           <Typography component="h3" sx={styles.titleError}>
-            There seems to be a problem!
+            {intl.formatMessage({ id: 'practiceStats.errorTitle' })}
           </Typography>
 
           <Typography component="h3" sx={styles.subTitleError}>
@@ -425,7 +439,7 @@ const PracticeStats = () => {
 
           <Box sx={styles.refreshContainerError}>
             <Typography sx={styles.refreshLabelError}>
-              Try refreshing the page →
+              {intl.formatMessage({ id: 'practiceStats.refreshLabel' })}
             </Typography>
 
             <IconButton
@@ -463,8 +477,7 @@ const PracticeStats = () => {
             <Box sx={styles.divider} />
 
             <Box component="p" sx={styles.description}>
-              Select year and country in order to see practice actual and
-              aggregated results
+              {intl.formatMessage({ id: 'practiceStats.description' })}
             </Box>
           </>
         )}

@@ -84,7 +84,7 @@ const Footer = (props) => {
           </Typography>
 
           <Typography component="span" sx={styles.versionText}>
-            v. {version} {process.env.NODE_ENV}
+            v. {version}
           </Typography>
         </Grid>
       </Grid>
