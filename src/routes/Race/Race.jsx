@@ -104,7 +104,7 @@ const Race = () => {
   }, [year]);
 
   useEffect(() => {
-    if (country) {
+    if (country && meetingKey) {
       setSearchParams((params) => {
         params.set('country', country);
         return params;
@@ -113,7 +113,7 @@ const Race = () => {
       getAllDrivers(meetingKey);
       getAllPositionsData();
     }
-  }, [country]);
+  }, [country, meetingKey]);
 
   useEffect(() => {
     if (driver && driverNumber) {
@@ -123,7 +123,7 @@ const Race = () => {
       });
       setIntervalsLoading(true);
       getIntervalsData();
-    } else {
+    } else if (meetingKey && !driver) {
       setSearchParams((params) => {
         params.set('driver', driver);
         return params;
