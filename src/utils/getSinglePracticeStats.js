@@ -18,34 +18,28 @@ const orderLapsPerDriver = (laps) =>
 const setInternalProgress = (type, setProgress, progressValue) => {
   if (type === 'Practice 1') {
     if (progressValue === 1) {
-      setProgress(9);
+      setProgress(11);
     } else if (progressValue === 2) {
-      setProgress(18);
+      setProgress(22);
     } else if (progressValue === 3) {
-      setProgress(27);
-    } else if (progressValue === 4) {
-      setProgress(35);
+      setProgress(33);
     }
   }
   if (type === 'Practice 2') {
     if (progressValue === 1) {
       setProgress(44);
     } else if (progressValue === 2) {
-      setProgress(53);
+      setProgress(55);
     } else if (progressValue === 3) {
-      setProgress(62);
-    } else if (progressValue === 4) {
-      setProgress(70);
+      setProgress(66);
     }
   }
   if (type === 'Practice 3') {
     if (progressValue === 1) {
-      setProgress(78);
+      setProgress(77);
     } else if (progressValue === 2) {
-      setProgress(86);
+      setProgress(88);
     } else if (progressValue === 3) {
-      setProgress(94);
-    } else if (progressValue === 4) {
       setProgress(100);
     }
   }
@@ -78,6 +72,7 @@ const getSinglePracticeStats = async (
       bestLapPerDriver: [],
       weather: [],
       timePeriod: {},
+      sessionKey: null,
     };
   }
 
@@ -87,16 +82,10 @@ const getSinglePracticeStats = async (
     date_end: dateEnd,
   } = session[0];
   const timePeriod = { start: dateStart, end: dateEnd };
-  const weather = await getWeather(sessionKey, dateStart, dateEnd);
-  setInternalProgress(type, setProgress, 2);
 
-  if (weather.hasError) {
-    setError(weather.message);
-    return;
-  }
-
+  // Fetch drivers for this specific session (can differ due to reserve drivers)
   const drivers = await getDrivers(sessionKey);
-  setInternalProgress(type, setProgress, 3);
+  setInternalProgress(type, setProgress, 2);
 
   if (drivers.hasError) {
     setError(drivers.message);
@@ -106,7 +95,7 @@ const getSinglePracticeStats = async (
   const bestSectorsPerDriver = [];
   const bestLapPerDriver = [];
   const allLaps = await getLapsForSession(sessionKey);
-  setInternalProgress(type, setProgress, 4);
+  setInternalProgress(type, setProgress, 3);
 
   if (allLaps.hasError) {
     setError(allLaps.message);
@@ -221,7 +210,15 @@ const getSinglePracticeStats = async (
     }
   }
 
-  return { bestSectorsPerDriver, bestLapPerDriver, weather, timePeriod };
+  return {
+    bestSectorsPerDriver,
+    bestLapPerDriver,
+    weather: [], // Weather will be fetched separately after displaying practice data
+    timePeriod,
+    sessionKey,
+    dateStart,
+    dateEnd,
+  };
 };
 
 export default getSinglePracticeStats;

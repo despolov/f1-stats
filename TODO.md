@@ -1,6 +1,9 @@
 # TODO
 
 - driver colors should be based on the selected year and race due to driver swaps mid season
+- tooltip on practice stats names of drivers
+- fix header in Spanish locale
+- fix practice stats table when locale is not en
 
 - Race stats
   mobile version needed

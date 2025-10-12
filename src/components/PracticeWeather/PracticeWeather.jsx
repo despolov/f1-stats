@@ -1,6 +1,12 @@
 import React, { useContext } from 'react';
 import getStyles from './PracticeWeather.styles';
-import { Box, useTheme, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  useTheme,
+  useMediaQuery,
+  CircularProgress,
+  Typography,
+} from '@mui/material';
 import { FaTemperatureHalf } from 'react-icons/fa6';
 import { GiTireTracks } from 'react-icons/gi';
 import { BsCloudRainFill } from 'react-icons/bs';
@@ -12,15 +18,35 @@ import moment from 'moment';
 import { ColorModeContext } from '../ColorMode';
 
 const PracticeWeather = (props) => {
-  const { practiceWeather } = props;
+  const { practiceWeather, isLoading = false } = props;
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
 
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          ...(isDesktop ? styles.container : styles.containerMobile),
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 1,
+        }}
+      >
+        <CircularProgress size={20} />
+
+        <Typography sx={{ fontSize: '0.875rem', opacity: 0.7 }}>
+          Loading weather data...
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={isDesktop ? styles.container : styles.containerMobile}>
-      {practiceWeather.map((singlePracticeWeather) => {
+      {practiceWeather?.map((singlePracticeWeather) => {
         const {
           date,
           air_temperature,

@@ -35,6 +35,7 @@ const getCountryCode = (locale) => {
   const countryMap = {
     en: 'GB',
     de: 'DE',
+    es: 'ES',
   };
 
   return countryMap[locale] || 'XX';

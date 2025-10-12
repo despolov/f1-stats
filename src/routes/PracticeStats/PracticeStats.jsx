@@ -11,7 +11,7 @@ import {
   IconButton,
 } from '@mui/material';
 import { Refresh as RefreshIcon } from '@mui/icons-material';
-import { getAllGrandPrix } from '../../api';
+import { getAllGrandPrix, getWeather } from '../../api';
 import AggregatedPracticeTable from '../../components/AggregatedPracticeTable';
 import AggregatedPracticeMobileTable from '../../components/AggregatedPracticeMobileTable';
 import ActualPracticeTable from '../../components/ActualPracticeTable';
@@ -54,6 +54,12 @@ const PracticeStats = () => {
   const [practice1Weather, setPractice1Weather] = useState([]);
   const [practice2Weather, setPractice2Weather] = useState([]);
   const [practice3Weather, setPractice3Weather] = useState([]);
+  const [practice1WeatherLoading, setPractice1WeatherLoading] = useState(true);
+  const [practice2WeatherLoading, setPractice2WeatherLoading] = useState(true);
+  const [practice3WeatherLoading, setPractice3WeatherLoading] = useState(true);
+  const [practice1Loading, setPractice1Loading] = useState(false);
+  const [practice2Loading, setPractice2Loading] = useState(false);
+  const [practice3Loading, setPractice3Loading] = useState(false);
   const [practice1TimePeriod, setPractice1TimePeriod] = useState({});
   const [practice2TimePeriod, setPractice2TimePeriod] = useState({});
   const [practice3TimePeriod, setPractice3TimePeriod] = useState({});
@@ -64,13 +70,11 @@ const PracticeStats = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const shouldRenderPracticeResults =
-    !practiceStatsLoading &&
-    (practice1Stats.length > 0 ||
-      practice2Stats.length > 0 ||
-      practice3Stats.length > 0);
   const shouldRenderInitMessage =
     !practiceStatsLoading &&
+    !practice1Loading &&
+    !practice2Loading &&
+    !practice3Loading &&
     practice1Stats.length === 0 &&
     practice2Stats.length === 0 &&
     practice3Stats.length === 0;
@@ -156,6 +160,12 @@ const PracticeStats = () => {
     setPractice1Weather([]);
     setPractice2Weather([]);
     setPractice3Weather([]);
+    setPractice1WeatherLoading(true);
+    setPractice2WeatherLoading(true);
+    setPractice3WeatherLoading(true);
+    setPractice1Loading(false);
+    setPractice2Loading(false);
+    setPractice3Loading(false);
     setPractice1TimePeriod({});
     setPractice2TimePeriod({});
     setPractice3TimePeriod({});
@@ -206,6 +216,9 @@ const PracticeStats = () => {
     selectedCountry,
     meetingKey,
   ) => {
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    setPractice1Loading(true);
     const practice1 = await getSinglePracticeStats(
       'Practice 1',
       selectedYear,
@@ -214,8 +227,26 @@ const PracticeStats = () => {
       setError,
       setProgress,
     );
-    setProgress(35);
 
+    if (practice1) {
+      const practice1WithGap = addGapBetweenDrivers(
+        orderBy(practice1?.bestSectorsPerDriver || [], ['aggregatedLap']),
+        'aggregatedLap',
+      );
+      const practice1ActualWithGap = addGapBetweenDrivers(
+        orderBy(practice1?.bestLapPerDriver || [], ['lapDuration']),
+        'lapDuration',
+      );
+      setPractice1Stats(practice1WithGap);
+      setPractice1ActualStats(practice1ActualWithGap);
+      setPractice1TimePeriod(practice1?.timePeriod || {});
+    }
+    setPractice1Loading(false);
+
+    // Add 800ms delay before fetching Practice 2 (throttle API calls)
+    await delay(800);
+
+    setPractice2Loading(true);
     const practice2 = await getSinglePracticeStats(
       'Practice 2',
       selectedYear,
@@ -224,8 +255,26 @@ const PracticeStats = () => {
       setError,
       setProgress,
     );
-    setProgress(70);
 
+    if (practice2) {
+      const practice2WithGap = addGapBetweenDrivers(
+        orderBy(practice2?.bestSectorsPerDriver || [], ['aggregatedLap']),
+        'aggregatedLap',
+      );
+      const practice2ActualWithGap = addGapBetweenDrivers(
+        orderBy(practice2?.bestLapPerDriver || [], ['lapDuration']),
+        'lapDuration',
+      );
+      setPractice2Stats(practice2WithGap);
+      setPractice2ActualStats(practice2ActualWithGap);
+      setPractice2TimePeriod(practice2?.timePeriod || {});
+    }
+    setPractice2Loading(false);
+
+    // Add 800ms delay before fetching Practice 3 (throttle API calls)
+    await delay(800);
+
+    setPractice3Loading(true);
     const practice3 = await getSinglePracticeStats(
       'Practice 3',
       selectedYear,
@@ -234,50 +283,86 @@ const PracticeStats = () => {
       setError,
       setProgress,
     );
-    setProgress(100);
 
-    const practice1WithGap = addGapBetweenDrivers(
-      orderBy(practice1.bestSectorsPerDriver, ['aggregatedLap']),
-      'aggregatedLap',
-    );
-    const practice2WithGap = addGapBetweenDrivers(
-      orderBy(practice2.bestSectorsPerDriver, ['aggregatedLap']),
-      'aggregatedLap',
-    );
-    const practice3WithGap = addGapBetweenDrivers(
-      orderBy(practice3.bestSectorsPerDriver, ['aggregatedLap']),
-      'aggregatedLap',
-    );
-    const practice1ActualWithGap = addGapBetweenDrivers(
-      orderBy(practice1.bestLapPerDriver, ['lapDuration']),
-      'lapDuration',
-    );
-    const practice2ActualWithGap = addGapBetweenDrivers(
-      orderBy(practice2.bestLapPerDriver, ['lapDuration']),
-      'lapDuration',
-    );
-    const practice3ActualWithGap = addGapBetweenDrivers(
-      orderBy(practice3.bestLapPerDriver, ['lapDuration']),
-      'lapDuration',
-    );
+    if (practice3) {
+      const practice3WithGap = addGapBetweenDrivers(
+        orderBy(practice3?.bestSectorsPerDriver || [], ['aggregatedLap']),
+        'aggregatedLap',
+      );
+      const practice3ActualWithGap = addGapBetweenDrivers(
+        orderBy(practice3?.bestLapPerDriver || [], ['lapDuration']),
+        'lapDuration',
+      );
+      setPractice3Stats(practice3WithGap);
+      setPractice3ActualStats(practice3ActualWithGap);
+      setPractice3TimePeriod(practice3?.timePeriod || {});
+    }
+    setPractice3Loading(false);
 
-    setPractice1Stats(practice1WithGap);
-    setPractice2Stats(practice2WithGap);
-    setPractice3Stats(practice3WithGap);
-    setPractice1ActualStats(practice1ActualWithGap);
-    setPractice2ActualStats(practice2ActualWithGap);
-    setPractice3ActualStats(practice3ActualWithGap);
-    setPractice1Weather(practice1.weather);
-    setPractice2Weather(practice2.weather);
-    setPractice3Weather(practice3.weather);
-    setPractice1TimePeriod(practice1.timePeriod);
-    setPractice2TimePeriod(practice2.timePeriod);
-    setPractice3TimePeriod(practice3.timePeriod);
     setPracticeStatsLoading(false);
     setProgress(0);
+
+    // Fetch weather data AFTER displaying all practice results (deferred)
+    // Add delays between weather calls to further throttle API requests
+    if (practice1?.sessionKey) {
+      const weather1 = await getWeather(
+        practice1.sessionKey,
+        practice1.dateStart,
+        practice1.dateEnd,
+      );
+      setPractice1Weather(weather1.hasError ? [] : weather1);
+      setPractice1WeatherLoading(false);
+
+      await delay(600);
+    }
+
+    if (practice2?.sessionKey) {
+      const weather2 = await getWeather(
+        practice2.sessionKey,
+        practice2.dateStart,
+        practice2.dateEnd,
+      );
+      setPractice2Weather(weather2.hasError ? [] : weather2);
+      setPractice2WeatherLoading(false);
+
+      await delay(600);
+    }
+
+    if (practice3?.sessionKey) {
+      const weather3 = await getWeather(
+        practice3.sessionKey,
+        practice3.dateStart,
+        practice3.dateEnd,
+      );
+      setPractice3Weather(weather3.hasError ? [] : weather3);
+      setPractice3WeatherLoading(false);
+    }
   };
 
-  const renderPractice = (title, stats, actualStats, weather, timePeriod) => {
+  const renderPractice = (
+    title,
+    stats,
+    actualStats,
+    weather,
+    timePeriod,
+    weatherLoading,
+    practiceLoading,
+  ) => {
+    if (practiceLoading || (stats.length === 0 && practiceStatsLoading)) {
+      return (
+        <>
+          <Box sx={styles.divider} />
+
+          <LinearProgressBar
+            title={`${intl.formatMessage({
+              id: 'practiceStats.loadingStats',
+            })} - ${title}`}
+            value={progress}
+          />
+        </>
+      );
+    }
+
     if (stats.length === 0) {
       return null;
     }
@@ -293,7 +378,10 @@ const PracticeStats = () => {
             <PracticeTimeSlot practiceTimePeriod={timePeriod} />
           )}
 
-          {weather.length > 0 && <PracticeWeather practiceWeather={weather} />}
+          <PracticeWeather
+            practiceWeather={weather}
+            isLoading={weatherLoading}
+          />
         </Box>
 
         <Box
@@ -357,56 +445,39 @@ const PracticeStats = () => {
     );
   };
 
-  const renderPractices = () => {
-    if (!shouldRenderPracticeResults) {
-      return null;
-    }
+  const renderPractices = () => (
+    <>
+      {renderPractice(
+        intl.formatMessage({ id: 'practiceStats.practice1' }),
+        practice1Stats,
+        practice1ActualStats,
+        practice1Weather,
+        practice1TimePeriod,
+        practice1WeatherLoading,
+        practice1Loading,
+      )}
 
-    return (
-      <>
-        {renderPractice(
-          intl.formatMessage({ id: 'practiceStats.practice1' }),
-          practice1Stats,
-          practice1ActualStats,
-          practice1Weather,
-          practice1TimePeriod,
-        )}
+      {renderPractice(
+        intl.formatMessage({ id: 'practiceStats.practice2' }),
+        practice2Stats,
+        practice2ActualStats,
+        practice2Weather,
+        practice2TimePeriod,
+        practice2WeatherLoading,
+        practice2Loading,
+      )}
 
-        {renderPractice(
-          intl.formatMessage({ id: 'practiceStats.practice2' }),
-          practice2Stats,
-          practice2ActualStats,
-          practice2Weather,
-          practice2TimePeriod,
-        )}
-
-        {renderPractice(
-          intl.formatMessage({ id: 'practiceStats.practice3' }),
-          practice3Stats,
-          practice3ActualStats,
-          practice3Weather,
-          practice3TimePeriod,
-        )}
-      </>
-    );
-  };
-
-  const renderLoading = () => {
-    if (!practiceStatsLoading) {
-      return null;
-    }
-
-    return (
-      <>
-        <Box sx={styles.divider} />
-
-        <LinearProgressBar
-          title={intl.formatMessage({ id: 'practiceStats.loadingStats' })}
-          value={progress}
-        />
-      </>
-    );
-  };
+      {renderPractice(
+        intl.formatMessage({ id: 'practiceStats.practice3' }),
+        practice3Stats,
+        practice3ActualStats,
+        practice3Weather,
+        practice3TimePeriod,
+        practice3WeatherLoading,
+        practice3Loading,
+      )}
+    </>
+  );
 
   if (error) {
     return (
@@ -481,8 +552,6 @@ const PracticeStats = () => {
             </Box>
           </>
         )}
-
-        {renderLoading()}
 
         {renderPractices()}
       </Box>
