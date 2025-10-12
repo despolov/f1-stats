@@ -65,6 +65,7 @@ const AggregatedPracticeTable = (props) => {
           {data.map((value, index) => {
             const {
               driver,
+              driverFullName,
               aggregatedLap,
               sector1,
               sector2,
@@ -110,6 +111,10 @@ const AggregatedPracticeTable = (props) => {
                   <Tooltip
                     title={
                       <Box>
+                        <Typography sx={styles.tooltipText}>
+                          {driverFullName}
+                        </Typography>
+
                         <Typography sx={styles.tooltipText}>
                           {intl.formatMessage({ id: 'practiceTable.sec1' })}:{' '}
                           {sector1.duration}{' '}

@@ -65,6 +65,7 @@ const ActualPracticeMobileTable = (props) => {
           {data.map((value, index) => {
             const {
               driver,
+              driverFullName,
               lapDuration,
               sector1,
               sector2,
@@ -111,6 +112,10 @@ const ActualPracticeMobileTable = (props) => {
                   <Tooltip
                     title={
                       <Box>
+                        <Typography sx={styles.tooltipText}>
+                          {driverFullName}
+                        </Typography>
+
                         <Typography sx={styles.tooltipText}>
                           {intl.formatMessage({ id: 'practiceTable.sec1' })}:{' '}
                           {sector1}{' '}

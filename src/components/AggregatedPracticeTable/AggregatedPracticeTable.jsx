@@ -11,7 +11,9 @@ import {
   Paper,
   Box,
   Typography,
+  Tooltip,
 } from '@mui/material';
+import { tooltipClasses } from '@mui/material/Tooltip';
 import getStyles from './AggregatedPracticeTable.styles';
 import getDriverColor from '../../utils/getDriverColor';
 import { ColorModeContext } from '../ColorMode';
@@ -80,6 +82,7 @@ const AggregatedPracticeTable = (props) => {
           {data.map((value, index) => {
             const {
               driver,
+              driverFullName,
               aggregatedLap,
               sector1,
               sector2,
@@ -95,16 +98,32 @@ const AggregatedPracticeTable = (props) => {
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">
-                  <Box sx={styles.driverCellContainer}>
-                    <Box
-                      sx={[
-                        { borderLeft: `5px solid ${getDriverColor(driver)}` },
-                        styles.driverCellColor,
-                      ]}
-                    />
+                  <Tooltip
+                    title={driverFullName}
+                    placement="top"
+                    arrow
+                    enterTouchDelay={0}
+                    leaveTouchDelay={5000}
+                    slotProps={{
+                      popper: {
+                        sx: {
+                          [`&.${tooltipClasses.popper}[data-popper-placement*="top"] .${tooltipClasses.tooltip}`]:
+                            { marginBottom: '8px' },
+                        },
+                      },
+                    }}
+                  >
+                    <Box sx={styles.driverCellContainer}>
+                      <Box
+                        sx={[
+                          { borderLeft: `5px solid ${getDriverColor(driver)}` },
+                          styles.driverCellColor,
+                        ]}
+                      />
 
-                    {driver}
-                  </Box>
+                      {driver}
+                    </Box>
+                  </Tooltip>
                 </TableCell>
 
                 <TableCell sx={styles.tableCellBody} align="left">
