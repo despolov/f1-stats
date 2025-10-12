@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { tooltipClasses } from '@mui/material/Tooltip';
 import getStyles from './AggregatedPracticeMobileTable.styles';
-import getDriverColor from '../../utils/getDriverColor';
+import getTeamNameColor from '../../utils/getTeamNameColor';
 import { FaCircleInfo } from 'react-icons/fa6';
 import { ColorModeContext } from '../ColorMode';
 
@@ -66,6 +66,7 @@ const AggregatedPracticeTable = (props) => {
             const {
               driver,
               driverFullName,
+              driverTeamName,
               aggregatedLap,
               sector1,
               sector2,
@@ -86,7 +87,11 @@ const AggregatedPracticeTable = (props) => {
                   <Box sx={styles.driverCellContainer}>
                     <Box
                       sx={[
-                        { borderLeft: `5px solid ${getDriverColor(driver)}` },
+                        {
+                          borderLeft: `5px solid ${getTeamNameColor(
+                            driverTeamName,
+                          )}`,
+                        },
                         styles.driverCellColor,
                       ]}
                     />

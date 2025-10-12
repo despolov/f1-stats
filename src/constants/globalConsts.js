@@ -1,3 +1,3 @@
-const STATS_START_YEAR = 2025;
+const STATS_START_YEAR = 2023;
 
 export { STATS_START_YEAR };

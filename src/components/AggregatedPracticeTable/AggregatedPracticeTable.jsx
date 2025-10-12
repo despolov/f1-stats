@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { tooltipClasses } from '@mui/material/Tooltip';
 import getStyles from './AggregatedPracticeTable.styles';
-import getDriverColor from '../../utils/getDriverColor';
+import getTeamNameColor from '../../utils/getTeamNameColor';
 import { ColorModeContext } from '../ColorMode';
 
 const StyledTableRow = styled(TableRow)(({ mode, styles }) => ({
@@ -83,6 +83,7 @@ const AggregatedPracticeTable = (props) => {
             const {
               driver,
               driverFullName,
+              driverTeamName,
               aggregatedLap,
               sector1,
               sector2,
@@ -116,7 +117,11 @@ const AggregatedPracticeTable = (props) => {
                     <Box sx={styles.driverCellContainer}>
                       <Box
                         sx={[
-                          { borderLeft: `5px solid ${getDriverColor(driver)}` },
+                          {
+                            borderLeft: `5px solid ${getTeamNameColor(
+                              driverTeamName,
+                            )}`,
+                          },
                           styles.driverCellColor,
                         ]}
                       />

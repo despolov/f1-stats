@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { tooltipClasses } from '@mui/material/Tooltip';
 import getStyles from './ActualPracticeMobileTable.styles';
-import getDriverColor from '../../utils/getDriverColor';
+import getTeamNameColor from '../../utils/getTeamNameColor';
 import { FaCircleInfo } from 'react-icons/fa6';
 import { ColorModeContext } from '../ColorMode';
 
@@ -66,6 +66,8 @@ const ActualPracticeMobileTable = (props) => {
             const {
               driver,
               driverFullName,
+              teamName,
+              driverTeamName,
               lapDuration,
               sector1,
               sector2,
@@ -87,7 +89,11 @@ const ActualPracticeMobileTable = (props) => {
                   <Box sx={styles.driverCellContainer}>
                     <Box
                       sx={[
-                        { borderLeft: `5px solid ${getDriverColor(driver)}` },
+                        {
+                          borderLeft: `5px solid ${getTeamNameColor(
+                            driverTeamName,
+                          )}`,
+                        },
                         styles.driverCellColor,
                       ]}
                     />

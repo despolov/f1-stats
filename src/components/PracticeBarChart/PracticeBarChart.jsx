@@ -3,7 +3,7 @@ import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useIntl } from 'react-intl';
 import getStyles from './PracticeBarChart.styles';
-import getDriverColor from '../../utils/getDriverColor';
+import getTeamNameColor from '../../utils/getTeamNameColor';
 import { ColorModeContext } from '../ColorMode';
 
 const PracticeBarChart = (props) => {
@@ -13,7 +13,7 @@ const PracticeBarChart = (props) => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const intl = useIntl();
   const styles = getStyles(mode);
-  const barColors = data.map((item) => getDriverColor(item.driver));
+  const barColors = data.map((item) => getTeamNameColor(item.driverTeamName));
 
   return (
     <Box sx={isDesktop ? styles.container : styles.containerMobile}>

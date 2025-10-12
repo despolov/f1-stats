@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useIntl } from 'react-intl';
 import { useTheme, useMediaQuery, Box, Typography } from '@mui/material';
-import getDriverColor from '../../utils/getDriverColor';
+import getTeamNameColor from '../../utils/getTeamNameColor';
 import getStyles from './DriverBigCard.styles';
 import { IconContext } from 'react-icons';
 import { IoIosPerson } from 'react-icons/io';
@@ -31,7 +31,7 @@ const DriverBigCard = (props) => {
   const lastName = last_name || full_name.split(' ')[1];
   const colorStripeColor = team_colour
     ? `#${team_colour}`
-    : getDriverColor(name_acronym);
+    : getTeamNameColor(team_name);
 
   return (
     <Box sx={isDesktop ? styles.container : styles.containerMobile}>

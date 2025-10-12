@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { tooltipClasses } from '@mui/material/Tooltip';
 import getStyles from './ActualPracticeTable.styles';
-import getDriverColor from '../../utils/getDriverColor';
+import getTeamNameColor from '../../utils/getTeamNameColor';
 import { ColorModeContext } from '../ColorMode';
 
 const StyledTableRow = styled(TableRow)(({ mode, styles }) => ({
@@ -87,6 +87,7 @@ const ActualPracticeTable = (props) => {
             const {
               driver,
               driverFullName,
+              driverTeamName,
               lapDuration,
               sector1,
               sector2,
@@ -121,7 +122,11 @@ const ActualPracticeTable = (props) => {
                     <Box sx={styles.driverCellContainer}>
                       <Box
                         sx={[
-                          { borderLeft: `5px solid ${getDriverColor(driver)}` },
+                          {
+                            borderLeft: `5px solid ${getTeamNameColor(
+                              driverTeamName,
+                            )}`,
+                          },
                           styles.driverCellColor,
                         ]}
                       />

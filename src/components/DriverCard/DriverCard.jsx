@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import getDriverColor from '../../utils/getDriverColor';
+import getTeamNameColor from '../../utils/getTeamNameColor';
 import getStyles from './DriverCard.styles';
 import { IconContext } from 'react-icons';
 import { IoIosPerson } from 'react-icons/io';
@@ -33,7 +33,7 @@ const DriverCard = (props) => {
           <Box
             sx={{
               borderLeft: `5px solid #${
-                team_colour || getDriverColor(name_acronym)
+                team_colour || getTeamNameColor(team_name)
               }`,
               ...styles.nameColorStripe,
             }}

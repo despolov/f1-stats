@@ -12,11 +12,22 @@ import {
 } from '../constants/apiConsts';
 
 const getSession = async (type, country, year, meetingKey) => {
-  const key = `sessions?country_name=${country}&session_name=${type}&year=${year}&meeting_key=${meetingKey}`;
   const errorPayload = {
     hasError: true,
     message: `There was an error with the fetch of the session (${type}) for year ${year} in ${country}!`,
   };
+
+  if (!type || !country || !year || !meetingKey) {
+    console.error('getSession: Missing required arguments', {
+      type,
+      country,
+      year,
+      meetingKey,
+    });
+    return errorPayload;
+  }
+
+  const key = `sessions?country_name=${country}&session_name=${type}&year=${year}&meeting_key=${meetingKey}`;
 
   try {
     const storageValue = getFromCache(key);
@@ -38,7 +49,8 @@ const getSession = async (type, country, year, meetingKey) => {
     }
 
     return session;
-  } catch {
+  } catch (error) {
+    console.error('getSession: Error fetching session', error);
     removeFromCache(key);
 
     return errorPayload;
@@ -79,7 +91,8 @@ const getDrivers = async (sessionKey, driverNumber, meetingKey) => {
     const uniqueDrivers = uniqBy(drivers, (d) => d.name_acronym);
 
     return uniqueDrivers;
-  } catch {
+  } catch (error) {
+    console.error('getDrivers: Error fetching drivers', error);
     removeFromCache(key);
 
     return errorPayload;
@@ -87,6 +100,19 @@ const getDrivers = async (sessionKey, driverNumber, meetingKey) => {
 };
 
 const getLapsForDriver = async (sessionKey, driverNumber) => {
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the laps of a driver with number ${driverNumber} for session ${sessionKey}!`,
+  };
+
+  if (!sessionKey || !driverNumber) {
+    console.error('getLapsForDriver: Missing required arguments', {
+      sessionKey,
+      driverNumber,
+    });
+    return errorPayload;
+  }
+
   try {
     const response = await fetch(
       `${F1_API_ENDPOINT}/laps?session_key=${sessionKey}&driver_number=${driverNumber}&is_pit_out_lap=false`,
@@ -94,20 +120,26 @@ const getLapsForDriver = async (sessionKey, driverNumber) => {
     const lapsPerDriver = await response.json();
 
     return lapsPerDriver;
-  } catch {
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of the laps of a driver with number ${driverNumber} for session ${sessionKey}!`,
-    };
+  } catch (error) {
+    console.error('getLapsForDriver: Error fetching laps for driver', error);
+    return errorPayload;
   }
 };
 
 const getLapsForSession = async (sessionKey) => {
-  const key = `laps?session_key=${sessionKey}&is_pit_out_lap=false`;
   const errorPayload = {
     hasError: true,
     message: `There was an error with the fetch of the laps for session ${sessionKey}!`,
   };
+
+  if (!sessionKey) {
+    console.error('getLapsForSession: Missing required arguments', {
+      sessionKey,
+    });
+    return errorPayload;
+  }
+
+  const key = `laps?session_key=${sessionKey}&is_pit_out_lap=false`;
 
   try {
     const storageValue = getFromCache(key);
@@ -132,7 +164,8 @@ const getLapsForSession = async (sessionKey) => {
     }
 
     return lapsPerSession;
-  } catch {
+  } catch (error) {
+    console.error('getLapsForSession: Error fetching laps for session', error);
     removeFromCache(key);
 
     return errorPayload;
@@ -140,11 +173,17 @@ const getLapsForSession = async (sessionKey) => {
 };
 
 const getAllGrandPrix = async (year) => {
-  const key = `meetings?year=${year}`;
   const errorPayload = {
     hasError: true,
     message: `There was an error with the fetch of the grand prix for year ${year}!`,
   };
+
+  if (!year) {
+    console.error('getAllGrandPrix: Missing required arguments', { year });
+    return errorPayload;
+  }
+
+  const key = `meetings?year=${year}`;
 
   try {
     const storageValue = getFromCache(key);
@@ -171,18 +210,29 @@ const getAllGrandPrix = async (year) => {
     const uniqueAllGrandPrix = uniqBy(allGrandPrix, (p) => p.meeting_key);
 
     return uniqueAllGrandPrix;
-  } catch {
+  } catch (error) {
+    console.error('getAllGrandPrix: Error fetching grand prix', error);
     removeFromCache(key);
     return errorPayload;
   }
 };
 
 const getWeather = async (sessionKey, dateStart, dateEnd) => {
-  const key = `weather?session_key=${sessionKey}`;
   const errorPayload = {
     hasError: true,
     message: `There was an error with the fetch of the weather for session ${sessionKey}, from ${dateStart} till ${dateEnd}!`,
   };
+
+  if (!sessionKey) {
+    console.error('getWeather: Missing required arguments', {
+      sessionKey,
+      dateStart,
+      dateEnd,
+    });
+    return errorPayload;
+  }
+
+  const key = `weather?session_key=${sessionKey}`;
 
   try {
     const storageValue = getFromCache(key);
@@ -226,7 +276,8 @@ const getWeather = async (sessionKey, dateStart, dateEnd) => {
     }
 
     return [];
-  } catch {
+  } catch (error) {
+    console.error('getWeather: Error fetching weather', error);
     removeFromCache(key);
 
     return errorPayload;
@@ -234,13 +285,22 @@ const getWeather = async (sessionKey, dateStart, dateEnd) => {
 };
 
 const getStints = async (session_key, driverNumber) => {
-  const key = `stints?session_key=${session_key}${
-    driverNumber ? `&driver_number=${driverNumber}` : ''
-  }`;
   const errorPayload = {
     hasError: true,
     message: `There was an error with the fetch of the stints for session with key ${session_key}!`,
   };
+
+  if (!session_key) {
+    console.error('getStints: Missing required arguments', {
+      session_key,
+      driverNumber,
+    });
+    return errorPayload;
+  }
+
+  const key = `stints?session_key=${session_key}${
+    driverNumber ? `&driver_number=${driverNumber}` : ''
+  }`;
 
   try {
     const storageValue = getFromCache(key);
@@ -265,7 +325,8 @@ const getStints = async (session_key, driverNumber) => {
     }
 
     return stints;
-  } catch {
+  } catch (error) {
+    console.error('getStints: Error fetching stints', error);
     removeFromCache(key);
 
     return errorPayload;
@@ -273,6 +334,16 @@ const getStints = async (session_key, driverNumber) => {
 };
 
 const getIpLocation = async (date) => {
+  const errorPayload = {
+    hasError: true,
+    message: `There was an error with the fetch of the public ip and location of the user!`,
+  };
+
+  if (!date) {
+    console.error('getIpLocation: Missing required arguments', { date });
+    return errorPayload;
+  }
+
   const key = `ipLocation-${date}`;
 
   try {
@@ -289,24 +360,31 @@ const getIpLocation = async (date) => {
     }
 
     return ipLocation;
-  } catch {
+  } catch (error) {
+    console.error('getIpLocation: Error fetching IP location', error);
     removeFromCache(key);
 
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of the public ip and location of the user!`,
-    };
+    return errorPayload;
   }
 };
 
 const getTeamRadio = async (session_key, driverNumber) => {
-  const key = `team_radio?session_key=${session_key}${
-    driverNumber ? `&driver_number=${driverNumber}` : ''
-  }`;
   const errorPayload = {
     hasError: true,
     message: `There was an error with the fetch of the team radio for session with key ${session_key}!`,
   };
+
+  if (!session_key) {
+    console.error('getTeamRadio: Missing required arguments', {
+      session_key,
+      driverNumber,
+    });
+    return errorPayload;
+  }
+
+  const key = `team_radio?session_key=${session_key}${
+    driverNumber ? `&driver_number=${driverNumber}` : ''
+  }`;
 
   try {
     const storageValue = getFromCache(key);
@@ -331,22 +409,29 @@ const getTeamRadio = async (session_key, driverNumber) => {
     }
 
     return teamRadio;
-  } catch {
+  } catch (error) {
+    console.error('getTeamRadio: Error fetching team radio', error);
     removeFromCache(key);
 
-    return {
-      hasError: true,
-      message: `There was an error with the fetch of the team radio for session with key ${session_key}!`,
-    };
+    return errorPayload;
   }
 };
 
 const getSessionByMeetingAndName = async (meetingKey, sessionName) => {
-  const key = `sessions?meeting_key=${meetingKey}&session_name=${sessionName}`;
   const errorPayload = {
     hasError: true,
     message: `There was an error with the fetch of the ${sessionName} session for meeting ${meetingKey}!`,
   };
+
+  if (!meetingKey || !sessionName) {
+    console.error('getSessionByMeetingAndName: Missing required arguments', {
+      meetingKey,
+      sessionName,
+    });
+    return errorPayload;
+  }
+
+  const key = `sessions?meeting_key=${meetingKey}&session_name=${sessionName}`;
 
   try {
     const storageValue = getFromCache(key);
@@ -370,20 +455,30 @@ const getSessionByMeetingAndName = async (meetingKey, sessionName) => {
     }
 
     return session;
-  } catch {
+  } catch (error) {
+    console.error('getSessionByMeetingAndName: Error fetching session', error);
     removeFromCache(key);
     return errorPayload;
   }
 };
 
 const getIntervals = async (sessionKey, driverNumber) => {
-  const key = `intervals?session_key=${sessionKey}${
-    driverNumber ? `&driver_number=${driverNumber}` : ''
-  }`;
   const errorPayload = {
     hasError: true,
     message: `There was an error with the fetch of the intervals for session ${sessionKey}!`,
   };
+
+  if (!sessionKey) {
+    console.error('getIntervals: Missing required arguments', {
+      sessionKey,
+      driverNumber,
+    });
+    return errorPayload;
+  }
+
+  const key = `intervals?session_key=${sessionKey}${
+    driverNumber ? `&driver_number=${driverNumber}` : ''
+  }`;
 
   try {
     const storageValue = getFromCache(key);
@@ -407,20 +502,30 @@ const getIntervals = async (sessionKey, driverNumber) => {
     }
 
     return intervals;
-  } catch {
+  } catch (error) {
+    console.error('getIntervals: Error fetching intervals', error);
     removeFromCache(key);
     return errorPayload;
   }
 };
 
 const getPosition = async (sessionKey, driverNumber) => {
-  const key = `position?session_key=${sessionKey}${
-    driverNumber ? `&driver_number=${driverNumber}` : ''
-  }`;
   const errorPayload = {
     hasError: true,
     message: `There was an error with the fetch of the position data for session ${sessionKey}!`,
   };
+
+  if (!sessionKey) {
+    console.error('getPosition: Missing required arguments', {
+      sessionKey,
+      driverNumber,
+    });
+    return errorPayload;
+  }
+
+  const key = `position?session_key=${sessionKey}${
+    driverNumber ? `&driver_number=${driverNumber}` : ''
+  }`;
 
   try {
     const storageValue = getFromCache(key);
@@ -444,7 +549,8 @@ const getPosition = async (sessionKey, driverNumber) => {
     }
 
     return position;
-  } catch {
+  } catch (error) {
+    console.error('getPosition: Error fetching position data', error);
     removeFromCache(key);
     return errorPayload;
   }

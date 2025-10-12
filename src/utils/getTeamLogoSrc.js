@@ -28,6 +28,9 @@ const getTeamLogoSrc = (team) => {
     case 'Racing Bulls': {
       return 'https://media.formula1.com/content/dam/fom-website/teams/2025/racing-bulls-logo.png';
     }
+    case 'RB': {
+      return 'https://media.formula1.com/content/dam/fom-website/teams/2024/rb-logo.png';
+    }
     case 'Red Bull Racing': {
       return 'https://media.formula1.com/content/dam/fom-website/teams/2025/red-bull-racing-logo.png';
     }

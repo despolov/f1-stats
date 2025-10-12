@@ -1,6 +1,7 @@
 # TODO
 
-- driver colors should be based on the selected year and race due to driver swaps mid season
+- fix 429 in Tyres and Stints and Team radio routes the way its fixed in Practice one
+
 - fix header in Spanish locale
 - fix practice stats table when locale is not en
 

@@ -105,11 +105,12 @@ const getSinglePracticeStats = async (
   const allLapsPerDriver = orderLapsPerDriver(allLaps);
 
   for (const driver of drivers) {
-    const { driver_number, name_acronym, full_name } = driver;
+    const { driver_number, name_acronym, full_name, team_name } = driver;
     const driverLaps = allLapsPerDriver[driver_number] || [];
     const driverSectors = {
       driver: name_acronym,
       driverFullName: full_name,
+      driverTeamName: team_name,
       sector1: { duration: null, lapNumber: null },
       sector2: { duration: null, lapNumber: null },
       sector3: { duration: null, lapNumber: null },
@@ -117,6 +118,7 @@ const getSinglePracticeStats = async (
     const driverActualLap = {
       driver: name_acronym,
       driverFullName: full_name,
+      driverTeamName: team_name,
       lapDuration: null,
       lapNumber: null,
       sector1: null,
