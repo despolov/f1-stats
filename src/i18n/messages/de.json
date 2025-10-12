@@ -31,6 +31,8 @@
   "practiceStats.aggregatedGapToFirst": "Zusammengef. Abstand zum Ersten (Sek)",
   "practiceStats.actualGapToFirst": "Tatsächl. Abstand zum Ersten (Sek)",
 
+  "practiceWeather.loadingWeatherData": "Wetterdaten laden...",
+
   "raceSelect.backToRaceOverview": "← Zurück zur Rennübersicht",
   "raceSelect.viewAllDrivers": "-- Alle Fahrer anzeigen --",
   "raceSelect.selectYear": "Jahr auswählen",

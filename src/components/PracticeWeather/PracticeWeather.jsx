@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useIntl } from 'react-intl';
 import getStyles from './PracticeWeather.styles';
 import {
   Box,
@@ -19,6 +20,7 @@ import { ColorModeContext } from '../ColorMode';
 
 const PracticeWeather = (props) => {
   const { practiceWeather, isLoading = false } = props;
+  const intl = useIntl();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode } = useContext(ColorModeContext);
@@ -38,7 +40,7 @@ const PracticeWeather = (props) => {
         <CircularProgress size={20} />
 
         <Typography sx={{ fontSize: '0.875rem', opacity: 0.7 }}>
-          Loading weather data...
+          {intl.formatMessage({ id: 'practiceWeather.loadingWeatherData' })}
         </Typography>
       </Box>
     );

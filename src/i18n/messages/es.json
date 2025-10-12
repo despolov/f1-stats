@@ -31,6 +31,8 @@
   "practiceStats.aggregatedGapToFirst": "Diferencia agregada al primero (seg)",
   "practiceStats.actualGapToFirst": "Diferencia real al primero (seg)",
 
+  "practiceWeather.loadingWeatherData": "Cargando datos meteorológicos...",
+
   "raceSelect.backToRaceOverview": "← Volver a la vista general de la carrera",
   "raceSelect.viewAllDrivers": "-- Ver todos los pilotos --",
   "raceSelect.selectYear": "Seleccionar año",
