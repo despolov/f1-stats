@@ -3,12 +3,11 @@
 - fix header in Spanish locale
 - fix practice stats table when locale is not en
 
+- better Footer
+
 - Race stats
   mobile version needed
   add more stats there
-
-- Home route
-  buttons under the hero image are not clickable
 
 - Articles section in the Home route
   desktop - articles on right, fast route clicks on left

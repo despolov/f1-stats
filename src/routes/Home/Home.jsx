@@ -37,13 +37,7 @@ const Home = () => {
 
         {isDesktop ? (
           <Box sx={styles.exploreItemsContainer}>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-around',
-                width: '100%',
-              }}
-            >
+            <Box sx={styles.exploreItemsRow}>
               <HomeExploreItem
                 title={intl.formatMessage({ id: 'home.practiceStats.title' })}
                 icon={<IoStatsChart />}
@@ -63,13 +57,7 @@ const Home = () => {
               />
             </Box>
 
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-around',
-                width: '100%',
-              }}
-            >
+            <Box sx={styles.exploreItemsRow}>
               <HomeExploreItem
                 title={intl.formatMessage({ id: 'home.tyreStrategy.title' })}
                 icon={<GiCarWheel />}
