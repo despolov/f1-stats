@@ -89,7 +89,7 @@ const PracticeStats = () => {
       availableYears.push(index);
     }
 
-    setYears(availableYears);
+    setYears(availableYears.reverse());
 
     const paramYear = searchParams.get('year');
 

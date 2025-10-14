@@ -63,7 +63,7 @@ const Tyres = () => {
       availableYears.push(index);
     }
 
-    setYears(availableYears);
+    setYears(availableYears.reverse());
 
     const paramYear = searchParams.get('year');
 
@@ -222,6 +222,8 @@ const Tyres = () => {
   };
 
   const getTyresStats = async (selectedYear, selectedCountry, meetingKey) => {
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
     const practice1 = await getSessionTyreStats(
       'Practice 1',
       selectedYear,
@@ -231,6 +233,8 @@ const Tyres = () => {
       setProgress,
     );
     setProgress(20);
+
+    await delay(800);
 
     const practice2 = await getSessionTyreStats(
       'Practice 2',
@@ -242,6 +246,8 @@ const Tyres = () => {
     );
     setProgress(35);
 
+    await delay(800);
+
     const practice3 = await getSessionTyreStats(
       'Practice 3',
       selectedYear,
@@ -251,6 +257,8 @@ const Tyres = () => {
       setProgress,
     );
     setProgress(50);
+
+    await delay(800);
 
     const sprintQuali = await getSessionTyreStats(
       'Sprint Qualifying',
@@ -262,6 +270,8 @@ const Tyres = () => {
     );
     setProgress(70);
 
+    await delay(800);
+
     const sprint = await getSessionTyreStats(
       'Sprint',
       selectedYear,
@@ -271,6 +281,8 @@ const Tyres = () => {
       setProgress,
     );
     setProgress(85);
+
+    await delay(800);
 
     const quali = await getSessionTyreStats(
       'Qualifying',

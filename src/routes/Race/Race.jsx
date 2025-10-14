@@ -76,7 +76,7 @@ const Race = () => {
       availableYears.push(index);
     }
 
-    setYears(availableYears);
+    setYears(availableYears.reverse());
 
     if (paramYear) {
       const isParamYearValid = availableYears.some(

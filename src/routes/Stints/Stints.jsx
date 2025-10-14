@@ -70,7 +70,7 @@ const Stints = () => {
       availableYears.push(index);
     }
 
-    setYears(availableYears);
+    setYears(availableYears.reverse());
 
     if (paramYear) {
       const isParamYearValid = availableYears.some(
@@ -244,6 +244,8 @@ const Stints = () => {
   };
 
   const getStints = async () => {
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
     const practice1 = await getSessionStints(
       'Practice 1',
       year,
@@ -255,6 +257,8 @@ const Stints = () => {
       setProgress,
     );
     setProgress(20);
+
+    await delay(800);
 
     const practice2 = await getSessionStints(
       'Practice 2',
@@ -268,6 +272,8 @@ const Stints = () => {
     );
     setProgress(35);
 
+    await delay(800);
+
     const practice3 = await getSessionStints(
       'Practice 3',
       year,
@@ -279,6 +285,8 @@ const Stints = () => {
       setProgress,
     );
     setProgress(50);
+
+    await delay(800);
 
     const sprintQuali = await getSessionStints(
       'Sprint Qualifying',
@@ -292,6 +300,8 @@ const Stints = () => {
     );
     setProgress(70);
 
+    await delay(800);
+
     const sprint = await getSessionStints(
       'Sprint',
       year,
@@ -303,6 +313,8 @@ const Stints = () => {
       setProgress,
     );
     setProgress(85);
+
+    await delay(800);
 
     const quali = await getSessionStints(
       'Qualifying',

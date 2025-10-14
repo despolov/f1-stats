@@ -70,7 +70,7 @@ const TeamRadio = () => {
       availableYears.push(index);
     }
 
-    setYears(availableYears);
+    setYears(availableYears.reverse());
 
     if (paramYear) {
       const isParamYearValid = availableYears.some(
@@ -245,6 +245,7 @@ const TeamRadio = () => {
 
   const getTeamRadio = async () => {
     const countryKey = country.split(' - ')[0];
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     const practice1 = await getSessionTeamRadio(
       'Practice 1',
@@ -258,6 +259,8 @@ const TeamRadio = () => {
     );
     setProgress(15);
 
+    await delay(800);
+
     const practice2 = await getSessionTeamRadio(
       'Practice 2',
       year,
@@ -269,6 +272,8 @@ const TeamRadio = () => {
       setProgress,
     );
     setProgress(30);
+
+    await delay(800);
 
     const practice3 = await getSessionTeamRadio(
       'Practice 3',
@@ -282,6 +287,8 @@ const TeamRadio = () => {
     );
     setProgress(45);
 
+    await delay(800);
+
     const sprintQuali = await getSessionTeamRadio(
       'Sprint Qualifying',
       year,
@@ -293,6 +300,8 @@ const TeamRadio = () => {
       setProgress,
     );
     setProgress(60);
+
+    await delay(800);
 
     const sprint = await getSessionTeamRadio(
       'Sprint',
@@ -306,6 +315,8 @@ const TeamRadio = () => {
     );
     setProgress(75);
 
+    await delay(800);
+
     const quali = await getSessionTeamRadio(
       'Qualifying',
       year,
@@ -317,6 +328,8 @@ const TeamRadio = () => {
       setProgress,
     );
     setProgress(90);
+
+    await delay(800);
 
     const race = await getSessionTeamRadio(
       'Race',
