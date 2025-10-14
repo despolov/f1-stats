@@ -16,6 +16,8 @@
   "header.teamRadio": "Teamfunk",
   "header.race": "Rennen",
   "header.selectLanguage": "Sprache auswählen",
+  "header.darkModeNotificationFirstRow": "🌙 Es ist Nacht bei dir! Wir haben zum Dunkelmodus gewechselt, um deine Augen zu schonen.",
+  "header.darkModeNotificationSecondRow": "Du kannst jederzeit zurück zum hellen Modus wechseln!",
 
   "practiceStats.loadingStats": "Trainingsstatistiken laden...",
   "practiceStats.errorTitle": "Es scheint ein Problem zu geben!",

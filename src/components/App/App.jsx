@@ -7,6 +7,10 @@ import getTheme from '../../theme.js';
 import AppRoute from '../AppRoute/index.js';
 import ReactGA from 'react-ga4';
 import { ColorModeProvider, ColorModeContext } from '../ColorMode/index.js';
+import {
+  SnackbarProvider,
+  DarkModeNotificationTrigger,
+} from '../Snackbar/index.js';
 import { messages, getUserLocale } from '../../i18n/index.js';
 
 const AppRouterContent = () => {
@@ -24,7 +28,12 @@ const AppRouterContent = () => {
     <IntlProvider locale={locale} messages={messages[locale]}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppRoute />
+
+        <SnackbarProvider>
+          <DarkModeNotificationTrigger />
+
+          <AppRoute />
+        </SnackbarProvider>
       </ThemeProvider>
     </IntlProvider>
   );

@@ -50,6 +50,16 @@ const getTheme = (mode) =>
         }
       `,
       },
+      MuiAlert: {
+        styleOverrides: {
+          icon: {
+            alignItems: 'center',
+          },
+          filledInfo: {
+            backgroundColor: mode === 'light' ? '#ff6b6b' : '#c92a2a',
+          },
+        },
+      },
     },
   });
 

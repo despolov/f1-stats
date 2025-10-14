@@ -6,16 +6,19 @@ import moment from 'moment';
 export const ColorModeContext = createContext({
   mode: 'light',
   toggleColorMode: () => {},
+  autoDarkModeDetected: false,
 });
 
 const ColorModeProvider = (props) => {
   const { children } = props;
   const [mode, setMode] = useState('light');
+  const [autoDarkModeDetected, setAutoDarkModeDetected] = useState(false);
   const colorMode = {
     mode,
     toggleColorMode: () => {
       setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
     },
+    autoDarkModeDetected,
   };
 
   const determineColorMode = async () => {
@@ -34,12 +37,18 @@ const ColorModeProvider = (props) => {
       ipLocation.latitude,
       ipLocation.longitude,
     );
-    const isModeLight = moment(today).isBetween(
-      moment(sunCalc?.sunrise),
-      moment(sunCalc?.sunset),
-    );
+    const isModeLight = sunCalc
+      ? moment(today).isBetween(
+          moment(sunCalc?.sunrise),
+          moment(sunCalc?.sunset),
+        )
+      : true;
 
     setMode(isModeLight ? 'light' : 'dark');
+
+    if (!isModeLight) {
+      setAutoDarkModeDetected(true);
+    }
   };
 
   useEffect(() => {
