@@ -33,7 +33,7 @@ import { locales, getLocaleFromUrl, defaultLocale } from '../../i18n';
 
 const getCountryCode = (locale) => {
   const countryMap = {
-    en: 'GB',
+    en: 'US',
     de: 'DE',
     es: 'ES',
   };
