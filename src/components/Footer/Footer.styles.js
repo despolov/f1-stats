@@ -2,46 +2,114 @@ const getStyles = () => ({
   footer: {
     backgroundColor: '#15151E',
     width: '100%',
-    padding: '0 16px',
+    padding: '48px 24px 24px',
     marginTop: 'auto',
   },
-  divider: {
-    borderBottom: '1px solid #38383f',
+  mainContent: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    marginBottom: '32px',
+    width: '100%',
   },
-  bottomItem: {
-    padding: '12px',
-    display: 'grid',
+  tagline: {
+    color: '#E10600',
+    fontSize: '14px',
+    fontWeight: 500,
+    marginTop: '16px',
+    marginBottom: '12px',
   },
-  rightsText: {
-    color: '#d0d0d2',
-    fontSize: '10px',
+  aboutText: {
+    color: '#b0b0b2',
+    fontSize: '13px',
+    lineHeight: '1.6',
+    marginTop: '12px',
+  },
+  sectionTitle: {
+    color: '#ffffff',
+    fontSize: '16px',
+    fontWeight: 600,
+    marginBottom: '16px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  featuresList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  },
+  featureItem: {
+    color: '#b0b0b2',
+    fontSize: '13px',
+    lineHeight: '1.6',
   },
   icons: {
     color: 'white',
-    width: '25px',
-    height: '25px',
+    width: '28px',
+    height: '28px',
   },
-  iconContainer: {
-    display: 'block',
-    width: '25px',
-    height: '25px',
+  githubLink: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    textDecoration: 'none',
+    padding: '12px 16px',
+    backgroundColor: '#1f1f28',
+    borderRadius: '8px',
+    transition: 'all 0.3s ease',
+    border: '1px solid #38383f',
+    width: 'fit-content',
+    '&:hover': {
+      backgroundColor: '#2a2a35',
+      borderColor: '#E10600',
+    },
   },
-  mainButton: {
-    fontSize: '13px',
-    lineHeight: '26px',
-    color: '#aaaaaa',
+  githubText: {
+    color: '#ffffff',
+    fontSize: '14px',
+    fontWeight: 500,
   },
-  linkButton: {
-    padding: 0,
-    justifyContent: 'left',
-    margin: '0 24px 0 0',
+  divider: {
+    borderBottom: '1px solid #38383f',
+    margin: '32px 0 24px',
   },
-  linkContainer: {
-    margin: '0 0 20px 0',
+  disclaimerSection: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 0 24px',
+  },
+  disclaimerText: {
+    color: '#808085',
+    fontSize: '11px',
+    lineHeight: '1.6',
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+  bottomSection: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '12px',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    paddingTop: '16px',
+    borderTop: '1px solid #2a2a32',
+  },
+  copyrightText: {
+    color: '#d0d0d2',
+    fontSize: '12px',
   },
   versionText: {
-    color: '#3e3e3f',
-    fontSize: '10px',
+    color: '#808085',
+    fontSize: '11px',
+    fontWeight: 500,
+    padding: '4px 12px',
+    backgroundColor: '#1f1f28',
+    borderRadius: '4px',
+    border: '1px solid #38383f',
+  },
+  gridItemNoPadding: {
+    paddingLeft: '0 !important',
   },
 });
 

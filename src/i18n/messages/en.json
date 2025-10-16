@@ -171,5 +171,14 @@
   "sessionTeamRadio.qualifying": "Qualifying",
   "sessionTeamRadio.race": "Race",
 
-  "audioPlayer.openInNewTab": "Open in New Tab"
+  "audioPlayer.openInNewTab": "Open in New Tab",
+
+  "footer.tagline": "Made and hosted with ♥️ in Europe, served worldwide 🌐",
+  "footer.aboutTitle": "About F1 Stats",
+  "footer.aboutDescription": "Your comprehensive Formula 1 analytics platform providing real-time race analysis, practice statistics, tyre strategies, stint breakdowns, and team radio communications.",
+  "footer.featuresTitle": "Features",
+  "footer.connectTitle": "Connect",
+  "footer.githubDiscussions": "GitHub Discussions",
+  "footer.disclaimer": "F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V. This website is unofficial and is not associated in any way with the Formula 1 companies.",
+  "footer.version": "Version"
 }
