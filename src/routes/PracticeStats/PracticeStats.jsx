@@ -369,7 +369,7 @@ const PracticeStats = () => {
 
     return (
       <Box sx={styles.practiceContainer}>
-        <Box sx={styles.practiceDataContinaer}>
+        <Box sx={styles.practiceDataContainer}>
           <Typography component="h3" sx={styles.title}>
             {title}
           </Typography>

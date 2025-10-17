@@ -1,3 +1,12 @@
+import {
+  BRAND_COLOR_LIGHT,
+  BRAND_COLOR_DARK,
+  TEXT_COLOR_LIGHT,
+  TEXT_COLOR_DARK,
+  BORDER_COLOR_REVERSED_LIGHT,
+  BORDER_COLOR_REVERSED_DARK,
+} from '../../constants/globalConsts';
+
 const getStyles = (mode) => ({
   parentContainer: {
     padding: '16px',
@@ -6,13 +15,16 @@ const getStyles = (mode) => ({
     padding: '8px 8px 24px 8px',
   },
   divider: {
-    borderBottom: mode === 'light' ? '2px solid #ffffff' : '2px solid #5a5a5a',
+    borderBottom:
+      mode === 'light'
+        ? `2px solid ${BORDER_COLOR_REVERSED_LIGHT}`
+        : `2px solid ${BORDER_COLOR_REVERSED_DARK}`,
     margin: '20px 0 20px 0',
   },
   subTitle: {
     margin: '0 0 10px 0',
     fontWeight: 600,
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
     textAlign: 'center',
   },
   statsContainer: {
@@ -27,18 +39,18 @@ const getStyles = (mode) => ({
     flexWrap: 'wrap',
   },
   description: {
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
     textAlign: 'center',
   },
   titleError: {
     margin: '0 0 10px 0',
-    color: mode === 'light' ? '#E10600' : '#870400',
+    color: mode === 'light' ? BRAND_COLOR_LIGHT : BRAND_COLOR_DARK,
     fontSize: '20px',
     textAlign: 'center',
   },
   subTitleError: {
     margin: '0 0 10px 0',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
     textAlign: 'center',
   },
   refreshContainerError: {
@@ -48,7 +60,7 @@ const getStyles = (mode) => ({
   },
   refreshLabelError: {
     margin: '0 4px 0 0',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   refreshButtonError: {
     padding: '2px',
@@ -56,7 +68,7 @@ const getStyles = (mode) => ({
   refreshIconError: {
     width: '35px',
     height: '35px',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
 });
 

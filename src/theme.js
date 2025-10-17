@@ -1,26 +1,40 @@
 import { createTheme } from '@mui/material/styles';
 import Formula1TTF from './assets/fonts/Formula1-Regular.woff2';
+import {
+  MAIN_COLOR,
+  BRAND_COLOR_LIGHT,
+  BRAND_COLOR_DARK,
+  SNACKBAR_INFO_COLOR_LIGHT,
+  SNACKBAR_INFO_COLOR_DARK,
+  TEXT_COLOR_LIGHT,
+  TEXT_COLOR_DARK,
+  TEXT_COLOR_SECONDARY_LIGHT,
+  TEXT_COLOR_SECONDARY_DARK,
+} from './constants/globalConsts';
 
 const getTheme = (mode) =>
   createTheme({
     palette: {
       mode,
       primary: {
-        main: '#000000',
+        main: MAIN_COLOR,
       },
       secondary: {
-        main: '#E10600',
+        main: BRAND_COLOR_LIGHT,
       },
       secondaryDark: {
-        main: '#870400',
+        main: BRAND_COLOR_DARK,
       },
       background: {
-        default: mode === 'light' ? '#ffffff' : '#121212',
-        paper: mode === 'light' ? '#ffffff' : '#1e1e1e',
+        default: mode === 'light' ? '#f7f4f1' : '#121212',
+        paper: mode === 'light' ? '#f7f4f1' : '#1e1e1e',
       },
       text: {
-        primary: mode === 'light' ? '#000000' : '#ffffff',
-        secondary: mode === 'light' ? '#666666' : '#aaaaaa',
+        primary: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
+        secondary:
+          mode === 'light'
+            ? TEXT_COLOR_SECONDARY_LIGHT
+            : TEXT_COLOR_SECONDARY_DARK,
       },
     },
     typography: {
@@ -56,7 +70,10 @@ const getTheme = (mode) =>
             alignItems: 'center',
           },
           filledInfo: {
-            backgroundColor: mode === 'light' ? '#ff6b6b' : '#c92a2a',
+            backgroundColor:
+              mode === 'light'
+                ? SNACKBAR_INFO_COLOR_LIGHT
+                : SNACKBAR_INFO_COLOR_DARK,
           },
         },
       },
