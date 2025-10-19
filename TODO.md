@@ -1,5 +1,9 @@
 # TODO
 
+- when there is a session in progress, we will get 401 and this response. Show a banner that there is a session in progress currently and that the stats will be available after that
+  {
+  "detail": "Session in progress, access is restricted to authenticated users. Sign up here: https://tally.so/r/w2yWDb"
+  }
 - fix header in Spanish locale
 - fix practice stats table when locale is not en
 

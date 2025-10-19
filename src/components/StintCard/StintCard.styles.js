@@ -1,9 +1,22 @@
+import {
+  BACKGROUND_COLOR_LIGHT,
+  BACKGROUND_COLOR_DARK,
+  TEXT_COLOR_LIGHT,
+  TEXT_COLOR_DARK,
+  BORDER_COLOR_LIGHT,
+  BORDER_COLOR_DARK,
+} from '../../constants/globalConsts';
+
 const getStyles = (mode) => ({
   container: {
     textAlign: 'center',
     alignContent: 'center',
-    borderTop: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
-    borderRight: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderTop: `2px solid ${
+      mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_DARK
+    }`,
+    borderRight: `2px solid ${
+      mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_DARK
+    }`,
     borderTopRightRadius: '25px',
     borderBottomRightRadius: '0',
     borderTopLeftRadius: '0',
@@ -19,18 +32,19 @@ const getStyles = (mode) => ({
     padding: '0 7px 0 0',
     top: '-12px',
     left: 0,
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
-    backgroundColor: mode === 'light' ? '#f7f4f1' : '#121212',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
+    backgroundColor:
+      mode === 'light' ? BACKGROUND_COLOR_LIGHT : BACKGROUND_COLOR_DARK,
   },
   lapsCount: {
     height: '55px',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   lapStart: {
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   lapEnd: {
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   tyreCircleContainer: {
     display: 'flex',
@@ -44,7 +58,7 @@ const getStyles = (mode) => ({
   },
   tyreAge: {
     alignSelf: 'flex-end',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
 });
 

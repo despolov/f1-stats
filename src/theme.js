@@ -10,6 +10,10 @@ import {
   TEXT_COLOR_DARK,
   TEXT_COLOR_SECONDARY_LIGHT,
   TEXT_COLOR_SECONDARY_DARK,
+  BACKGROUND_COLOR_LIGHT,
+  BACKGROUND_COLOR_DARK,
+  PAPER_COLOR_LIGHT,
+  PAPER_COLOR_DARK,
 } from './constants/globalConsts';
 
 const getTheme = (mode) =>
@@ -26,8 +30,9 @@ const getTheme = (mode) =>
         main: BRAND_COLOR_DARK,
       },
       background: {
-        default: mode === 'light' ? '#f7f4f1' : '#121212',
-        paper: mode === 'light' ? '#f7f4f1' : '#1e1e1e',
+        default:
+          mode === 'light' ? BACKGROUND_COLOR_LIGHT : BACKGROUND_COLOR_DARK,
+        paper: mode === 'light' ? PAPER_COLOR_LIGHT : PAPER_COLOR_DARK,
       },
       text: {
         primary: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,

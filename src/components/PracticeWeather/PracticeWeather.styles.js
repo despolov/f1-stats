@@ -1,7 +1,17 @@
+import {
+  TEXT_COLOR_LIGHT,
+  TEXT_COLOR_DARK,
+  BORDER_COLOR_REVERSED_LIGHT,
+  BORDER_COLOR_REVERSED_DARK,
+} from '../../constants/globalConsts';
+
 const getStyles = (mode) => ({
   singleWeatherContainer: {
     margin: '5px 0 0 0',
-    borderRight: mode === 'light' ? '2px solid #ffffff' : '2px solid #5a5a5a',
+    borderRight:
+      mode === 'light'
+        ? `2px solid ${BORDER_COLOR_REVERSED_LIGHT}`
+        : `2px solid ${BORDER_COLOR_REVERSED_DARK}`,
     '&:last-child': { borderRight: 'none' },
     padding: '0 10px 0 0',
   },
@@ -27,7 +37,7 @@ const getStyles = (mode) => ({
   },
   weatherValue: {
     fontWeight: 400,
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
 });
 
