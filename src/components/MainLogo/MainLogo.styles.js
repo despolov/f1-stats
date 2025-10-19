@@ -1,3 +1,8 @@
+import {
+  TEXT_COLOR_REVERSED_LIGHT,
+  TEXT_COLOR_DARK,
+} from '../../constants/globalConsts';
+
 const getStyles = (mode) => ({
   link: {
     textDecoration: 'none',
@@ -13,13 +18,13 @@ const getStyles = (mode) => ({
     fontSize: '28px',
     lineHeight: '68px',
     fontWeight: 600,
-    color: mode === 'light' ? '#ffffff' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_REVERSED_LIGHT : TEXT_COLOR_DARK,
   },
   appLabelLogoSmall: {
     fontSize: '14px',
     lineHeight: '68px',
     fontWeight: 600,
-    color: mode === 'light' ? '#ffffff' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_REVERSED_LIGHT : TEXT_COLOR_DARK,
   },
   logoImg: {
     position: 'relative',

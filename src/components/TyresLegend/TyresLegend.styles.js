@@ -1,3 +1,12 @@
+import {
+  TEXT_COLOR_LIGHT,
+  TEXT_COLOR_DARK,
+  SOFT_COMPOUND_COLOR,
+  MEDIUM_COMPOUND_COLOR,
+  INTERMEDIATE_COMPOUND_COLOR,
+  WET_COMPOUND_COLOR,
+} from '../../constants/globalConsts';
+
 const getStyles = (mode) => ({
   container: {
     width: '262px',
@@ -18,7 +27,7 @@ const getStyles = (mode) => ({
   },
   title: {
     fontSize: '16px',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   tyresRow: {
     display: 'flex',
@@ -34,19 +43,19 @@ const getStyles = (mode) => ({
     margin: '0 0 20px 0',
   },
   softLabel: {
-    color: '#F90021',
+    color: SOFT_COMPOUND_COLOR,
   },
   mediumLabel: {
-    color: '#F3C302',
+    color: MEDIUM_COMPOUND_COLOR,
   },
   hardLabel: {
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   intermediateLabel: {
-    color: '#019D2E',
+    color: INTERMEDIATE_COMPOUND_COLOR,
   },
   wetLabel: {
-    color: '#2F62A1',
+    color: WET_COMPOUND_COLOR,
   },
   containerImage: {
     textAlign: 'center',

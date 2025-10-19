@@ -1,6 +1,16 @@
+import {
+  BRAND_COLOR_LIGHT,
+  BRAND_COLOR_DARK,
+  TEXT_COLOR_REVERSED_LIGHT,
+  TEXT_COLOR_REVERSED_LIGHT_HOVER,
+  TEXT_COLOR_DARK,
+  BORDER_COLOR_REVERSED_LIGHT,
+  BORDER_COLOR_DARK,
+} from '../../constants/globalConsts';
+
 const getStyles = (mode) => ({
   header: {
-    background: mode === 'light' ? '#E10600' : '#870400',
+    background: mode === 'light' ? BRAND_COLOR_LIGHT : BRAND_COLOR_DARK,
     height: '68px',
   },
   leftGridContainer: {
@@ -25,29 +35,33 @@ const getStyles = (mode) => ({
     fontSize: '14px',
     lineHeight: '26px',
     fontWeight: 400,
-    color: mode === 'light' ? '#ffffff' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_REVERSED_LIGHT : TEXT_COLOR_DARK,
   },
   buttonTextActive: {
     fontSize: '14px',
     lineHeight: '26px',
     fontWeight: 700,
-    color: mode === 'light' ? '#ffffff' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_REVERSED_LIGHT : TEXT_COLOR_DARK,
   },
   buttonActive: {
-    borderBottom: `1px solid ${mode === 'light' ? '#ffffff' : '#E2E2E2'}`,
-    borderRight: `1px solid ${mode === 'light' ? '#ffffff' : '#E2E2E2'}`,
+    borderBottom: `1px solid ${
+      mode === 'light' ? BORDER_COLOR_REVERSED_LIGHT : BORDER_COLOR_DARK
+    }`,
+    borderRight: `1px solid ${
+      mode === 'light' ? BORDER_COLOR_REVERSED_LIGHT : BORDER_COLOR_DARK
+    }`,
     borderBottomRightRadius: '8px',
     borderBottomLeftRadius: '0',
     borderTopRightRadius: '0',
   },
   drawerIcon: {
-    color: mode === 'light' ? '#ffffff' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_REVERSED_LIGHT : TEXT_COLOR_DARK,
     height: '28px',
     width: '28px',
   },
   drawerListContainer: {
     width: 250,
-    background: mode === 'light' ? '#E10600' : '#870400',
+    background: mode === 'light' ? BRAND_COLOR_LIGHT : BRAND_COLOR_DARK,
     height: '100%',
   },
   drawerList: {
@@ -59,12 +73,12 @@ const getStyles = (mode) => ({
     alignContent: 'center',
   },
   icon: {
-    color: mode === 'light' ? '#ffffff' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_REVERSED_LIGHT : TEXT_COLOR_DARK,
     width: '26px',
     height: '26px',
 
     '&:hover': {
-      color: 'rgba(255, 255, 255, 0.7)',
+      color: TEXT_COLOR_REVERSED_LIGHT_HOVER,
     },
   },
   modeIconContainer: {

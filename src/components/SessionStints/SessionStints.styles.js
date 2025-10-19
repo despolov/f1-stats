@@ -1,21 +1,49 @@
+import {
+  TEXT_COLOR_LIGHT,
+  TEXT_COLOR_DARK,
+  DEFAULT_COMPOUND_COLOR,
+  SOFT_COMPOUND_COLOR,
+  MEDIUM_COMPOUND_COLOR,
+  HARD_COMPOUND_COLOR_LIGHT,
+  HARD_COMPOUND_COLOR_DARK,
+  INTERMEDIATE_COMPOUND_COLOR,
+  WET_COMPOUND_COLOR,
+  DEFAULT_COMPOUND_COLOR_RGBA,
+  SOFT_COMPOUND_COLOR_RGBA,
+  MEDIUM_COMPOUND_COLOR_RGBA,
+  HARD_COMPOUND_COLOR_LIGHT_RGBA,
+  HARD_COMPOUND_COLOR_DARK_RGBA,
+  INTERMEDIATE_COMPOUND_COLOR_RGBA,
+  WET_COMPOUND_COLOR_RGBA,
+  BORDER_COLOR_LIGHT,
+  BORDER_COLOR_DARK,
+} from '../../constants/globalConsts';
+
 const getStyles = (mode) => ({
-  defaultCompoundColor: '#808080',
-  softCompoundColor: '#F90021',
-  mediumCompoundColor: '#F3C302',
-  hardCompoundColor: mode === 'light' ? '#2F2D2B' : '#6d6c6b',
-  intermediateCompoundColor: '#019D2E',
-  wetCompoundColor: '#2F62A1',
-  defaultCompoundColorRgba: 'rgb(128,128,128, 0.1)',
-  softCompoundColorRgba: 'rgb(249, 0, 33, 0.1)',
-  mediumCompoundColorRgba: 'rgb(243, 195, 2, 0.1)',
+  defaultCompoundColor: DEFAULT_COMPOUND_COLOR,
+  softCompoundColor: SOFT_COMPOUND_COLOR,
+  mediumCompoundColor: MEDIUM_COMPOUND_COLOR,
+  hardCompoundColor:
+    mode === 'light' ? HARD_COMPOUND_COLOR_LIGHT : HARD_COMPOUND_COLOR_DARK,
+  intermediateCompoundColor: INTERMEDIATE_COMPOUND_COLOR,
+  wetCompoundColor: WET_COMPOUND_COLOR,
+  defaultCompoundColorRgba: DEFAULT_COMPOUND_COLOR_RGBA,
+  softCompoundColorRgba: SOFT_COMPOUND_COLOR_RGBA,
+  mediumCompoundColorRgba: MEDIUM_COMPOUND_COLOR_RGBA,
   hardCompoundColorRgba:
-    mode === 'light' ? 'rgb(47, 45, 43, 0.1)' : 'rgb(109, 108, 107, 0.1)',
-  intermediateCompoundColorRgba: 'rgb(1, 157, 46, 0.1)',
-  wetCompoundColorRgba: 'rgb(47, 98, 161, 0.1)',
+    mode === 'light'
+      ? HARD_COMPOUND_COLOR_LIGHT_RGBA
+      : HARD_COMPOUND_COLOR_DARK_RGBA,
+  intermediateCompoundColorRgba: INTERMEDIATE_COMPOUND_COLOR_RGBA,
+  wetCompoundColorRgba: WET_COMPOUND_COLOR_RGBA,
   container: {
     padding: '5px 5px 5px 0',
-    borderTop: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
-    borderRight: `2px solid ${mode === 'light' ? '#000000' : '#E2E2E2'}`,
+    borderTop: `2px solid ${
+      mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_DARK
+    }`,
+    borderRight: `2px solid ${
+      mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_DARK
+    }`,
     borderTopRightRadius: '25px',
     borderBottomRightRadius: '0',
     borderTopLeftRadius: '0',
@@ -25,12 +53,12 @@ const getStyles = (mode) => ({
     margin: '0 0 10px 0',
     fontSize: '1.17em',
     fontWeight: 'bold',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   subTitle: {
     margin: '0 0 5px 0',
     fontWeight: 400,
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   titleContainer: {
     display: 'flex',
@@ -55,7 +83,7 @@ const getStyles = (mode) => ({
   },
   stintsBreakDownTitle: {
     margin: '0',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   stintCardsContainer: {
     display: 'flex',
@@ -79,7 +107,7 @@ const getStyles = (mode) => ({
   accordion: {
     padding: '0',
     backgroundColor: 'transparent',
-    border: '2px solid #E2E2E2',
+    border: `2px solid ${BORDER_COLOR_DARK}`,
     borderLeft: 'transparent',
     borderRight: 'transparent',
     borderBottom: 'transparent',
@@ -89,7 +117,7 @@ const getStyles = (mode) => ({
     },
   },
   expandIcon: {
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
 });
 

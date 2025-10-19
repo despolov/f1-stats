@@ -1,9 +1,16 @@
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
+import {
+  TEXT_COLOR_LIGHT,
+  TEXT_COLOR_DARK,
+  BACKGROUND_COLOR_PURE_LIGHT,
+  BACKGROUND_COLOR_DARK_3,
+} from '../../constants/globalConsts';
 
 const getStyles = (mode) => ({
   container: {
     width: '50%',
-    backgroundColor: mode === 'light' ? '#ffffff' : '#2E2E2E',
+    backgroundColor:
+      mode === 'light' ? BACKGROUND_COLOR_PURE_LIGHT : BACKGROUND_COLOR_DARK_3,
     borderRadius: '4px',
     boxShadow:
       '0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)',
@@ -11,7 +18,8 @@ const getStyles = (mode) => ({
   },
   containerMobile: {
     width: '100%',
-    backgroundColor: mode === 'light' ? '#ffffff' : '#2E2E2E',
+    backgroundColor:
+      mode === 'light' ? BACKGROUND_COLOR_PURE_LIGHT : BACKGROUND_COLOR_DARK_3,
     borderRadius: '4px',
     boxShadow:
       '0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)',
@@ -20,10 +28,10 @@ const getStyles = (mode) => ({
   barChart: {
     [`.${axisClasses.root}`]: {
       [`.${axisClasses.tick}, .${axisClasses.line}`]: {
-        stroke: mode === 'light' ? '#000000' : '#E2E2E2',
+        stroke: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
       },
       [`.${axisClasses.tickLabel}`]: {
-        fill: mode === 'light' ? '#000000' : '#E2E2E2',
+        fill: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
       },
     },
   },

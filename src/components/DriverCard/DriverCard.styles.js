@@ -1,3 +1,9 @@
+import {
+  TEXT_COLOR_LIGHT,
+  TEXT_COLOR_DARK,
+  TEXT_COLOR_SECONDARY_LIGHT,
+} from '../../constants/globalConsts';
+
 const getStyles = (mode) => ({
   nameContainer: {
     display: 'flex',
@@ -8,14 +14,14 @@ const getStyles = (mode) => ({
   },
   firstName: {
     marginRight: '5px',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   lastName: {
     fontWeight: 600,
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
   teamName: {
-    color: '#67676D',
+    color: TEXT_COLOR_SECONDARY_LIGHT,
     fontSize: '12px',
   },
   driverNumber: {
@@ -25,7 +31,7 @@ const getStyles = (mode) => ({
   iconPerson: {
     width: '93px',
     height: '93px',
-    color: mode === 'light' ? '#000000' : '#E2E2E2',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
 });
 

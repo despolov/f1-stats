@@ -1,10 +1,19 @@
+import {
+  DEFAULT_COMPOUND_COLOR,
+  SOFT_COMPOUND_COLOR,
+  MEDIUM_COMPOUND_COLOR,
+  HARD_COMPOUND_COLOR_LIGHT,
+  INTERMEDIATE_COMPOUND_COLOR,
+  WET_COMPOUND_COLOR,
+} from '../../constants/globalConsts';
+
 const getStyles = () => ({
-  defaultCompoundColor: '#808080',
-  softCompoundColor: '#F90021',
-  mediumCompoundColor: '#F3C302',
-  hardCompoundColor: '#2F2D2B',
-  intermediateCompoundColor: '#019D2E',
-  wetCompoundColor: '#2F62A1',
+  defaultCompoundColor: DEFAULT_COMPOUND_COLOR,
+  softCompoundColor: SOFT_COMPOUND_COLOR,
+  mediumCompoundColor: MEDIUM_COMPOUND_COLOR,
+  hardCompoundColor: HARD_COMPOUND_COLOR_LIGHT,
+  intermediateCompoundColor: INTERMEDIATE_COMPOUND_COLOR,
+  wetCompoundColor: WET_COMPOUND_COLOR,
   container: {
     display: 'flex',
     height: '26px',
