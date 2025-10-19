@@ -107,6 +107,7 @@ const getStyles = (mode) => ({
   accordion: {
     padding: '0',
     backgroundColor: 'transparent',
+    backgroundImage: 'none',
     border: `2px solid ${BORDER_COLOR_DARK}`,
     borderLeft: 'transparent',
     borderRight: 'transparent',
