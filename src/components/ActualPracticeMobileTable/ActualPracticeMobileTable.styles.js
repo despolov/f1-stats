@@ -11,6 +11,7 @@ import {
   BACKGROUND_COLOR_DARK_7,
   BORDER_COLOR_DARK,
   BORDER_COLOR_REVERSED_DARK_3,
+  BORDER_COLOR_LIGHT,
 } from '../../constants/globalConsts';
 
 const getStyles = (mode) => ({
