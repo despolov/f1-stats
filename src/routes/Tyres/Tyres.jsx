@@ -7,6 +7,7 @@ import {
   Typography,
   Box,
   IconButton,
+  Chip,
 } from '@mui/material';
 import { Refresh as RefreshIcon } from '@mui/icons-material';
 import moment from 'moment';
@@ -44,6 +45,7 @@ const Tyres = () => {
   const [countriesLoading, setCountriesLoading] = useState(false);
   const [tyresStatsLoading, setTyresStatsLoading] = useState(false);
   const [error, setStateError] = useState('');
+  const [isSessionInProgress, setIsSessionInProgress] = useState(false);
   const [tyresStats, setTyresStats] = useState({});
   const [isSprintWeekend, setIsSprintWeekend] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -83,24 +85,26 @@ const Tyres = () => {
   }, []);
 
   useEffect(() => {
+    setSearchParams((params) => {
+      params.set('year', year);
+      return params;
+    });
+
     if (year) {
-      setSearchParams((params) => {
-        params.set('year', year);
-        return params;
-      });
       getCountries(year);
       setCountriesLoading(true);
     }
   }, [year]);
 
   useEffect(() => {
+    setSearchParams((params) => {
+      params.set('country', country);
+      return params;
+    });
+
     if (country) {
       const countrySplittedByMeetingDelimiter = country.split(' | ');
 
-      setSearchParams((params) => {
-        params.set('country', country);
-        return params;
-      });
       setTyresStatsLoading(true);
       getTyresStats(
         year,
@@ -120,6 +124,7 @@ const Tyres = () => {
     setTyresStats({});
     setIsSprintWeekend(false);
     setStateError('');
+    setIsSessionInProgress(false);
     setProgress(0);
   };
 
@@ -135,13 +140,11 @@ const Tyres = () => {
     resetData();
   };
 
-  const setError = (errorMessage) => {
+  const setError = (errorMessage, sessionInProgress = false) => {
     setTyresStatsLoading(false);
     setCountriesLoading(false);
-    setYear('');
-    setCountry('');
-    setCountries([]);
     setStateError(errorMessage);
+    setIsSessionInProgress(sessionInProgress);
     setProgress(0);
   };
 
@@ -149,7 +152,7 @@ const Tyres = () => {
     const allGrandPrix = await getAllGrandPrix(selectedYear);
 
     if (allGrandPrix.hasError) {
-      setError(allGrandPrix.message);
+      setError(allGrandPrix.message, allGrandPrix.isSessionInProgress);
       return;
     }
 
@@ -388,26 +391,50 @@ const Tyres = () => {
 
           <Box sx={styles.divider} />
 
-          <Typography component="h3" sx={styles.titleError}>
-            {intl.formatMessage({ id: 'tyres.errorTitle' })}
-          </Typography>
+          {isSessionInProgress ? (
+            <>
+              <Box sx={styles.liveSessionContainer}>
+                <Chip
+                  label={intl.formatMessage({
+                    id: 'tyres.liveSessionChip',
+                  })}
+                  sx={styles.liveChip}
+                />
+                <Typography component="h3" sx={styles.titleLiveSession}>
+                  {intl.formatMessage({ id: 'tyres.liveSessionTitle' })}
+                </Typography>
+              </Box>
 
-          <Typography component="h3" sx={styles.subTitleError}>
-            "{error}"
-          </Typography>
+              <Typography component="h3" sx={styles.subTitleError}>
+                {intl.formatMessage({
+                  id: 'tyres.liveSessionMessage',
+                })}
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography component="h3" sx={styles.titleError}>
+                {intl.formatMessage({ id: 'tyres.errorTitle' })}
+              </Typography>
 
-          <Box sx={styles.refreshContainerError}>
-            <Typography sx={styles.refreshLabelError}>
-              {intl.formatMessage({ id: 'tyres.refreshLabel' })}
-            </Typography>
+              <Typography component="h3" sx={styles.subTitleError}>
+                "{error}"
+              </Typography>
 
-            <IconButton
-              sx={styles.refreshButtonError}
-              onClick={() => window.location.reload()}
-            >
-              <RefreshIcon sx={styles.refreshIconError} />
-            </IconButton>
-          </Box>
+              <Box sx={styles.refreshContainerError}>
+                <Typography sx={styles.refreshLabelError}>
+                  {intl.formatMessage({ id: 'tyres.refreshLabel' })}
+                </Typography>
+
+                <IconButton
+                  sx={styles.refreshButtonError}
+                  onClick={() => window.location.reload()}
+                >
+                  <RefreshIcon sx={styles.refreshIconError} />
+                </IconButton>
+              </Box>
+            </>
+          )}
         </Box>
       </Layout>
     );

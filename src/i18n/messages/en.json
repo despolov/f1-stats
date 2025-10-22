@@ -21,6 +21,9 @@
 
   "practiceStats.loadingStats": "Loading practice stats...",
   "practiceStats.errorTitle": "There seems to be a problem!",
+  "practiceStats.liveSessionTitle": "Session in Progress",
+  "practiceStats.liveSessionChip": "LIVE",
+  "practiceStats.liveSessionMessage": "Stats are temporarily unavailable during active sessions. Please check back once the session concludes!",
   "practiceStats.refreshLabel": "Try refreshing the page →",
   "practiceStats.description": "Select year and country in order to see practice actual and aggregated results",
   "practiceStats.practice1": "Practice 1",
@@ -63,6 +66,9 @@
 
   "race.loadingIntervals": "Loading race intervals...",
   "race.errorTitle": "There seems to be a problem!",
+  "race.liveSessionTitle": "Session in Progress",
+  "race.liveSessionChip": "LIVE",
+  "race.liveSessionMessage": "Stats are temporarily unavailable during active sessions. Please check back once the session concludes!",
   "race.refreshLabel": "Try refreshing the page →",
   "race.description": "Select year, country and driver to see race interval data",
   "race.noSessionFound": "No race session found for this meeting",
@@ -105,6 +111,9 @@
 
   "tyres.loadingStats": "Loading tyre stats...",
   "tyres.errorTitle": "There seems to be a problem!",
+  "tyres.liveSessionTitle": "Session in Progress",
+  "tyres.liveSessionChip": "LIVE",
+  "tyres.liveSessionMessage": "Stats are temporarily unavailable during active sessions. Please check back once the session concludes!",
   "tyres.refreshLabel": "Try refreshing the page →",
   "tyres.description": "Select year and country in order to see tyre stats",
   "tyres.subTitleSprint": "New and used tyres from practices, sprint and qualifying",
@@ -127,6 +136,9 @@
 
   "stints.loadingStints": "Loading stints...",
   "stints.errorTitle": "There seems to be a problem!",
+  "stints.liveSessionTitle": "Session in Progress",
+  "stints.liveSessionChip": "LIVE",
+  "stints.liveSessionMessage": "Stats are temporarily unavailable during active sessions. Please check back once the session concludes!",
   "stints.refreshLabel": "Try refreshing the page →",
   "stints.description": "Select year, country and driver in order to see stint stats",
   "stints.notAvailable": "n/a",
@@ -158,6 +170,9 @@
 
   "teamRadio.loadingTeamRadio": "Loading team radio...",
   "teamRadio.errorTitle": "There seems to be a problem!",
+  "teamRadio.liveSessionTitle": "Session in Progress",
+  "teamRadio.liveSessionChip": "LIVE",
+  "teamRadio.liveSessionMessage": "Stats are temporarily unavailable during active sessions. Please check back once the session concludes!",
   "teamRadio.refreshLabel": "Try refreshing the page →",
   "teamRadio.description": "Select year, country and driver in order to see team radio",
   "teamRadio.notAvailable": "n/a",

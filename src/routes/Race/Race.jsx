@@ -7,6 +7,7 @@ import {
   IconButton,
   Box,
   Typography,
+  Chip,
 } from '@mui/material';
 import { Refresh as RefreshIcon } from '@mui/icons-material';
 import { useSearchParams, useNavigate } from 'react-router';
@@ -56,6 +57,7 @@ const Race = () => {
   const [driverData, setDriverData] = useState();
   const [intervalsLoading, setIntervalsLoading] = useState(false);
   const [error, setStateError] = useState('');
+  const [isSessionInProgress, setIsSessionInProgress] = useState(false);
   const [intervals, setIntervals] = useState([]);
   const [positions, setPositions] = useState([]);
   const [allPositions, setAllPositions] = useState([]);
@@ -93,22 +95,24 @@ const Race = () => {
   }, []);
 
   useEffect(() => {
+    setSearchParams((params) => {
+      params.set('year', year);
+      return params;
+    });
+
     if (year) {
-      setSearchParams((params) => {
-        params.set('year', year);
-        return params;
-      });
       getCountries(year);
       setCountriesLoading(true);
     }
   }, [year]);
 
   useEffect(() => {
+    setSearchParams((params) => {
+      params.set('country', country);
+      return params;
+    });
+
     if (country && meetingKey) {
-      setSearchParams((params) => {
-        params.set('country', country);
-        return params;
-      });
       setDriversLoading(true);
       getAllDrivers(meetingKey);
       getAllPositionsData();
@@ -116,18 +120,15 @@ const Race = () => {
   }, [country, meetingKey]);
 
   useEffect(() => {
+    setSearchParams((params) => {
+      params.set('driver', driver);
+      return params;
+    });
+
     if (driver && driverNumber) {
-      setSearchParams((params) => {
-        params.set('driver', driver);
-        return params;
-      });
       setIntervalsLoading(true);
       getIntervalsData();
     } else if (meetingKey && !driver) {
-      setSearchParams((params) => {
-        params.set('driver', driver);
-        return params;
-      });
       setDriversLoading(true);
       getAllDrivers(meetingKey);
       getAllPositionsData();
@@ -142,13 +143,12 @@ const Race = () => {
     }
   }, [driverNumber, allDriverData]);
 
-  const setError = (errorMessage) => {
+  const setError = (errorMessage, sessionInProgress = false) => {
     setIntervalsLoading(false);
-    setYear('');
-    setCountry('');
-    setDriverNumber('');
-    setMeetingKey('');
+    setCountriesLoading(false);
+    setDriversLoading(false);
     setStateError(errorMessage);
+    setIsSessionInProgress(sessionInProgress);
     setProgress(0);
   };
 
@@ -168,6 +168,7 @@ const Race = () => {
     setAllPositions([]);
     setDriverData();
     setStateError('');
+    setIsSessionInProgress(false);
     setProgress(0);
   };
 
@@ -235,7 +236,7 @@ const Race = () => {
     const allGrandPrix = await getAllGrandPrix(selectedYear);
 
     if (allGrandPrix.hasError) {
-      setError(allGrandPrix.message);
+      setError(allGrandPrix.message, allGrandPrix.isSessionInProgress);
       return;
     }
 
@@ -366,34 +367,71 @@ const Race = () => {
         <Box
           sx={{
             ...styles.parentContainer,
-            ...(isDesktop
-              ? styles.parentContainerError
-              : styles.parentContainerMobileError),
+            ...(isDesktop ? {} : styles.parentContainerMobile),
           }}
         >
-          <Typography component="h3" sx={styles.titleError}>
-            {intl.formatMessage({ id: 'race.errorTitle' })}
-          </Typography>
+          <RaceSelect
+            year={year}
+            handleYearChange={handleYearChange}
+            years={years}
+            country={country}
+            handleCountryChange={handleCountryChange}
+            countries={countries}
+            countriesLoading={countriesLoading}
+            isDriversVisible
+            driver={driver}
+            handleDriverChange={handleDriverChange}
+            drivers={drivers}
+            driversLoading={driversLoading}
+            allowEmptyDriver={true}
+          />
 
-          <Typography
-            component="h3"
-            sx={{ ...styles.title, ...styles.errorMessage }}
-          >
-            "{error}"
-          </Typography>
+          <Box sx={styles.divider} />
 
-          <Box sx={styles.refreshContainerError}>
-            <Typography sx={styles.refreshLabelError}>
-              {intl.formatMessage({ id: 'race.refreshLabel' })}
-            </Typography>
+          {isSessionInProgress ? (
+            <>
+              <Box sx={styles.liveSessionContainer}>
+                <Chip
+                  label={intl.formatMessage({
+                    id: 'race.liveSessionChip',
+                  })}
+                  sx={styles.liveChip}
+                />
+                <Typography component="h3" sx={styles.titleLiveSession}>
+                  {intl.formatMessage({ id: 'race.liveSessionTitle' })}
+                </Typography>
+              </Box>
 
-            <IconButton
-              sx={styles.refreshButtonError}
-              onClick={() => window.location.reload()}
-            >
-              <RefreshIcon sx={styles.refreshIconError} />
-            </IconButton>
-          </Box>
+              <Typography component="h3" sx={styles.subTitleError}>
+                {intl.formatMessage({
+                  id: 'race.liveSessionMessage',
+                })}
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography component="h3" sx={styles.titleError}>
+                {intl.formatMessage({ id: 'race.errorTitle' })}
+              </Typography>
+
+              <Typography component="h3" sx={styles.subTitleError}>
+                "{error}"
+              </Typography>
+
+              <Box sx={styles.refreshContainerError}>
+                <Typography sx={styles.refreshLabelError}>
+                  {intl.formatMessage({ id: 'race.refreshLabel' })}
+                </Typography>
+
+                <IconButton
+                  sx={styles.refreshButtonError}
+                  onClick={() => window.location.reload()}
+                >
+                  <RefreshIcon sx={styles.refreshIconError} />
+                </IconButton>
+              </Box>
+            </>
+          )}
         </Box>
       </Layout>
     );

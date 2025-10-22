@@ -9,6 +9,7 @@ import {
   Box,
   Typography,
   IconButton,
+  Chip,
 } from '@mui/material';
 import { Refresh as RefreshIcon } from '@mui/icons-material';
 import { getAllGrandPrix, getWeather } from '../../api';
@@ -66,6 +67,7 @@ const PracticeStats = () => {
   const [practiceStatsLoading, setPracticeStatsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setStateError] = useState('');
+  const [isSessionInProgress, setIsSessionInProgress] = useState(false);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const [searchParams, setSearchParams] = useSearchParams();
@@ -108,22 +110,24 @@ const PracticeStats = () => {
   }, []);
 
   useEffect(() => {
+    setSearchParams((params) => {
+      params.set('year', year);
+      return params;
+    });
+
     if (year) {
-      setSearchParams((params) => {
-        params.set('year', year);
-        return params;
-      });
       getCountries(year);
       setCountriesLoading(true);
     }
   }, [year]);
 
   useEffect(() => {
+    setSearchParams((params) => {
+      params.set('country', country);
+      return params;
+    });
+
     if (country) {
-      setSearchParams((params) => {
-        params.set('country', country);
-        return params;
-      });
       setPracticeStatsLoading(true);
       getAllPracticesStats(
         year,
@@ -133,13 +137,11 @@ const PracticeStats = () => {
     }
   }, [country]);
 
-  const setError = (errorMessage) => {
+  const setError = (errorMessage, sessionInProgress = false) => {
     setPracticeStatsLoading(false);
     setCountriesLoading(false);
-    setYear('');
-    setCountry('');
-    setCountries([]);
     setStateError(errorMessage);
+    setIsSessionInProgress(sessionInProgress);
     setProgress(0);
   };
 
@@ -170,6 +172,7 @@ const PracticeStats = () => {
     setPractice2TimePeriod({});
     setPractice3TimePeriod({});
     setStateError('');
+    setIsSessionInProgress(false);
     setProgress(0);
   };
 
@@ -182,7 +185,7 @@ const PracticeStats = () => {
     const allGrandPrix = await getAllGrandPrix(selectedYear);
 
     if (allGrandPrix.hasError) {
-      setError(allGrandPrix.message);
+      setError(allGrandPrix.message, allGrandPrix.isSessionInProgress);
       return;
     }
 
@@ -500,26 +503,50 @@ const PracticeStats = () => {
 
           <Box sx={styles.divider} />
 
-          <Typography component="h3" sx={styles.titleError}>
-            {intl.formatMessage({ id: 'practiceStats.errorTitle' })}
-          </Typography>
+          {isSessionInProgress ? (
+            <>
+              <Box sx={styles.liveSessionContainer}>
+                <Chip
+                  label={intl.formatMessage({
+                    id: 'practiceStats.liveSessionChip',
+                  })}
+                  sx={styles.liveChip}
+                />
+                <Typography component="h3" sx={styles.titleLiveSession}>
+                  {intl.formatMessage({ id: 'practiceStats.liveSessionTitle' })}
+                </Typography>
+              </Box>
 
-          <Typography component="h3" sx={styles.subTitleError}>
-            "{error}"
-          </Typography>
+              <Typography component="h3" sx={styles.subTitleError}>
+                {intl.formatMessage({
+                  id: 'practiceStats.liveSessionMessage',
+                })}
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography component="h3" sx={styles.titleError}>
+                {intl.formatMessage({ id: 'practiceStats.errorTitle' })}
+              </Typography>
 
-          <Box sx={styles.refreshContainerError}>
-            <Typography sx={styles.refreshLabelError}>
-              {intl.formatMessage({ id: 'practiceStats.refreshLabel' })}
-            </Typography>
+              <Typography component="h3" sx={styles.subTitleError}>
+                "{error}"
+              </Typography>
 
-            <IconButton
-              sx={styles.refreshButtonError}
-              onClick={() => window.location.reload()}
-            >
-              <RefreshIcon sx={styles.refreshIconError} />
-            </IconButton>
-          </Box>
+              <Box sx={styles.refreshContainerError}>
+                <Typography sx={styles.refreshLabelError}>
+                  {intl.formatMessage({ id: 'practiceStats.refreshLabel' })}
+                </Typography>
+
+                <IconButton
+                  sx={styles.refreshButtonError}
+                  onClick={() => window.location.reload()}
+                >
+                  <RefreshIcon sx={styles.refreshIconError} />
+                </IconButton>
+              </Box>
+            </>
+          )}
         </Box>
       </Layout>
     );

@@ -21,6 +21,9 @@
 
   "practiceStats.loadingStats": "Cargando estadísticas de entrenamientos...",
   "practiceStats.errorTitle": "¡Parece que hay un problema!",
+  "practiceStats.liveSessionTitle": "Sesión en curso",
+  "practiceStats.liveSessionChip": "EN VIVO",
+  "practiceStats.liveSessionMessage": "Las estadísticas no están disponibles temporalmente durante las sesiones activas. ¡Por favor, vuelve una vez que concluya la sesión!",
   "practiceStats.refreshLabel": "Intenta recargar la página →",
   "practiceStats.description": "Selecciona año y país para ver los resultados reales y agregados de los entrenamientos",
   "practiceStats.practice1": "Entrenamiento 1",
@@ -63,6 +66,9 @@
 
   "race.loadingIntervals": "Cargando intervalos de carrera...",
   "race.errorTitle": "¡Parece que hay un problema!",
+  "race.liveSessionTitle": "Sesión en curso",
+  "race.liveSessionChip": "EN VIVO",
+  "race.liveSessionMessage": "Las estadísticas no están disponibles temporalmente durante las sesiones activas. ¡Por favor, vuelve una vez que concluya la sesión!",
   "race.refreshLabel": "Intenta recargar la página →",
   "race.description": "Selecciona año, país y piloto para ver los datos de intervalos de carrera",
   "race.noSessionFound": "No se encontró sesión de carrera para este evento",
@@ -105,6 +111,9 @@
 
   "tyres.loadingStats": "Cargando estadísticas de neumáticos...",
   "tyres.errorTitle": "¡Parece que hay un problema!",
+  "tyres.liveSessionTitle": "Sesión en curso",
+  "tyres.liveSessionChip": "EN VIVO",
+  "tyres.liveSessionMessage": "Las estadísticas no están disponibles temporalmente durante las sesiones activas. ¡Por favor, vuelve una vez que concluya la sesión!",
   "tyres.refreshLabel": "Intenta recargar la página →",
   "tyres.description": "Selecciona año y país para ver las estadísticas de neumáticos",
   "tyres.subTitleSprint": "Neumáticos nuevos y usados de entrenamientos, sprint y clasificación",
@@ -127,6 +136,9 @@
 
   "stints.loadingStints": "Cargando stints...",
   "stints.errorTitle": "¡Parece que hay un problema!",
+  "stints.liveSessionTitle": "Sesión en curso",
+  "stints.liveSessionChip": "EN VIVO",
+  "stints.liveSessionMessage": "Las estadísticas no están disponibles temporalmente durante las sesiones activas. ¡Por favor, vuelve una vez que concluya la sesión!",
   "stints.refreshLabel": "Intenta recargar la página →",
   "stints.description": "Selecciona año, país y piloto para ver las estadísticas de stints",
   "stints.notAvailable": "n/d",
@@ -158,6 +170,9 @@
 
   "teamRadio.loadingTeamRadio": "Cargando radio de equipo...",
   "teamRadio.errorTitle": "¡Parece que hay un problema!",
+  "teamRadio.liveSessionTitle": "Sesión en curso",
+  "teamRadio.liveSessionChip": "EN VIVO",
+  "teamRadio.liveSessionMessage": "Las estadísticas no están disponibles temporalmente durante las sesiones activas. ¡Por favor, vuelve una vez que concluya la sesión!",
   "teamRadio.refreshLabel": "Intenta recargar la página →",
   "teamRadio.description": "Selecciona año, país y piloto para ver el radio de equipo",
   "teamRadio.notAvailable": "n/d",

@@ -7,6 +7,7 @@ import {
   IconButton,
   Box,
   Typography,
+  Chip,
 } from '@mui/material';
 import { Refresh as RefreshIcon } from '@mui/icons-material';
 import { useSearchParams, useNavigate } from 'react-router';
@@ -49,6 +50,7 @@ const TeamRadio = () => {
   const [driverData, setDriverData] = useState();
   const [teamRadioLoading, setTeamRadioLoading] = useState(false);
   const [error, setStateError] = useState('');
+  const [isSessionInProgress, setIsSessionInProgress] = useState(false);
   const [teamRadio, setTeamRadio] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -88,46 +90,47 @@ const TeamRadio = () => {
   }, []);
 
   useEffect(() => {
+    setSearchParams((params) => {
+      params.set('year', year);
+      return params;
+    });
+
     if (year) {
-      setSearchParams((params) => {
-        params.set('year', year);
-        return params;
-      });
       getCountries(year);
       setCountriesLoading(true);
     }
   }, [year]);
 
   useEffect(() => {
+    setSearchParams((params) => {
+      params.set('country', country);
+      return params;
+    });
+
     if (country) {
-      setSearchParams((params) => {
-        params.set('country', country);
-        return params;
-      });
       setDriversLoading(true);
       getAllDrivers(meetingKey);
     }
   }, [country]);
 
   useEffect(() => {
-    if (driver && driverNumber) {
-      setSearchParams((params) => {
-        params.set('driver', driver);
-        return params;
-      });
+    setSearchParams((params) => {
+      params.set('driver', driver);
+      return params;
+    });
 
+    if (driver && driverNumber) {
       setTeamRadioLoading(true);
       getTeamRadio();
     }
   }, [driver, driverNumber]);
 
-  const setError = (errorMessage) => {
+  const setError = (errorMessage, sessionInProgress = false) => {
     setTeamRadioLoading(false);
-    setYear('');
-    setCountry('');
-    setDriverNumber('');
-    setMeetingKey('');
+    setCountriesLoading(false);
+    setDriversLoading(false);
     setStateError(errorMessage);
+    setIsSessionInProgress(sessionInProgress);
     setProgress(0);
   };
 
@@ -144,6 +147,7 @@ const TeamRadio = () => {
     setTeamRadio({});
     setDriverData();
     setStateError('');
+    setIsSessionInProgress(false);
     setProgress(0);
   };
 
@@ -210,7 +214,7 @@ const TeamRadio = () => {
     const allGrandPrix = await getAllGrandPrix(selectedYear);
 
     if (allGrandPrix.hasError) {
-      setError(allGrandPrix.message);
+      setError(allGrandPrix.message, allGrandPrix.isSessionInProgress);
       return;
     }
 
@@ -385,34 +389,70 @@ const TeamRadio = () => {
         <Box
           sx={{
             ...styles.parentContainer,
-            ...(isDesktop
-              ? styles.parentContainerError
-              : styles.parentContainerMobileError),
+            ...(isDesktop ? {} : styles.parentContainerMobile),
           }}
         >
-          <Typography component="h3" sx={styles.titleError}>
-            {intl.formatMessage({ id: 'teamRadio.errorTitle' })}
-          </Typography>
+          <RaceSelect
+            year={year}
+            handleYearChange={handleYearChange}
+            years={years}
+            country={country}
+            handleCountryChange={handleCountryChange}
+            countries={countries}
+            countriesLoading={countriesLoading}
+            isDriversVisible
+            driver={driver}
+            handleDriverChange={handleDriverChange}
+            drivers={drivers}
+            driversLoading={driversLoading}
+          />
 
-          <Typography
-            component="h3"
-            sx={{ ...styles.title, ...styles.errorMessage }}
-          >
-            "{error}"
-          </Typography>
+          <Box sx={styles.divider} />
 
-          <Box sx={styles.refreshContainerError}>
-            <Typography sx={styles.refreshLabelError}>
-              {intl.formatMessage({ id: 'teamRadio.refreshLabel' })}
-            </Typography>
+          {isSessionInProgress ? (
+            <>
+              <Box sx={styles.liveSessionContainer}>
+                <Chip
+                  label={intl.formatMessage({
+                    id: 'teamRadio.liveSessionChip',
+                  })}
+                  sx={styles.liveChip}
+                />
+                <Typography component="h3" sx={styles.titleLiveSession}>
+                  {intl.formatMessage({ id: 'teamRadio.liveSessionTitle' })}
+                </Typography>
+              </Box>
 
-            <IconButton
-              sx={styles.refreshButtonError}
-              onClick={() => window.location.reload()}
-            >
-              <RefreshIcon sx={styles.refreshIconError} />
-            </IconButton>
-          </Box>
+              <Typography component="h3" sx={styles.subTitleError}>
+                {intl.formatMessage({
+                  id: 'teamRadio.liveSessionMessage',
+                })}
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography component="h3" sx={styles.titleError}>
+                {intl.formatMessage({ id: 'teamRadio.errorTitle' })}
+              </Typography>
+
+              <Typography component="h3" sx={styles.subTitleError}>
+                "{error}"
+              </Typography>
+
+              <Box sx={styles.refreshContainerError}>
+                <Typography sx={styles.refreshLabelError}>
+                  {intl.formatMessage({ id: 'teamRadio.refreshLabel' })}
+                </Typography>
+
+                <IconButton
+                  sx={styles.refreshButtonError}
+                  onClick={() => window.location.reload()}
+                >
+                  <RefreshIcon sx={styles.refreshIconError} />
+                </IconButton>
+              </Box>
+            </>
+          )}
         </Box>
       </Layout>
     );

@@ -21,6 +21,9 @@
 
   "practiceStats.loadingStats": "Trainingsstatistiken laden...",
   "practiceStats.errorTitle": "Es scheint ein Problem zu geben!",
+  "practiceStats.liveSessionTitle": "Sitzung läuft",
+  "practiceStats.liveSessionChip": "LIVE",
+  "practiceStats.liveSessionMessage": "Statistiken sind während aktiver Sitzungen vorübergehend nicht verfügbar. Bitte schauen Sie nach Abschluss der Sitzung wieder vorbei!",
   "practiceStats.refreshLabel": "Versuche die Seite zu aktualisieren →",
   "practiceStats.description": "Wählen Sie Jahr und Land aus, um die tatsächlichen und zusammengefassten Trainingsergebnisse zu sehen",
   "practiceStats.practice1": "Training 1",
@@ -63,6 +66,9 @@
 
   "race.loadingIntervals": "Rennintervalle laden...",
   "race.errorTitle": "Es scheint ein Problem zu geben!",
+  "race.liveSessionTitle": "Sitzung läuft",
+  "race.liveSessionChip": "LIVE",
+  "race.liveSessionMessage": "Statistiken sind während aktiver Sitzungen vorübergehend nicht verfügbar. Bitte schauen Sie nach Abschluss der Sitzung wieder vorbei!",
   "race.refreshLabel": "Versuche die Seite zu aktualisieren →",
   "race.description": "Wählen Sie Jahr, Land und Fahrer aus, um die Rennintervall-Daten zu sehen",
   "race.noSessionFound": "Keine Rennsitzung für dieses Meeting gefunden",
@@ -105,6 +111,9 @@
 
   "tyres.loadingStats": "Reifenstatistiken laden...",
   "tyres.errorTitle": "Es scheint ein Problem zu geben!",
+  "tyres.liveSessionTitle": "Sitzung läuft",
+  "tyres.liveSessionChip": "LIVE",
+  "tyres.liveSessionMessage": "Statistiken sind während aktiver Sitzungen vorübergehend nicht verfügbar. Bitte schauen Sie nach Abschluss der Sitzung wieder vorbei!",
   "tyres.refreshLabel": "Versuche die Seite zu aktualisieren →",
   "tyres.description": "Wählen Sie Jahr und Land aus, um Reifenstatistiken zu sehen",
   "tyres.subTitleSprint": "Neue und gebrauchte Reifen aus Training, Sprint und Qualifying",
@@ -127,6 +136,9 @@
 
   "stints.loadingStints": "Stints laden...",
   "stints.errorTitle": "Es scheint ein Problem zu geben!",
+  "stints.liveSessionTitle": "Sitzung läuft",
+  "stints.liveSessionChip": "LIVE",
+  "stints.liveSessionMessage": "Statistiken sind während aktiver Sitzungen vorübergehend nicht verfügbar. Bitte schauen Sie nach Abschluss der Sitzung wieder vorbei!",
   "stints.refreshLabel": "Versuche die Seite zu aktualisieren →",
   "stints.description": "Wählen Sie Jahr, Land und Fahrer aus, um Stint-Statistiken zu sehen",
   "stints.notAvailable": "n/v",
@@ -158,6 +170,9 @@
 
   "teamRadio.loadingTeamRadio": "Teamfunk laden...",
   "teamRadio.errorTitle": "Es scheint ein Problem zu geben!",
+  "teamRadio.liveSessionTitle": "Sitzung läuft",
+  "teamRadio.liveSessionChip": "LIVE",
+  "teamRadio.liveSessionMessage": "Statistiken sind während aktiver Sitzungen vorübergehend nicht verfügbar. Bitte schauen Sie nach Abschluss der Sitzung wieder vorbei!",
   "teamRadio.refreshLabel": "Versuche die Seite zu aktualisieren →",
   "teamRadio.description": "Wählen Sie Jahr, Land und Fahrer aus, um den Teamfunk zu sehen",
   "teamRadio.notAvailable": "n/v",

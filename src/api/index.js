@@ -198,6 +198,19 @@ const getAllGrandPrix = async (year) => {
       const response = await fetch(`${F1_API_ENDPOINT}/${key}`);
       allGrandPrix = await response.json();
 
+      if (
+        response.status === 401 &&
+        allGrandPrix.detail &&
+        allGrandPrix.detail.includes('Session in progress')
+      ) {
+        return {
+          hasError: true,
+          isSessionInProgress: true,
+          message:
+            'There is currently an active F1 session in progress. Stats are temporarily unavailable during live sessions. Please check back after the session ends!',
+        };
+      }
+
       setInCache(key, allGrandPrix);
 
       if (allGrandPrix.error) {
