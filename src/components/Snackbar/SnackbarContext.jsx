@@ -34,7 +34,7 @@ const SnackbarProvider = (props) => {
       message,
       severity = 'info',
       duration = 6000,
-      anchorOrigin = { vertical: 'top', horizontal: 'right' },
+      anchorOrigin = { vertical: 'top', horizontal: 'center' },
     }) => {
       const newSnackbar = {
         message,
@@ -108,7 +108,6 @@ const SnackbarProvider = (props) => {
           onClose={handleClose}
           TransitionProps={{ onExited: handleExited }}
           anchorOrigin={currentSnackbar.anchorOrigin}
-          sx={{ marginTop: '60px' }}
         >
           <Alert
             onClose={handleClose}

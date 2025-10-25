@@ -16,6 +16,8 @@
   "header.teamRadio": "Radio de equipo",
   "header.race": "Carrera",
   "header.selectLanguage": "Seleccionar idioma",
+  "header.switchToLightMode": "Cambiar a modo claro",
+  "header.switchToDarkMode": "Cambiar a modo oscuro",
   "header.darkModeNotificationFirstRow": "🌙 ¡Es de noche donde estás! Hemos cambiado al modo oscuro para cuidar tus ojos.",
   "header.darkModeNotificationSecondRow": "¡Siéntete libre de volver al modo claro si lo prefieres!",
 

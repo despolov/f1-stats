@@ -1,7 +1,6 @@
 # TODO
 
 - All Stints button not working in Tyres route
-- fix header in Spanish locale
 - fix practice stats table when locale is not en
 
 - Race stats

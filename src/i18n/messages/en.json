@@ -16,6 +16,8 @@
   "header.teamRadio": "Team Radio",
   "header.race": "Race",
   "header.selectLanguage": "Select language",
+  "header.switchToLightMode": "Switch to light mode",
+  "header.switchToDarkMode": "Switch to dark mode",
   "header.darkModeNotificationFirstRow": "🌙 It's nighttime where you are! We've switched to dark mode for your eyes.",
   "header.darkModeNotificationSecondRow": "Feel free to toggle back if you prefer the light!",
 

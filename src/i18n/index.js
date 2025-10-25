@@ -5,7 +5,7 @@ import esMessages from './messages/es.json';
 export const locales = {
   en: 'English',
   de: 'Deutsch',
-  // es: 'Español',
+  es: 'Español',
 };
 
 export const messages = {

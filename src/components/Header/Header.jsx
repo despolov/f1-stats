@@ -41,171 +41,53 @@ const getCountryCode = (locale) => {
   return countryMap[locale] || 'XX';
 };
 
-const PracticeStatsLink = ({ pathname }) => {
+const NavLink = ({ route, messageId, pathname }) => {
   const navigate = useNavigate();
   const intl = useIntl();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
   const currentLocale = getLocaleFromUrl() || defaultLocale;
+  const isActive = pathname.endsWith(route);
 
   return (
     <Button
-      sx={pathname.endsWith('/practiceStats') ? styles.buttonActive : {}}
+      sx={{
+        ...(isActive ? styles.buttonActive : styles.button),
+        transition: 'all 0.2s ease-in-out',
+        '&:hover': {
+          ...styles.buttonHover,
+        },
+      }}
       onClick={() => {
-        if (pathname.endsWith('/practiceStats')) {
+        if (isActive) {
           return;
         }
-
-        navigate(`/${currentLocale}/practiceStats`);
+        navigate(`/${currentLocale}${route}`);
       }}
+      aria-label={intl.formatMessage({ id: messageId })}
+      aria-current={isActive ? 'page' : undefined}
     >
       <Typography
         component="span"
-        sx={
-          pathname.endsWith('/practiceStats')
-            ? styles.buttonTextActive
-            : styles.buttonText
-        }
+        sx={isActive ? styles.buttonTextActive : styles.buttonText}
       >
-        {intl.formatMessage({ id: 'header.practiceStats' })}
+        {intl.formatMessage({ id: messageId })}
       </Typography>
     </Button>
   );
 };
 
-const TyresLink = ({ pathname }) => {
-  const navigate = useNavigate();
-  const intl = useIntl();
-  const { mode } = useContext(ColorModeContext);
-  const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || defaultLocale;
-
-  return (
-    <Button
-      sx={pathname.endsWith('/tyres') ? styles.buttonActive : {}}
-      onClick={() => {
-        if (pathname.endsWith('/tyres')) {
-          return;
-        }
-
-        navigate(`/${currentLocale}/tyres`);
-      }}
-    >
-      <Typography
-        component="span"
-        sx={
-          pathname.endsWith('/tyres')
-            ? styles.buttonTextActive
-            : styles.buttonText
-        }
-      >
-        {intl.formatMessage({ id: 'header.tyres' })}
-      </Typography>
-    </Button>
-  );
-};
-
-const StintsLink = ({ pathname }) => {
-  const navigate = useNavigate();
-  const intl = useIntl();
-  const { mode } = useContext(ColorModeContext);
-  const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || defaultLocale;
-
-  return (
-    <Button
-      sx={pathname.endsWith('/stints') ? styles.buttonActive : {}}
-      onClick={() => {
-        if (pathname.endsWith('/stints')) {
-          return;
-        }
-
-        navigate(`/${currentLocale}/stints`);
-      }}
-    >
-      <Typography
-        component="span"
-        sx={
-          pathname.endsWith('/stints')
-            ? styles.buttonTextActive
-            : styles.buttonText
-        }
-      >
-        {intl.formatMessage({ id: 'header.stints' })}
-      </Typography>
-    </Button>
-  );
-};
-
-const TeamRadioLink = ({ pathname }) => {
-  const navigate = useNavigate();
-  const intl = useIntl();
-  const { mode } = useContext(ColorModeContext);
-  const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || defaultLocale;
-
-  return (
-    <Button
-      sx={pathname.endsWith('/teamRadio') ? styles.buttonActive : {}}
-      onClick={() => {
-        if (pathname.endsWith('/teamRadio')) {
-          return;
-        }
-
-        navigate(`/${currentLocale}/teamRadio`);
-      }}
-    >
-      <Typography
-        component="span"
-        sx={
-          pathname.endsWith('/teamRadio')
-            ? styles.buttonTextActive
-            : styles.buttonText
-        }
-      >
-        {intl.formatMessage({ id: 'header.teamRadio' })}
-      </Typography>
-    </Button>
-  );
-};
-
-const RaceLink = ({ pathname }) => {
-  const navigate = useNavigate();
-  const intl = useIntl();
-  const { mode } = useContext(ColorModeContext);
-  const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || defaultLocale;
-
-  return (
-    <Button
-      sx={pathname.endsWith('/race') ? styles.buttonActive : {}}
-      onClick={() => {
-        if (pathname.endsWith('/race')) {
-          return;
-        }
-
-        navigate(`/${currentLocale}/race`);
-      }}
-    >
-      <Typography
-        component="span"
-        sx={
-          pathname.endsWith('/race')
-            ? styles.buttonTextActive
-            : styles.buttonText
-        }
-      >
-        {intl.formatMessage({ id: 'header.race' })}
-      </Typography>
-    </Button>
-  );
-};
+const NAV_ITEMS = [
+  { route: '/practiceStats', messageId: 'header.practiceStats' },
+  { route: '/race', messageId: 'header.race' },
+  { route: '/tyres', messageId: 'header.tyres' },
+  { route: '/stints', messageId: 'header.stints' },
+  { route: '/teamRadio', messageId: 'header.teamRadio' },
+];
 
 const DrawerList = ({ toggleDrawer, pathname }) => {
-  const navigate = useNavigate();
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
-  const currentLocale = getLocaleFromUrl() || defaultLocale;
 
   return (
     <Box
@@ -214,85 +96,21 @@ const DrawerList = ({ toggleDrawer, pathname }) => {
       onClick={toggleDrawer(false)}
     >
       <List sx={styles.drawerList}>
-        <ListItem key="practiceStatsDrawerItem" disablePadding>
-          <ListItemButton
-            onClick={() => {
-              if (pathname.endsWith('/practiceStats')) {
-                return;
-              }
+        {NAV_ITEMS.map((item, index) => (
+          <React.Fragment key={item.route}>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ width: '100%' }}>
+                <NavLink
+                  route={item.route}
+                  messageId={item.messageId}
+                  pathname={pathname}
+                />
+              </ListItemButton>
+            </ListItem>
 
-              navigate(`/${currentLocale}/practiceStats`);
-            }}
-          >
-            <PracticeStatsLink pathname={pathname} />
-          </ListItemButton>
-        </ListItem>
-
-        <Divider />
-
-        <ListItem key="raceDrawerItem" disablePadding>
-          <ListItemButton
-            onClick={() => {
-              if (pathname.endsWith('/race')) {
-                return;
-              }
-
-              navigate(`/${currentLocale}/race`);
-            }}
-          >
-            <RaceLink pathname={pathname} />
-          </ListItemButton>
-        </ListItem>
-
-        <Divider />
-
-        <ListItem key="tyresDrawerItem" disablePadding>
-          <ListItemButton
-            onClick={() => {
-              if (pathname.endsWith('/tyres')) {
-                return;
-              }
-
-              navigate(`/${currentLocale}/tyres`);
-            }}
-          >
-            <TyresLink pathname={pathname} />
-          </ListItemButton>
-        </ListItem>
-
-        <Divider />
-
-        <ListItem key="stintsDrawerItem" disablePadding>
-          <ListItemButton
-            onClick={() => {
-              if (pathname.endsWith('/stints')) {
-                return;
-              }
-
-              navigate(`/${currentLocale}/stints`);
-            }}
-          >
-            <StintsLink pathname={pathname} />
-          </ListItemButton>
-        </ListItem>
-
-        <Divider />
-
-        <ListItem key="teamRadiosDrawerItem" disablePadding>
-          <ListItemButton
-            onClick={() => {
-              if (pathname.endsWith('/teamRadio')) {
-                return;
-              }
-
-              navigate(`/${currentLocale}/teamRadio`);
-            }}
-          >
-            <TeamRadioLink pathname={pathname} />
-          </ListItemButton>
-        </ListItem>
-
-        <Divider />
+            {index < NAV_ITEMS.length - 1 && <Divider />}
+          </React.Fragment>
+        ))}
       </List>
     </Box>
   );
@@ -348,33 +166,23 @@ const Header = (props) => {
       >
         {isDesktop && (
           <>
-            <Grid container item xs={6} sx={styles.leftGridContainer}>
+            <Grid container item xs="auto" sx={styles.leftGridContainer}>
               <Grid item sx={styles.headerGridItem}>
                 <MainLogo />
               </Grid>
 
-              <Grid item sx={styles.headerGridButtonItem}>
-                <PracticeStatsLink pathname={pathname} />
-              </Grid>
-
-              <Grid item sx={styles.headerGridButtonItem}>
-                <RaceLink pathname={pathname} />
-              </Grid>
-
-              <Grid item sx={styles.headerGridButtonItem}>
-                <TyresLink pathname={pathname} />
-              </Grid>
-
-              <Grid item sx={styles.headerGridButtonItem}>
-                <StintsLink pathname={pathname} />
-              </Grid>
-
-              <Grid item sx={styles.headerGridButtonItem}>
-                <TeamRadioLink pathname={pathname} />
-              </Grid>
+              {NAV_ITEMS.map((item) => (
+                <Grid item key={item.route} sx={styles.headerGridButtonItem}>
+                  <NavLink
+                    route={item.route}
+                    messageId={item.messageId}
+                    pathname={pathname}
+                  />
+                </Grid>
+              ))}
             </Grid>
 
-            <Grid container item xs={6} sx={styles.rightGridContainer}>
+            <Grid container item xs sx={styles.rightGridContainer}>
               <Grid item sx={styles.iconContainer}>
                 <Button
                   onClick={handleLanguageMenuClick}
@@ -403,6 +211,12 @@ const Header = (props) => {
                   onClick={toggleColorMode}
                   color="inherit"
                   sx={styles.modeIconContainer}
+                  aria-label={intl.formatMessage({
+                    id:
+                      mode === 'dark'
+                        ? 'header.switchToLightMode'
+                        : 'header.switchToDarkMode',
+                  })}
                 >
                   {mode === 'dark' ? (
                     <Brightness7Icon sx={styles.icon} />
