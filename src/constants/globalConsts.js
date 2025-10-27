@@ -2,13 +2,13 @@ const STATS_START_YEAR = 2023;
 
 // if these are changed, also change them in public/manifest.json and public/index.html
 const MAIN_COLOR = '#000000';
-const BRAND_COLOR_LIGHT = '#E10600';
-const BRAND_COLOR_LIGHT_HOVER = '#b40500';
-const BRAND_COLOR_DARK = '#870400';
-const BRAND_COLOR_DARK_HOVER = '#6c0300';
+const BRAND_COLOR_LIGHT = '#C1272D';
+const BRAND_COLOR_LIGHT_HOVER = '#9E1F24';
+const BRAND_COLOR_DARK = '#8B1E23';
+const BRAND_COLOR_DARK_HOVER = '#6F181C';
 
-const SNACKBAR_INFO_COLOR_LIGHT = '#ff6b6b';
-const SNACKBAR_INFO_COLOR_DARK = '#c92a2a';
+const SNACKBAR_INFO_COLOR_LIGHT = '#DC4D5C';
+const SNACKBAR_INFO_COLOR_DARK = '#A62832';
 
 const TEXT_COLOR_LIGHT = '#000000';
 const TEXT_COLOR_REVERSED_LIGHT = '#ffffff';
