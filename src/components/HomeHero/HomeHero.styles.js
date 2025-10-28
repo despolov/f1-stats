@@ -45,7 +45,7 @@ const getStyles = (mode) => ({
     zIndex: '1',
     transform: 'translateX(-160%)',
     animation: `${slideInBolide} 2s forwards`,
-    marginBottom: '-30px',
+    // marginBottom: '-30px',
   },
   backTyreContainer: {
     position: 'fixed',
