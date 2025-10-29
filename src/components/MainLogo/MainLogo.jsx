@@ -8,7 +8,7 @@ import {
 import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import getStyles from './MainLogo.styles';
-import logo512 from '../../assets/icons/logo-512x512.png';
+import logoDetailedWhite from '../../assets/icons/logo-detailed-white.png';
 import { ColorModeContext } from '../ColorMode';
 import { getLocaleFromUrl, defaultLocale } from '../../i18n';
 
@@ -41,7 +41,7 @@ const MainLogo = () => {
           component="img"
           sx={isDesktop ? styles.logoImg : styles.logoImgMobile}
           alt="logo image"
-          src={logo512}
+          src={logoDetailedWhite}
         />
       </StyledLink>
     </Box>

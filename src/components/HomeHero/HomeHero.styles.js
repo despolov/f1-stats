@@ -9,8 +9,8 @@ import {
 const slideInBolide = keyframes`100% { transform: translateX(0%); }`;
 const spinBackTyre = keyframes`0% { transform: translate(38px, -101px) rotate(0deg); } 100% { transform: translate(38px, -101px) rotate(360deg); }`;
 const spinFrontTyre = keyframes`0% { transform: translate(496px, -101px) rotate(0deg); } 100% { transform: translate(496px, -101px) rotate(360deg); }`;
-const spinBackTyreMobile = keyframes`0% { transform: translate(22px, -62px) rotate(0deg); } 100% { transform: translate(22px, -62px) rotate(360deg); }`;
-const spinFrontTyreMobile = keyframes`0% { transform: translate(290px, -62px) rotate(0deg); } 100% { transform: translate(290px, -62px) rotate(360deg); }`;
+const spinBackTyreMobile = keyframes`0% { transform: translate(20px, -57px) rotate(0deg); } 100% { transform: translate(20px, -57px) rotate(360deg); }`;
+const spinFrontTyreMobile = keyframes`0% { transform: translate(262px, -57px) rotate(0deg); } 100% { transform: translate(262px, -57px) rotate(360deg); }`;
 
 const getStyles = (mode) => ({
   container: {
@@ -64,40 +64,22 @@ const getStyles = (mode) => ({
   backTyreContainerMobile: {
     position: 'fixed',
     borderRadius: '50%',
-    width: '59px',
-    height: '59px',
+    width: '53px',
+    height: '53px',
     animation: `${spinBackTyreMobile} 3s linear infinite`,
   },
   frontTyreContainerMobile: {
     position: 'fixed',
     borderRadius: '50%',
-    width: '59px',
-    height: '59px',
+    width: '53px',
+    height: '53px',
     animation: `${spinFrontTyreMobile} 3s linear infinite`,
   },
-  // tracksIcon: {
-  //   position: 'fixed',
-  //   zIndex: '-1',
-  //   width: '250px',
-  //   height: '250px',
-  //   transform:
-  //     'translate(-630px, 198px) rotate(-8deg) rotate3d(117, 1, 1, -111deg)',
-  //   color: mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_REVERSED_DARK,
-  // },
-  // tracksIconMobile: {
-  //   position: 'fixed',
-  //   zIndex: '-1',
-  //   width: '250px',
-  //   height: '250px',
-  //   transform:
-  //     'translate(-521px, 103px) rotate(-8deg) rotate3d(117, 1, 1, -111deg)',
-  //   color: mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_REVERSED_DARK,
-  // },
   image: {
     width: '700px',
   },
   imageMobile: {
-    width: '100%',
+    width: '370px',
     marginTop: '15px',
   },
 });

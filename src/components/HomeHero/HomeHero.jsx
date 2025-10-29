@@ -50,11 +50,11 @@ const HomeHero = (props) => {
         />
 
         <Box sx={styles.backTyreContainerMobile}>
-          <TyresCircle compound="SOFT" size="59" />
+          <TyresCircle compound="SOFT" size="53" />
         </Box>
 
         <Box sx={styles.frontTyreContainerMobile}>
-          <TyresCircle compound="SOFT" size="59" />
+          <TyresCircle compound="SOFT" size="53" />
         </Box>
       </Box>
     </Box>
