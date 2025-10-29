@@ -9,8 +9,6 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import getStyles from './MainLogo.styles';
 import logo512 from '../../assets/icons/logo-512x512.png';
-import logoPlainBlack from '../../assets/icons/logo-plain-black.png';
-import logoPlainWhite from '../../assets/icons/logo-plain-white.png';
 import { ColorModeContext } from '../ColorMode';
 import { getLocaleFromUrl, defaultLocale } from '../../i18n';
 
@@ -41,15 +39,9 @@ const MainLogo = () => {
 
         <Box
           component="img"
-          // sx={isDesktop ? styles.logoImg : styles.logoImgMobile}
-          sx={{
-            position: 'relative',
-            top: '-6px',
-            left: '-39px',
-            width: '50px',
-          }}
+          sx={isDesktop ? styles.logoImg : styles.logoImgMobile}
           alt="logo image"
-          src={logoPlainWhite}
+          src={logo512}
         />
       </StyledLink>
     </Box>

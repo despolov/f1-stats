@@ -7,10 +7,10 @@ import {
 } from '../../constants/globalConsts';
 
 const slideInBolide = keyframes`100% { transform: translateX(0%); }`;
-const spinFrontTyre = keyframes`0% { transform: translate(333px, -292px) rotate(0deg); } 100% { transform: translate(333px, -292px) rotate(360deg); }`;
-const spinBackTyre = keyframes`0% { transform: translate(60px, -292px) rotate(0deg); } 100% { transform: translate(60px, -292px) rotate(360deg); }`;
-const spinBackTyreMobile = keyframes`0% { transform: translate(43px, -213px) rotate(0deg); } 100% { transform: translate(43px, -213px) rotate(360deg); }`;
-const spinFrontTyreMobile = keyframes`0% { transform: translate(240px, -213px) rotate(0deg); } 100% { transform: translate(240px, -213px) rotate(360deg); }`;
+const spinBackTyre = keyframes`0% { transform: translate(38px, -101px) rotate(0deg); } 100% { transform: translate(38px, -101px) rotate(360deg); }`;
+const spinFrontTyre = keyframes`0% { transform: translate(496px, -101px) rotate(0deg); } 100% { transform: translate(496px, -101px) rotate(360deg); }`;
+const spinBackTyreMobile = keyframes`0% { transform: translate(22px, -62px) rotate(0deg); } 100% { transform: translate(22px, -62px) rotate(360deg); }`;
+const spinFrontTyreMobile = keyframes`0% { transform: translate(290px, -62px) rotate(0deg); } 100% { transform: translate(290px, -62px) rotate(360deg); }`;
 
 const getStyles = (mode) => ({
   container: {
@@ -45,61 +45,60 @@ const getStyles = (mode) => ({
     zIndex: '1',
     transform: 'translateX(-160%)',
     animation: `${slideInBolide} 2s forwards`,
-    // marginBottom: '-30px',
+    margin: '100px 0',
   },
   backTyreContainer: {
     position: 'fixed',
-    backgroundColor: 'black',
     borderRadius: '50%',
-    width: '120px',
-    height: '120px',
+    width: '100px',
+    height: '100px',
     animation: `${spinBackTyre} 3s linear infinite`,
   },
   frontTyreContainer: {
     position: 'fixed',
-    backgroundColor: 'black',
     borderRadius: '50%',
-    width: '120px',
-    height: '120px',
+    width: '100px',
+    height: '100px',
     animation: `${spinFrontTyre} 3s linear infinite`,
   },
   backTyreContainerMobile: {
     position: 'fixed',
-    backgroundColor: 'black',
     borderRadius: '50%',
-    width: '87px',
-    height: '87px',
+    width: '59px',
+    height: '59px',
     animation: `${spinBackTyreMobile} 3s linear infinite`,
   },
   frontTyreContainerMobile: {
     position: 'fixed',
-    backgroundColor: 'black',
     borderRadius: '50%',
-    width: '87px',
-    height: '87px',
+    width: '59px',
+    height: '59px',
     animation: `${spinFrontTyreMobile} 3s linear infinite`,
   },
-  tracksIcon: {
-    position: 'fixed',
-    zIndex: '-1',
-    width: '250px',
-    height: '250px',
-    transform:
-      'translate(-630px, 198px) rotate(-8deg) rotate3d(117, 1, 1, -111deg)',
-    color: mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_REVERSED_DARK,
-  },
-  tracksIconMobile: {
-    position: 'fixed',
-    zIndex: '-1',
-    width: '250px',
-    height: '250px',
-    transform:
-      'translate(-521px, 103px) rotate(-8deg) rotate3d(117, 1, 1, -111deg)',
-    color: mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_REVERSED_DARK,
+  // tracksIcon: {
+  //   position: 'fixed',
+  //   zIndex: '-1',
+  //   width: '250px',
+  //   height: '250px',
+  //   transform:
+  //     'translate(-630px, 198px) rotate(-8deg) rotate3d(117, 1, 1, -111deg)',
+  //   color: mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_REVERSED_DARK,
+  // },
+  // tracksIconMobile: {
+  //   position: 'fixed',
+  //   zIndex: '-1',
+  //   width: '250px',
+  //   height: '250px',
+  //   transform:
+  //     'translate(-521px, 103px) rotate(-8deg) rotate3d(117, 1, 1, -111deg)',
+  //   color: mode === 'light' ? BORDER_COLOR_LIGHT : BORDER_COLOR_REVERSED_DARK,
+  // },
+  image: {
+    width: '700px',
   },
   imageMobile: {
-    height: '370px',
-    width: '370px',
+    width: '100%',
+    marginTop: '15px',
   },
 });
 
