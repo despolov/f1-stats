@@ -1,5 +1,5 @@
 import React, { createContext, useState, useCallback, useEffect } from 'react';
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert, useTheme, useMediaQuery } from '@mui/material';
 
 export const SnackbarContext = createContext({
   showSnackbar: () => {},
@@ -14,6 +14,8 @@ const SnackbarProvider = (props) => {
   const [snackbarQueue, setSnackbarQueue] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentSnackbar, setCurrentSnackbar] = useState(null);
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   const processQueue = useCallback(() => {
     if (snackbarQueue.length > 0 && !open) {
@@ -113,7 +115,7 @@ const SnackbarProvider = (props) => {
             onClose={handleClose}
             severity={currentSnackbar.severity}
             variant="filled"
-            sx={{ width: '100%' }}
+            sx={{ width: '100%', marginTop: isDesktop ? '30px' : '70px' }}
           >
             {currentSnackbar.message}
           </Alert>
