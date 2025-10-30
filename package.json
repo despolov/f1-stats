@@ -25,7 +25,8 @@
     "vite": "^6.3.5"
   },
   "scripts": {
-    "start": "vite --host",
+    "start": "vite",
+    "startHost": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
