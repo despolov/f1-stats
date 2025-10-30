@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import TyresCircle from '../TyresCircle';
 import getStyles from './HomeHero.styles';
@@ -10,7 +10,22 @@ const HomeHero = (props) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const { mode } = useContext(ColorModeContext);
-  const styles = getStyles(mode);
+  const [hasInitialAnimated, setHasInitialAnimated] = useState(false);
+  const [isClickAnimating, setIsClickAnimating] = useState(false);
+  const styles = getStyles(mode, isClickAnimating, hasInitialAnimated);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setHasInitialAnimated(true), 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleBolideClick = () => {
+    if (isClickAnimating || !hasInitialAnimated) return;
+
+    setIsClickAnimating(true);
+    setTimeout(() => setIsClickAnimating(false), 3000);
+  };
 
   return isDesktop ? (
     <Box sx={styles.container}>
@@ -18,7 +33,7 @@ const HomeHero = (props) => {
         F1 Stats
       </Typography>
 
-      <Box sx={styles.imageContainer}>
+      <Box sx={styles.imageContainer} onClick={handleBolideClick}>
         <Box
           sx={styles.image}
           component="img"
@@ -41,7 +56,7 @@ const HomeHero = (props) => {
         F1 Stats
       </Typography>
 
-      <Box sx={styles.imageContainerMobile}>
+      <Box sx={styles.imageContainerMobile} onClick={handleBolideClick}>
         <Box
           component="img"
           alt="logo image"
