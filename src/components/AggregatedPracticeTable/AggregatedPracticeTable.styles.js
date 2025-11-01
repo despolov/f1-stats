@@ -18,11 +18,17 @@ const getStyles = (mode) => ({
     width: '50%',
     backgroundColor:
       mode === 'light' ? BACKGROUND_COLOR_PURE_LIGHT : BACKGROUND_COLOR_DARK_2,
+    overflowX: 'auto',
   },
   tableCellHeader: {
     backgroundColor: BACKGROUND_COLOR_DARK_6,
     color: mode === 'light' ? TEXT_COLOR_REVERSED_LIGHT : TEXT_COLOR_DARK,
     padding: '16px 8px',
+    height: '53px',
+    maxHeight: '53px',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
   tableCellBody: {
     padding: '8px',
@@ -32,6 +38,11 @@ const getStyles = (mode) => ({
       mode === 'light'
         ? `1px solid ${BORDER_COLOR_DARK}`
         : `1px solid ${BORDER_COLOR_REVERSED_DARK_3}`,
+    height: '37px',
+    maxHeight: '37px',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
   tableRowOdd: {
     backgroundColor: BACKGROUND_COLOR_LIGHT_2,
@@ -48,6 +59,10 @@ const getStyles = (mode) => ({
     borderBottom: `1px solid ${BORDER_COLOR_REVERSED_LIGHT}`,
     display: 'flex',
     justifyContent: 'center',
+    position: 'sticky',
+    left: 0,
+    right: 0,
+    zIndex: 1,
   },
   tableTitle: {
     margin: 0,

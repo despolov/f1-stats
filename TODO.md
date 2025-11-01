@@ -1,7 +1,6 @@
 # TODO
 
 - All Stints button not working in Tyres route
-- fix practice stats table when locale is not en
 
 - download Practice stats, race stats, tyres and stints as json/csv or whatever, to use it for the articles later
 
