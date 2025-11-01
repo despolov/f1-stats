@@ -51,16 +51,15 @@ const TeamRadio = () => {
   const [teamRadioLoading, setTeamRadioLoading] = useState(false);
   const [error, setStateError] = useState('');
   const [isSessionInProgress, setIsSessionInProgress] = useState(false);
-  const [teamRadio, setTeamRadio] = useState({});
+  const [teamRadio, setTeamRadio] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { practice1, practice2, practice3, sprintQuali, sprint, quali, race } =
-    teamRadio;
+    teamRadio || {};
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
   const [progress, setProgress] = useState(0);
-  const shouldRenderInitMessage =
-    !teamRadioLoading && Object.keys(teamRadio).length === 0;
+  const shouldRenderInitMessage = !teamRadioLoading && teamRadio === undefined;
 
   useEffect(() => {
     const paramYear = searchParams.get('year');
@@ -144,7 +143,7 @@ const TeamRadio = () => {
   };
 
   const resetData = () => {
-    setTeamRadio({});
+    setTeamRadio();
     setDriverData();
     setStateError('');
     setIsSessionInProgress(false);
@@ -272,7 +271,7 @@ const TeamRadio = () => {
       driverNumber,
       meetingKey,
       setError,
-      !Boolean(practice1.driver),
+      !Boolean(practice1?.driver),
       setProgress,
     );
     setProgress(30);
@@ -348,16 +347,17 @@ const TeamRadio = () => {
     setProgress(100);
 
     let sessionsTeamRadio = {
-      practice1: practice1.stints,
-      practice2: Array.isArray(practice2) ? practice2 : practice2?.stints,
-      practice3,
+      practice1: practice1?.stints || [],
+      practice2:
+        (Array.isArray(practice2) ? practice2 : practice2?.stints) || [],
+      practice3: practice3 || [],
       sprint,
-      quali,
+      quali: quali || [],
       sprintQuali,
-      race,
+      race: race || [],
     };
 
-    setDriverData(practice1.driver || practice2.driver);
+    setDriverData(practice1?.driver || practice2?.driver);
     setTeamRadio(sessionsTeamRadio);
     setTeamRadioLoading(false);
   };

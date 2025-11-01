@@ -51,16 +51,15 @@ const Stints = () => {
   const [stintsLoading, setStintsLoading] = useState(false);
   const [error, setStateError] = useState('');
   const [isSessionInProgress, setIsSessionInProgress] = useState(false);
-  const [stints, setStints] = useState({});
+  const [stints, setStints] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { practice1, practice2, practice3, sprintQuali, sprint, quali } =
-    stints;
+    stints || {};
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
   const [progress, setProgress] = useState(0);
-  const shouldRenderInitMessage =
-    !stintsLoading && Object.keys(stints).length === 0;
+  const shouldRenderInitMessage = !stintsLoading && stints === undefined;
 
   useEffect(() => {
     const paramYear = searchParams.get('year');
@@ -144,7 +143,7 @@ const Stints = () => {
   };
 
   const resetData = () => {
-    setStints({});
+    setStints();
     setDriverData();
     setStateError('');
     setIsSessionInProgress(false);
@@ -333,15 +332,15 @@ const Stints = () => {
     setProgress(100);
 
     let sessionsStints = {
-      practice1: practice1.stints,
-      practice2,
-      practice3,
+      practice1: practice1?.stints || [],
+      practice2: practice2 || [],
+      practice3: practice3 || [],
       sprint,
-      quali,
+      quali: quali || [],
       sprintQuali,
     };
 
-    setDriverData(practice1.driver || practice2.driver);
+    setDriverData(practice1?.driver || practice2?.driver);
     setStints(sessionsStints);
     setStintsLoading(false);
   };

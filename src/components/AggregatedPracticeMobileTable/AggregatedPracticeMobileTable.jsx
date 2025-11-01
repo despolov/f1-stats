@@ -62,7 +62,15 @@ const AggregatedPracticeTable = (props) => {
         </TableHead>
 
         <TableBody>
-          {data.map((value, index) => {
+          {data?.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={12} align="center">
+                {intl.formatMessage({ id: 'practiceTable.noData' })}
+              </TableCell>
+            </TableRow>
+          )}
+
+          {data?.map((value, index) => {
             const {
               driver,
               driverFullName,

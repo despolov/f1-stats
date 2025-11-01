@@ -63,6 +63,7 @@
   "practiceTable.sec1": "Sec 1",
   "practiceTable.sec2": "Sec 2",
   "practiceTable.sec3": "Sec 3",
+  "practiceTable.noData": "No data available for this practice session",
 
   "practiceChart.gapToFirst": "Gap to first",
 
@@ -121,6 +122,7 @@
   "tyres.subTitleSprint": "New and used tyres from practices, sprint and qualifying",
   "tyres.subTitleRegular": "New and used tyres from practices and qualifying",
   "tyres.notAvailable": "n/a",
+  "tyres.noDataTitle": "No tyre data available for this weekend",
 
   "tyresCard.used": "Used: {count}",
   "tyresCard.new": "New: {count}",
@@ -154,6 +156,7 @@
   "sessionStints.sprintQualifying": "Sprint Qualifying",
   "sessionStints.sprint": "Sprint",
   "sessionStints.qualifying": "Qualifying",
+  "sessionStints.noStints": "No stints available for this session",
 
   "stintCard.stint": "Stint {number}",
   "stintCard.lapsCount": "Laps count",

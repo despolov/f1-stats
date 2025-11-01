@@ -46,9 +46,9 @@ const PracticeStats = () => {
   const [country, setCountry] = useState('');
   const [countries, setCountries] = useState([]);
   const [countriesLoading, setCountriesLoading] = useState(false);
-  const [practice1Stats, setPractice1Stats] = useState([]);
-  const [practice2Stats, setPractice2Stats] = useState([]);
-  const [practice3Stats, setPractice3Stats] = useState([]);
+  const [practice1Stats, setPractice1Stats] = useState();
+  const [practice2Stats, setPractice2Stats] = useState();
+  const [practice3Stats, setPractice3Stats] = useState();
   const [practice1ActualStats, setPractice1ActualStats] = useState([]);
   const [practice2ActualStats, setPractice2ActualStats] = useState([]);
   const [practice3ActualStats, setPractice3ActualStats] = useState([]);
@@ -77,9 +77,9 @@ const PracticeStats = () => {
     !practice1Loading &&
     !practice2Loading &&
     !practice3Loading &&
-    practice1Stats.length === 0 &&
-    practice2Stats.length === 0 &&
-    practice3Stats.length === 0;
+    practice1Stats === undefined &&
+    practice2Stats === undefined &&
+    practice3Stats === undefined;
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
 
@@ -153,9 +153,9 @@ const PracticeStats = () => {
   };
 
   const resetData = () => {
-    setPractice1Stats([]);
-    setPractice2Stats([]);
-    setPractice3Stats([]);
+    setPractice1Stats(undefined);
+    setPractice2Stats(undefined);
+    setPractice3Stats(undefined);
     setPractice1ActualStats([]);
     setPractice2ActualStats([]);
     setPractice3ActualStats([]);
@@ -351,7 +351,7 @@ const PracticeStats = () => {
     weatherLoading,
     practiceLoading,
   ) => {
-    if (practiceLoading || (stats.length === 0 && practiceStatsLoading)) {
+    if (practiceLoading || (stats === undefined && practiceStatsLoading)) {
       return (
         <>
           <Box sx={styles.divider} />
@@ -366,8 +366,59 @@ const PracticeStats = () => {
       );
     }
 
-    if (stats.length === 0) {
+    if (stats === undefined || actualStats === undefined) {
       return null;
+    }
+
+    if (stats.length === 0) {
+      return (
+        <Box sx={styles.practiceContainer}>
+          <Box sx={styles.practiceDataContainer}>
+            <Typography component="h3" sx={styles.title}>
+              {title}
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              ...styles.tableContainer,
+              ...(isDesktop ? {} : styles.tableContainerMobile),
+            }}
+          >
+            {isDesktop ? (
+              <>
+                <AggregatedPracticeTable
+                  title={intl.formatMessage({
+                    id: 'practiceStats.aggregatedPositions',
+                  })}
+                  data={stats}
+                />
+
+                <ActualPracticeTable
+                  title={intl.formatMessage({
+                    id: 'practiceStats.actualPositions',
+                  })}
+                  data={actualStats}
+                />
+              </>
+            ) : (
+              <>
+                <AggregatedPracticeMobileTable
+                  title={intl.formatMessage({
+                    id: 'practiceStats.aggregatedPos',
+                  })}
+                  data={stats}
+                />
+
+                <ActualPracticeMobileTable
+                  title={intl.formatMessage({ id: 'practiceStats.actualPos' })}
+                  data={actualStats}
+                />
+              </>
+            )}
+          </Box>
+        </Box>
+      );
     }
 
     return (

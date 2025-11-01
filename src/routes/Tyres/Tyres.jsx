@@ -46,13 +46,13 @@ const Tyres = () => {
   const [tyresStatsLoading, setTyresStatsLoading] = useState(false);
   const [error, setStateError] = useState('');
   const [isSessionInProgress, setIsSessionInProgress] = useState(false);
-  const [tyresStats, setTyresStats] = useState({});
+  const [tyresStats, setTyresStats] = useState();
   const [isSprintWeekend, setIsSprintWeekend] = useState(false);
   const [progress, setProgress] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const shouldRenderInitMessage =
-    !tyresStatsLoading && Object.keys(tyresStats).length === 0;
+    !tyresStatsLoading && tyresStats === undefined;
   const { mode } = useContext(ColorModeContext);
   const styles = getStyles(mode);
 
@@ -121,7 +121,7 @@ const Tyres = () => {
   }, [country]);
 
   const resetData = () => {
-    setTyresStats({});
+    setTyresStats(undefined);
     setIsSprintWeekend(false);
     setStateError('');
     setIsSessionInProgress(false);
@@ -323,8 +323,16 @@ const Tyres = () => {
   };
 
   const renderTyresStats = () => {
-    if (Object.keys(tyresStats).length === 0 || tyresStatsLoading) {
+    if (tyresStats === undefined || tyresStatsLoading) {
       return null;
+    }
+
+    if (Object.keys(tyresStats).length === 0) {
+      return (
+        <Typography component="h4" sx={styles.description}>
+          {intl.formatMessage({ id: 'tyres.noDataTitle' })}
+        </Typography>
+      );
     }
 
     return (

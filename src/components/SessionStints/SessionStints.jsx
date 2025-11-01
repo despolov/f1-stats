@@ -47,10 +47,7 @@ const SessionStints = (props) => {
             component="h4"
             sx={{ ...styles.subTitle, ...styles.subTitleContainer }}
           >
-            {intl.formatMessage(
-              { id: 'sessionStints.totalLaps' },
-              { count: 0 },
-            )}
+            {intl.formatMessage({ id: 'sessionStints.noStints' })}
           </Typography>
         </Box>
       </Box>
