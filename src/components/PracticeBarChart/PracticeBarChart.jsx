@@ -21,6 +21,7 @@ const PracticeBarChart = (props) => {
         dataset={data}
         yAxis={[
           {
+            id: 'left-axis',
             scaleType: 'band',
             dataKey: 'driver',
             colorMap: {
@@ -28,14 +29,22 @@ const PracticeBarChart = (props) => {
               colors: barColors,
             },
           },
+          {
+            id: 'right-axis',
+            scaleType: 'band',
+            dataKey: 'driver',
+            position: 'right',
+            valueFormatter: (value) => {
+              const driverData = data.find((item) => item.driver === value);
+
+              return driverData?.gapToFirst || '';
+            },
+          },
         ]}
         series={[
           {
             dataKey: 'gapToFirst',
-            label: (location) =>
-              location === 'tooltip'
-                ? intl.formatMessage({ id: 'practiceChart.gapToFirst' })
-                : title,
+            label: title,
             valueFormatter: (v, { dataIndex }) => {
               const { gapToFirst } = data[dataIndex];
 
@@ -46,10 +55,13 @@ const PracticeBarChart = (props) => {
         layout="horizontal"
         grid={{ vertical: true }}
         height={500}
+        margin={{ right: 60 }}
+        rightAxis="right-axis"
         sx={() => ({
           ...styles.barChart,
           ...((!isDesktop && styles.barChartMobile) || {}),
         })}
+        tooltip={{ trigger: 'none' }}
       />
     </Box>
   );
