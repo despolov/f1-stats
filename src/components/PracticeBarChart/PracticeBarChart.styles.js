@@ -35,6 +35,9 @@ const getStyles = (mode) => ({
       },
     },
   },
+  barChartMobile: {
+    pointerEvents: 'none',
+  },
 });
 
 export default getStyles;

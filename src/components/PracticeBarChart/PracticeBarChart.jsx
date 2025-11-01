@@ -46,7 +46,10 @@ const PracticeBarChart = (props) => {
         layout="horizontal"
         grid={{ vertical: true }}
         height={500}
-        sx={() => styles.barChart}
+        sx={() => ({
+          ...styles.barChart,
+          ...((!isDesktop && styles.barChartMobile) || {}),
+        })}
       />
     </Box>
   );
