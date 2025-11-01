@@ -39,7 +39,7 @@ const PracticeWeather = (props) => {
       >
         <CircularProgress size={20} />
 
-        <Typography sx={{ fontSize: '0.875rem', opacity: 0.7 }}>
+        <Typography sx={styles.weatherLoadingText}>
           {intl.formatMessage({ id: 'practiceWeather.loadingWeatherData' })}
         </Typography>
       </Box>
@@ -48,6 +48,12 @@ const PracticeWeather = (props) => {
 
   return (
     <Box sx={isDesktop ? styles.container : styles.containerMobile}>
+      {practiceWeather.length === 0 && (
+        <Typography sx={styles.noDataText}>
+          {intl.formatMessage({ id: 'practiceWeather.noWeatherData' })}
+        </Typography>
+      )}
+
       {practiceWeather?.map((singlePracticeWeather) => {
         const {
           date,

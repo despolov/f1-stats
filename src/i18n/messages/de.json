@@ -39,6 +39,7 @@
   "practiceStats.actualGapToFirst": "Tatsächl. Abstand zum Ersten (Sek)",
 
   "practiceWeather.loadingWeatherData": "Wetterdaten laden...",
+  "practiceWeather.noWeatherData": "Keine Wetterdaten für diese Sitzung verfügbar",
 
   "raceSelect.backToRaceOverview": "← Zurück zur Rennübersicht",
   "raceSelect.viewAllDrivers": "-- Alle Fahrer anzeigen --",

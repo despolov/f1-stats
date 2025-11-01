@@ -39,6 +39,15 @@ const getStyles = (mode) => ({
     fontWeight: 400,
     color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
   },
+  weatherLoadingText: {
+    fontSize: '0.875rem',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
+    opacity: 0.7,
+  },
+  noDataText: {
+    fontSize: '0.875rem',
+    color: mode === 'light' ? TEXT_COLOR_LIGHT : TEXT_COLOR_DARK,
+  },
 });
 
 export default getStyles;
