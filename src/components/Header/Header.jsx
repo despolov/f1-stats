@@ -36,6 +36,7 @@ const getCountryCode = (locale) => {
     en: 'US',
     de: 'DE',
     es: 'ES',
+    fr: 'FR',
   };
 
   return countryMap[locale] || 'XX';

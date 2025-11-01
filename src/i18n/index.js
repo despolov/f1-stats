@@ -1,17 +1,20 @@
 import enMessages from './messages/en.json';
 import deMessages from './messages/de.json';
 import esMessages from './messages/es.json';
+import frMessages from './messages/fr.json';
 
 export const locales = {
   en: 'English',
   de: 'Deutsch',
   es: 'Español',
+  fr: 'Français',
 };
 
 export const messages = {
   en: enMessages,
   de: deMessages,
   es: esMessages,
+  fr: frMessages,
 };
 
 export const defaultLocale = 'en';
